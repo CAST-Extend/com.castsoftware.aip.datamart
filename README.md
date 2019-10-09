@@ -220,7 +220,7 @@ Technical sizes by application snapshot, by technology
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Local Snapshot ID
-technology                           | TEXT     | The technology
+technology                           | TEXT     | Source code technology
 nb_artifacts                         | INT      | (Metric #10152) Applicable to any technology
 nb_code_lines                        | INT      | (Metric #10151) Applicable to any technology
 nb_comment_lines                     | INT      | (Metric #10107) Applicable to any technology
@@ -325,7 +325,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Snapshot ID from the source database
 module_name                          | TEXT     | Module name
-technology                           | TEXT     | The technology
+technology                           | TEXT     | Source code technology
 nb_artifacts                         | INT      | (Metric #10152) Applicable to any technology
 nb_code_lines                        | INT      | (Metric #10151) Applicable to any technology
 nb_comment_lines                     | INT      | (Metric #10107) Applicable to any technology
