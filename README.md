@@ -4,7 +4,7 @@
 - [Limitations](#limitations)
 - [How to Build the AIP Datamart](#how-to-build-the-aip-datamart)
 - [How to Use the AIP Datamart ](#how-to-use-the-aip-datamart)
-- [Summmarize of Tables](#summarize-of-tables)
+- [Summarize of Tables](#summarize-of-tables)
 - [Data Dictionary](#data-dictionary)
 - [Examples of Basic Queries](#examples-of-basic-queries)
 - [Examples of Advanced Queries](#examples-of-advanced-queries) 
@@ -52,7 +52,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 The prerequisites are:
 * Windows operating system (scripts are *.BAT files)
 * a remote access to the REST API server (__1.12__ or higher)
-* a local access to a PostgresSQL server, with a database to host target data
+* a local access to a PostgreSQL server, with a database to host target data
 * __[Python 3](https://www.python.org/downloads/)__ language
 * the __[curl](https://curl.haxx.se/download.html)__ command line
 
@@ -81,7 +81,7 @@ If you intend to view the data with Power BI Desktop:
 * Install the Power BI Desktop tool from [Microsoft marketplace](https://powerbi.microsoft.com/en-us/downloads/)
 * Download the [PostgreSQL plugin](https://github.com/npgsql/Npgsql/releases)
 * Install npgsql as Administrator (since the DLL would be pushed to GAC). During the installation stage, enabled "Npgsql GAC Installation"
-* Restart the PC, then launch PowerBI
+* Restart the PC, then launch Power BI Desktop
 * Import AIP Datamart tables using PostgreSQL plugin
 
 ## Summarize of Tables
@@ -101,9 +101,9 @@ These tables can be used to filter data along "Dimension":
 
 Application Measures of tables can be safely aggregated (average, sum) with a BI tool.
 <br/>
-__WARNING__: You cannot aggregate measures for a set of modules because of modules overlapping. However, you can aggregate measures for a specific module_name
+__WARNING__: You cannot aggregate measures for a set of modules because of modules overlapping. However, you can aggregate measures for a specific module name.
 
-Scope|Split by technology|Measures split by Applications|Measures split by Modules
+Scope|Split by technology|Applications Table|Modules Table
 -----|-----|------------|-------
 Violations|Yes|`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
 Technical Sizing|Yes|`APP_TECHNICAL_SIZING_MEASURES`|`MOD_TECHNICAL_SIZING_MEASURES`
@@ -113,7 +113,7 @@ Functional Sizing Measures|No|`APP_FUNCTIONAL_SIZING_MEASURES`|N/A
 
 ### Evolution Tables
 
-Scope|Split by technology|Applications|Modules
+Scope|Split by technology|Applications Table|Modules Table
 -----|-----|------------|-------
 Health Evolution|No|`APP_HEALTH_EVOLUTION`|`MOD_HEALTH_EVOLUTION`
 Technical Debt Evolution|No|`APP_TECHNICAL_DEBT_EVOLUTION`|`MOD_TECHNICAL_DEBT_EVOLUTION`
@@ -140,7 +140,7 @@ application_name"             | INT      | Table primary key
 
 ### DIM_QUALITY_STANDARDS
 A Dimension table to filter measures according to Quality Standards. 
-* in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or highe to get tghe OMG standards
+* in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or higher to get the OMG standards
 * in case of a data extraction from a measurement base, the measurement base must be __8.3.5__ or higher 
 
 ```
@@ -179,7 +179,7 @@ consolidation_settings               | TEXT     | The application score consolid
 A dimension table to filter measures according to rules contribution.
 * Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a result exist for this application snapshot.
 * The list of Business Criteria is closed. no custom business criteria are taken into account.
-* In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute..
+* In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute.
 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
@@ -319,7 +319,7 @@ violation_ratio                      | DOUBLE   | The value of number of violati
 compliance_ratio                     | DOUBLE   | The value of 1 - Violation Ratio
 ```
 ### MOD_TECHNICAL_SIZING_MEASURES
-Technical sizes by snaphost, by module and by technology
+Technical sizes by snapshot, by module and by technology
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
@@ -335,7 +335,7 @@ nb_files                             | INT      | (Metric #10154) Applicable to 
 nb_tables                            | INT      | (Metric #10163) Applicable to SQL based technologies
 ```
 ### MOD_TECHNICAL_DEBT_MEASURES
-Tehnical debt by snapshot and by module
+Technical debt by snapshot and by module
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
@@ -345,7 +345,7 @@ technical_debt_density               | DOUBLE   | (Metric #68002) Technical Debt
 technical_debt_total                 | DOUBLE   | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 ```
 ### MOD_HEALTH_MEASURES
-Score and number of violations by snapshot, by module and by business crierion
+Score and number of violations by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
@@ -546,7 +546,7 @@ Data output:
 0.13920194943649101432
 ```
 
-### Delta of critical violations by rule betwen first Quarter of 2013 and last Quarter of 2013
+### Delta of critical violations by rule between first Quarter of 2013 and last Quarter of 2013
 
 Query:
 ```
