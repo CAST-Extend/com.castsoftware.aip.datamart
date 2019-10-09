@@ -1,14 +1,14 @@
 ## Contents
 
-- [Purpose](#-purpose)
-- [Prerequisites](#-prerequisites)
-- [Limitations](#-limitations)
-- [The scripts](#-the-scripts)
-- [How to run](#-how-ro-run)
-- [Summmarize of Tables](#-summarize-of-tables)
-- [Data Dictionary](#-data-dictionary)
-- [Examples of Basic Queries](#-examples-of-basic-queries)
-- [Examples of Advanced Queries](#-examples-of-advanced-queries) 
+- [Purpose](#purpose)
+- [Prerequisites](#prerequisites)
+- [Limitations](#limitations)
+- [The scripts](#the-scripts)
+- [How to run](#how-to-run)
+- [Summmarize of Tables](#summarize-of-tables)
+- [Data Dictionary](#data-dictionary)
+- [Examples of Basic Queries](#examples-of-basic-queries)
+- [Examples of Advanced Queries](#examples-of-advanced-queries) 
 
 ## Purpose
 These scripts extract and populate a set of tables called the AIP datamart. 
