@@ -1,3 +1,15 @@
+## Contents
+
+- [Purpose](#-purpose)
+- [Prerequisites](#-prerequisites)
+- [Limitations](#-limitations)
+- [The scripts](#-the-scripts)
+- [How to run](#-how-ro-run)
+- [Summmarize of Tables](#-summarize-of-tables)
+- [Data Dictionary](#-data-dictionary)
+- [Examples of Basic Queries](#-examples-of-basic-queries)
+- [Examples of Advanced Queries](#-examples-of-advanced-queries) 
+
 ## Purpose
 These scripts extract and populate a set of tables called the AIP datamart. 
 The AIP datamart is a simple database schema of AIP results, so that anyone can queries these data, requiring only conceptual knowledge of AIP.
@@ -97,15 +109,15 @@ A Dimension table to filter measures according to Application Tags, and technolo
 ```
 COLUMN                        | TYPE     | DESCRIPTION
 ------------------------------+----------+-----------
-application_name"             |	INT	     | Table primary key
-"Category  Age"               |	TEXT	 | A range of ages of the application
-"Category  Business Unit"     |	TEXT	 | The Business Unit as a sponsor or provider of the application
-"Category  Country"           |	TEXT	 | The deployment country of the application
-"Category  Release Frequency" |TEXT	     | The release frequency of the application
-"Category  Sourcing"          |	TEXT	 | The out sourcing company
-"Category Methodology"        |	TEXT	 | The application development approach
-"Technology C++"              |	BOOLEAN	 | Check whether the application contains C++ code
-"Technology JEE"              |	BOOLEAN	 | Check whether the application contains JEE code
+application_name"             | INT      | Table primary key
+"Category  Age"               | TEXT     | A range of ages of the application
+"Category  Business Unit"     | TEXT     | The Business Unit as a sponsor or provider of the application
+"Category  Country"           | TEXT     | The deployment country of the application
+"Category  Release Frequency" |TEXT      | The release frequency of the application
+"Category  Sourcing"          | TEXT     | The out sourcing company
+"Category Methodology"        | TEXT     | The application development approach
+"Technology C++"              | BOOLEAN  | Check whether the application contains C++ code
+"Technology JEE"              | BOOLEAN  | Check whether the application contains JEE code
 ```
 
 ### DIM_QUALITY_STANDARDS
@@ -354,4 +366,226 @@ nb_critical_violations_removed       | INT      | (Metric #67902) Number of crit
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
 ```
+## Example of Basic Queries
 
+### Number of Critical Violations by Business Criterion
+
+Query:
+```
+select sum(t.nb_critical_violations), t.business_criterion_name
+from dim_snapshots s
+join app_health_measures t on t.snapshot_id = s.snapshot_id 
+where s.is_latest
+group by 2
+order by 1 desc
+```
+Data output:
+```
+1543|"Total Quality Index"
+1282|"Programming Practices"
+879 |"Security"
+864 |"Robustness"
+389 |"Efficiency"
+363 |"Changeability"
+81  |"Architectural Design"
+51  |"Transferability"
+0   |"Documentation"
+```
+### Top 5 Critical Rules
+
+Query:
+```
+select r.rule_name, sum(nb_violations), sum(nb_total_checks)
+from app_violations_measures m
+join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
+join dim_rules r on r.rule_id = m.rule_id and r.is_critical
+group by 1
+order by 2 desc limit 5
+```
+
+Data output:
+```
+"Avoid unchecked return code (SY-SUBRC) after OPEN SQL or READ statement"|347|540
+"Avoid declaring public Fields"                                          |122|433
+"Avoid empty catch blocks"                                               |101|9445
+"Avoid using Fields (non static final) from other Classes"               |93 |4291
+"Never truncate data in MOVE statements"                                 |82 |90
+```
+
+### Total technical debt
+
+Query:
+```
+select sum(technical_debt_total)
+from app_technical_debt_measures m
+join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
+```
+
+Data output:
+```
+2943542.25
+```
+
+### Total number of Code Lines
+
+Query:
+```
+select sum(nb_code_lines)
+from app_technical_sizing_measures m
+join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
+```
+
+Data output:
+```
+338232
+```
+
+### Total number of violations of Top Priority Rules
+
+Query:
+```
+select sum(m.nb_violations)
+from app_violations_measures m
+join dim_rules r on r.rule_id = m.rule_id
+join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
+join dim_quality_standards q on q.metric_id = m.metric_id and q.aip_top_priority_rule
+```
+
+Data output:
+```
+3
+```
+
+### Total number of Function Points
+
+Query:
+```
+select sum(nb_total_points)
+from app_functional_sizing_measures m
+join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
+```
+
+Data output:
+```
+4445
+```
+
+### Average score of Total Quality Indexes
+
+Query:
+```
+select avg(score)
+from app_health_measures m
+join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
+where m.business_criterion_name = 'Total Quality Index'
+```
+
+Data output:
+```
+2.35780983144241
+```
+
+### Number of OWASP Top 10 2017 vulnerabilities by Rule
+
+Query:
+```
+select m.metric_id, r.rule_name, m.technology, m.nb_violations
+from app_violations_measures m
+join dim_rules r on r.rule_id = m.rule_id
+join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest and s.application_name = 'Big Ben'
+join dim_quality_standards q on q.metric_id = m.metric_id and q.owasp_2017_top10
+where m.nb_violations <> 0 
+order by nb_violations desc
+```
+
+Data output:
+```
+7906|"Avoid testing specific values for SY-UNAME"|"ABAP"|1
+```
+
+
+## Example of Advanced Queries
+
+### Ratio of Critical Violations per Function Point
+
+Query:
+```
+select
+(select sum(m.nb_violations) * 1.0 -- cast to double
+from dim_snapshots s
+join app_violations_measures m on m.snapshot_id = s.snapshot_id
+join dim_rules r on r.rule_id = m.rule_id and r.is_critical
+where s.is_latest and s.application_name = 'Big Ben') 
+/
+(select m.nb_total_points
+from dim_snapshots s
+join app_functional_sizing_measures m on m.snapshot_id = s.snapshot_id
+where s.is_latest and s.application_name = 'Big Ben')
+```
+
+Data output:
+```
+0.13920194943649101432
+```
+
+### Delta of critical violations by rule betwen first Quarter of 2013 and last Quarte of 2013
+
+Query:
+```
+select m1.metric_id, r.rule_name, m1.technology, m1.nb_violations - m2.nb_violations
+from dim_rules r
+join dim_snapshots s1 on s1.year_quarter = '2013-Q1' and s1.application_name = 'Big Ben'
+join app_violations_measures m1 on m1.rule_id = r.rule_id and m1.snapshot_id = s1.snapshot_id 
+join dim_snapshots s2 on s2.year_quarter = '2013-Q4' and s2.application_name = 'Big Ben'
+join app_violations_measures m2 on m2.rule_id = r.rule_id and m2.snapshot_id = s2.snapshot_id and m2.technology = m1.technology
+where r.is_critical
+order by 4 desc
+```
+
+Data output:
+```
+5062|"Avoid using ALTER"                            |"Cobol"|0
+5094|"Avoid using MOVE CORRESPONDING ... TO ..."    |"Cobol"|0
+7218|"Avoid OPEN/CLOSE inside loops"                |"Cobol"|0
+7906|"Avoid testing specific values for SY-UNAME"   |"ABAP" |-1
+7534|"Avoid READ TABLE without BINARY SEARCH"       |"ABAP" |-2
+8106|"Avoid empty IF-ENDIF blocks"                  |"ABAP" |-19
+7868|"Avoid Open SQL queries in loops"              |"ABAP" |-41
+```
+
+### Number of critical violations for the latest 4 quarters of 2013
+
+Query:
+```
+select q1.v as q1, q2.v as q2, q3.v as q3, q4.v as q4
+from 
+
+( select sum(m.nb_violations) as v
+  from dim_snapshots s 
+  join app_violations_measures m on m.snapshot_id = s.snapshot_id
+  join dim_rules r on r.rule_id = m.rule_id and r.is_critical
+  where s.year_quarter = '2013-Q1' and s.application_name = 'Big Ben') q1,
+
+( select sum(m.nb_violations) as v
+  from dim_snapshots s 
+  join app_violations_measures m on m.snapshot_id = s.snapshot_id
+  join dim_rules r on r.rule_id = m.rule_id and r.is_critical
+  where s.year_quarter = '2013-Q2' and s.application_name = 'Big Ben') q2,
+
+( select sum(m.nb_violations) as v
+  from dim_snapshots s 
+  join app_violations_measures m on m.snapshot_id = s.snapshot_id
+  join dim_rules r on r.rule_id = m.rule_id and r.is_critical
+  where s.year_quarter = '2013-Q3' and s.application_name = 'Big Ben') q3,
+
+( select sum(m.nb_violations) as v
+  from dim_snapshots s 
+  join app_violations_measures m on m.snapshot_id = s.snapshot_id
+  join dim_rules r on r.rule_id = m.rule_id and r.is_critical
+  where s.year_quarter = '2013-Q4' and s.application_name = 'Big Ben') q4
+  ```
+
+Data output:
+```
+107|124|NULL|457
+```
