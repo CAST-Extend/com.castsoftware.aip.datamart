@@ -1,21 +1,19 @@
 ## Contents
 
 - [Purpose](#purpose)
-- [Prerequisites](#prerequisites)
 - [Limitations](#limitations)
-- [The scripts](#the-scripts)
-- [How to run](#how-to-run)
+- [How to Build the AIP Datamart](#how-to-build-the-aip-datamart)
+- [How to Use the AIP Datamart ](#how-to-use-the-aip-datamart)
 - [Summmarize of Tables](#summarize-of-tables)
 - [Data Dictionary](#data-dictionary)
 - [Examples of Basic Queries](#examples-of-basic-queries)
 - [Examples of Advanced Queries](#examples-of-advanced-queries) 
 
 ## Purpose
-These scripts extract and populate a set of tables called the AIP datamart. 
 The AIP datamart is a simple database schema of AIP results, so that anyone can queries these data, requiring only conceptual knowledge of AIP.
 
 The Datamart can be used:
-* to query AIP data from a Business Intelligence tool such as Power BI
+* to query AIP data from a Business Intelligence tool such as Power BI Desktop
 * to query AIP data using SQL  queries
 * to create CSV report using SQL queries and the CSV export capability of postgreSQL
 
@@ -24,20 +22,6 @@ The use cases are:
 * create specific reports
 * check analysis results (AIP support & delivery teams)
 * create dashboard to follow scores, and measures evolutions
-
-## Prerequisites
-The prerequisites are:
-* Windows operating system (scripts are *.BAT files)
-* a remote access to the REST API server (__1.12__ or higher)
-* a local access to a PostgresSQL server, with a database to host target data
-* __[Python 3](https://www.python.org/downloads/)__ language
-* the __[curl](https://curl.haxx.se/download.html)__ command line
-
-If you intend to view the data with Power BI:
-* Install the Power BI Desktop tool from [Microsoft marketplace](https://powerbi.microsoft.com/en-us/downloads/)
-* Download the [PostgreSQL plugin](https://github.com/npgsql/Npgsql/releases)
-* Install npgsql as Administrator (since the DLL would be pushed to GAC). During the installation stage, enabled "Npgsql GAC Installation"
-* Restart the PC, then launch PowerBI
 
 ## Limitations
 * The scope of data is the measurement base results (however you can extract from a measurement base or a central base)
@@ -48,23 +32,57 @@ If the user is granted to access all applications, then, the user will expose al
 * All data relative to Quality Measures are skipped.
 * The list of Business Criteria is closed. Custom business criteria are skipped.
 
-## The scripts
-The Datamart scripts are based on an ETL (Extract-Transform-Load) approach:
-* Extraction is using the REST API to export data as CSV content to allow easy data processing
-* Transform consists in Python scripts transforming CSV content into target SQL statements. 
-* Load consists in running  these SQL statements. 
+## How to Build the AIP Datamart
 
-The URI of the REST API follow the tables names (replace the underscore character with dash character):
+### The Scripts
+
+The Datamart scripts are based on an ETL (Extract-Transform-Load) approach:
+* __Extraction__ is using the REST API to export data as CSV content to allow easy data processing (there are dedicated Web Services to extract data; these services extract data using a stream to avoid memory consumption on Web Server).
+* __Transform__ consists in Python scripts transforming CSV content into target SQL statements. 
+* __Load__ consists in running  these SQL statements. 
+
+The URIs of the REST API follow the tables names (replace the underscore character with a dash character):
 <br>
 Example to extract the DIM-APPLICATION content:
 ```
 curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" || EXIT /b 1
 ```
+### Prerequisites
 
-## How to run
+The prerequisites are:
+* Windows operating system (scripts are *.BAT files)
+* a remote access to the REST API server (__1.12__ or higher)
+* a local access to a PostgresSQL server, with a database to host target data
+* __[Python 3](https://www.python.org/downloads/)__ language
+* the __[curl](https://curl.haxx.se/download.html)__ command line
+
+### Running the Scripts
 * Edit the scripts ```setenv.bat``` so configure the REST API and the Local PostgreSQL database accesses.
 * Then start ```run.bat```.
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
+
+## How to Use the AIP Datamart
+
+### CSV Reports
+
+By querying the AIP Datamart tables, you can use the COPY SQL Statement of PostgreSQL to create a CSV output file (this file can be opened with Excel):
+```
+copy (select ...) to 'c:/temp/output.csv' WITH (format CSV);
+```
+
+Note that the output file is on the PostgreSQL server file system. If you do not have access to this file system, you can use stdout in place of a file name:
+```
+copy (select ...) to stdout WITH (format CSV);
+```
+
+### Power BI Desktop
+
+If you intend to view the data with Power BI Desktop:
+* Install the Power BI Desktop tool from [Microsoft marketplace](https://powerbi.microsoft.com/en-us/downloads/)
+* Download the [PostgreSQL plugin](https://github.com/npgsql/Npgsql/releases)
+* Install npgsql as Administrator (since the DLL would be pushed to GAC). During the installation stage, enabled "Npgsql GAC Installation"
+* Restart the PC, then launch PowerBI
+* Import AIP Datamart tables using PostgreSQL plugin
 
 ## Summarize of Tables
 
@@ -366,7 +384,7 @@ nb_critical_violations_removed       | INT      | (Metric #67902) Number of crit
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
 ```
-## Example of Basic Queries
+## Examples of Basic Queries
 
 ### Number of Critical Violations by Business Criterion
 
@@ -504,7 +522,7 @@ Data output:
 ```
 
 
-## Example of Advanced Queries
+## Examples of Advanced Queries
 
 ### Ratio of Critical Violations per Function Point
 
