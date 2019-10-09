@@ -12,7 +12,7 @@
 ## Purpose
 The AIP datamart is a simple database schema of AIP results, so that anyone can queries these data, requiring only conceptual knowledge of AIP.
 
-The Datamart can be used:
+The AIP Datamart can be used:
 * to query AIP data from a Business Intelligence tool such as Power BI Desktop
 * to query AIP data using SQL  queries
 * to create CSV report using SQL queries and the CSV export capability of postgreSQL
@@ -20,8 +20,8 @@ The Datamart can be used:
 The use cases are:
 * consume AIP data using a third party tool
 * create specific reports
-* check analysis results (AIP support & delivery teams)
-* create dashboard to follow scores, and measures evolutions
+* check analysis results
+* create dashboard to follow scores, measures and evolutions
 
 ## Limitations
 * The scope of data is the measurement base results (however you can extract from a measurement base or a central base)
@@ -93,9 +93,9 @@ These tables can be used to filter data along "Dimension":
 
 * `DIM_QUALITY_STANDARDS`: A Dimension table to filter measures according to Quality Standards
 
-* `DIM_SNAPSHOTS`: A Dimension table to filter measures according to a period. This table makes sense when applications are periodically analyzed. For instance, if each application is analyzed once a year, then  we can use the column YEAR as a filter; if some applications are not analyzed every week; then the YEAR_WEEK filter must be used carefully.Column YEAR, YEAR_MONTH, YEAR_QUARTER, YEAR_WEEK are set only for the most recent snapshot of this period for this application; they are provided to filter snapshots for a specific period
+* `DIM_SNAPSHOTS`: A Dimension table to filter measures according to a period
 
-* `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base), and technologies.
+* `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base), and technologies
 
 ### Measures Tables
 
@@ -160,8 +160,8 @@ owasp_mobile_2016_top10              | BOOLEAN  | Check whether this rule detect
 ```
 ### DIM_SNAPSHOTS
 A Dimension table to filter measures according to a period. 
-* This table makes sense when applications are periodically analyzed. For instance, if each application is analyzed once a year, then  we can use the column YEAR as a filter; if some applications are not analyzed every week; then the YEAR_WEEK filter must be used carefully. 
 * Column YEAR, YEAR_MONTH, YEAR_QUARTER, YEAR_WEEK are set only for the most recent snapshot of this period for this application; they are provided to filter snapshots for a specific period
+* These columns make sense when applications are periodically analyzed. For instance, if each application is analyzed once a year, then  we can use the column YEAR as a filter; if some applications are not analyzed every week; then the YEAR_WEEK filter must be used carefully. 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
@@ -401,13 +401,13 @@ Data output:
 ```
 1543|"Total Quality Index"
 1282|"Programming Practices"
-879 |"Security"
-864 |"Robustness"
-389 |"Efficiency"
-363 |"Changeability"
-81  |"Architectural Design"
-51  |"Transferability"
-0   |"Documentation"
+ 879|"Security"
+ 864|"Robustness"
+ 389|"Efficiency"
+ 363|"Changeability"
+  81|"Architectural Design"
+  51|"Transferability"
+   0|"Documentation"
 ```
 ### Top 5 Critical Rules
 
@@ -423,11 +423,11 @@ order by 2 desc limit 5
 
 Data output:
 ```
-"Avoid unchecked return code (SY-SUBRC) after OPEN SQL or READ statement"|347|540
-"Avoid declaring public Fields"                                          |122|433
+"Avoid unchecked return code (SY-SUBRC) after OPEN SQL or READ statement"|347| 540
+"Avoid declaring public Fields"                                          |122| 433
 "Avoid empty catch blocks"                                               |101|9445
-"Avoid using Fields (non static final) from other Classes"               |93 |4291
-"Never truncate data in MOVE statements"                                 |82 |90
+"Avoid using Fields (non static final) from other Classes"               | 93|4291
+"Never truncate data in MOVE statements"                                 | 82|  90
 ```
 
 ### Total technical debt
@@ -546,7 +546,7 @@ Data output:
 0.13920194943649101432
 ```
 
-### Delta of critical violations by rule betwen first Quarter of 2013 and last Quarte of 2013
+### Delta of critical violations by rule betwen first Quarter of 2013 and last Quarter of 2013
 
 Query:
 ```
@@ -562,11 +562,11 @@ order by 4 desc
 
 Data output:
 ```
-5062|"Avoid using ALTER"                            |"Cobol"|0
-5094|"Avoid using MOVE CORRESPONDING ... TO ..."    |"Cobol"|0
-7218|"Avoid OPEN/CLOSE inside loops"                |"Cobol"|0
-7906|"Avoid testing specific values for SY-UNAME"   |"ABAP" |-1
-7534|"Avoid READ TABLE without BINARY SEARCH"       |"ABAP" |-2
+5062|"Avoid using ALTER"                            |"Cobol"|  0
+5094|"Avoid using MOVE CORRESPONDING ... TO ..."    |"Cobol"|  0
+7218|"Avoid OPEN/CLOSE inside loops"                |"Cobol"|  0
+7906|"Avoid testing specific values for SY-UNAME"   |"ABAP" | -1
+7534|"Avoid READ TABLE without BINARY SEARCH"       |"ABAP" | -2
 8106|"Avoid empty IF-ENDIF blocks"                  |"ABAP" |-19
 7868|"Avoid Open SQL queries in loops"              |"ABAP" |-41
 ```
