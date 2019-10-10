@@ -57,7 +57,7 @@ The prerequisites are:
 * the __[curl](https://curl.haxx.se/download.html)__ command line
 
 ### Running the Scripts
-* Edit the scripts ```setenv.bat``` so configure the REST API and the Local PostgreSQL database accesses.
+* Edit the scripts ```setenv.bat``` to configure the REST API and the Local PostgreSQL database accesses.
 * Then start ```run.bat```.
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
