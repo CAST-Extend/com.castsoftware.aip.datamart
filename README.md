@@ -4,13 +4,13 @@
 - [Limitations](#limitations)
 - [How to Build the AIP Datamart](#how-to-build-the-aip-datamart)
 - [How to Use the AIP Datamart ](#how-to-use-the-aip-datamart)
-- [Summarize of Tables](#summarize-of-tables)
+- [Summary of Tables](#summary-of-tables)
 - [Data Dictionary](#data-dictionary)
 - [Examples of Basic Queries](#examples-of-basic-queries)
 - [Examples of Advanced Queries](#examples-of-advanced-queries) 
 
 ## Purpose
-The AIP datamart is a simple database schema of AIP results, so that anyone can queries these data, requiring only conceptual knowledge of AIP.
+The AIP datamart is a simple database schema of AIP results, so that anyone can query these data, requiring only conceptual knowledge of AIP.
 
 The AIP Datamart can be used:
 * to query AIP data from a Business Intelligence tool such as Power BI Desktop
@@ -25,7 +25,7 @@ The use cases are:
 
 ## Limitations
 * The scope of data is the measurement base results (however you can extract from a measurement base or a central base)
-* The effective extracted data depends on the user's authorizations running the REST API from the extraction scripts. 
+* The effective extracted data depend on the user's authorizations running the REST API from the extraction scripts. 
 If the user is not granted to access to all applications, then some data will be skipped.
 If the user is granted to access all applications, then, the user will expose all data in the target database.
 * All data relative to Quality Distributions are skipped. 
@@ -43,7 +43,7 @@ The Datamart scripts are based on an ETL (Extract-Transform-Load) approach:
 
 The URIs of the REST API follow the tables names (replace the underscore character with a dash character):
 <br>
-Example to extract the DIM-APPLICATION content:
+Example to extract the DIM_APPLICATIONS content:
 ```
 curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" || EXIT /b 1
 ```
@@ -84,7 +84,7 @@ If you intend to view the data with Power BI Desktop:
 * Restart the PC, then launch Power BI Desktop
 * Import AIP Datamart tables using PostgreSQL plugin
 
-## Summarize of Tables
+## Summary of Tables
 
 ### Dimension Tables
 
