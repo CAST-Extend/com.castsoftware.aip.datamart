@@ -36,6 +36,18 @@ REM ------ DO NOT CHANGE ANYTHING BELOW THIS LINE
 REM ------
 REM ------------------------------------------------------------------------------
 
+IF NOT DEFINED INSTALLATION_FOLDER (echo Missing variable INSTALLATION_FOLDER & EXIT /b 1)
+IF NOT DEFINED PSQL (echo Missing variable PSQL & EXIT /b 1)
+IF NOT DEFINED VACUUMDB (echo Missing variable VACUUMDB & EXIT /b 1)
+IF NOT DEFINED ROOT (echo Missing variable ROOT & EXIT /b 1)
+IF NOT DEFINED CREDENTIALS (echo Missing variable CREDENTIALS & EXIT /b 1)
+IF NOT DEFINED _DB_HOST (echo Missing variable _DB_HOST & EXIT /b 1)
+IF NOT DEFINED _DB_PORT (echo Missing variable _DB_PORT & EXIT /b 1)
+IF NOT DEFINED _DB_NAME (echo Missing variable _DB_NAME & EXIT /b 1)
+IF NOT DEFINED _DB_USER (echo Missing variable _DB_USER & EXIT /b 1)
+IF NOT DEFINED _DB_SCHEMA (echo Missing variable _DB_SCHEMA & EXIT /b 1)
+IF NOT DEFINED PGPASSWORD (echo Missing variable PGPASSWORD & EXIT /b 1)
+
 SET EXTRACT_FOLDER=%INSTALLATION_FOLDER%\extract
 SET TRANSFORM_FOLDER=%INSTALLATION_FOLDER%\transform
 SET LOG_FILE=%INSTALLATION_FOLDER%\ETL.log

@@ -1,13 +1,13 @@
 ECHO OFF
 SETLOCAL enabledelayedexpansion
 
-CALL setenv.bat 
+CALL setenv.bat || GOTO :FAIL
 
-rem ECHO Drop schema
-rem "%PSQL%" %PSQL_OPTIONS% -c "DROP SCHEMA IF EXISTS %_DB_SCHEMA% cascade;" > "%LOG_FILE%" 2>&1 || GOTO :FAIL
-
-ECHO Create schema
-"%PSQL%" %PSQL_OPTIONS% -c "CREATE SCHEMA IF NOT EXISTS %_DB_SCHEMA%;" >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
+ECHO Create schema if not exists
+rem POSTGRESQL >= 9.3 OR ABOVE
+rem "%PSQL%" %PSQL_OPTIONS% -c "CREATE SCHEMA IF NOT EXISTS %_DB_SCHEMA%;" >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
+rem POSTGRESQL <= 9.2
+"%PSQL%" %PSQL_OPTIONS% -c "DO $$ BEGIN IF NOT EXISTS(SELECT schema_name FROM information_schema.schemata WHERE schema_name = '%_DB_SCHEMA%') THEN CREATE SCHEMA %_DB_SCHEMA%; END IF; END $$;" >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
 
 REM Create and Load DIM_APPLICATIONS
 CALL :load DIM_APPLICATIONS || GOTO :FAIL

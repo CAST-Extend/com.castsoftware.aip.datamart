@@ -1,6 +1,6 @@
 @ECHO OFF
 SETLOCAL enabledelayedexpansion
-CALL setenv.bat 
+CALL setenv.bat || GOTO :FAIL
 
 del /F /Q /A "%EXTRACT_FOLDER%"
 
