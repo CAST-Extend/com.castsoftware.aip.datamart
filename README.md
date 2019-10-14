@@ -36,6 +36,8 @@ If the user is granted to access all applications, then, the user will expose al
 
 ### The Scripts
 
+The scripts are *.BAT files for Windows operating systems
+
 The Datamart scripts are based on an ETL (Extract-Transform-Load) approach:
 * __Extraction__ is using the REST API to export data as CSV content to allow easy data processing (there are dedicated Web Services to extract data; these services extract data using a stream to avoid memory consumption on Web Server).
 * __Transform__ consists in Python scripts transforming CSV content into target SQL statements. 
@@ -47,18 +49,26 @@ Example to extract the DIM_APPLICATIONS content:
 ```
 curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" || EXIT /b 1
 ```
-### Prerequisites
-
-The prerequisites are:
-* Windows operating system (scripts are *.BAT files)
-* a remote access to the REST API server (__1.12__ or higher)
-* a local access to a PostgreSQL server, with a database to host target data
-* __[Python 3](https://www.python.org/downloads/)__ language
-* the __[curl](https://curl.haxx.se/download.html)__ command line
 
 ### Running the Scripts
-* Edit the scripts ```setenv.bat``` to configure the REST API and the Local PostgreSQL database accesses.
-* Then start ```run.bat```.
+* Make sure you have access to 
+  ** an access to the REST API server (__1.12__ or higher)
+  ** an access to a PostgreSQL server, with a database created to host target data
+  ** an access to __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
+  ** an access to __[Python 3](https://www.python.org/downloads/)__ (in your path)
+* Edit the scripts ```setenv.bat``` to set the configuration variables
+  ** INSTALLATION_FOLDER: the absolute path of the scripts location
+  ** PSQL: absolute path to the psql command (see your PostgreSQL install directory)
+  ** VACUUMDB: absolute path to the vacummdb command (see your PostgreSQL install directory)
+  ** ROOT: URL to a REST API domain, ex: http://localhost:9090/CAST-RESTAPI/rest/AAD
+  ** CREDENTIALS: username:password to authenticate to the REST API (see Curl command line)
+  ** _DB_HOST: PostgreSQL server host name
+  ** _DB_PORT: PostgresQL server port
+  ** _DB_NAME: target PostgresSQL database
+  ** _DB_USER: the PostgreSQL user name 
+  ** _DB_SCHEMA: the target schema name
+  ** PGPASSWORD: the PostgreSQL user name 
+* Then start ```run.bat``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
 ## How to Use the AIP Datamart
