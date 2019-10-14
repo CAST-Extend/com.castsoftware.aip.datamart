@@ -52,22 +52,22 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 
 ### Running the Scripts
 * Make sure you have access to 
-  ** an access to the REST API server (__1.12__ or higher)
-  ** an access to a PostgreSQL server, with a database created to host target data
-  ** an access to __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
-  ** an access to __[Python 3](https://www.python.org/downloads/)__ (in your path)
+  * the REST API server (__1.12__ or higher)
+  * a PostgreSQL server, with a database created to host target data
+  * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
+  * __[Python 3](https://www.python.org/downloads/)__ (in your path)
 * Edit the scripts ```setenv.bat``` to set the configuration variables
-  ** INSTALLATION_FOLDER: the absolute path of the scripts location
-  ** PSQL: absolute path to the psql command (see your PostgreSQL install directory)
-  ** VACUUMDB: absolute path to the vacummdb command (see your PostgreSQL install directory)
-  ** ROOT: URL to a REST API domain, ex: http://localhost:9090/CAST-RESTAPI/rest/AAD
-  ** CREDENTIALS: username:password to authenticate to the REST API (see Curl command line)
-  ** _DB_HOST: PostgreSQL server host name
-  ** _DB_PORT: PostgresQL server port
-  ** _DB_NAME: target PostgresSQL database
-  ** _DB_USER: the PostgreSQL user name 
-  ** _DB_SCHEMA: the target schema name
-  ** PGPASSWORD: the PostgreSQL user name 
+  * INSTALLATION_FOLDER: the absolute path of the scripts location
+  * PSQL: absolute path to the psql command (see your PostgreSQL install directory)
+  * VACUUMDB: absolute path to the vacummdb command (see your PostgreSQL install directory)
+  * ROOT: URL to a REST API domain, ex: http://localhost:9090/CAST-RESTAPI/rest/AAD
+  * CREDENTIALS: username:password to authenticate to the REST API (see Curl command line)
+  * _DB_HOST: PostgreSQL server host name
+  * _DB_PORT: PostgresQL server port
+  * _DB_NAME: target PostgresSQL database
+  * _DB_USER: the PostgreSQL user name 
+  * _DB_SCHEMA: the target schema name
+  * PGPASSWORD: the PostgreSQL user name 
 * Then start ```run.bat``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
