@@ -180,10 +180,10 @@ snapshot_id                          | INT      | Local Snapshot ID
 application_name                     | TEXT     | Application name
 date                                 | DATE     | The snapshot capture date without timezone
 is_latest                            | BOOLEAN  | Check whether this is the latest snapshot of this application
-year                                 | INT      | Tag the most recent application snapshot for each year (ex format: 2017-Q3)
-year_quarter                         | TEXT     | Tag the most recent application snapshot for each quarter (ex format: 2017-Q3)
-year_month                           | TEXT     | Tag the most recent application snapshot for each month  (ex format: 2017-04)
-year_week                            | TEXT     | Tag the most recent application snapshot for each week  (ex format: 2017-W24)
+year                                 | INT      | Tag the most recent application snapshot for each year (ex: 2017)
+year_quarter                         | TEXT     | Tag the most recent application snapshot for each quarter (ex: 2017-Q3)
+year_month                           | TEXT     | Tag the most recent application snapshot for each month (ex: 2017-04)
+year_week                            | TEXT     | Tag the most recent application snapshot for each week (ex: 2017-W24)
 consolidation_settings               | TEXT     | The application score consolidation mode: 'Full Application', 'Average of Modules'
 label                                | TEXT     | Snapshot label
 ```
@@ -442,7 +442,7 @@ Data output:
 "Never truncate data in MOVE statements"                                 | 82|  90
 ```
 
-### Total technical debt
+### Total Technical Debt
 
 Query:
 ```
