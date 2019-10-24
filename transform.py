@@ -10,15 +10,15 @@ def format(s):
         return  '"' + s + '"'        
     return s
     
-def transform_applications(extract_directory, transform_directory):
+def transform_dim_applications(extract_directory, transform_directory):
     print ("Transform", "DIM_APPLICATIONS")
     ofile = transform_directory + "\\DIM_APPLICATIONS.sql"
     f = open(ofile, "w", encoding="utf-8")
 
     with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:
     
-        f.write("DROP TABLE IF EXISTS :schema.dim_applications CASCADE;\n");
-        f.write("CREATE TABLE :schema.dim_applications\n");
+        f.write("DROP TABLE IF EXISTS :schema.DIM_APPLICATIONS CASCADE;\n");
+        f.write("CREATE TABLE :schema.DIM_APPLICATIONS\n");
         f.write("(\n");
         csv_reader = csv.reader(csv_file, delimiter=';')
         skip = True
@@ -30,10 +30,49 @@ def transform_applications(extract_directory, transform_directory):
                     f.write("\"" + p + "\" ")
                     f.write("boolean" if p.startswith("Technology") else "text")
                     f.write(",\n")
-                f.write("CONSTRAINT dim_applications_pkey PRIMARY KEY (application_name)\n");
+                f.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n");
                 f.write(");\n")
-                f.write("COPY :schema.dim_applications (\""  + "\",\"".join(row) + "\") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")        
+                f.write("COPY :schema.DIM_APPLICATIONS (\""  + "\",\"".join(row) + "\") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")        
                 continue
+            line = ";".join([format(cell) for cell in row])
+            f.write(line)
+            f.write("\n")
+        f.write("\\.\n")
+        f.close()
+
+def transform_dim_quality_standards(extract_directory, transform_directory):
+    print ("Transform", "DIM_QUALITY_STANDARDS")
+    ofile = transform_directory + "\\DIM_QUALITY_STANDARDS.sql"
+    f = open(ofile, "w", encoding="utf-8")
+
+    with open(extract_directory+'\\DIM_QUALITY_STANDARDS.csv') as csv_file:
+    
+        f.write("DROP TABLE IF EXISTS :schema.DIM_QUALITY_STANDARDS CASCADE;\n");
+        f.write("CREATE TABLE :schema.DIM_QUALITY_STANDARDS\n");
+        f.write("(\n");        
+        f.write("METRIC_ID INT,\n");
+        f.write("RULE_NAME TEXT,\n");
+
+        csv_reader = csv.reader(csv_file, delimiter=';')
+        skip = True
+        columns = ["METRIC_ID", "RULE_NAME"]
+        for row in csv_reader:
+            if skip:
+                skip = False
+                # End writing the header
+                comma = ""
+                for i,p in enumerate(row):
+                    if i <= 1: 
+                        continue
+                    column_name = p.replace("-","_")
+                    columns.append(column_name)
+                    f.write(column_name)
+                    f.write(" BOOLEAN,\n")
+                f.write("CONSTRAINT DIM_QUALITY_STANDARDS_PKEY PRIMARY KEY (METRIC_ID)\n");
+                f.write(");\n")
+                f.write("COPY :schema.DIM_QUALITY_STANDARDS ("  + ",".join(columns) + ") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")        
+                continue
+            # Write the body
             line = ";".join([format(cell) for cell in row])
             f.write(line)
             f.write("\n")
@@ -64,9 +103,9 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--extract", dest="extract_directory", action="store", help="set input extract directory")
     parser.add_argument("-o", "--transform", dest="transform_directory", action="store", help="set output transform directory")
     args = parser.parse_args()
-    transform_applications(args.extract_directory, args.transform_directory)    
+    transform_dim_applications(args.extract_directory, args.transform_directory)    
+    transform_dim_quality_standards(args.extract_directory, args.transform_directory)    
     transform(args.extract_directory, args.transform_directory, "DIM_RULES")
-    transform(args.extract_directory, args.transform_directory, "DIM_QUALITY_STANDARDS")
     transform(args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS")
     transform(args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES")
     transform(args.extract_directory, args.transform_directory, "APP_TECHNICAL_SIZING_MEASURES")

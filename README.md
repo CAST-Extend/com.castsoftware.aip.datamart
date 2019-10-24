@@ -8,6 +8,7 @@
 - [Data Dictionary](#data-dictionary)
 - [Examples of Basic Queries](#examples-of-basic-queries)
 - [Examples of Advanced Queries](#examples-of-advanced-queries) 
+- [FAQ](#faq) 
 
 ## Purpose
 The AIP datamart is a simple database schema of AIP results, so that anyone can query these data, requiring only conceptual knowledge of AIP.
@@ -16,6 +17,13 @@ The AIP Datamart can be used:
 * to query AIP data from a Business Intelligence tool such as Power BI Desktop
 * to query AIP data using SQL  queries
 * to create CSV report using SQL queries and the CSV export capability of postgreSQL
+
+The goals can be:
+* to make reports for stakeholders
+* to make trending reports on some Key Production Indicators
+* to promote AIP data
+* to search for "golden nuggets"
+* to check an AIP analysis configuration
 
 The use cases are:
 * consume AIP data using a third party tool
@@ -58,17 +66,21 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3](https://www.python.org/downloads/)__ (in your path)
 * Edit the scripts ```setenv.bat``` to set the configuration variables
-  * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
-  * ```PSQL```: absolute path to the psql command (see your PostgreSQL install directory)
-  * ```VACUUMDB```: absolute path to the vacummdb command (see your PostgreSQL install directory)
-  * ```ROOT```: URL to a REST API domain, ex: http://localhost:9090/CAST-RESTAPI/rest/AAD
-  * ```CREDENTIALS```: username:password to authenticate to the REST API (see Curl command line)
-  * ```_DB_HOST```: PostgreSQL server host name
-  * ```_DB_PORT```: PostgresQL server port
-  * ```_DB_NAME```: target PostgresSQL database
-  * ```_DB_USER```: the PostgreSQL user name 
-  * ```_DB_SCHEMA```: the target schema name
-  * ```PGPASSWORD```: the PostgreSQL user name 
+  * Folders
+      * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
+  * REST API
+      * ```ROOT```: URL to a REST API domain, ex: http://localhost:9090/CAST-RESTAPI/rest/AAD
+      * ```CREDENTIALS```: username:password to authenticate to the REST API (see Curl command line)
+      * ```QSTAGS```: the Quality Standard tags 
+  * Target Database
+      * ```PSQL```: absolute path to the psql command (see your PostgreSQL install directory)
+      * ```VACUUMDB```: absolute path to the vacummdb command (see your PostgreSQL install directory)
+      * ```_DB_HOST```: PostgreSQL server host name
+      * ```_DB_PORT```: PostgresQL server port
+      * ```_DB_NAME```: target PostgresSQL database
+      * ```_DB_USER```: the PostgreSQL user name 
+      * ```_DB_SCHEMA```: the target schema name
+      * ```PGPASSWORD```: the PostgreSQL user name 
 * Then start ```run.bat``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
@@ -133,7 +145,7 @@ Functional Sizing Evolution|No|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 ## Data Dictionary
 
 ### DIM_APPLICATIONS
-A Dimension table to filter measures according to Application Tags, and technologies.  The COLUMN names depend on the end-user tags and categories. We give an example here based on the demo site:
+A Dimension table to filter measures according to Application Tags, and technologies. The COLUMN names depend on the end-user tags and categories. We give an example here based on the demo site:
 
 ```
 COLUMN                        | TYPE     | DESCRIPTION
@@ -142,7 +154,7 @@ application_name"             | INT      | Table primary key
 "Category  Age"               | TEXT     | A range of ages of the application
 "Category  Business Unit"     | TEXT     | The Business Unit as a sponsor or provider of the application
 "Category  Country"           | TEXT     | The deployment country of the application
-"Category  Release Frequency" |TEXT      | The release frequency of the application
+"Category  Release Frequency" | TEXT     | The release frequency of the application
 "Category  Sourcing"          | TEXT     | The out sourcing company
 "Category Methodology"        | TEXT     | The application development approach
 "Technology C++"              | BOOLEAN  | Check whether the application contains C++ code
@@ -154,6 +166,13 @@ A Dimension table to filter measures according to Quality Standards.
 * in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or higher to get the OMG standards
 * in case of a data extraction from a measurement base, the measurement base must be __8.3.5__ or higher 
 
+The COLUMN names depend on the selected tags of the query parameter of the Web Service "dim-quality-standards".
+See the [CAST Rules Documentation Portal](https://technologies.castsoftware.com) to get the available Quality Standards tags.
+<br>
+Example of columns for the URI:
+```/AAD/datamart/dim-quality-standards?tags=AIP-TOP-PRIORITY-RULE,CWE,OMG-ASCQM-Security,OWASP-2017```
+<br>
+
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
@@ -161,14 +180,10 @@ metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 aip_top_priority_rule                | BOOLEAN  | Check whether this rule is a top priority rule according  to AIP
 cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
-omg                                  | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
-omg_maintainability                  | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
-omg_performance_efficiency           | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
-omg_reliability                      | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
-omg_security                         | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
-owasp_2017_top10                     | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
-owasp_mobile_2016_top10              | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2016 vulnerability for Mobile code
+omg_ascqm_security                   | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
+owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
+
 ### DIM_SNAPSHOTS
 A Dimension table to filter measures according to a period. 
 * Column YEAR, YEAR_MONTH, YEAR_QUARTER, YEAR_WEEK are set only for the most recent snapshot of this period for this application; they are provided to filter snapshots for a specific period
@@ -178,7 +193,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Local Snapshot ID
 application_name                     | TEXT     | Application name
-date                                 | DATE     | The snapshot capture date without timezone
+date                                 | DATE     | The snapshot capture date (ie the user input date) without timezone
 is_latest                            | BOOLEAN  | Check whether this is the latest snapshot of this application
 year                                 | INT      | Tag the most recent application snapshot for each year (ex: 2017)
 year_quarter                         | TEXT     | Tag the most recent application snapshot for each quarter (ex: 2017-Q3)
@@ -619,3 +634,20 @@ Data output:
 ```
 107|124|NULL|457
 ```
+
+## FAQ
+
+### Do I have the ability to create custom views? 
+
+Yes you can join multiple tables to create new tables, new views. You can create new column based on a formula of your choice.
+<br>
+The scripts do not drop the external tables. If you have some tables or views they will not be dropped at the next extract/transform/load processing.
+
+### How can I bind a custom indicator to a rule?
+
+You can either
+* create your own separate table to inject each Rule ID bound to a boolean value as the ```DIM_QUALITY_STANDARD``` table does
+* use the custom quality standards to inject a binding of Rule IDs with a custom Quality Standard tag. This option avoids the creation of a distinct table.
+
+
+
