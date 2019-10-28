@@ -7,9 +7,11 @@ def format(s):
     if s.find('"') != -1:
         return  '"' + s.replace("\"",  "\"\"") + '"'
     if s.find('\n') != -1:
-        return  '"' + s + '"'        
+        return  '"' + s + '"'
+    if s.find(';') != -1:
+        return  '"' + s + '"'
     return s
-    
+
 def transform_dim_applications(extract_directory, transform_directory):
     print ("Transform", "DIM_APPLICATIONS")
     ofile = transform_directory + "\\DIM_APPLICATIONS.sql"
