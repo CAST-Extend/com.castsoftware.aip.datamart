@@ -4,24 +4,24 @@ CALL setenv.bat || GOTO :FAIL
 
 del /F /Q /A "%EXTRACT_FOLDER%"
 
-call :extract datamart/dim-snapshots                          DIM_SNAPSHOTS                       || GOTO :FAIL
-call :extract datamart/dim-rules                              DIM_RULES                           || GOTO :FAIL
-call :extract "datamart/dim-quality-standards?tags=%QSTAGS%"  DIM_QUALITY_STANDARDS               || GOTO :FAIL
-call :extract datamart/dim-applications                       DIM_APPLICATIONS                    || GOTO :FAIL
-call :extract datamart/app-violations-measures                APP_VIOLATIONS_MEASURES             || GOTO :FAIL
-call :extract datamart/app-technical-sizing-measures          APP_TECHNICAL_SIZING_MEASURES       || GOTO :FAIL
-call :extract datamart/app-technical-debt-measures            APP_TECHNICAL_DEBT_MEASURES         || GOTO :FAIL
-call :extract datamart/app-functional-sizing-measures         APP_FUNCTIONAL_SIZING_MEASURES      || GOTO :FAIL
-call :extract datamart/app-health-measures                    APP_HEALTH_MEASURES                 || GOTO :FAIL
-call :extract datamart/app-technical-debt-evolution           APP_TECHNICAL_DEBT_EVOLUTION        || GOTO :FAIL
-call :extract datamart/app-functional-sizing-evolution        APP_FUNCTIONAL_SIZING_EVOLUTION     || GOTO :FAIL
-call :extract datamart/app-health-evolution                   APP_HEALTH_EVOLUTION                || GOTO :FAIL
-call :extract datamart/mod-violations-measures                MOD_VIOLATIONS_MEASURES             || GOTO :FAIL
-call :extract datamart/mod-technical-sizing-measures          MOD_TECHNICAL_SIZING_MEASURES       || GOTO :FAIL
-call :extract datamart/mod-technical-debt-measures            MOD_TECHNICAL_DEBT_MEASURES         || GOTO :FAIL
-call :extract datamart/mod-health-measures                    MOD_HEALTH_MEASURES                 || GOTO :FAIL
-call :extract datamart/mod-technical-debt-evolution           MOD_TECHNICAL_DEBT_EVOLUTION        || GOTO :FAIL
-call :extract datamart/mod-health-evolution                   MOD_HEALTH_EVOLUTION                || GOTO :FAIL
+
+
+call :extract datamart/dim-snapshots                        DIM_SNAPSHOTS                       || GOTO :FAIL
+call :extract datamart/dim-rules                            DIM_RULES                           || GOTO :FAIL
+call :extract "datamart/dim-quality-standards?tags=%QSTAGS%"  DIM_QUALITY_STANDARDS             || GOTO :FAIL
+call :extract datamart/dim-applications                     DIM_APPLICATIONS                    || GOTO :FAIL
+call :extract datamart/app-violations-measures              APP_VIOLATIONS_MEASURES             || GOTO :FAIL
+call :extract datamart/app-sizing-measures                  APP_SIZING_MEASURES                 || GOTO :FAIL
+call :extract datamart/app-functional-sizing-measures       APP_FUNCTIONAL_SIZING_MEASURES      || GOTO :FAIL
+call :extract datamart/app-health-measures                  APP_HEALTH_MEASURES                 || GOTO :FAIL
+call :extract datamart/app-sizing-evolution                 APP_SIZING_EVOLUTION                || GOTO :FAIL
+call :extract datamart/app-functional-sizing-evolution      APP_FUNCTIONAL_SIZING_EVOLUTION     || GOTO :FAIL
+call :extract datamart/app-health-evolution                 APP_HEALTH_EVOLUTION                || GOTO :FAIL
+call :extract datamart/mod-violations-measures              MOD_VIOLATIONS_MEASURES             || GOTO :FAIL
+call :extract datamart/mod-sizing-measures                  MOD_SIZING_MEASURES                 || GOTO :FAIL
+call :extract datamart/mod-health-measures                  MOD_HEALTH_MEASURES                 || GOTO :FAIL
+call :extract datamart/mod-sizing-evolution                 MOD_SIZING_EVOLUTION                || GOTO :FAIL
+call :extract datamart/mod-health-evolution                 MOD_HEALTH_EVOLUTION                || GOTO :FAIL
 
 GOTO :SUCCESS
 

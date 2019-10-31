@@ -11,7 +11,7 @@ def format(s):
     if s.find(';') != -1:
         return  '"' + s + '"'
     return s
-
+    
 def transform_dim_applications(extract_directory, transform_directory):
     print ("Transform", "DIM_APPLICATIONS")
     ofile = transform_directory + "\\DIM_APPLICATIONS.sql"
@@ -110,17 +110,15 @@ if __name__ == "__main__":
     transform(args.extract_directory, args.transform_directory, "DIM_RULES")
     transform(args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS")
     transform(args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES")
-    transform(args.extract_directory, args.transform_directory, "APP_TECHNICAL_SIZING_MEASURES")
+    transform(args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES")
     transform(args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_MEASURES")    
-    transform(args.extract_directory, args.transform_directory, "APP_TECHNICAL_DEBT_MEASURES")    
     transform(args.extract_directory, args.transform_directory, "APP_HEALTH_MEASURES")        
-    transform(args.extract_directory, args.transform_directory, "APP_TECHNICAL_DEBT_EVOLUTION")    
+    transform(args.extract_directory, args.transform_directory, "APP_SIZING_EVOLUTION")    
     transform(args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_EVOLUTION")
     transform(args.extract_directory, args.transform_directory, "APP_HEALTH_EVOLUTION")
     transform(args.extract_directory, args.transform_directory, "MOD_VIOLATIONS_MEASURES")    
-    transform(args.extract_directory, args.transform_directory, "MOD_TECHNICAL_SIZING_MEASURES")
-    transform(args.extract_directory, args.transform_directory, "MOD_TECHNICAL_DEBT_MEASURES")  
+    transform(args.extract_directory, args.transform_directory, "MOD_SIZING_MEASURES")
     transform(args.extract_directory, args.transform_directory, "MOD_HEALTH_MEASURES")        
-    transform(args.extract_directory, args.transform_directory, "MOD_TECHNICAL_DEBT_EVOLUTION")    
+    transform(args.extract_directory, args.transform_directory, "MOD_SIZING_EVOLUTION")    
     transform(args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION")
 
