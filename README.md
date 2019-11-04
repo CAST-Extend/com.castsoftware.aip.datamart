@@ -115,9 +115,9 @@ This toolkit provides 2 Datapond compliant views:
 
 The differences with Datapond 5.1 are as follow:
 * Some columns are missing 
-  * `technologies`
-  * EFP metrics (because tey are replaced with AEP metrics)
-* Precision for decimal values may differ; because the Datapond apply some pre-rounding with Python scripts
+  * the `technologies` column has been removed
+  * EFP columns have been removed; because these values are replaced with AEP metrics 
+* For some data, the precision for decimal values may differ; because the Datapond applies some pre-rounding with Python scripts using the "rounding half to even" strategy, which is not the PostgreSQL rounding strategy
 * When AEP has not be calculated for a snapshot, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
 * The calculation of averages has been fixed
 

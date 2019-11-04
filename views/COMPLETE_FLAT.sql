@@ -89,7 +89,9 @@ CREATE OR REPLACE VIEW :schema.complete_flat AS
     round((SELECT avg((f.tqi_rem_vio - f.tqi_add_vio)::numeric / NULLIF(e.nb_aep_total_points, 0)::numeric) AS avg
            FROM :schema.app_functional_sizing_evolution e, :schema.basedata_flat f WHERE f.snapshot_id = e.snapshot_id
            AND f.tqi_curr_vio <> f.tqi_add_vio AND e.nb_aep_total_points > 50 ) * '-1'::integer::numeric, 3) AS avg_def_density,
+           
     round((a.tqi_rem_vio - a.tqi_add_vio)::numeric / NULLIF(b.nb_aep_total_points, 0)::numeric, 3) AS raw_def_density,
+    
     CASE
         WHEN (COALESCE((a.tqi_rem_vio - a.tqi_add_vio)::numeric / NULLIF(b.nb_aep_total_points, 0)::numeric / (( SELECT avg((e.tqi_rem_vio - e.tqi_add_vio)::numeric / NULLIF(f.nb_aep_total_points, 0)::numeric) AS avg
             FROM :schema.app_functional_sizing_evolution f, :schema.basedata_flat e WHERE e.snapshot_id = f.snapshot_id
@@ -103,7 +105,7 @@ CREATE OR REPLACE VIEW :schema.complete_flat AS
         ELSE round((a.tqi_rem_vio - a.tqi_add_vio)::numeric / NULLIF(b.nb_aep_total_points, 0)::numeric / (( SELECT avg((e.tqi_rem_vio - e.tqi_add_vio)::numeric / NULLIF(f.nb_aep_total_points, 0)::numeric) AS avg
            FROM :schema.app_functional_sizing_evolution f, :schema.basedata_flat e WHERE e.snapshot_id = f.snapshot_id
            AND e.tqi_curr_vio <> e.tqi_add_vio AND f.nb_aep_total_points > 50)) * '-1'::integer::numeric, 3) + 5::numeric
-        END AS adjust_def_density,
+    END AS adjust_def_density,
 
     b.nb_aefp_points_added_data_functions,
     b.nb_aefp_points_added_transactional_functions,
