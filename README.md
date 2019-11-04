@@ -462,7 +462,7 @@ Data output:
 Query:
 ```
 select sum(technical_debt_total)
-from app_technical_debt_measures m
+from app_sizing_measures m
 join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
 ```
 
@@ -476,7 +476,7 @@ Data output:
 Query:
 ```
 select sum(nb_code_lines)
-from app_technical_sizing_measures m
+from app_sizing_measures m
 join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
 ```
 
@@ -493,7 +493,7 @@ select sum(m.nb_violations)
 from app_violations_measures m
 join dim_rules r on r.rule_id = m.rule_id
 join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
-join dim_quality_standards q on q.metric_id = m.metric_id and q.aip_top_priority_rule
+join dim_quality_standards q on q.metric_id = m.metric_id and q.aip_top_priority
 ```
 
 Data output:
@@ -556,7 +556,7 @@ Data output:
 Query:
 ```
 select
-(select sum(m.nb_violations) * 1.0 -- cast to double
+(select sum(m.nb_violations)::numeric
 from dim_snapshots s
 join app_violations_measures m on m.snapshot_id = s.snapshot_id
 join dim_rules r on r.rule_id = m.rule_id and r.is_critical
