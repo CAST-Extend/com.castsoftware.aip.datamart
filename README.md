@@ -110,7 +110,7 @@ If you intend to view the data with Power BI Desktop:
 ### Datapond
 
 This toolkit provides 2 Datapond compliant views:
-* [views/DATABASE_FLAT.sql](views/DATABASE_FLAT.sql)
+* [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql)
 * [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql)
 
 The differences with Datapond 5.1 are as follow:
@@ -120,6 +120,11 @@ The differences with Datapond 5.1 are as follow:
 * Precision for decimal values may differ; because the Datapond apply some pre-rounding with Python scripts
 * When AEP were not available for old snapshots, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
 * The calculation of averages has been fixed
+
+To add these 2 database views to the Datamart schema, runs `create_views.bat` file from your installation directory:
+```
+C:\>create_views
+```
 
 ## Summary of Tables
 
