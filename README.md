@@ -126,21 +126,22 @@ Application Measures of tables can be safely aggregated (average, sum) with a BI
 <br/>
 __WARNING__: You cannot aggregate measures for a set of modules because of modules overlapping. However, you can aggregate measures for a specific module name.
 
-Scope|Split by technology|Applications Table|Modules Table
------|-----|------------|-------
-Violations|Yes|`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
-Technical Sizing|Yes|`APP_TECHNICAL_SIZING_MEASURES`|`MOD_TECHNICAL_SIZING_MEASURES`
-Health Measures|No|`APP_HEALTH_MEASURES`|`MOD_HEALTH_MEASURES`
-Technical Debt Measures|No|`APP_TECHNICAL_DEBT_MEASURES`|`MOD_TECHNICAL_DEBT_MEASURES`
-Functional Sizing Measures|No|`APP_FUNCTIONAL_SIZING_MEASURES`|N/A
+Scope|Applications Table|Modules Table
+-----|------------|-------
+Violations <sup>(1)</sup>|`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
+Sizing Measures|`APP_SIZING_MEASURES`|`MOD_SIZING_MEASURES`
+Health Measures|`APP_HEALTH_MEASURES`|`MOD_HEALTH_MEASURES`
+Functional Sizing Measures|`APP_FUNCTIONAL_SIZING_MEASURES`|N/A
+
+(1): Split by technology
 
 ### Evolution Tables
 
-Scope|Split by technology|Applications Table|Modules Table
------|-----|------------|-------
-Health Evolution|No|`APP_HEALTH_EVOLUTION`|`MOD_HEALTH_EVOLUTION`
-Technical Debt Evolution|No|`APP_TECHNICAL_DEBT_EVOLUTION`|`MOD_TECHNICAL_DEBT_EVOLUTION`
-Functional Sizing Evolution|No|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
+Scope|Applications Table|Modules Table
+-----|------------|-------
+Health Evolution|`APP_HEALTH_EVOLUTION`|`MOD_HEALTH_EVOLUTION`
+Sizing Evolution|`APP_SIZING_EVOLUTION`|`MOD_SIZING_EVOLUTION`
+Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 
 ## Data Dictionary
 
@@ -178,7 +179,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
-aip_top_priority_rule                | BOOLEAN  | Check whether this rule is a top priority rule according  to AIP
+aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule according to AIP
 cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
 omg_ascqm_security                   | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
@@ -192,13 +193,16 @@ A Dimension table to filter measures according to a period.
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Local Snapshot ID
+application_id                       | INT      | Local Application ID
 application_name                     | TEXT     | Application name
 date                                 | DATE     | The snapshot capture date (ie the user input date) without timezone
+analysis_date                        | DATE     | The snapshot analysis/processing date
+snapshot_number                      | INT      | The snapshot sequence number
 is_latest                            | BOOLEAN  | Check whether this is the latest snapshot of this application
-year                                 | INT      | Tag the most recent application snapshot for each year (ex: 2017)
-year_quarter                         | TEXT     | Tag the most recent application snapshot for each quarter (ex: 2017-Q3)
-year_month                           | TEXT     | Tag the most recent application snapshot for each month (ex: 2017-04)
-year_week                            | TEXT     | Tag the most recent application snapshot for each week (ex: 2017-W24)
+year                                 | INT      | Tag the most recent application snapshot for each year (ex format: 2017-Q3)
+year_quarter                         | TEXT     | Tag the most recent application snapshot for each quarter (ex format: 2017-Q3)
+year_month                           | TEXT     | Tag the most recent application snapshot for each month  (ex format: 2017-04)
+year_week                            | TEXT     | Tag the most recent application snapshot for each week  (ex format: 2017-W24)
 consolidation_settings               | TEXT     | The application score consolidation mode: 'Full Application', 'Average of Modules'
 label                                | TEXT     | Snapshot label
 ```
@@ -215,17 +219,17 @@ rule_id                              | TEXT     | Local rule ID is the concatena
 rule_name                            | TEXT     | Rule name
 technical_criterion_name             | TEXT     | The Technical Criterion name of the highest contribution weight for this rule
 is_critical                          | BOOLEAN  | true if at least there is one critical contribution to a technical criterion
-weight                               | DOUBLE   | Highest weight contribution to the technical criteria
-weight_architectural_design          | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_changeability                 | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_documentation                 | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_efficiency                    | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_maintainability               | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_programming_practices         | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_robustness                    | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_security                      | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_total_quality_index           | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
-weight_transferability               | DOUBLE   | Contribution weight of the technical criterion. 0 if no contribution
+weight                               | DECIMAL  | Highest weight contribution to the technical criteria
+weight_architectural_design          | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_changeability                 | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_documentation                 | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_efficiency                    | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_maintainability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_programming_practices         | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_robustness                    | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_security                      | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_total_quality_index           | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_transferability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 ```
 ### APP_VIOLATIONS_MEASURES
 Violation ratio by application snapshot, by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.
@@ -238,39 +242,36 @@ metric_id                            | INT      | AIP Globally unique metric ID
 technology                           | TEXT     | Source code technology
 nb_violations                        | INT      | Number of violations
 nb_total_checks                      | INT      | Number of total checked objects
-violation_ratio                      | DOUBLE   | The value of number of violations divided by the number of checked objects
-compliance_ratio                     | DOUBLE   | The value of 1 - Violation Ratio
+violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
+compliance_ratio                     | DECIMAL  | The value of 1 - Violation Ratio
 ```
-### APP_TECHNICAL_SIZING_MEASURES
-Technical sizes by application snapshot, by technology
+### APP_SIZING_MEASURES
+Sizes by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Local Snapshot ID
-technology                           | TEXT     | Source code technology
 nb_artifacts                         | INT      | (Metric #10152) Applicable to any technology
 nb_code_lines                        | INT      | (Metric #10151) Applicable to any technology
 nb_comment_lines                     | INT      | (Metric #10107) Applicable to any technology
 nb_commented_out_code_lines          | INT      | (Metric #10109) Applicable to any technology
+nb_critical_violations               | INT      | (Metric #67011) The Technical Quality Index measure
 nb_decision_points                   | INT      | (Metric #10506) Applicable to any technology. The number of decision points is the sum of all artifact's Cyclomatic Complexity
 nb_files                             | INT      | (Metric #10154) Applicable to any technology (except SQL)
 nb_tables                            | INT      | (Metric #10163) Applicable to SQL based technologies
+nb_violations                        | INT      | (Metric #67211) The Technical Quality Index measure
+technical_debt_density               | DECIMAL  | (Metric #68002) Technical Debt density estimates the cost per thousand of lines of code to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
+technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 ```
-### APP_TECHNICAL_DEBT_MEASURES
-Techical debt measures by application snapshot
-```
-COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
-technical_debt_density               | DOUBLE   |  (Metric #68002) Technical Debt density estimates the cost per thousand of lines of code to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
-technical_debt_total                 | DOUBLE   | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
-```
+
 ### APP_FUNCTIONAL_SIZING_MEASURES
 Functional size measures by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Local Snapshot ID
+effort_complexity                    | DECIMAL  | (Metric #10350) Effort Complexity of transactions
+equivalence_ratio                    | DECIMAL  | (Metric #10359) Equivalence ratio
 nb_data_functions_points             | INT      | (Metric #10203) AFP measures
 nb_total_points                      | INT      | (Metric #10202) AFP measures
 nb_transactional_functions_points    | INT      | (Metric #10204) AFP measures
@@ -286,35 +287,54 @@ business_criterion_name              | TEXT     | Business Criterion Name (Total
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
 nb_critical_violations               | INT      | (Metric #67011) Business Criterion score
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
-score                                | DOUBLE   | Business Criterion score
+score                                | DECIMAL  | Business Criterion score
 ```
-### APP_TECHNICAL_DEBT_EVOLUTION
-Evolution of Technical debt by application snapshot
+### APP_SIZING_EVOLUTION
+Evolution of sizes by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Snapshot ID from the source database
 previous_snapshot_id                 | INT      | Previous local snapshot ID
-technical_debt_added                 | DOUBLE   | (Metric #68901) Technical debt of added violations
-technical_debt_deleted               | DOUBLE   | (Metric #68902) Technical debt of removed violations
+nb_critical_violations_added         | INT      | (Metric #67901) Total number of critical violations added
+nb_critical_violations_removed       | INT      | (Metric #67902) Total number of critical violations removed
+nb_violations_added                  | INT      | (Metric #67921) Total number of violations added
+nb_violations_removed                | INT      | (Metric #67922) Total number of violations removed
+technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
+technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
 ```
 ### APP_FUNCTIONAL_SIZING_EVOLUTION
 Automatic Enhancement Points by application snapshot
 ```
-COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
-snapshot_id                          | INT      | Snapshot ID from the source database
-previous_snapshot_id                 | INT      | Previous local snapshot ID
-nb_aefp_data_function_points         | INT      | (Metric #10431) AEP Measure
-nb_aefp_implementation_points        | INT      | (Metric #10360) AEP Measure
-nb_aefp_total_points                 | INT      | (Metric #10430) AEP Measure
-nb_aefp_transactional_function_points| INT      | (Metric #10432) AEP Measure
-nb_aep_points_added_functions        | INT      | (Metric #10451) AEP Measure
-nb_aep_points_modified_functions     | INT      | (Metric #10453) AEP Measure
-nb_aep_points_removed_functions      | INT      | (Metric #10452) AEP Measure
-nb_aep_total_points                  | INT      | (Metric #10450) AEP Measure
-nb_aetp_implementation_points        | INT      | (Metric #10362) AEP Measure
-nb_aetp_total_points                 | INT      | (Metric #10440) AEP Measure
+COLUMN                                         | TYPE     | DESCRIPTION
+-----------------------------------------------+----------+-----------
+snapshot_id                                    | INT      | Snapshot ID from the source database
+previous_snapshot_id                           | INT      | Previous local snapshot ID
+nb_aefp_data_function_points                   | INT      | (Metric #10431) AEP Measure
+nb_aefp_implementation_points                  | DECIMAL  | (Metric #10360) AEP Measure
+nb_aefp_points_added_data_functions            | INT      | (Metric #10401) AEP Measure
+nb_aefp_points_added_transactional_functions   | INT      | (Metric #10402) AEP Measure
+nb_aefp_points_modified_data_functions         | INT      | (Metric #10421) AEP Measure
+nb_aefp_points_modified_transactional_functions| INT      | (Metric #10422) AEP Measure
+nb_aefp_points_removed_data_functions          | INT      | (Metric #10411) AEP Measure
+nb_aefp_points_removed_transactional_functions | INT      | (Metric #10412) AEP Measure
+nb_aefp_points_added                           | INT      | (Metric #10400) AEP Measure
+nb_aefp_points_removed                         | INT      | (Metric #10410) AEP Measure
+nb_aefp_points_modified                        | INT      | (Metric #10420) AEP Measure
+nb_aefp_total_points                           | INT      | (Metric #10430) AEP Measure
+nb_aefp_transactional_function_points          | INT      | (Metric #10432) AEP Measure
+nb_aep_points_added_functions                  | INT      | (Metric #10451) AEP Measure
+nb_aep_points_modified_functions               | INT      | (Metric #10453) AEP Measure
+nb_aep_points_removed_functions                | INT      | (Metric #10452) AEP Measure
+nb_aetp_points_added                           | INT      | (Metric #10441) AEP Measure
+nb_aetp_points_removed                         | INT      | (Metric #10442) AEP Measure
+nb_aetp_points_modified                        | INT      | (Metric #10443) AEP Measure
+nb_aep_total_points                            | INT      | (Metric #10450) AEP Measure
+nb_aetp_implementation_points                  | DECIMAL  | (Metric #10362) AEP Measure
+nb_aetp_total_points                           | INT      | (Metric #10440) AEP Measure
+nb_enhanced_shared_artifacts                   | INT      | (Metric #10470) AEP Measure
+nb_enhanced_specific_artifacts                 | INT      | (Metric #10471) AEP Measure
+nb_evolved_transactions                        | INT      | (Metric #10460) AEP Measure
 ```
 ### APP_HEALTH_EVOLUTION
 Evolution of quality indicators by application snapshot, by business criterion
@@ -342,35 +362,29 @@ metric_id                            | INT      | AIP Globally unique metric ID
 technology                           | TEXT     | Source code technology
 nb_violations                        | INT      | Number of violations
 nb_total_checks                      | INT      | Number of checked objects
-violation_ratio                      | DOUBLE   | The value of number of violations divided by the number of checked objects
-compliance_ratio                     | DOUBLE   | The value of 1 - Violation Ratio
+violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
+compliance_ratio                     | DECIMAL  | The value of 1 - Violation Ratio
 ```
-### MOD_TECHNICAL_SIZING_MEASURES
-Technical sizes by snapshot, by module and by technology
+### MOD_SIZING_MEASURES
+Technical sizes by snapshot, by module 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Snapshot ID from the source database
 module_name                          | TEXT     | Module name
-technology                           | TEXT     | Source code technology
 nb_artifacts                         | INT      | (Metric #10152) Applicable to any technology
 nb_code_lines                        | INT      | (Metric #10151) Applicable to any technology
 nb_comment_lines                     | INT      | (Metric #10107) Applicable to any technology
 nb_commented_out_code_lines          | INT      | (Metric #10109) Applicable to any technology
+nb_critical_violations               | INT      | (Metric #67011) The Technical Quality Index measure
 nb_decision_points                   | INT      | (Metric #10506) Applicable to any technology. The number of decision points is the sum of all artifact's Cyclomatic Complexity
 nb_files                             | INT      | (Metric #10154) Applicable to any technology (except SQL)
 nb_tables                            | INT      | (Metric #10163) Applicable to SQL based technologies
+nb_violations                        | INT      | (Metric #67211) The Technical Quality Index measure
+technical_debt_density               | DECIMAL  |  (Metric #68002) Technical Debt density estimates the cost per thousand of lines of code to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
+technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 ```
-### MOD_TECHNICAL_DEBT_MEASURES
-Technical debt by snapshot and by module
-```
-COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
-module_name                          | TEXT     | Module name
-technical_debt_density               | DOUBLE   | (Metric #68002) Technical Debt density estimates the cost per thousand of lines of code to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
-technical_debt_total                 | DOUBLE   | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
-```
+
 ### MOD_HEALTH_MEASURES
 Score and number of violations by snapshot, by module and by business criterion
 ```
@@ -382,18 +396,22 @@ business_criterion_name              | TEXT     | Business Criterion Name (Total
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
 nb_critical_violations               | INT      | (Metric #67011) Business Criterion score
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
-score                                | DOUBLE   | Business Criterion score
+score                                | DECIMAL  | Business Criterion score
 ```
-### MOD_TECHNICAL_DEBT_EVOLUTION
-Evolution of Technical debt by snapshot and by module
+### MOD_SIZING_EVOLUTION
+Evolution of sizes by snapshot and by module
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
 snapshot_id                          | INT      | Snapshot ID from the source database
 previous_snapshot_id                 | INT      | Previous local snapshot ID
 module_name                          | TEXT     | Module name
-technical_debt_added                 | DOUBLE   | (Metric #68901) Technical debt of added violations
-technical_debt_deleted               | DOUBLE   | (Metric #68902) Technical debt of removed violations
+nb_critical_violations_added         | INT      | (Metric #67901) Number of critical violations added
+nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
+nb_violations_added                  | INT      | (Metric #67921) Number of violations added
+nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
+technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
+technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
 ```
 ### MOD_HEALTH_EVOLUTION
 Evolution of quality indicators by snapshot, by module and by business criterion
@@ -405,7 +423,6 @@ previous_snapshot_id                 | INT      | Previous local snapshot ID
 module_name                          | TEXT     | Module name
 business_criterion_name              | TEXT     | Business Criterion Name (Total Quality Index, Security, etc.)
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
-technology                           | TEXT     | Source code technology
 nb_critical_violations_added         | INT      | (Metric #67901) Number of critical violations added
 nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
