@@ -8,7 +8,7 @@
 - [Data Dictionary](#data-dictionary)
 - [Examples of Basic Queries](#examples-of-basic-queries)
 - [Examples of Advanced Queries](#examples-of-advanced-queries) 
-- [FAQ](#faq) 
+
 
 ## Purpose
 The AIP datamart is a simple database schema of AIP results, so that anyone can query these data, requiring only conceptual knowledge of AIP.
@@ -106,6 +106,20 @@ If you intend to view the data with Power BI Desktop:
 * Install npgsql as Administrator (since the DLL would be pushed to GAC). During the installation stage, enabled "Npgsql GAC Installation"
 * Restart the PC, then launch Power BI Desktop
 * Import AIP Datamart tables using PostgreSQL plugin
+
+### Datapond
+
+This toolkit provides 2 Datapond compliant views:
+* [views/DATABASE_FLAT.sql](views/DATABASE_FLAT.sql)
+* [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql)
+
+The differences with Datapond 5.1 are as follow:
+* Some columns are missing 
+  * `technologies`
+  * EFP metrics (because tey are replaced with AEP metrics)
+* Precision for decimal values may differ; because the Datapond apply some pre-rounding with Python scripts
+* When AEP were not available for old snapshots, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
+* The calculation of averages has been fixed
 
 ## Summary of Tables
 
@@ -651,20 +665,4 @@ Data output:
 ```
 107|124|NULL|457
 ```
-
-## FAQ
-
-### Do I have the ability to create custom views? 
-
-Yes you can join multiple tables to create new tables, new views. You can create new column based on a formula of your choice.
-<br>
-The scripts do not drop the external tables. If you have some tables or views they will not be dropped at the next extract/transform/load processing.
-
-### How can I bind a custom indicator to a rule?
-
-You can either
-* create your own separate table to inject each Rule ID bound to a boolean value as the ```DIM_QUALITY_STANDARD``` table does
-* use the custom quality standards to inject a binding of Rule IDs with a custom Quality Standard tag. This option avoids the creation of a distinct table.
-
-
 
