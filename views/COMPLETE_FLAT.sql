@@ -135,5 +135,5 @@ CREATE OR REPLACE VIEW :schema.complete_flat AS
  join :schema.app_functional_sizing_measures p on s.snapshot_id = p.snapshot_id
  join :schema.app_functional_sizing_evolution b on s.snapshot_id = b.snapshot_id
  join :schema.app_sizing_measures d on d.snapshot_id = s.snapshot_id
- order by 1,5
+ order by a.appname, a.snapshot
 ;
