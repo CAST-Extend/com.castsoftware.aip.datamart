@@ -118,7 +118,7 @@ The differences with Datapond 5.1 are as follow:
   * `technologies`
   * EFP metrics (because tey are replaced with AEP metrics)
 * Precision for decimal values may differ; because the Datapond apply some pre-rounding with Python scripts
-* When AEP were not available for old snapshots, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
+* When AEP has not be calculated for a snapshot, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
 * The calculation of averages has been fixed
 
 To add these 2 database views to the Datamart schema, runs `create_views.bat` file from your installation directory:
