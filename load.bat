@@ -12,7 +12,7 @@ rem POSTGRESQL <= 9.2
 REM Create and Load DIM_APPLICATIONS
 CALL :load DIM_APPLICATIONS || GOTO :FAIL
 ECHO Create other tables
-"%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f create.sql >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
+"%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f create_tables.sql >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
 
 REM Load Data
 CALL :load DIM_SNAPSHOTS                        || GOTO :FAIL
