@@ -1,5 +1,7 @@
+DROP VIEW IF EXISTS :schema.basedata_flat;
 CREATE OR REPLACE VIEW :schema.basedata_flat AS 
  SELECT 
+    s.snapshot_id,
     a.application_name as appname,
 
     (date_part('year'::text, s.date) || lpad(date_part('month'::text, s.date)::text, 2, '0'::text))::integer AS yr_mth,  
@@ -230,6 +232,6 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
  left join :schema.app_functional_sizing_measures f on f.snapshot_id = s.snapshot_id
  left join :schema.app_health_measures h on h.snapshot_id = s.snapshot_id
  left join :schema.app_health_evolution e1 on e1.snapshot_id = s.snapshot_id
- group by a.application_name, s.date
- order by a.application_name, s.date
+ group by a.application_name, s.snapshot_id
+ order by a.application_name, s.snapshot_id
  ;

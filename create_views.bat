@@ -5,7 +5,7 @@ CALL setenv.bat || GOTO :FAIL
 
 REM Load Data
 CALL :load BASEDATA_FLAT                        || GOTO :FAIL
-REM CALL :load COMPLETE_FLAT                        || GOTO :FAIL
+CALL :load COMPLETE_FLAT                        || GOTO :FAIL
 GOTO :SUCCESS
 
 :FAIL
