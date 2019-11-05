@@ -10,14 +10,14 @@ rem POSTGRESQL <= 9.2
 "%PSQL%" %PSQL_OPTIONS% -c "DO $$ BEGIN IF NOT EXISTS(SELECT schema_name FROM information_schema.schemata WHERE schema_name = '%_DB_SCHEMA%') THEN CREATE SCHEMA %_DB_SCHEMA%; END IF; END $$;" >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
 
 REM Create and Load DIM_APPLICATIONS
-CALL :load DIM_APPLICATIONS || GOTO :FAIL
+CALL :load DIM_APPLICATIONS                     || GOTO :FAIL
+CALL :load DIM_QUALITY_STANDARDS                || GOTO :FAIL
 ECHO Create other tables
 "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f create_tables.sql >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
 
 REM Load Data
 CALL :load DIM_SNAPSHOTS                        || GOTO :FAIL
 CALL :load DIM_RULES                            || GOTO :FAIL
-CALL :load DIM_QUALITY_STANDARDS                || GOTO :FAIL
 CALL :load APP_VIOLATIONS_MEASURES              || GOTO :FAIL
 CALL :load APP_SIZING_MEASURES                  || GOTO :FAIL
 CALL :load APP_FUNCTIONAL_SIZING_MEASURES       || GOTO :FAIL
