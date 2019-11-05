@@ -574,7 +574,7 @@ select m.metric_id, r.rule_name, m.technology, m.nb_violations
 from app_violations_measures m
 join dim_rules r on r.rule_id = m.rule_id
 join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest and s.application_name = 'Big Ben'
-join dim_quality_standards q on q.metric_id = m.metric_id and q.owasp_2017_top10
+join dim_quality_standards q on q.metric_id = m.metric_id and q.owasp_2017
 where m.nb_violations <> 0 
 order by nb_violations desc
 ```
