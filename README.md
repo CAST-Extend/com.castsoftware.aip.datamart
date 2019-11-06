@@ -110,10 +110,10 @@ If you intend to view the data with Power BI Desktop:
 ### Datapond
 
 This toolkit provides 2 Datapond compliant views:
-* [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql)
-* [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql)
+* [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql): this view transposes business criteria scores to columns, and provides new metrics using SQL expressions;
+* [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql): this view extends the BASEDATA_FLAT view with AEP measures, and adds AEP based metrics using the SQL average operator.
 
-The differences with Datapond 5.1 are as follow:
+The differences with Datapond 5.1 corresponding views are as follow:
 * Some columns are missing 
   * the `technologies` column has been removed
   * EFP columns have been removed; because these values are replaced with AEP metrics 
