@@ -211,7 +211,7 @@ A Dimension table to filter measures according to a period.
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 application_id                       | INT      | Local Application ID
 application_name                     | TEXT     | Application name
 date                                 | DATE     | The snapshot capture date (ie the user input date) without timezone
@@ -255,7 +255,7 @@ Violation ratio by application snapshot, by technology, by rule. We extract meas
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 metric_id                            | INT      | AIP Globally unique metric ID
 technology                           | TEXT     | Source code technology
@@ -269,7 +269,7 @@ Sizes by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 nb_artifacts                         | INT      | (Metric #10152) Applicable to any technology
 nb_code_lines                        | INT      | (Metric #10151) Applicable to any technology
 nb_comment_lines                     | INT      | (Metric #10107) Applicable to any technology
@@ -288,7 +288,7 @@ Functional size measures by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 effort_complexity                    | DECIMAL  | (Metric #10350) Effort Complexity of transactions
 equivalence_ratio                    | DECIMAL  | (Metric #10359) Equivalence ratio
 nb_data_functions_points             | INT      | (Metric #10203) AFP measures
@@ -301,7 +301,7 @@ Measures by application snapshot, by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 business_criterion_name              | TEXT     | Business Criterion Name (Total Quality Index, Security, etc.)
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
 nb_critical_violations               | INT      | (Metric #67011) Business Criterion score
@@ -313,8 +313,8 @@ Evolution of sizes by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Snapshot ID from the source database
-previous_snapshot_id                 | INT      | Previous local snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 nb_critical_violations_added         | INT      | (Metric #67901) Total number of critical violations added
 nb_critical_violations_removed       | INT      | (Metric #67902) Total number of critical violations removed
 nb_violations_added                  | INT      | (Metric #67921) Total number of violations added
@@ -331,8 +331,8 @@ Automatic Enhancement Points by application snapshot
 ```
 COLUMN                                         | TYPE     | DESCRIPTION
 -----------------------------------------------+----------+-----------
-snapshot_id                                    | INT      | Snapshot ID from the source database
-previous_snapshot_id                           | INT      | Previous local snapshot ID
+snapshot_id                                    | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                           | TEXT     | The concatenation of the application name and the snapshot timestamp
 nb_aefp_data_function_points                   | INT      | (Metric #10431) AEP Measure
 nb_aefp_implementation_points                  | DECIMAL  | (Metric #10360) AEP Measure
 nb_aefp_points_added_data_functions            | INT      | (Metric #10401) AEP Measure
@@ -364,8 +364,8 @@ Evolution of quality indicators by application snapshot, by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
-previous_snapshot_id                 | INT      | Previous local snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 business_criterion_name              | TEXT     | Business Criterion Name (Total Quality Index, Security, etc.)
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
 nb_critical_violations_added         | INT      | (Metric #67901) Number of critical violations added
@@ -378,7 +378,7 @@ Violation ratio by snapshot, by module and by technology, by rule. We extract me
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 rule_id                              | TEXT     | Local rule ID is the concatenation of local snapshot ID and the external rule ID
 metric_id                            | INT      | AIP Globally unique metric ID
@@ -393,7 +393,7 @@ Technical sizes by snapshot, by module
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Snapshot ID from the source database
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 nb_artifacts                         | INT      | (Metric #10152) Applicable to any technology
 nb_code_lines                        | INT      | (Metric #10151) Applicable to any technology
@@ -413,7 +413,7 @@ Score and number of violations by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 business_criterion_name              | TEXT     | Business Criterion Name (Total Quality Index, Security, etc.)
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
@@ -426,8 +426,8 @@ Evolution of sizes by snapshot and by module
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Snapshot ID from the source database
-previous_snapshot_id                 | INT      | Previous local snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 nb_critical_violations_added         | INT      | (Metric #67901) Number of critical violations added
 nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
@@ -441,8 +441,8 @@ Evolution of quality indicators by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+-----------
-snapshot_id                          | INT      | Local Snapshot ID
-previous_snapshot_id                 | INT      | Previous local snapshot ID
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 business_criterion_name              | TEXT     | Business Criterion Name (Total Quality Index, Security, etc.)
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
