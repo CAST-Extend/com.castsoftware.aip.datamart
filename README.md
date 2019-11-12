@@ -321,6 +321,10 @@ nb_violations_added                  | INT      | (Metric #67921) Total number o
 nb_violations_removed                | INT      | (Metric #67922) Total number of violations removed
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
+nb_violations_excluded               | INT      | (Metric #67218) Number of excluded violations
+nb_violations_fixed_action_plan      | INT      | (Metric #67217) Number of fixed violations for action plan
+nb_violations_pending_action_plan    | INT      | (Metric #67216) Number of pending violations in action plan
+
 ```
 ### APP_FUNCTIONAL_SIZING_EVOLUTION
 Automatic Enhancement Points by application snapshot
