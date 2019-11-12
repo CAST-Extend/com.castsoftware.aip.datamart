@@ -24,9 +24,9 @@ SET QSTAGS=AIP-TOP-PRIORITY,CWE,OMG-ASCQM-Security,OWASP-2017
 REM SET TARGET DB SERVER FOR DATAMART
 SET _DB_HOST=localhost
 SET _DB_PORT=2282
-SET _DB_NAME=datamart
+SET _DB_NAME=reporting
 SET _DB_USER=
-SET _DB_SCHEMA=health
+SET _DB_SCHEMA=datamart
 SET PGPASSWORD=
 
 REM ------------------------------------------------------------------------------
