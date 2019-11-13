@@ -27,7 +27,6 @@ SET _DB_PORT=2282
 SET _DB_NAME=reporting
 SET _DB_USER=
 SET _DB_SCHEMA=datamart
-SET PGPASSWORD=
 
 REM ------------------------------------------------------------------------------
 REM ------
@@ -45,7 +44,6 @@ IF NOT DEFINED _DB_PORT (echo Missing variable _DB_PORT & EXIT /b 1)
 IF NOT DEFINED _DB_NAME (echo Missing variable _DB_NAME & EXIT /b 1)
 IF NOT DEFINED _DB_USER (echo Missing variable _DB_USER & EXIT /b 1)
 IF NOT DEFINED _DB_SCHEMA (echo Missing variable _DB_SCHEMA & EXIT /b 1)
-IF NOT DEFINED PGPASSWORD (echo Missing variable PGPASSWORD & EXIT /b 1)
 
 SET EXTRACT_FOLDER=%INSTALLATION_FOLDER%\extract
 SET TRANSFORM_FOLDER=%INSTALLATION_FOLDER%\transform
