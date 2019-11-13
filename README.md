@@ -70,19 +70,26 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
   * REST API
       * ```ROOT```: URL to a REST API domain, ex: http://localhost:9090/CAST-RESTAPI/rest/AAD
-      * ```CREDENTIALS```: username:password to authenticate to the REST API (see Curl command line)
       * ```QSTAGS```: the Quality Standard tags 
   * Target Database
-      * ```PSQL```: absolute path to the psql command (see your PostgreSQL install directory)
-      * ```VACUUMDB```: absolute path to the vacummdb command (see your PostgreSQL install directory)
-      * ```_DB_HOST```: PostgreSQL server host name
-      * ```_DB_PORT```: PostgresQL server port
-      * ```_DB_NAME```: target PostgresSQL database
+      * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
+      * ```VACUUMDB```: the absolute path to the vacummdb command (see your PostgreSQL install directory)
+      * ```_DB_HOST```: the PostgreSQL server host name
+      * ```_DB_PORT```: the PostgresQL server port
+      * ```_DB_NAME```: the target PostgresSQL database
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
-* Set PostgreSQL server password
+* Set PostgreSQL server password:
     * Either in ```PGPASSWORD``` environment variable
     * Or in ```%APPDATA%\postgresql\pgpass.conf``` file which must have restricted access (see [PostgreSQL Documentation: The password file](https://www.postgresql.org/docs/9.3/libpq-pgpass.html))
+* Set credentials to authenticate to the REST API (see Curl command line)
+    * Either in ```CREDENTIALS``` environment variable with the following format ```username:password```
+    * Or in ```%USERPROFILE%/_netrc``` file which must have restricted access, append these 3 text lines:
+      ```
+      machine <hostname>
+      login <username>
+      password <password>
+      ```
 * Then start ```run.bat``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 

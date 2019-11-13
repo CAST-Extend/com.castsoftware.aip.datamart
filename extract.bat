@@ -38,5 +38,9 @@ ECHO.
 ECHO ------------------------------
 ECHO Extract %~2
 ECHO ------------------------------
-curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/%~1" -o "%EXTRACT_FOLDER%\%~2.csv" || EXIT /b 1
+IF NOT DEFINED CREDENTIALS (
+   curl --no-buffer -f -k -H "Accept: text/csv" --netrc-file %USERPROFILE%\_netrc "%ROOT%/%~1" -o "%EXTRACT_FOLDER%\%~2.csv" || EXIT /b 1
+) ELSE (
+   curl --no-buffer -f -k -H "Accept: text/csv" -u %CREDENTIALS% "%ROOT%/%~1" -o "%EXTRACT_FOLDER%\%~2.csv" || EXIT /b 1
+)
 GOTO :EOF
