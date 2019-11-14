@@ -95,6 +95,14 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 
 ## How to Use the AIP Datamart
 
+### Give access to users
+
+If it does not exist yet, you can create a role ```reports``` with a read only right granted, so that this account will not be allowed to change the measures:
+```
+CREATE ROLE reports WITH LOGIN ENCRYPTED PASSWORD '...';
+GRANT SELECT ON ALL TABLES IN SCHEMA ... TO reports;
+```
+
 ### CSV Reports
 
 By querying the AIP Datamart tables, you can use the COPY SQL Statement of PostgreSQL to create a CSV output file (this file can be opened with Excel):
