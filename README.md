@@ -95,13 +95,17 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 
 ## How to Use the AIP Datamart
 
-### Give access to users
+### Gtant Access to Users
 
 If it does not exist yet, you can create a role ```reports``` with a read only right granted, so that this account will not be allowed to change the measures:
 ```
 CREATE ROLE reports WITH LOGIN ENCRYPTED PASSWORD '...';
 GRANT SELECT ON ALL TABLES IN SCHEMA ... TO reports;
 ```
+
+### Custom Tables
+
+The scripts with drop and recreate Datamart tables.Hiwver, you can add your own tables. Indeed, when you run the scripts it leaves these tables unchanged. Only the database views must be recreated.
 
 ### CSV Reports
 
