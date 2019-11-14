@@ -97,10 +97,13 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 
 ### Gtant Access to Users
 
-If it does not exist yet, you can create a role ```reports``` with a read only right granted, so that this account will not be allowed to change the measures:
+If it does not exist yet, you can create a role ```reports``` with a read only right granted, so that this account will not be allowed to change the measures.
+For example if the target database name is ```reporting```, and target schema name is ```datamart```, you can create the role ```reports``` with the following rights:
 ```
 CREATE ROLE reports WITH LOGIN ENCRYPTED PASSWORD '...';
-GRANT SELECT ON ALL TABLES IN SCHEMA ... TO reports;
+GRANT CONNECT ON DATABASE reporting TO reports;
+GRANT USAGE ON SCHEMA datamart TO reports;
+GRANT SELECT ON ALL TABLES IN SCHEMA datamart TO reports;
 ```
 
 ### Custom Tables
@@ -146,7 +149,6 @@ To add these 2 database views to the Datamart schema, runs `create_views.bat` fi
 ```
 C:\>create_views
 ```
-
 ## Summary of Tables
 
 ### Dimension Tables
