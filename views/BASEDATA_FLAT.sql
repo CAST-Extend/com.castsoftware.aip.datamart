@@ -20,7 +20,10 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
      
     max(round(m.nb_critical_violations / NULLIF(f.nb_total_points, 0)::numeric,3)) AS cvperafp, 
     max(m.nb_code_lines) as locs,
-
+    max(m.nb_violations_excluded) AS excluded_vio,
+    max(m.nb_violations_fixed_action_plan) AS ap_fixed_vio,
+    max(m.nb_violations_pending_action_plan) AS ap_pending_vio,
+    
     max(CASE
           WHEN h.business_criterion_name = 'Transferability'::text THEN round(cast(h.score as numeric),4)
           ELSE NULL::numeric

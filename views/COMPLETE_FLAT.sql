@@ -8,6 +8,9 @@ CREATE OR REPLACE VIEW :schema.complete_flat AS
     a.snapshot_date,
     a.snap_doy,
     a.locs,
+    a.excluded_vio,
+    a.ap_fixed_vio,
+    a.ap_pending_vio,
 
     round((a.rbst_score + a.eff_score + a.sec_score) / 3::numeric, 2) AS operations,
     round((a.chg_score + a.trn_score) / 2::numeric, 2) AS maintenance,
