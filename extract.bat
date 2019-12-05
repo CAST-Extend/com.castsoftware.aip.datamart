@@ -23,6 +23,11 @@ call :extract datamart/mod-health-measures                  MOD_HEALTH_MEASURES 
 call :extract datamart/mod-sizing-evolution                 MOD_SIZING_EVOLUTION                || GOTO :FAIL
 call :extract datamart/mod-health-evolution                 MOD_HEALTH_EVOLUTION                || GOTO :FAIL
 
+call :extract datamart/src-objects                          SRC_OBJECTS                         || GOTO :FAIL
+call :extract datamart/src-app-objects                      SRC_APP_OBJECTS                     || GOTO :FAIL
+call :extract datamart/usr-exclusions                       USR_EXCLUSIONS                      || GOTO :FAIL
+call :extract datamart/usr-action-plan                      USR_ACTION_PLAN                     || GOTO :FAIL
+
 GOTO :SUCCESS
 
 :FAIL
