@@ -123,6 +123,5 @@ if __name__ == "__main__":
     transform(args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION")
     
     transform(args.extract_directory, args.transform_directory, "SRC_OBJECTS")
-    transform(args.extract_directory, args.transform_directory, "SRC_APP_OBJECTS")
     transform(args.extract_directory, args.transform_directory, "USR_EXCLUSIONS")
     transform(args.extract_directory, args.transform_directory, "USR_ACTION_PLAN")        

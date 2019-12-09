@@ -185,6 +185,20 @@ Health Evolution|`APP_HEALTH_EVOLUTION`|`MOD_HEALTH_EVOLUTION`
 Sizing Evolution|`APP_SIZING_EVOLUTION`|`MOD_SIZING_EVOLUTION`
 Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 
+### Sources Tables (central database only)
+
+Scope|Table
+-----|------------
+Details on Source Objects|`SRC_OBJECTS`
+
+### User Tables (central database only)
+
+Scope|Table
+-----|------------
+Users Requests to Discard some Violations|`USR_EXCLUSIONS`
+Users Requests to Remediate Violations|`USR_ACTION_PLAN`
+
+
 ## Data Dictionary
 
 ### DIM_APPLICATIONS
@@ -250,7 +264,7 @@ label                                | TEXT     | Snapshot label
 ```
 ### DIM_RULES
 A dimension table to filter measures according to rules contribution.
-* Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a result exist for this application snapshot.
+* Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
 * The list of Business Criteria is closed. no custom business criteria are taken into account.
 * In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute.
 

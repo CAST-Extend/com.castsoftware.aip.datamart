@@ -32,7 +32,6 @@ CALL :load MOD_SIZING_EVOLUTION                 || GOTO :FAIL
 CALL :load MOD_HEALTH_EVOLUTION                 || GOTO :FAIL
 
 CALL :load SRC_OBJECTS                          || GOTO :FAIL
-CALL :load SRC_APP_OBJECTS                      || GOTO :FAIL
 CALL :load USR_EXCLUSIONS                       || GOTO :FAIL
 CALL :load USR_ACTION_PLAN                      || GOTO :FAIL
 
