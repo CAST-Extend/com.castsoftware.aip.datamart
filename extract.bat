@@ -24,6 +24,8 @@ call :extract datamart/mod-sizing-evolution                 MOD_SIZING_EVOLUTION
 call :extract datamart/mod-health-evolution                 MOD_HEALTH_EVOLUTION                || GOTO :FAIL
 
 call :extract datamart/src-objects                          SRC_OBJECTS                         || GOTO :FAIL
+call :extract datamart/src-health-impacts                   SRC_HEALTH_IMPACTS                  || GOTO :FAIL
+call :extract datamart/src-violations                       SRC_VIOLATIONS                      || GOTO :FAIL
 call :extract datamart/usr-exclusions                       USR_EXCLUSIONS                      || GOTO :FAIL
 call :extract datamart/usr-action-plan                      USR_ACTION_PLAN                     || GOTO :FAIL
 

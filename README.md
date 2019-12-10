@@ -190,6 +190,8 @@ Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 Scope|Table
 -----|------------
 Details on Source Objects|`SRC_OBJECTS`
+Propagated Risk Index, and Risk Propagation Factor by Business Critarion and Source Object|`SRC_HEALTH_IMPACT`
+Violations by Source Object|`SRC_VIOLATIONS`
 
 ### User Tables (central database only)
 
