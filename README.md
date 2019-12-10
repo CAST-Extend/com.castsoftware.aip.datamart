@@ -185,20 +185,15 @@ Health Evolution|`APP_HEALTH_EVOLUTION`|`MOD_HEALTH_EVOLUTION`
 Sizing Evolution|`APP_SIZING_EVOLUTION`|`MOD_SIZING_EVOLUTION`
 Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 
-### Sources Tables (central database only)
+### Details Tables (Central Database only)
 
 Scope|Table
 -----|------------
-Details on Source Objects|`SRC_OBJECTS`
-Propagated Risk Index, and Risk Propagation Factor by Business Critarion and Source Object|`SRC_HEALTH_IMPACTS`
-Violations by Source Object|`SRC_VIOLATIONS`
-
-### User Tables (central database only)
-
-Scope|Table
------|------------
-Users Requests to Discard some Violations|`USR_EXCLUSIONS`
-Users Requests to Remediate Violations|`USR_ACTION_PLAN`
+Source objects|`SRC_OBJECTS`
+Source objects|`SRC_HEALTH_IMPACTS`
+Source objects|`SRC_VIOLATIONS`
+Users requests|`USR_EXCLUSIONS`
+Users requests|`USR_ACTION_PLAN`
 
 
 ## Data Dictionary
@@ -491,7 +486,7 @@ nb_violations_removed                | INT      | (Metric #67922) Number of viol
 ```
 
 ### SRC_HEALTH_IMPACTS
-Source objects details by Business Criterion
+Propagated Risk Index, and Risk Propagation Factor by Business Critarion and Source Object
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
