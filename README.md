@@ -108,7 +108,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA datamart TO reports;
 
 ### Custom Tables
 
-The scripts with drop and recreate Datamart tables.Hiwver, you can add your own tables. Indeed, when you run the scripts it leaves these tables unchanged. Only the database views must be recreated.
+The scripts with drop and recreate Datamart tables. However, you can add your own tables. Indeed, when you run the scripts it leaves these tables unchanged. Only the database views must be recreated.
 
 ### CSV Reports
 
