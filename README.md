@@ -234,7 +234,7 @@ Example of columns for the URI:
 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule according to AIP
@@ -249,7 +249,7 @@ A Dimension table to filter measures according to a period.
 * These columns make sense when applications are periodically analyzed. For instance, if each application is analyzed once a year, then  we can use the column YEAR as a filter; if some applications are not analyzed every week; then the YEAR_WEEK filter must be used carefully. 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 application_id                       | INT      | Local Application ID
 application_name                     | TEXT     | Application name
@@ -272,7 +272,7 @@ A dimension table to filter measures according to rules contribution.
 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 technical_criterion_name             | TEXT     | The Technical Criterion name of the highest contribution weight for this rule
@@ -293,7 +293,7 @@ weight_transferability               | DECIMAL  | Contribution weight of the tec
 Violation ratio by application snapshot, by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 metric_id                            | INT      | AIP Globally unique metric ID
@@ -307,7 +307,7 @@ compliance_ratio                     | DECIMAL  | The value of 1 - Violation Rat
 Sizes by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 nb_artifacts                         | INT      | (Metric #10152) Total number of artifacts
 nb_code_lines                        | INT      | (Metric #10151) Total number of code lines
@@ -329,7 +329,7 @@ technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt
 Functional size measures by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 effort_complexity                    | DECIMAL  | (Metric #10350) Effort Complexity of transactions
 equivalence_ratio                    | DECIMAL  | (Metric #10359) Equivalence ratio
@@ -342,7 +342,7 @@ nb_transactions                      | INT      | (Metric #10461) Computed for A
 Measures by application snapshot, by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 business_criterion_name              | TEXT     | Business Criterion Name (Total Quality Index, Security, etc.)
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
@@ -354,7 +354,7 @@ score                                | DECIMAL  | Business Criterion score
 Evolution of sizes by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 nb_critical_violations_added         | INT      | (Metric #67901) Total number of critical violations added
@@ -368,7 +368,7 @@ technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt
 Automatic Enhancement Points by application snapshot
 ```
 COLUMN                                         | TYPE     | DESCRIPTION
------------------------------------------------+----------+-----------
+-----------------------------------------------+----------+------------
 snapshot_id                                    | TEXT     | The concatenation of the application name and the snapshot timestamp
 previous_snapshot_id                           | TEXT     | The concatenation of the application name and the snapshot timestamp
 nb_aefp_data_function_points                   | INT      | (Metric #10431) AEP Measure
@@ -401,7 +401,7 @@ nb_evolved_transactions                        | INT      | (Metric #10460) AEP 
 Evolution of quality indicators by application snapshot, by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 business_criterion_name              | TEXT     | Business Criterion Name (Total Quality Index, Security, etc.)
@@ -415,7 +415,7 @@ nb_violations_removed                | INT      | (Metric #67922) Number of viol
 Violation ratio by snapshot, by module and by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 rule_id                              | TEXT     | Local rule ID is the concatenation of local snapshot ID and the external rule ID
@@ -430,7 +430,7 @@ compliance_ratio                     | DECIMAL  | The value of 1 - Violation Rat
 Technical sizes by snapshot, by module 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 nb_artifacts                         | INT      | (Metric #10152) Total number of artifacts
@@ -450,7 +450,7 @@ technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt
 Score and number of violations by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 business_criterion_name              | TEXT     | Business Criterion Name (Total Quality Index, Security, etc.)
@@ -463,7 +463,7 @@ score                                | DECIMAL  | Business Criterion score
 Evolution of sizes by snapshot and by module
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
@@ -478,7 +478,7 @@ technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt
 Evolution of quality indicators by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
@@ -489,11 +489,57 @@ nb_critical_violations_removed       | INT      | (Metric #67902) Number of crit
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
 ```
+
+### SRC_HEALTH_IMPACTS
+Source objects details by Business Criterion
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+object_id                            | INT      | Object internal unique ID from central Base
+object_name                          | TEXT     | Object name
+business_criterion_name              | TEXT     | A business criterion
+propagated_risk_index                | DECIMAL  | Propagated Risk Index (PRI) is a measurement of a risk for an object and a business criterion
+risk_propagation_factor              | DECIMAL  | The number of different call paths to reach the critical violations
+```
+
+### SRC_OBJECTS
+Source objects details
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
+object_id                            | INT      | Object internal unique ID from central Base
+object_name                          | TEXT     | Object name
+object_full_name                     | TEXT     | Object location
+object_status                        | TEXT     | Object status regarding the latest snapshot: added, updated, unchanged
+action_planned                       | BOOLEAN  | An action has been planned for this object, see USR_ACTION_PLAN for more details
+is_artifact                          | BOOLEAN  | A source object on which a cost complexity can be calculated
+cost_complexity                      | INT      | This value is valid if IS_ARTIFACT if column is true
+                                     |          | Cost complexity (low, moderate, high, very-high) is a risk assessment calculated from risk assessments of
+                                     |          | - Cyclomatic complexity
+                                     |          | - SQL cyclomatic complexity
+                                     |          | - Granularity
+                                     |          | - Lack of comments
+```
+
+### SRC_VIOLATIONS
+Violations for the latest snapshot of each application of  a central base
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_name                            | TEXT     | Rule name
+object_id                            | INT      | A source code component
+finding_name                         | TEXT     | Also known as the "Associated Value Name"
+finding_type                         | TEXT     | Type of finding among ["number", "percentage", "text", "object", "date", "integer", "no-value", "path", "group", "boomark"]
+nb_findings                          | INT      | Number of findings associated to this violation ; for example the number of bookmarks, number of paths, number of objects
+```
+
 ### USR_ACTION_PLAN
 Users Requests to remediate violations. Note that a violation can be solved and raised again. Deactivated rules are not reported.
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Object internal unique ID from central Base
@@ -512,7 +558,7 @@ tag                                  | TEXT     | A tag to filter issues
 Users Requests to discard some violations identified as false positive, for next snapshots
 ```
 COLUMN                               | TYPE     | DESCRIPTION
--------------------------------------+----------+-----------
+-------------------------------------+----------+------------
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Object internal unique ID from central Base
