@@ -190,7 +190,7 @@ Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 Scope|Table
 -----|------------
 Details on Source Objects|`SRC_OBJECTS`
-Propagated Risk Index, and Risk Propagation Factor by Business Critarion and Source Object|`SRC_HEALTH_IMPACT`
+Propagated Risk Index, and Risk Propagation Factor by Business Critarion and Source Object|`SRC_HEALTH_IMPACTS`
 Violations by Source Object|`SRC_VIOLATIONS`
 
 ### User Tables (central database only)
@@ -489,6 +489,38 @@ nb_critical_violations_removed       | INT      | (Metric #67902) Number of crit
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
 ```
+### USR_ACTION_PLAN
+Users Requests to remediate violations. Note that a violation can be solved and raised again. Deactivated rules are not reported.
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+-----------
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_name                            | TEXT     | Rule name
+object_id                            | INT      | Object internal unique ID from central Base
+object_name                          | TEXT     | Object name
+action_status                        | TEXT     | Status regarding the latest snapshot: added, pending, solved
+last_update_date                     | DATE     | Date of last edition update
+start_date                           | DATE     | The creation date of the action plan issue
+end_date                             | DATE     | The resolution date of the action plan issue
+user_name                            | TEXT     | The author of the action plan issue
+comment                              | TEXT     | Additional text
+priority                             | TEXT     | Priority
+tag                                  | TEXT     | A tag to filter issues
+```
+
+### USR_EXCLUSIONS
+Users Requests to discard some violations identified as false positive, for next snapshots
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+-----------
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_name                            | TEXT     | Rule name
+object_id                            | INT      | Object internal unique ID from central Base
+object_name                          | TEXT     | Object name
+user_name                            | TEXT     | The author of the exclusion request
+comment                              | TEXT     | Comment describing the reason of the exclusion
+```
+
 ## Examples of Basic Queries
 
 ### Number of Critical Violations by Business Criterion
