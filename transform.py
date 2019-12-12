@@ -20,7 +20,7 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
     with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:
 
         if mode == "refresh":
-            f.write("TRUNCATE TABLE :schema.DIM_APPLICATIONS;\n")
+            f.write("TRUNCATE TABLE :schema.DIM_APPLICATIONS CASCADE;\n")
         elif mode == "install":
             # Begin CREATE TABLE STATEMENT
             f.write("DROP TABLE IF EXISTS :schema.DIM_APPLICATIONS CASCADE;\n");
@@ -57,7 +57,7 @@ def transform_dim_quality_standards(mode, extract_directory, transform_directory
     with open(extract_directory+'\\DIM_QUALITY_STANDARDS.csv') as csv_file:
     
         if mode == "refresh":
-            f.write("TRUNCATE TABLE :schema.DIM_QUALITY_STANDARDS;\n")
+            f.write("TRUNCATE TABLE :schema.DIM_QUALITY_STANDARDS CASCADE;\n")
         elif mode == "install":
             # Begin CREATE TABLE STATEMENT        
             f.write("DROP TABLE IF EXISTS :schema.DIM_QUALITY_STANDARDS CASCADE;\n");
@@ -100,7 +100,7 @@ def transform(mode, extract_directory, transform_directory, table_name):
     f = open(ofile, "w", encoding="utf-8")
 
     if mode == "refresh":
-        f.write("TRUNCATE TABLE :schema." + table_name + ";\n")
+        f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
 
     with open(extract_directory+"\\" + table_name + ".csv") as csv_file:
     
