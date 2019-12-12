@@ -1,19 +1,38 @@
 ECHO OFF
 SETLOCAL enabledelayedexpansion
 
+if "%1" == "refresh" goto :RUN
+if "%1" == "install" goto :RUN
+
+echo This command should be called from the run.bat command
+echo Usage is
+echo load refresh
+echo load install
+EXIT /b 1
+
+:RUN
+
 CALL setenv.bat || GOTO :FAIL
+
+if "%1" == "refresh" goto :REFRESH
 
 ECHO Create schema if not exists
 rem POSTGRESQL >= 9.3 OR ABOVE
 rem "%PSQL%" %PSQL_OPTIONS% -c "CREATE SCHEMA IF NOT EXISTS %_DB_SCHEMA%;" >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
 rem POSTGRESQL <= 9.2
 "%PSQL%" %PSQL_OPTIONS% -c "DO $$ BEGIN IF NOT EXISTS(SELECT schema_name FROM information_schema.schemata WHERE schema_name = '%_DB_SCHEMA%') THEN CREATE SCHEMA %_DB_SCHEMA%; END IF; END $$;" >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
-
 REM Create and Load DIM_APPLICATIONS
 CALL :load DIM_APPLICATIONS                     || GOTO :FAIL
 CALL :load DIM_QUALITY_STANDARDS                || GOTO :FAIL
 ECHO Create other tables
 "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f create_tables.sql >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
+goto :CONTINUE
+
+:REFRESH
+CALL :load DIM_APPLICATIONS                     || GOTO :FAIL
+CALL :load DIM_QUALITY_STANDARDS                || GOTO :FAIL
+
+:CONTINUE
 
 REM Load Data
 CALL :load DIM_SNAPSHOTS                        || GOTO :FAIL

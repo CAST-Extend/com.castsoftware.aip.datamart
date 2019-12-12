@@ -90,8 +90,14 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       login <username>
       password <password>
       ```
-* Then start ```run.bat``` from a CMD window (do not double click from the explorer)
+* Then start ```run.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
+
+After a first install, if you start ```run.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
+
+However, each time a new application is analyzed, you must run the script with the install mode. 
+
+Start ```run.bat help``` for more information on these modes.
 
 ## How to Use the AIP Datamart
 
@@ -108,7 +114,9 @@ GRANT SELECT ON ALL TABLES IN SCHEMA datamart TO reports;
 
 ### Custom Tables
 
-The scripts with drop and recreate Datamart tables. However, you can add your own tables. Indeed, when you run the scripts it leaves these tables unchanged. Only the database views must be recreated.
+In ```refresh``` mode, the scripts will truncate the Datamart tables. All other tables and views are left unchanged.
+
+In ```install``` mode, the scripts will drop and recreate Datamart tables. However, you can add your own tables. Indeed, when you run the scripts it leaves these tables unchanged. Only the database views must be recreated.
 
 ### CSV Reports
 
@@ -187,13 +195,13 @@ Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 
 ### Details Tables (Central Database only)
 
-Scope|Table
------|------------
-Source objects|`SRC_OBJECTS`
-Source objects|`SRC_HEALTH_IMPACTS`
-Source objects|`SRC_VIOLATIONS`
-Users requests|`USR_EXCLUSIONS`
-Users requests|`USR_ACTION_PLAN`
+Scope|Table|REST API Version
+-----|------------|----
+Source objects|`SRC_OBJECTS`|1.14
+Source objects|`SRC_HEALTH_IMPACTS`|1.14
+Source objects|`SRC_VIOLATIONS`|1.14
+Users requests|`USR_EXCLUSIONS`|1.14
+Users requests|`USR_ACTION_PLAN`|1.14
 
 
 ## Data Dictionary
@@ -784,5 +792,3 @@ from
 Data output:
 ```
 107|124|NULL|457
-```
-

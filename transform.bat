@@ -1,11 +1,23 @@
 ECHO OFF
 SETLOCAL enabledelayedexpansion
 
+@echo off
+if "%1" == "refresh" goto :RUN
+if "%1" == "install" goto :RUN
+
+echo This command should be called from the run.bat command
+echo Usage is
+echo transform refresh
+echo transform install
+
+goto :FAIL
+
+:RUN
 CALL setenv.bat || GOTO :FAIL
 
 del /F /Q /A "%TRANSFORM_FOLDER%"
 
-"%INSTALLATION_FOLDER%\transform.py" --extract "%EXTRACT_FOLDER%" --transform "%TRANSFORM_FOLDER%" || GOTO :FAIL
+"%INSTALLATION_FOLDER%\transform.py" --mode "%1" --extract "%EXTRACT_FOLDER%" --transform "%TRANSFORM_FOLDER%" || GOTO :FAIL
 
 GOTO :SUCCESS
 

@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS :schema.basedata_flat;
+DROP VIEW IF EXISTS :schema.basedata_flat CASCADE;
 CREATE OR REPLACE VIEW :schema.basedata_flat AS 
  SELECT 
     s.snapshot_id,
