@@ -141,6 +141,9 @@ if __name__ == "__main__":
     transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION")
     
     transform(args.mode, args.extract_directory, args.transform_directory, "SRC_OBJECTS")
+    transform(args.mode, args.extract_directory, args.transform_directory, "SRC_TRANSACTIONS")    
+    transform(args.mode, args.extract_directory, args.transform_directory, "SRC_MOD_OBJECTS")
+    transform(args.mode, args.extract_directory, args.transform_directory, "SRC_TRX_OBJECTS")
     transform(args.mode, args.extract_directory, args.transform_directory, "SRC_VIOLATIONS")
     transform(args.mode, args.extract_directory, args.transform_directory, "SRC_HEALTH_IMPACTS")
     transform(args.mode, args.extract_directory, args.transform_directory, "USR_EXCLUSIONS")

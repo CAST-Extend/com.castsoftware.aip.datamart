@@ -51,6 +51,9 @@ CALL :load MOD_SIZING_EVOLUTION                 || GOTO :FAIL
 CALL :load MOD_HEALTH_EVOLUTION                 || GOTO :FAIL
 
 CALL :load SRC_OBJECTS                          || GOTO :FAIL
+CALL :load SRC_TRANSACTIONS                     || GOTO :FAIL
+CALL :load SRC_MOD_OBJECTS                      || GOTO :FAIL
+CALL :load SRC_TRX_OBJECTS                      || GOTO :FAIL
 CALL :load SRC_VIOLATIONS                       || GOTO :FAIL
 CALL :load SRC_HEALTH_IMPACTS                   || GOTO :FAIL
 CALL :load USR_EXCLUSIONS                       || GOTO :FAIL

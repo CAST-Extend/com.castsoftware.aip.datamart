@@ -199,10 +199,12 @@ Scope|Table|REST API Version
 -----|------------|----
 Source objects|`SRC_OBJECTS`|1.14
 Source objects|`SRC_HEALTH_IMPACTS`|1.14
+Source objects|`SRC_MOD_OBJECTS`|1.14
+Source objects|`SRC_TRANSACTIONS`|1.14
+Source objects|`SRC_TRX_OBJECTS`|1.14
 Source objects|`SRC_VIOLATIONS`|1.14
 Users requests|`USR_EXCLUSIONS`|1.14
 Users requests|`USR_ACTION_PLAN`|1.14
-
 
 ## Data Dictionary
 
@@ -523,6 +525,37 @@ cost_complexity                      | INT      | This value is valid if IS_ARTI
                                      |          | - SQL cyclomatic complexity
                                      |          | - Granularity
                                      |          | - Lack of comments
+```
+
+### SRC_MOD_OBJECTS
+Source objects of applications by module
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
+module_name                          | TEXT     | Module name
+object_id                            | INT      | Object internal unique ID from central Base
+```
+
+### SRC_TRANSACTIONS
+Transactions
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
+trx_id                               | INT      | Object internal unique ID from central Base. This is a clone of the entry point source object
+trx_name                             | TEXT     | Transaction name
+trx_full_name                        | TEXT     | Transaction full name
+trx_status                           | TEXT     | Transaction status regarding the latest snapshot: added, updated, unchanged. The status is 'updated' when a source object member has been updated
+```
+
+### SRC_TRX_OBJECTS
+Source objects of transactions
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+trx_id                               | INT      | The transaction ID from the SRC_TRANSACTIONS table
+object_id                            | INT      | The source object ID, member of the transaction from the SRC_OBJECTS table
 ```
 
 ### SRC_VIOLATIONS
