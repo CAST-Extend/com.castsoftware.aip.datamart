@@ -512,10 +512,10 @@ Source objects details
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
-application_name                     | TEXT     | Application name
 object_id                            | INT      | Object internal unique ID from central Base
 object_name                          | TEXT     | Object name
 object_full_name                     | TEXT     | Object location
+technology                           | TEXT     | Associated Technology: JEE, .NET, etc.
 object_status                        | TEXT     | Object status regarding the latest snapshot: added, updated, unchanged
 action_planned                       | BOOLEAN  | An action has been planned for this object, see USR_ACTION_PLAN for more details
 is_artifact                          | BOOLEAN  | A source object on which a cost complexity can be calculated
@@ -563,6 +563,7 @@ Violations for the latest snapshot of each application of  a central base
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | A source code component
