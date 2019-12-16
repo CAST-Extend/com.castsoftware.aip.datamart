@@ -95,8 +95,6 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 
 After a first install, if you start ```run.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
-However, each time a new application is analyzed, you must run the script with the install mode. 
-
 Start ```run.bat help``` for more information on these modes.
 
 ## How to Use the AIP Datamart
@@ -168,7 +166,7 @@ These tables can be used to filter data along "Dimension":
 
 * `DIM_SNAPSHOTS`: A Dimension table to filter measures according to a period
 
-* `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base), and technologies
+* `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base)
 
 ### Measures Tables
 
@@ -209,20 +207,18 @@ Users requests|`USR_ACTION_PLAN`|1.14
 ## Data Dictionary
 
 ### DIM_APPLICATIONS
-A Dimension table to filter measures according to Application Tags, and technologies. The COLUMN names depend on the end-user tags and categories. We give an example here based on the demo site:
+A Dimension table to filter measures according to Application Tags. The COLUMN names depend on the end-user categories. We give an example here based on the demo site:
 
 ```
 COLUMN                        | TYPE     | DESCRIPTION
 ------------------------------+----------+-----------
 application_name"             | INT      | Table primary key
-"Category  Age"               | TEXT     | A range of ages of the application
-"Category  Business Unit"     | TEXT     | The Business Unit as a sponsor or provider of the application
-"Category  Country"           | TEXT     | The deployment country of the application
-"Category  Release Frequency" | TEXT     | The release frequency of the application
-"Category  Sourcing"          | TEXT     | The out sourcing company
-"Category Methodology"        | TEXT     | The application development approach
-"Technology C++"              | BOOLEAN  | Check whether the application contains C++ code
-"Technology JEE"              | BOOLEAN  | Check whether the application contains JEE code
+"Age"                         | TEXT     | A range of ages of the application
+"Business Unit"               | TEXT     | The Business Unit as a sponsor or provider of the application
+"Country"                     | TEXT     | The deployment country of the application
+"Release Frequency"           | TEXT     | The release frequency of the application
+"Sourcing"                    | TEXT     | The out sourcing company
+"Methodology"                 | TEXT     | The application development approach
 ```
 
 ### DIM_QUALITY_STANDARDS
