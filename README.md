@@ -826,7 +826,9 @@ Data output:
 
 ## Findings Queries Examples
 
-### Find quick-win critical OWASP-2017 top 10 vulnerabilities by rules and source oobjects 
+### Find quick-win critical OWASP-2017 top 10 vulnerabilities by rules and source objects
+
+List of violations (pair of source object, rule) that are worth to fix regarding the number of findings and the associated risk
 
 ```
 select r.rule_name, m.metric_id, o.object_id, o.object_name, v.nb_findings, m.nb_violations, m.nb_total_checks
@@ -854,6 +856,8 @@ Ensure the X-Powered-By header is disabled                    |1020708| 2498468 
 
 ### Variant #1: Find quick-win critical OWASP-2017 top 10 vulnerabilities by rules
 
+List of rules that are worth to fix regarding the number of findings and the associated risk
+
 ```
 select r.rule_name, m.metric_id, sum(v.nb_findings), max(m.nb_violations) 
 from src_violations v
@@ -879,6 +883,8 @@ Allow only HTTPS communication|1020720|1|1
 
 ### Variant #2: Find quick-win critical OWASP-2017 top 10 vulnerable source objects
 
+List of objects that are worth to fix regarding the number of findings and the associated risk
+
 ```
 select  o.object_id, o.object_name, sum(v.nb_findings)
 from src_violations v
@@ -892,7 +898,7 @@ order by 3 desc
 limit 5
 ```
 
-Output:
+Data Output:
 
 Object ID|Object Short Name|Number of findings
 ---------|-----------------|------------------
