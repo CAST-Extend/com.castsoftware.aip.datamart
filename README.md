@@ -62,7 +62,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 ### Running the Scripts
 
 * Make sure you have access to 
-  * the REST API server (__1.12__ or higher)
+  * the REST API server (__1.14__ or higher)
   * a PostgreSQL server, with a database created to host target data
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3](https://www.python.org/downloads/)__ (in your path)
@@ -194,16 +194,16 @@ Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 
 ### Details Tables (Central Database only)
 
-Scope|Table|REST API Version
------|------------|----
-Source objects|`SRC_OBJECTS`|1.14
-Source objects|`SRC_HEALTH_IMPACTS`|1.14
-Source objects|`SRC_MOD_OBJECTS`|1.14
-Source objects|`SRC_TRANSACTIONS`|1.14
-Source objects|`SRC_TRX_OBJECTS`|1.14
-Source objects|`SRC_VIOLATIONS`|1.14
-Users requests|`USR_EXCLUSIONS`|1.14
-Users requests|`USR_ACTION_PLAN`|1.14
+Scope|Table
+-----|------------
+Source objects|`SRC_OBJECTS`
+Source objects|`SRC_HEALTH_IMPACTS`
+Source objects|`SRC_MOD_OBJECTS`
+Source objects|`SRC_TRANSACTIONS`
+Source objects|`SRC_TRX_OBJECTS`
+Source objects|`SRC_VIOLATIONS`
+Users requests|`USR_EXCLUSIONS`
+Users requests|`USR_ACTION_PLAN`
 
 ## Data Dictionary
 
