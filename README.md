@@ -888,11 +888,11 @@ List of objects that are worth to fix regarding the number of findings and the a
 ```
 select  o.object_id, o.object_name, sum(v.nb_findings)
 from src_violations v
-join dim_rules r on r.rule_id = v.rule_id and r.is_critical
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical -- **CRITICAL**
 join app_violations_measures m on m.rule_id = v.rule_id and v.snapshot_id = m.snapshot_id
-join dim_quality_standards s on s.metric_id = m.metric_id and s.owasp_2017 
+join dim_quality_standards s on s.metric_id = m.metric_id and s.owasp_2017  -- **OWASP-2017**
 join src_objects o on o.object_id = v.object_id
-where nb_violations <= 5
+where nb_violations <= 5 -- **QUICK WIN**
 group by 1,2
 order by 3 desc
 limit 5
