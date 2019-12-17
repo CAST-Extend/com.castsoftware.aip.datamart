@@ -6,8 +6,9 @@
 - [How to Use the AIP Datamart ](#how-to-use-the-aip-datamart)
 - [Summary of Tables](#summary-of-tables)
 - [Data Dictionary](#data-dictionary)
-- [Examples of Basic Queries](#examples-of-basic-queries)
-- [Examples of Advanced Queries](#examples-of-advanced-queries) 
+- [Measurement Queries: Basic Examples](#measurement-queries-basic-examples)
+- [Measurement Queries: Advanced Examples](#measurement-queries-advanced-examples)
+- [Findings Queries Examples](#findings-queries-examples)
 
 
 ## Purpose
@@ -599,7 +600,7 @@ user_name                            | TEXT     | The author of the exclusion re
 comment                              | TEXT     | Comment describing the reason of the exclusion
 ```
 
-## Examples of Basic Queries
+## Measurement Queries: Basic Examples
 
 ### Number of Critical Violations by Business Criterion
 
@@ -737,7 +738,7 @@ Data output:
 ```
 
 
-## Examples of Advanced Queries
+## Measurement Queries: Advanced Examples
 
 ### Ratio of Critical Violations per Function Point
 
@@ -821,3 +822,84 @@ from
 Data output:
 ```
 107|124|NULL|457
+```
+
+## Findings Queries Examples
+
+### Find quick-win critical OWASP-2017 top 10 vulnerabilities by rules and source oobjects 
+
+```
+select r.rule_name, m.metric_id, o.object_id, o.object_name, v.nb_findings, m.nb_violations, m.nb_total_checks
+from src_violations v
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical -- **CRITICAL**
+join app_violations_measures m on m.rule_id = v.rule_id and v.snapshot_id = m.snapshot_id
+join dim_quality_standards s on s.metric_id = m.metric_id and s.owasp_2017 -- **OWASP-2017** 
+join src_objects o on o.object_id = v.object_id
+where nb_violations <= 5 -- **QUICK WIN**
+order by 2
+limit 5
+```
+
+Data output:
+
+Rule Name                                                     |Rule ID| Object ID|Object Short Name|Nb findings|Nb violations|Nb total checks
+--------------------------------------------------------------|-------|----------|-----------------|-----------|-------------|---------------
+Content type should be checked when receiving a HTTP Post     |8218   | 2181120  | doGet           |1          |1            |1
+Avoid using submit markup related to form" with id attribute" |1020024| 2138342  | login.html      |1          |2            |254
+Avoid using submit markup related to form" with id attribute" |1020024| 2495182  | login.html      |1          |2            |254
+Ensure the Content-Security-Policy is activated (Node.js)     |1020706| 2498468  | dev-server.js   |1          |1            |1
+Ensure the X-Powered-By header is disabled                    |1020708| 2498468  | dev-server.js   |1          |1            |1
+...
+
+
+### Variant #1: Find quick-win critical OWASP-2017 top 10 vulnerabilities by rules
+
+```
+select r.rule_name, m.metric_id, sum(v.nb_findings), max(m.nb_violations) 
+from src_violations v
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical -- **CRITICAL**
+join app_violations_measures m on m.rule_id = v.rule_id and v.snapshot_id = m.snapshot_id
+join dim_quality_standards s on s.metric_id = m.metric_id and s.owasp_2017 -- **OWASP-2017**
+where nb_violations <= 5 -- **QUICK WIN**
+group by 1,2
+order by 3 asc
+limit 5
+```
+
+Data output:
+
+Rule Name|Rule ID|Nb of findings|Nb of violations
+---------|-------|--------------|----------------
+Ensure the X-Frame-Options header is setup (Node.js)|1020712|1|1
+Avoid using deprecated SSL protocols to secure connection|1039002|1|1
+Ensure the Content-Security-Policy is activated (Node.js)|1020706|1|1
+Ensure setting Content-Security-Policy for spring application.|1040006|1|1
+Allow only HTTPS communication|1020720|1|1
+
+
+### Variant #2: Find quick-win critical OWASP-2017 top 10 vulnerable source objects
+
+```
+select  o.object_id, o.object_name, sum(v.nb_findings)
+from src_violations v
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical
+join app_violations_measures m on m.rule_id = v.rule_id and v.snapshot_id = m.snapshot_id
+join dim_quality_standards s on s.metric_id = m.metric_id and s.owasp_2017 
+join src_objects o on o.object_id = v.object_id
+where nb_violations <= 5
+group by 1,2
+order by 3 desc
+limit 5
+```
+
+Output:
+
+Object ID|Object Short Name|Number of findings
+---------|-----------------|------------------
+2498468|dev-server.js|6
+2724701|configure|5
+2026699|HttpRequestManager|3
+2716201|transform|2
+2729063|_get_image_properties|2
+
+
