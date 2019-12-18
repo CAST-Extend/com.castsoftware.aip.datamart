@@ -26,6 +26,7 @@ CALL :load DIM_APPLICATIONS                     || GOTO :FAIL
 CALL :load DIM_QUALITY_STANDARDS                || GOTO :FAIL
 ECHO Create other tables
 "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f create_tables.sql >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
+"%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f add_foreign_keys.sql >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
 goto :CONTINUE
 
 :REFRESH
