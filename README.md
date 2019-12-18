@@ -1,3 +1,9 @@
+# Beta Version
+
+The Datamart scripts and Datamart Web Services of Dashboards REST API are in BETA version.
+
+REST API version to use is the latest version (**1.13.2** or higher).
+
 ## Contents
 
 - [Purpose](#purpose)
@@ -62,7 +68,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 ### Running the Scripts
 
 * Make sure you have access to 
-  * the REST API server (__1.14__ or higher)
+  * the REST API server (__1.13.2_ or higher)
   * a PostgreSQL server, with a database created to host target data
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3](https://www.python.org/downloads/)__ (in your path)
@@ -555,7 +561,7 @@ object_id                            | INT      | The source object ID, member o
 ```
 
 ### SRC_VIOLATIONS
-Violations for the latest snapshot of each application of  a central base
+Violations for the 2 latest snapshots of each application of a central base
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
