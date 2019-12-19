@@ -76,7 +76,8 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
   * Folders
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
   * REST API
-      * ```ROOT```: URL to a REST API domain, ex: http://localhost:9090/CAST-RESTAPI/rest/AAD
+      * ```ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
+      * ```DOMAIN```: the REST API domain name, ex: ```AAD``` for the measurement base, or an Engineering Dashboard domain      
       * ```QSTAGS```: the Quality Standard tags 
   * Target Database
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
