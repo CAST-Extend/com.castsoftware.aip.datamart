@@ -503,7 +503,7 @@ Propagated Risk Index, and Risk Propagation Factor by Business Critarion and Sou
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
-object_id                            | INT      | Object internal unique ID from central Base
+object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
 business_criterion_name              | TEXT     | A business criterion
 propagated_risk_index                | DECIMAL  | Propagated Risk Index (PRI) is a measurement of a risk for an object and a business criterion
@@ -515,7 +515,7 @@ Source objects details
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
-object_id                            | INT      | Object internal unique ID from central Base
+object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
 object_full_name                     | TEXT     | Object location
 technology                           | TEXT     | Associated Technology: JEE, .NET, etc.
@@ -537,16 +537,16 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 application_name                     | TEXT     | Application name
 module_name                          | TEXT     | Module name
-object_id                            | INT      | Object internal unique ID from central Base
+object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 ```
 
 ### SRC_TRANSACTIONS
-Transactions
+Transactions details. A transaction is a clone of the entry point source object 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 application_name                     | TEXT     | Application name
-trx_id                               | INT      | Object internal unique ID from central Base. This is a clone of the entry point source object
+trx_id                               | INT      | Concatenation of application name and object internal unique ID from central Base
 trx_name                             | TEXT     | Transaction name
 trx_full_name                        | TEXT     | Transaction full name
 trx_status                           | TEXT     | Transaction status regarding the latest snapshot: added, updated, unchanged. The status is 'updated' when a source object member has been updated
@@ -582,7 +582,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
-object_id                            | INT      | Object internal unique ID from central Base
+object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
 action_status                        | TEXT     | Status regarding the latest snapshot: added, pending, solved
 last_update_date                     | DATE     | Date of last edition update
@@ -601,7 +601,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
-object_id                            | INT      | Object internal unique ID from central Base
+object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
 user_name                            | TEXT     | The author of the exclusion request
 comment                              | TEXT     | Comment describing the reason of the exclusion
