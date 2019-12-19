@@ -15,7 +15,7 @@ goto :FAIL
 :RUN
 CALL setenv.bat || GOTO :FAIL
 
-del /F /Q /A "%TRANSFORM_FOLDER%"
+del /F /Q /A "%TRANSFORM_FOLDER%\%DOMAIN%"
 
 "%INSTALLATION_FOLDER%\transform.py" --mode "%1" --extract "%EXTRACT_FOLDER%\%DOMAIN%" --transform "%TRANSFORM_FOLDER%\%DOMAIN%" || GOTO :FAIL
 
