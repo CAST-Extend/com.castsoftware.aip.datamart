@@ -3,11 +3,17 @@ SETLOCAL enabledelayedexpansion
 
 if "%1" == "refresh" goto :RUN
 if "%1" == "install" goto :RUN
+if "%1" == "merge" if not "%DOMAIN%" == "AAD" goto :RUN
 
 echo This command should be called from the run.bat command
 echo Usage is
 echo load refresh
+echo    Truncate all tables, and insert data 
 echo load install
+echo    (Re)Create all tables and insert data
+echo load merge
+echo    Append data when DOMAIN is a regular ED domain,
+echo    'load refresh' or 'load install' must have been previously called
 EXIT /b 1
 
 :RUN
@@ -15,6 +21,7 @@ EXIT /b 1
 CALL setenv.bat || GOTO :FAIL
 
 if "%1" == "refresh" goto :REFRESH
+if "%1" == "merge" goto :MERGE
 
 ECHO Create schema if not exists
 rem POSTGRESQL >= 9.3 OR ABOVE
@@ -34,7 +41,6 @@ CALL :load DIM_APPLICATIONS                     || GOTO :FAIL
 CALL :load DIM_QUALITY_STANDARDS                || GOTO :FAIL
 
 :CONTINUE
-
 REM Load Data
 CALL :load DIM_SNAPSHOTS                        || GOTO :FAIL
 CALL :load DIM_RULES                            || GOTO :FAIL
@@ -51,6 +57,7 @@ CALL :load MOD_HEALTH_MEASURES                  || GOTO :FAIL
 CALL :load MOD_SIZING_EVOLUTION                 || GOTO :FAIL
 CALL :load MOD_HEALTH_EVOLUTION                 || GOTO :FAIL
 
+:MERGE
 CALL :load SRC_OBJECTS                          || GOTO :FAIL
 CALL :load SRC_TRANSACTIONS                     || GOTO :FAIL
 CALL :load SRC_MOD_OBJECTS                      || GOTO :FAIL

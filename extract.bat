@@ -2,10 +2,23 @@
 SETLOCAL enabledelayedexpansion
 CALL setenv.bat || GOTO :FAIL
 
+if "%1" == "refresh" goto :RUN
+if "%1" == "install" goto :RUN
+if "%1" == "merge" if not "%DOMAIN%" == "AAD" goto :RUN
+
+echo This command should be called from the run.bat command
+echo Usage is
+echo extract refresh^|install
+echo     To make a full extraction
+echo extract merge
+echo     To make a partial extraction when DOMAIN is a regular ED domain
+
+goto :FAIL
+
+:RUN
 del /F /Q /A "%EXTRACT_FOLDER%\%DOMAIN%"
 
-
-
+if "%1" == "merge" goto :ED
 call :extract datamart/dim-snapshots                        DIM_SNAPSHOTS                       || GOTO :FAIL
 call :extract datamart/dim-rules                            DIM_RULES                           || GOTO :FAIL
 call :extract "datamart/dim-quality-standards?tags=%QSTAGS%"  DIM_QUALITY_STANDARDS             || GOTO :FAIL
@@ -23,6 +36,9 @@ call :extract datamart/mod-health-measures                  MOD_HEALTH_MEASURES 
 call :extract datamart/mod-sizing-evolution                 MOD_SIZING_EVOLUTION                || GOTO :FAIL
 call :extract datamart/mod-health-evolution                 MOD_HEALTH_EVOLUTION                || GOTO :FAIL
 
+rem Let's extract SRC*, USR* tables for AAD domain to cleanup the tables
+
+:ED
 call :extract datamart/src-objects                          SRC_OBJECTS                         || GOTO :FAIL
 call :extract datamart/src-transactions                     SRC_TRANSACTIONS                    || GOTO :FAIL
 call :extract datamart/src-mod-objects                      SRC_MOD_OBJECTS                     || GOTO :FAIL
@@ -31,7 +47,6 @@ call :extract datamart/src-health-impacts                   SRC_HEALTH_IMPACTS  
 call :extract datamart/src-violations                       SRC_VIOLATIONS                      || GOTO :FAIL
 call :extract datamart/usr-exclusions                       USR_EXCLUSIONS                      || GOTO :FAIL
 call :extract datamart/usr-action-plan                      USR_ACTION_PLAN                     || GOTO :FAIL
-
 GOTO :SUCCESS
 
 :FAIL
