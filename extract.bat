@@ -2,7 +2,7 @@
 SETLOCAL enabledelayedexpansion
 CALL setenv.bat || GOTO :FAIL
 
-del /F /Q /A "%EXTRACT_FOLDER%"
+del /F /Q /A "%EXTRACT_FOLDER%\%DOMAIN%"
 
 
 
