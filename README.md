@@ -77,7 +77,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
   * REST API
       * ```ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
-      * ```DOMAIN```: the REST API domain name, ex: ```AAD``` for the measurement base, or an Engineering Dashboard domain      
+      * ```DOMAIN```: the REST API domain name, ex: ```AAD``` for the measurement base, or an Engineering Dashboard domain
       * ```QSTAGS```: the Quality Standard tags 
   * Target Database
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
@@ -515,6 +515,7 @@ Source objects details
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
 object_full_name                     | TEXT     | Object location
@@ -580,6 +581,7 @@ Users Requests to remediate violations. Note that a violation can be solved and 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
@@ -599,6 +601,7 @@ Users Requests to discard some violations identified as false positive, for next
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
