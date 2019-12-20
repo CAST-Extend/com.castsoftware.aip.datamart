@@ -515,6 +515,7 @@ Source objects details
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
 object_full_name                     | TEXT     | Object location
@@ -580,6 +581,7 @@ Users Requests to remediate violations. Note that a violation can be solved and 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
@@ -599,6 +601,7 @@ Users Requests to discard some violations identified as false positive, for next
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
+application_name                     | TEXT     | Application name
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
