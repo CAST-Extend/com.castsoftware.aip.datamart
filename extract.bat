@@ -76,9 +76,5 @@ ECHO.
 ECHO ------------------------------
 ECHO Extract %EXTRACT_FOLDER%\%DOMAIN%\%~2.csv
 ECHO ------------------------------
-IF NOT DEFINED CREDENTIALS (
-   curl --no-buffer -f -k -H "Accept: text/csv" --netrc-file %USERPROFILE%\_netrc "%ROOT%/%DOMAIN%/%~1" -o "%EXTRACT_FOLDER%\%DOMAIN%\%~2.csv" || EXIT /b 1
-) ELSE (
-   curl --no-buffer -f -k -H "Accept: text/csv" -u %CREDENTIALS% "%ROOT%/%DOMAIN%/%~1" -o "%EXTRACT_FOLDER%\%DOMAIN%\%~2.csv" || EXIT /b 1
-)
+call utilities\curl-bat text/csv "%ROOT%/%DOMAIN%/%~1" "%EXTRACT_FOLDER%\%DOMAIN%\%~2.csv"
 GOTO :EOF
