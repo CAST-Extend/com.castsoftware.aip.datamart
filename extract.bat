@@ -2,20 +2,34 @@
 SETLOCAL enabledelayedexpansion
 CALL setenv.bat || GOTO :FAIL
 
-if "%1" == "refresh" goto :RUN
-if "%1" == "install" goto :RUN
-if "%1" == "merge" if not "%DOMAIN%" == "AAD" goto :RUN
+if [%2] == [] if not [%3] == [] goto :USAGE
 
+set ROOT=%2
+set DOMAIN=%3
+if [%ROOT%] == [] set ROOT=%DEFAULT_ROOT%
+if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
+
+if [%1] == [merge] if [%DOMAIN%] == [AAD] goto :USAGE
+
+if [%1] == [refresh] goto :RUN
+if [%1] == [install] goto :RUN
+if [%1] == [merge] goto :RUN
+
+:USAGE
 echo This command should be called from the run.bat command
 echo Usage is
 echo extract refresh^|install
-echo     To make a full extraction
-echo extract merge
+echo extract refresh^|install ROOT DOMAIN
+echo     To make a full extraction.
+echo extract merge 
+echo extract merge ROOT DOMAIN
 echo     To make a partial extraction when DOMAIN is a regular ED domain
-
+echo if ROOT and DOMAIN are not set then the DEFAULT_DOMAIN and DEFAULT_ROOT are applied
 goto :FAIL
 
 :RUN
+
+IF NOT EXIST "%EXTRACT_FOLDER%\%DOMAIN%" MKDIR "%EXTRACT_FOLDER%\%DOMAIN%"
 del /F /Q /A "%EXTRACT_FOLDER%\%DOMAIN%"
 
 if "%1" == "merge" goto :ED
@@ -60,7 +74,7 @@ EXIT /b 0
 :extract
 ECHO.
 ECHO ------------------------------
-ECHO Extract %~2
+ECHO Extract %EXTRACT_FOLDER%\%DOMAIN%\%~2.csv
 ECHO ------------------------------
 IF NOT DEFINED CREDENTIALS (
    curl --no-buffer -f -k -H "Accept: text/csv" --netrc-file %USERPROFILE%\_netrc "%ROOT%/%DOMAIN%/%~1" -o "%EXTRACT_FOLDER%\%DOMAIN%\%~2.csv" || EXIT /b 1

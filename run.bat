@@ -1,7 +1,7 @@
 @echo off
-if "%1" == "refresh" goto :RUN
-if "%1" == "install" goto :RUN
-if "%1" == "merge" if not "%DOMAIN%" == "AAD" goto :RUN
+if [%1] == [refresh] goto :RUN
+if [%1] == [install] goto :RUN
+if [%1] == [merge] if not "%DOMAIN%" == "AAD" goto :RUN
 
 echo Usage is
 echo run refresh
@@ -19,13 +19,12 @@ echo    'load refresh' or 'load install' must have been previously called
 goto :FAIL
 
 :RUN
-call extract %1   || goto :FAIL
-call transform %1 || goto :FAIL
-call load %1      || goto :FAIL
-
+call extract %1 %2 %3   || goto :FAIL
+call transform %1 %2 %3 || goto :FAIL
+call load %1 %2 %3      || goto :FAIL
 GOTO :EOF
 
 :FAIL
-EXIT /b   
+EXIT /b 1
 
 
