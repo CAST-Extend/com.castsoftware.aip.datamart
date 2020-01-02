@@ -65,7 +65,7 @@ Example to extract the DIM_APPLICATIONS content:
 curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" || EXIT /b 1
 ```
 
-### Running the Scripts
+### Running the Scripts 
 
 * Make sure you have access to 
   * the REST API server (__1.13.2_ or higher)
@@ -76,8 +76,6 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
   * Folders
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
   * REST API
-      * ```ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
-      * ```DOMAIN```: the REST API domain name, ex: ```AAD``` for the measurement base, or an Engineering Dashboard domain
       * ```QSTAGS```: the Quality Standard tags 
   * Target Database
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
@@ -98,12 +96,31 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       login <username>
       password <password>
       ```
+#### Single Data Source
+
+This mode allows to extract data of a single Health domain or a single Engineering domain into a target database.
+
+* Edit the scripts ```setenv.bat``` to set the default REST API URL and DOMAIN
+  * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
+  * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` for the Health domain, or an Engineering domain
 * Then start ```run.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
 After a first install, if you start ```run.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
 Start ```run.bat help``` for more information on these modes.
+
+#### Multiple Data Sources
+
+This mode allows allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
+
+* Edit the scripts ```datamart.bat``` 
+  * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
+  * ```ED_ROOT```: URL to the REST API hosting the engeneering domains; this URL can be the same as the ```HD_ROOT```
+* Then start ```marge.bat install``` from a CMD window (do not double click from the explorer)
+* In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
+
+After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
 ## How to Use the AIP Datamart
 
