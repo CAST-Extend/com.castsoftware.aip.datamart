@@ -122,6 +122,8 @@ This mode allows allows to extract data from an Health domain (```AAD```), and a
 
 After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
+If you start ```datamart.bat update```, the script will just truncate the measurement tables before re-loading measurement data, and will refresh data for engineering domains with a new snapshot.
+
 ## How to Use the AIP Datamart
 
 ### Grant Access to Users
