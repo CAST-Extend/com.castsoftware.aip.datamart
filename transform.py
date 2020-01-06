@@ -194,7 +194,7 @@ if __name__ == "__main__":
                     {"name":"SRC_TRANSACTIONS", "column_name":"application_name"},
                     {"name":"SRC_MOD_OBJECTS", "column_name":"application_name"},
                     {"name":"SRC_TRX_OBJECTS", "column_name":"object_id"},
-                    {"name":"SRC_VIOLATIONS", "column_name":"snapshot_id"},
+                    {"name":"SRC_VIOLATIONS", "column_name":"object_id"},
                     {"name":"SRC_HEALTH_IMPACTS", "column_name":"object_id"},
                     {"name":"USR_EXCLUSIONS", "column_name":"application_name"},
                     {"name":"USR_ACTION_PLAN", "column_name":"application_name"}
