@@ -73,8 +73,6 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 * Edit the scripts ```setenv.bat``` to set the configuration variables
   * Folders
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
-  * REST API
-      * ```QSTAGS```: the Quality Standard tags 
   * Target Database
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
       * ```VACUUMDB```: the absolute path to the vacummdb command (see your PostgreSQL install directory)
@@ -187,7 +185,7 @@ C:\>create_views
 These tables can be used to filter data along "Dimension":
 * `DIM_RULES`: A Dimension table to filter measures according to rules contribution
 
-* `DIM_QUALITY_STANDARDS`: A Dimension table to filter measures according to Quality Standards
+* `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
 
 * `DIM_SNAPSHOTS`: A Dimension table to filter measures according to a period
 
@@ -254,17 +252,13 @@ application_name"             | INT      | Table primary key
 ```
 
 ### DIM_QUALITY_STANDARDS
-A Dimension table to filter measures according to Quality Standards. 
+A Dimension view to filter measures according to Quality Standards. 
 * in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or higher to get the OMG standards
 * in case of a data extraction from a measurement base, the measurement base must be __8.3.5__ or higher 
 
-The COLUMN names depend on the selected tags of the query parameter of the Web Service "dim-quality-standards".
-See the [CAST Rules Documentation Portal](https://technologies.castsoftware.com) to get the available Quality Standards tags.
-<br>
-Example of columns for the URI:
-```/AAD/datamart/dim-quality-standards?tags=AIP-TOP-PRIORITY-RULE,CWE,OMG-ASCQM-Security,OWASP-2017```
-<br>
-
+This view can be customized.
+See the STD_DESCRIPTIONS and STD_RULES tables to get the available quality standard tags.
+By default the following columns are defined:
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -272,7 +266,7 @@ metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule according to AIP
 cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
-omg_ascqm_security                   | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
+omg_ascqm                            | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
 

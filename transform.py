@@ -49,51 +49,6 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
         f.write("\\.\n")
         f.close()
 
-def transform_dim_quality_standards(mode, extract_directory, transform_directory):
-    print ("Transform", "DIM_QUALITY_STANDARDS")
-    ofile = transform_directory + "\\DIM_QUALITY_STANDARDS.sql"
-    f = open(ofile, "w", encoding="utf-8")
-
-    with open(extract_directory+'\\DIM_QUALITY_STANDARDS.csv') as csv_file:
-
-        if mode in ["refresh", "refresh_measures"]:
-            f.write("TRUNCATE TABLE :schema.DIM_QUALITY_STANDARDS CASCADE;\n")
-        elif mode == "install":
-            # Begin CREATE TABLE STATEMENT
-            f.write("DROP TABLE IF EXISTS :schema.DIM_QUALITY_STANDARDS CASCADE;\n");
-            f.write("CREATE TABLE :schema.DIM_QUALITY_STANDARDS\n");
-            f.write("(\n");
-            f.write("METRIC_ID INT,\n");
-            f.write("RULE_NAME TEXT,\n");
-
-        csv_reader = csv.reader(csv_file, delimiter=';')
-        skip = True
-        columns = ["METRIC_ID", "RULE_NAME"]
-        for row in csv_reader:
-            if skip:
-                skip = False
-                comma = ""
-                for i,p in enumerate(row):
-                    if i <= 1:
-                        continue
-                    column_name = p.replace("-","_")
-                    columns.append(column_name)
-                    if mode == "install":
-                        f.write(column_name)
-                        f.write(" BOOLEAN,\n")
-                if mode == "install":
-                    f.write("CONSTRAINT DIM_QUALITY_STANDARDS_PKEY PRIMARY KEY (METRIC_ID)\n");
-                    f.write(");\n")
-                # End CREATE TABLE STATEMENT
-                f.write("COPY :schema.DIM_QUALITY_STANDARDS ("  + ",".join(columns) + ") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")
-                continue
-            # Write the body
-            line = ";".join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
-        f.write("\\.\n")
-        f.close()
-
 def transform(mode, extract_directory, transform_directory, table_name):
     print ("Transform", table_name)
     ofile = transform_directory + "\\" + table_name + ".sql"
@@ -172,7 +127,6 @@ if __name__ == "__main__":
 
     if args.mode in ['refresh', 'install', 'refresh_measures']:
         transform_dim_applications(args.mode, args.extract_directory, args.transform_directory)
-        transform_dim_quality_standards(args.mode, args.extract_directory, args.transform_directory)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES")
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS")
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES")
