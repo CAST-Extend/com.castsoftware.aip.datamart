@@ -229,6 +229,13 @@ Source objects|`SRC_VIOLATIONS`
 Users requests|`USR_EXCLUSIONS`
 Users requests|`USR_ACTION_PLAN`
 
+### Other tables
+
+Scope|Table
+-----|------------
+Quality Standards Mapping|`STD_RULES`
+Quality Standards Mapping|`STD_DESCRIPTIONS`
+
 ## Data Dictionary
 
 ### DIM_APPLICATIONS
@@ -513,6 +520,26 @@ nb_critical_violations_added         | INT      | (Metric #67901) Number of crit
 nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
+```
+
+### STD_RULES
+Mapping of Rules with Quality Standards references
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+metric_id                            | INT      | AIP Globally unique metric ID
+tag                                  | TEXT     | Quality Standard reference (aka tag)
+```
+
+### STD_DESCRIPTIONS
+Descriptions of Quality Standards references
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+standard                             | TEXT     | Standard name (it may include a version number)
+category                             | TEXT     | A category of the standard or a standard version name
+tag                                  | TEXT     | Quality Standard reference (aka tag)
+title                                | TEXT     | Title or short description of the reference
 ```
 
 ### SRC_HEALTH_IMPACTS

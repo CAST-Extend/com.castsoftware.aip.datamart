@@ -187,6 +187,8 @@ if __name__ == "__main__":
         transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_MEASURES")
         transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SIZING_EVOLUTION")
         transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION")
+        transform(args.mode, args.extract_directory, args.transform_directory, "STD_RULES")
+        transform(args.mode, args.extract_directory, args.transform_directory, "STD_DESCRIPTIONS")
     tables = []
     if args.mode != 'refresh_measures':
         tables = [

@@ -60,6 +60,8 @@ call :extract datamart/mod-sizing-measures                  MOD_SIZING_MEASURES 
 call :extract datamart/mod-health-measures                  MOD_HEALTH_MEASURES                 || EXIT /b 1
 call :extract datamart/mod-sizing-evolution                 MOD_SIZING_EVOLUTION                || EXIT /b 1
 call :extract datamart/mod-health-evolution                 MOD_HEALTH_EVOLUTION                || EXIT /b 1
+call :extract datamart/std-rules                            STD_RULES                           || EXIT /b 1
+call :extract datamart/std-descriptions                     STD_DESCRIPTIONS                    || EXIT /b 1
 goto :EOF
 
 :EXTRACT_DETAILS

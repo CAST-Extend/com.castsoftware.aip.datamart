@@ -76,6 +76,8 @@ CALL :load MOD_SIZING_MEASURES                  || EXIT /b 1
 CALL :load MOD_HEALTH_MEASURES                  || EXIT /b 1
 CALL :load MOD_SIZING_EVOLUTION                 || EXIT /b 1
 CALL :load MOD_HEALTH_EVOLUTION                 || EXIT /b 1
+CALL :load STD_RULES                            || EXIT /b 1
+CALL :load STD_DESCRIPTIONS                     || EXIT /b 1
 GOTO :EOF
 
 :LOAD_DETAILS
