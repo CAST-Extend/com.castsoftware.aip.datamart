@@ -14,6 +14,7 @@ REST API version to use is the latest version (**1.13.2** or higher).
 - [Data Dictionary](#data-dictionary)
 - [Measurement Queries: Basic Examples](#measurement-queries-basic-examples)
 - [Measurement Queries: Advanced Examples](#measurement-queries-advanced-examples)
+- [Findings Queries Examples](#findings-queries-examples)
 
 ## Purpose
 The AIP datamart is a simple database schema of AIP results, so that anyone can query these data, requiring only conceptual knowledge of AIP.
@@ -871,4 +872,52 @@ Data output:
 ```
 107|124|NULL|457
 ```
+
+## Findings Queries Examples
+
+### Find quick-win fixes of critical OWASP-2017 vulnerabilities
+
+List of violations that are worth to fix regarding the number of findings and the associated risk
+
+```
+select v.metric_id, r.rule_name, sum(v.nb_findings) as nb_findings, max(v.finding_type) as type, count(*) as nb_violations
+from src_violations v
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical
+join std_rules t on t.metric_id = v.metric_id and t.tag = 'OWASP-2017'
+join dim_snapshots s on v.snapshot_id = s.snapshot_id and s.is_latest and s.application_name = 'Dream Team'
+group by 1,2
+order by 3,1 asc
+limit 10
+```
+
+Data output:
+
+metrid_id|rule_name|nb_findings|type|nb_violations
+---------|---------|-----------|----|-------------
+7748|"Avoid OS command injection vulnerabilities"|2|"path"|1
+7752|"Avoid file path manipulation vulnerabilities"|3|"path"|1
+
+### Find quick-win fixes of critical OWASP-2017 vulnerabilities (varaiant)
+
+List of violations that are worth to fix regarding the number of findings and the associated risk
+
+```
+select v.metric_id, r.rule_name, v.nb_findings, v.finding_type, o.object_full_name
+from src_violations v
+join src_objects o on o.object_id = v.object_id
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical
+join std_rules t on t.metric_id = v.metric_id and t.tag = 'OWASP-2017'
+join dim_snapshots s on v.snapshot_id = s.snapshot_id and s.is_latest and s.application_name = 'Dream Team'
+order by 3,1 asc
+limit 10
+```
+
+Data output:
+
+metrid_id|rule_name|nb_findings|findings_type|object_full_name
+---------|---------|-----------|----|-------------
+7748|"Avoid OS command injection vulnerabilities"|2|"path"|"<Default Package>.DynGraph.init"
+7752|"Avoid file path manipulation vulnerabilities"|3|"path"|"com.castsoftware.viewer.servlet.CASTServlet.service"
+
+
 
