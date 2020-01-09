@@ -38,7 +38,6 @@ The use cases are:
 * create dashboard to follow scores, measures and evolutions
 
 ## Limitations
-* The scope of data is the measurement base results (however you can extract from a measurement base or a central base)
 * The effective extracted data depend on the user's authorizations running the REST API from the extraction scripts. 
 If the user is not granted to access to all applications, then some data will be skipped.
 If the user is granted to access all applications, then, the user will expose all data in the target database.
