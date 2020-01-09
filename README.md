@@ -100,7 +100,7 @@ This mode allows to extract data of a single Health domain or a single Engineeri
 * Edit the scripts ```setenv.bat``` to set the default REST API URL and DOMAIN
   * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
   * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` for the Health domain, or an Engineering domain
-* Then start ```run.bat install``` from a CMD window (do not double click from the explorer)
+* Start ```run.bat install``` 
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
 After a first install, if you start ```run.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
@@ -257,9 +257,9 @@ A Dimension view to filter measures according to Quality Standards.
 * in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or higher to get the OMG standards
 * in case of a data extraction from a measurement base, the measurement base must be __8.3.5__ or higher 
 
-This view can be customized.
+This view can be customized in order to extend the columns, by editing the SQL script: ```views/DIM_QUALITY_STANDARDS.sql```
 See the STD_DESCRIPTIONS and STD_RULES tables to get the available quality standard tags.
-By default the following columns are defined:
+By default the following BOOLEAN columns are defined:
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
