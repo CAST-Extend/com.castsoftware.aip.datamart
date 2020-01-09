@@ -50,7 +50,7 @@ If the user is granted to access all applications, then, the user will expose al
 
 ### The Scripts
 
-The scripts are *.BAT files for Windows operating systems
+The scripts are *.BAT files for Windows operating systems.
 
 The Datamart scripts are based on an ETL (Extract-Transform-Load) approach:
 * __Extraction__ is using the REST API to export data as CSV content to allow easy data processing (there are dedicated Web Services to extract data; these services extract data using a stream to avoid memory consumption on Web Server).
@@ -120,6 +120,10 @@ This mode allows allows to extract data from an Health domain (```AAD```), and a
 After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
 If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
+
+## Schema Upgrade
+
+If you have previously installed the Datamart tables, and have upgraded later the REST API, then the database schema may be not synchronized with some new columns that have been added. To fix that, you may need to run the ```upgrade_schema.bat``` script. For the first release of the Datamart the script is empty.
 
 ## How to Use the AIP Datamart
 
@@ -892,7 +896,7 @@ limit 10
 
 Data output:
 
-metrid_id|rule_name|nb_findings|type|nb_violations
+metric_id|rule_name|nb_findings|type|nb_violations
 ---------|---------|-----------|----|-------------
 7748|"Avoid OS command injection vulnerabilities"|2|"path"|1
 7752|"Avoid file path manipulation vulnerabilities"|3|"path"|1
@@ -914,7 +918,7 @@ limit 10
 
 Data output:
 
-metrid_id|rule_name|nb_findings|findings_type|object_full_name
+metric_id|rule_name|nb_findings|type|object_full_name
 ---------|---------|-----------|----|-------------
 7748|"Avoid OS command injection vulnerabilities"|2|"path"|"<Default Package>.DynGraph.init"
 7752|"Avoid file path manipulation vulnerabilities"|3|"path"|"com.castsoftware.viewer.servlet.CASTServlet.service"
