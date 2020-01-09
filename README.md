@@ -43,7 +43,7 @@ If the user is not granted to access to all applications, then some data will be
 If the user is granted to access all applications, then, the user will expose all data in the target database.
 * All data relative to Quality Distributions are skipped. 
 * All data relative to Quality Measures are skipped.
-* The list of Business Criteria is closed. Custom business criteria are skipped.
+* For the DIM_RULES table, the list of Business Criteria is closed. Custom business criteria are skipped.
 
 ## How to Build the AIP Datamart
 
