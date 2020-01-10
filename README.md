@@ -878,49 +878,61 @@ Data output:
 
 ## Findings Queries Examples
 
-### Find quick-win fixes of critical OWASP-2017 vulnerabilities
+### Find quick-win critical rules to fix OWASP-2017 vulnerabilities
 
-List of violations that are worth to fix regarding the number of findings and the associated risk
+Find rules that are worth to fix regarding the number of findings and the associated risk
 
 ```
-select v.metric_id, r.rule_name, sum(v.nb_findings) as nb_findings, max(v.finding_type) as type, count(*) as nb_violations
+select s.application_name, v.metric_id, r.rule_name, r.weight_security, sum(v.nb_findings) as nb_findings, 
+max(v.finding_type) as type, count(*) as nb_violations
 from src_violations v
 join dim_rules r on r.rule_id = v.rule_id and r.is_critical
-join std_rules t on t.metric_id = v.metric_id and t.tag = 'OWASP-2017'
-join dim_snapshots s on v.snapshot_id = s.snapshot_id and s.is_latest and s.application_name = 'Dream Team'
-group by 1,2
-order by 3,1 asc
-limit 10
+join std_rules t on t.metric_id = v.metric_id and t.tag = 'A1-2017'
+join dim_snapshots s on v.snapshot_id = s.snapshot_id and s.is_latest 
+group by 1,2,3,4
+order by 5,4 asc
 ```
 
 Data output:
 
-metric_id|rule_name|nb_findings|type|nb_violations
----------|---------|-----------|----|-------------
-7748|"Avoid OS command injection vulnerabilities"|2|"path"|1
-7752|"Avoid file path manipulation vulnerabilities"|3|"path"|1
+application_name|metric_id|rule_name|weight|nb_findings|type|nb_violations
+----------------|--------|----------|------|-----------|----|-------------
+"Jurassic Park"|7750|"Avoid XPath injection vulnerabilities"|10.0|1|"path"|1
+"Jurassic Park"|8218|"Content type should be checked when receiving a HTTP Post"|10.0|2|"bookmark"|2
+"Jurassic Park"|8098|"Avoid uncontrolled format string"|10.0|2|"path"|1
+"Dream Team"|7748|"Avoid OS command injection vulnerabilities"|10.0|2|"path"|1
+"Jurassic Park"|7746|"Avoid LDAP injection vulnerabilities"|10.0|2|"path"|1
+"Jurassic Park"|7748|"Avoid OS command injection vulnerabilities"|10.0|4|"path"|3
 
-### Find quick-win fixes of critical OWASP-2017 vulnerabilities (varaiant)
 
-List of violations that are worth to fix regarding the number of findings and the associated risk
+### Find quick-win objects to fix OWASP-2017 A1-Injection vulnerabilities
+
+Find violations that are worth to fix regarding the number of findings and the associated risk
 
 ```
-select v.metric_id, r.rule_name, v.nb_findings, v.finding_type, o.object_full_name
+select s.application_name, m.module_name, v.metric_id, r.rule_name, o.cost_complexity, h.propagated_risk_index, '...' || right(o.object_full_name, 30), 
+v.finding_type as type
 from src_violations v
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical
+join std_rules t on t.metric_id = v.metric_id and t.tag = 'A1-2017'
+join dim_snapshots s on v.snapshot_id = s.snapshot_id and s.is_latest 
 join src_objects o on o.object_id = v.object_id
-join dim_rules r on r.rule_id = v.rule_id and r.is_critical
-join std_rules t on t.metric_id = v.metric_id and t.tag = 'OWASP-2017'
-join dim_snapshots s on v.snapshot_id = s.snapshot_id and s.is_latest and s.application_name = 'Dream Team'
-order by 3,1 asc
-limit 10
+join src_health_impacts h on h.object_id = v.object_id and h.business_criterion_name = 'Security'
+join src_mod_objects m on m.object_id = v.object_id
+where v.metric_id in (7750,8218,8098,7748,7746,7748)
 ```
 
 Data output:
 
-metric_id|rule_name|nb_findings|type|object_full_name
----------|---------|-----------|----|-------------
-7748|"Avoid OS command injection vulnerabilities"|2|"path"|"<Default Package>.DynGraph.init"
-7752|"Avoid file path manipulation vulnerabilities"|3|"path"|"com.castsoftware.viewer.servlet.CASTServlet.service"
-
-
+application_name|module_name|metric_id|rule_name|cost_complexity|propagated_risk_index|object_full_name|type
+--------------|-----------|---------|---------|---------------|---------------------|----------------|----
+"Dream Team"|"Adg"|7748|"Avoid OS command injection vulnerabilities"|0|180.0|"...Default Package>.DynGraph.init"|"path"
+"Jurassic Park"|"WASecu"|7746|"Avoid LDAP injection vulnerabilities"|0|1620.0|"...tyForm._Default.GetRawInputGet"|"path"
+"Jurassic Park"|"JSPBookDemo"|7748|"Avoid OS command injection vulnerabilities"|1|740.0|"...ld.servlet.FrontServlet.doPost"|"path"
+"Jurassic Park"|"JSPBookDemo"|7748|"Avoid OS command injection vulnerabilities"|1|1110.0|"...rk.servlet.FrontServlet.doPost"|"path"
+"Jurassic Park"|"WASecu"|7748|"Avoid OS command injection vulnerabilities"|0|1620.0|"...tyForm._Default.GetRawInputGet"|"path"
+"Jurassic Park"|"WASecu"|7750|"Avoid XPath injection vulnerabilities"|0|1620.0|"...tyForm._Default.GetRawInputGet"|"path"
+"Jurassic Park"|"JSPBookDemo"|8098|"Avoid uncontrolled format string"|1|690.0|"....controler.SalesControler.init"|"path"
+"Jurassic Park"|"JSPBookDemo"|8218|"Content type should be checked when receiving a HTTP Post"|1|740.0|"...ld.servlet.FrontServlet.doPost"|"bookmark"
+"Jurassic Park"|"JSPBookDemo"|8218|"Content type should be checked when receiving a HTTP Post"|1|1110.0|"...rk.servlet.FrontServlet.doPost"|"bookmark"
 
