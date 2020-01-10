@@ -878,7 +878,7 @@ Data output:
 
 ## Findings Queries Examples
 
-### Find quick-win critical rules to fix OWASP-2017 vulnerabilities
+### Find quick-win critical rules to fix OWASP-2017 A1-Injection vulnerabilities
 
 Find rules that are worth to fix regarding the number of findings and the associated risk
 
@@ -900,7 +900,7 @@ application_name|metric_id|rule_name|weight|nb_findings|type|nb_violations
 "Jurassic Park"|7750|"Avoid XPath injection vulnerabilities"|10.0|1|"path"|1
 "Jurassic Park"|8218|"Content type should be checked when receiving a HTTP Post"|10.0|2|"bookmark"|2
 "Jurassic Park"|8098|"Avoid uncontrolled format string"|10.0|2|"path"|1
-"Dream Team"|7748|"Avoid OS command injection vulnerabilities"|10.0|2|"path"|1
+"Dream Team"   |7748|"Avoid OS command injection vulnerabilities"|10.0|2|"path"|1
 "Jurassic Park"|7746|"Avoid LDAP injection vulnerabilities"|10.0|2|"path"|1
 "Jurassic Park"|7748|"Avoid OS command injection vulnerabilities"|10.0|4|"path"|3
 
