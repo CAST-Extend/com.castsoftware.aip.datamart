@@ -197,6 +197,7 @@ These tables can be used to filter data along "Dimension":
 
 ### Measures Tables
 
+Measures are results that can be aggregated with a BI tool. Metrics are set by column.
 Application Measures of tables can be safely aggregated (average, sum) with a BI tool.
 <br/>
 __WARNING__: You cannot aggregate measures for a set of modules because of modules overlapping. However, you can aggregate measures for a specific module name.
@@ -205,8 +206,16 @@ Scope|Applications Table|Modules Table
 -----|------------|-------
 Violations <sup>(1)</sup>|`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
 Sizing Measures|`APP_SIZING_MEASURES`|`MOD_SIZING_MEASURES`
-Health Measures|`APP_HEALTH_MEASURES`|`MOD_HEALTH_MEASURES`
 Functional Sizing Measures|`APP_FUNCTIONAL_SIZING_MEASURES`|N/A
+
+(1): Split by technology
+
+### Results Tables
+
+Scope|Applications Table|Modules Table
+-----|------------|-------
+Health (Business Criteria) Results|`APP_HEALTH_RESULTS`|`MOD_HEALTH_RESULTS`
+Scores Results|`APP_SCORES_RESULTS`|`MOD_SCORES_RESULTS`
 
 (1): Split by technology
 
@@ -368,8 +377,8 @@ nb_total_points                      | INT      | (Metric #10202) AFP measures
 nb_transactional_functions_points    | INT      | (Metric #10204) AFP measures
 nb_transactions                      | INT      | (Metric #10461) Computed for AEP measures
 ```
-### APP_HEALTH_MEASURES
-Measures by application snapshot, by business criterion
+### APP_HEALTH_RESULTS
+Score and number of violations by snapshot and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -380,6 +389,19 @@ nb_critical_violations               | INT      | (Metric #67011) Business Crite
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
 score                                | DECIMAL  | Business Criterion score
 ```
+
+### APP_SCORES_RESULTS
+Quality Indicator scores by application snapshot
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+metric_id                            | INT      | AIP Globally unique metric ID
+metric_name                          | TEXT     | Quality Indicator name
+metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule
+score                                | DECIMAL  | Quality Indicator grade
+```
+
 ### APP_SIZING_EVOLUTION
 Evolution of sizes by application snapshot
 ```
@@ -476,7 +498,7 @@ technical_debt_density               | DECIMAL  | (Metric #68002) Technical Debt
 technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 ```
 
-### MOD_HEALTH_MEASURES
+### MOD_HEALTH_RESULTS
 Score and number of violations by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
@@ -489,6 +511,20 @@ nb_critical_violations               | INT      | (Metric #67011) Business Crite
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
 score                                | DECIMAL  | Business Criterion score
 ```
+
+### MOD_SCORES_RESULTS
+Quality Indicator scores by application snapshot and by module
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+module_name                          | TEXT     | Module name
+metric_id                            | INT      | AIP Globally unique metric ID
+metric_name                          | TEXT     | Quality Indicator name
+metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule
+score                                | DECIMAL  | Quality Indicator grade
+```
+
 ### MOD_SIZING_EVOLUTION
 Evolution of sizes by snapshot and by module
 ```
@@ -660,7 +696,7 @@ Query:
 ```
 select sum(t.nb_critical_violations), t.business_criterion_name
 from dim_snapshots s
-join app_health_measures t on t.snapshot_id = s.snapshot_id 
+join app_health_results t on t.snapshot_id = s.snapshot_id 
 where s.is_latest
 group by 2
 order by 1 desc
@@ -761,7 +797,7 @@ Data output:
 Query:
 ```
 select avg(score)
-from app_health_measures m
+from app_health_results m
 join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
 where m.business_criterion_name = 'Total Quality Index'
 ```
