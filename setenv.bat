@@ -36,6 +36,7 @@ REM ----------------------------------------------------------------------------
 
 IF NOT DEFINED INSTALLATION_FOLDER (echo Missing variable INSTALLATION_FOLDER & EXIT /b 1)
 IF NOT DEFINED DEFAULT_DOMAIN (echo Missing variable DEFAULT_DOMAIN & EXIT /b 1)
+IF NOT DEFINED PSQL (echo Missing variable PSQL & EXIT /b 1)
 IF NOT DEFINED VACUUMDB (echo Missing variable VACUUMDB & EXIT /b 1)
 IF NOT DEFINED DEFAULT_ROOT (echo Missing variable DEFAULT_ROOT & EXIT /b 1)
 IF NOT DEFINED _DB_HOST (echo Missing variable _DB_HOST & EXIT /b 1)
