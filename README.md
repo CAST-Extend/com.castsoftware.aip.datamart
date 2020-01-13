@@ -217,8 +217,6 @@ Scope|Applications Table|Modules Table
 Health (Business Criteria) Results|`APP_HEALTH_RESULTS`|`MOD_HEALTH_RESULTS`
 Scores Results|`APP_SCORES_RESULTS`|`MOD_SCORES_RESULTS`
 
-(1): Split by technology
-
 ### Evolution Tables
 
 Scope|Applications Table|Modules Table
