@@ -41,8 +41,6 @@ The use cases are:
 * The effective extracted data depend on the user's authorizations running the REST API from the extraction scripts. 
 If the user is not granted to access to all applications, then some data will be skipped.
 If the user is granted to access all applications, then, the user will expose all data in the target database.
-* All data relative to Quality Distributions are skipped. 
-* All data relative to Quality Measures are skipped.
 * For the DIM_RULES table, the list of Business Criteria is closed. Custom business criteria are skipped.
 
 ## How to Build the AIP Datamart
@@ -216,12 +214,12 @@ Functional Sizing Measures|`APP_FUNCTIONAL_SIZING_MEASURES`|N/A
 
 (1): Split by technology
 
-### Results Tables
+### Scores Tables
 
 Scope|Applications Table|Modules Table
 -----|------------|-------
-Health (Business Criteria) Results|`APP_HEALTH_RESULTS`|`MOD_HEALTH_RESULTS`
-Scores Results|`APP_SCORES_RESULTS`|`MOD_SCORES_RESULTS`
+Health (Business Criteria) Scores|`APP_HEALTH_SCORES`|`MOD_HEALTH_SCORES`
+All Scores|`APP_SCORES`|`MOD_SCORES`
 
 ### Evolution Tables
 
@@ -381,7 +379,7 @@ nb_total_points                      | INT      | (Metric #10202) AFP measures
 nb_transactional_functions_points    | INT      | (Metric #10204) AFP measures
 nb_transactions                      | INT      | (Metric #10461) Computed for AEP measures
 ```
-### APP_HEALTH_RESULTS
+### APP_HEALTH_SCORES
 Score and number of violations by snapshot and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
@@ -394,7 +392,7 @@ nb_violations                        | INT      | (Metric #67211) Business Crite
 score                                | DECIMAL  | Business Criterion score
 ```
 
-### APP_SCORES_RESULTS
+### APP_SCORES
 Quality Indicator scores by application snapshot
 ```
 COLUMN                               | TYPE     | DESCRIPTION
@@ -402,7 +400,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 metric_id                            | INT      | AIP Globally unique metric ID
 metric_name                          | TEXT     | Quality Indicator name
-metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule
+metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure
 score                                | DECIMAL  | Quality Indicator grade
 ```
 
@@ -502,7 +500,7 @@ technical_debt_density               | DECIMAL  | (Metric #68002) Technical Debt
 technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 ```
 
-### MOD_HEALTH_RESULTS
+### MOD_HEALTH_SCORES
 Score and number of violations by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
@@ -516,7 +514,7 @@ nb_violations                        | INT      | (Metric #67211) Business Crite
 score                                | DECIMAL  | Business Criterion score
 ```
 
-### MOD_SCORES_RESULTS
+### MOD_SCORES
 Quality Indicator scores by application snapshot and by module
 ```
 COLUMN                               | TYPE     | DESCRIPTION
@@ -525,7 +523,7 @@ snapshot_id                          | TEXT     | The concatenation of the appli
 module_name                          | TEXT     | Module name
 metric_id                            | INT      | AIP Globally unique metric ID
 metric_name                          | TEXT     | Quality Indicator name
-metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule
+metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure
 score                                | DECIMAL  | Quality Indicator grade
 ```
 
