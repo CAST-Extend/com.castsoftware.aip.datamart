@@ -191,9 +191,15 @@ These tables can be used to filter data along "Dimension":
 
 * `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
 
+* `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the OMG-ASCQM (aka CISQ) standard criteria
+
+* `DIM_OWASP_2017`: A optional(*) Dimension view to filter measures according to OWASP 2017 Top 10 vulnerabiliies
+
 * `DIM_SNAPSHOTS`: A Dimension table to filter measures according to a period
 
 * `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base)
+
+(*): Optional means that the view is not created by default. See the `views` folder to create the view.
 
 ### Measures Tables
 
