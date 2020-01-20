@@ -921,7 +921,7 @@ Data output:
 Find rules that are worth to fix regarding the number of findings and the associated risk
 
 ```
-select s.application_name, v.metric_id, r.rule_name, r.weight_security, sum(v.nb_findings) as nb_findings, 
+select s.application_name, v.metric_id, r.rule_name, r.weight, sum(v.nb_findings) as nb_findings, 
 max(v.finding_type) as type, count(*) as nb_violations
 from src_violations v
 join dim_rules r on r.rule_id = v.rule_id and r.is_critical
@@ -935,12 +935,12 @@ Data output:
 
 application_name|metric_id|rule_name|weight|nb_findings|type|nb_violations
 ----------------|--------|----------|------|-----------|----|-------------
-"Jurassic Park"|7750|"Avoid XPath injection vulnerabilities"|10.0|1|"path"|1
-"Jurassic Park"|8218|"Content type should be checked when receiving a HTTP Post"|10.0|2|"bookmark"|2
-"Jurassic Park"|8098|"Avoid uncontrolled format string"|10.0|2|"path"|1
-"Dream Team"   |7748|"Avoid OS command injection vulnerabilities"|10.0|2|"path"|1
-"Jurassic Park"|7746|"Avoid LDAP injection vulnerabilities"|10.0|2|"path"|1
-"Jurassic Park"|7748|"Avoid OS command injection vulnerabilities"|10.0|4|"path"|3
+"Jurassic Park"|7750|"Avoid XPath injection vulnerabilities"|9.0|1|"path"|1
+"Jurassic Park"|8218|"Content type should be checked when receiving a HTTP Post"|8.0|2|"bookmark"|2
+"Jurassic Park"|8098|"Avoid uncontrolled format string"|9.0|2|"path"|1
+"Dream Team"   |7748|"Avoid OS command injection vulnerabilities"|9.0|2|"path"|1
+"Jurassic Park"|7746|"Avoid LDAP injection vulnerabilities"|9.0|2|"path"|1
+"Jurassic Park"|7748|"Avoid OS command injection vulnerabilities"|9.0|4|"path"|3
 
 
 ### Find quick-win objects to fix OWASP-2017 A1-Injection vulnerabilities
