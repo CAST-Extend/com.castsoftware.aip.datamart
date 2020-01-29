@@ -75,8 +75,8 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
       * ```VACUUMDB```: the absolute path to the vacummdb command (see your PostgreSQL install directory)
       * ```_DB_HOST```: the PostgreSQL server host name
-      * ```_DB_PORT```: the PostgresQL server port
-      * ```_DB_NAME```: the target PostgresSQL database
+      * ```_DB_PORT```: the PostgreSQL server port
+      * ```_DB_NAME```: the target PostgreSQL database
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
 * Set PostgreSQL server password:
@@ -106,11 +106,11 @@ Start ```run.bat help``` for more information on these modes.
 
 #### Multiple Data Sources
 
-This mode allows allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
+This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
 
 * Edit the scripts ```datamart.bat``` 
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
-  * ```ED_ROOT```: URL to the REST API hosting the engeneering domains; this URL can be the same as the ```HD_ROOT```
+  * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
 * Then start ```marge.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
@@ -191,7 +191,7 @@ These tables can be used to filter data along "Dimension":
 
 * `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the OMG-ASCQM (aka CISQ) standard criteria
 
-* `DIM_OWASP_2017`: A optional(*) Dimension view to filter measures according to OWASP 2017 Top 10 vulnerabiliies
+* `DIM_OWASP_2017`: A optional(*) Dimension view to filter measures according to OWASP 2017 Top 10 vulnerabilities
 
 * `DIM_SNAPSHOTS`: A Dimension table to filter measures according to a period
 
@@ -579,7 +579,7 @@ title                                | TEXT     | Title or short description of 
 ```
 
 ### SRC_HEALTH_IMPACTS
-Propagated Risk Index, and Risk Propagation Factor by Business Critarion and Source Object
+Propagated Risk Index, and Risk Propagation Factor by Business Criterion and Source Object
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -652,7 +652,7 @@ rule_id                              | TEXT     | Local rule ID is the concatena
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | A source code component
 finding_name                         | TEXT     | Also known as the "Associated Value Name"
-finding_type                         | TEXT     | Type of finding among ["number", "percentage", "text", "object", "date", "integer", "no-value", "path", "group", "boomark"]
+finding_type                         | TEXT     | Type of finding among ["number", "percentage", "text", "object", "date", "integer", "no-value", "path", "group", "bookmark"]
 nb_findings                          | INT      | Number of findings associated to this violation ; for example the number of bookmarks, number of paths, number of objects
 ```
 
