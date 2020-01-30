@@ -8,8 +8,8 @@ IF [%CREDENTIALS%] == [] (
         echo curl --no-buffer -f -k -H "Accept: application/json" --netrc-file %USERPROFILE%\_netrc "%URL%"
         curl --no-buffer -f -k -H "Accept: application/json" --netrc-file %USERPROFILE%\_netrc "%URL%" || GOTO :FAIL
 ) ELSE (
-        echo curl --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u %CREDENTIALS% "%URL%"
-        curl --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u %CREDENTIALS% "%URL%" || GOTO :FAIL
+        echo curl --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u "%CREDENTIALS%" "%URL%"
+        curl --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u "%CREDENTIALS%" "%URL%" || GOTO :FAIL
     )
 )
 
