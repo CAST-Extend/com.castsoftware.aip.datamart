@@ -26,6 +26,6 @@ IF [%CREDENTIALS%] == [] (
     IF [%OUTPUT%] == [] (
         curl --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u %CREDENTIALS% "%URL%" || EXIT /b 1
     ) ELSE (
-        curl --no-buffer -f -k -H "Accept: %MEDIATYPE%" --netrc-file %USERPROFILE%\_netrc "%URL%" -o "%OUTPUT%" || EXIT /b 1    
+        curl --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u %CREDENTIALS% "%URL%" -o "%OUTPUT%" || EXIT /b 1    
     )
 )
