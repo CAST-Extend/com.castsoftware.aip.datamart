@@ -2,7 +2,7 @@
 
 The Datamart scripts and Datamart Web Services of Dashboards REST API are in BETA version.
 
-REST API version to use is the latest version (**1.13.2** or higher).
+REST API version to use is the latest version (**1.14** or higher).
 
 ## Contents
 
@@ -64,7 +64,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 ### Running the Scripts 
 
 * Make sure you have access to 
-  * the REST API server (__1.13.2_ or higher)
+  * the REST API server (_1.14_ or higher)
   * a PostgreSQL server, with a database created to host target data
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3](https://www.python.org/downloads/)__ (in your path)
@@ -90,6 +90,13 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       login <username>
       password <password>
       ```
+_Note_: If you set an environment variable with a special character such as ```&<>()``` then you must escape the characters double times with the ```^``` character, and escape the character ```!``` three times with the ```^``` character:
+For example:
+```
+REM R2&D2! is the password
+SET CREDENTIALS="R2^^^&D2^^^^^!"
+```
+
 #### Single Data Source
 
 This mode allows to extract data of a single Health domain or a single Engineering domain into a target database.
