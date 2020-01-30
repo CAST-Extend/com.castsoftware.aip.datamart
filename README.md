@@ -91,10 +91,9 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       password <password>
       ```
 _Note_: If you set an environment variable with a special character such as ```&<>()``` then you must escape the characters double times with the ```^``` character, and escape the character ```!``` three times with the ```^``` character:
-For example:
 ```
-REM R2&D2! is the password
-SET CREDENTIALS="R2^^^&D2^^^^^!"
+REM John is the user name and R2&D2! is the password
+SET CREDENTIALS="John:R2^^^&D2^^^^^!"
 ```
 
 #### Single Data Source
