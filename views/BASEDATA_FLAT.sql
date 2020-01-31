@@ -233,7 +233,7 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
  left join :schema.app_sizing_measures m on m.snapshot_id = s.snapshot_id
  left join :schema.app_sizing_evolution e on e.snapshot_id = s.snapshot_id
  left join :schema.app_functional_sizing_measures f on f.snapshot_id = s.snapshot_id
- left join :schema.app_health_measures h on h.snapshot_id = s.snapshot_id
+ left join :schema.app_health_scores h on h.snapshot_id = s.snapshot_id
  left join :schema.app_health_evolution e1 on e1.snapshot_id = s.snapshot_id
  group by a.application_name, s.snapshot_id
  order by a.application_name, s.snapshot_id
