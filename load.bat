@@ -40,7 +40,6 @@ rem POSTGRESQL <= 9.2
 "%PSQL%" %PSQL_OPTIONS% -c "DO $$ BEGIN IF NOT EXISTS(SELECT schema_name FROM information_schema.schemata WHERE schema_name = '%_DB_SCHEMA%') THEN CREATE SCHEMA %_DB_SCHEMA%; END IF; END $$;" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 REM Create and Load DIM_APPLICATIONS
 CALL :load DIM_APPLICATIONS                     || EXIT /b 1
-CALL :load DIM_QUALITY_STANDARDS                || EXIT /b 1
 ECHO Create other tables
 "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f create_tables.sql >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 REM SET FOREIGN KEY FOR TEST AND A SINGLE DATA SOURCE
@@ -56,7 +55,6 @@ GOTO :EOF
 
 :LOAD_MEASURES
 CALL :load DIM_APPLICATIONS                     || EXIT /b 1
-CALL :load DIM_QUALITY_STANDARDS                || EXIT /b 1
 CALL :LOAD_OTHER_MEASURES                       || EXIT /b 1
 GOTO :EOF
 
@@ -67,15 +65,20 @@ CALL :load DIM_RULES                            || EXIT /b 1
 CALL :load APP_VIOLATIONS_MEASURES              || EXIT /b 1
 CALL :load APP_SIZING_MEASURES                  || EXIT /b 1
 CALL :load APP_FUNCTIONAL_SIZING_MEASURES       || EXIT /b 1
-CALL :load APP_HEALTH_MEASURES                  || EXIT /b 1
+CALL :load APP_HEALTH_SCORES                    || EXIT /b 1
+CALL :load APP_SCORES                           || EXIT /b 1
 CALL :load APP_SIZING_EVOLUTION                 || EXIT /b 1
 CALL :load APP_FUNCTIONAL_SIZING_EVOLUTION      || EXIT /b 1
 CALL :load APP_HEALTH_EVOLUTION                 || EXIT /b 1
 CALL :load MOD_VIOLATIONS_MEASURES              || EXIT /b 1
 CALL :load MOD_SIZING_MEASURES                  || EXIT /b 1
-CALL :load MOD_HEALTH_MEASURES                  || EXIT /b 1
+CALL :load MOD_HEALTH_SCORES                    || EXIT /b 1
+CALL :load MOD_SCORES                           || EXIT /b 1
 CALL :load MOD_SIZING_EVOLUTION                 || EXIT /b 1
 CALL :load MOD_HEALTH_EVOLUTION                 || EXIT /b 1
+CALL :load STD_RULES                            || EXIT /b 1
+CALL :load STD_DESCRIPTIONS                     || EXIT /b 1
+CALL :load_view DIM_QUALITY_STANDARDS           || EXIT /b 1
 GOTO :EOF
 
 :LOAD_DETAILS
@@ -101,4 +104,9 @@ EXIT /b 0
 ECHO Load %TRANSFORM_FOLDER%\%DOMAIN%\%~1.sql
 "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f "%TRANSFORM_FOLDER%\%DOMAIN%\%~1.sql" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 "%VACUUMDB%" -z %VACUUM_OPTIONS% -t %_DB_SCHEMA%.%~1 %_DB_NAME% >> "%LOG_FILE%" 2>&1 || EXIT /b 1
+GOTO :EOF
+
+:load_view
+ECHO Load %VIEWS_FOLDER%\%~1.sql
+"%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f "%VIEWS_FOLDER%\%~1.sql" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 GOTO :EOF

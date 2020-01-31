@@ -46,20 +46,23 @@ goto :EOF
 :EXTRACT_MEASURES
 call :extract datamart/dim-snapshots                        DIM_SNAPSHOTS                       || EXIT /b 1
 call :extract datamart/dim-rules                            DIM_RULES                           || EXIT /b 1
-call :extract "datamart/dim-quality-standards?tags=%QSTAGS%"  DIM_QUALITY_STANDARDS             || EXIT /b 1
 call :extract datamart/dim-applications                     DIM_APPLICATIONS                    || EXIT /b 1
 call :extract datamart/app-violations-measures              APP_VIOLATIONS_MEASURES             || EXIT /b 1
 call :extract datamart/app-sizing-measures                  APP_SIZING_MEASURES                 || EXIT /b 1
 call :extract datamart/app-functional-sizing-measures       APP_FUNCTIONAL_SIZING_MEASURES      || EXIT /b 1
-call :extract datamart/app-health-measures                  APP_HEALTH_MEASURES                 || EXIT /b 1
+call :extract datamart/app-health-scores                    APP_HEALTH_SCORES                   || EXIT /b 1
+call :extract datamart/app-scores                           APP_SCORES                          || EXIT /b 1
 call :extract datamart/app-sizing-evolution                 APP_SIZING_EVOLUTION                || EXIT /b 1
 call :extract datamart/app-functional-sizing-evolution      APP_FUNCTIONAL_SIZING_EVOLUTION     || EXIT /b 1
 call :extract datamart/app-health-evolution                 APP_HEALTH_EVOLUTION                || EXIT /b 1
 call :extract datamart/mod-violations-measures              MOD_VIOLATIONS_MEASURES             || EXIT /b 1
 call :extract datamart/mod-sizing-measures                  MOD_SIZING_MEASURES                 || EXIT /b 1
-call :extract datamart/mod-health-measures                  MOD_HEALTH_MEASURES                 || EXIT /b 1
+call :extract datamart/mod-health-scores                    MOD_HEALTH_SCORES                   || EXIT /b 1
+call :extract datamart/mod-scores                           MOD_SCORES                          || EXIT /b 1
 call :extract datamart/mod-sizing-evolution                 MOD_SIZING_EVOLUTION                || EXIT /b 1
 call :extract datamart/mod-health-evolution                 MOD_HEALTH_EVOLUTION                || EXIT /b 1
+call :extract datamart/std-rules                            STD_RULES                           || EXIT /b 1
+call :extract datamart/std-descriptions                     STD_DESCRIPTIONS                    || EXIT /b 1
 goto :EOF
 
 :EXTRACT_DETAILS

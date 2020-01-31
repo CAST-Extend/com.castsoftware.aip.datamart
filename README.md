@@ -2,7 +2,7 @@
 
 The Datamart scripts and Datamart Web Services of Dashboards REST API are in BETA version.
 
-REST API version to use is the latest version (**1.13.2** or higher).
+REST API version to use is the latest version (**1.14** or higher).
 
 ## Contents
 
@@ -14,6 +14,7 @@ REST API version to use is the latest version (**1.13.2** or higher).
 - [Data Dictionary](#data-dictionary)
 - [Measurement Queries: Basic Examples](#measurement-queries-basic-examples)
 - [Measurement Queries: Advanced Examples](#measurement-queries-advanced-examples)
+- [Findings Queries Examples](#findings-queries-examples)
 
 ## Purpose
 The AIP datamart is a simple database schema of AIP results, so that anyone can query these data, requiring only conceptual knowledge of AIP.
@@ -40,15 +41,13 @@ The use cases are:
 * The effective extracted data depend on the user's authorizations running the REST API from the extraction scripts. 
 If the user is not granted to access to all applications, then some data will be skipped.
 If the user is granted to access all applications, then, the user will expose all data in the target database.
-* All data relative to Quality Distributions are skipped. 
-* All data relative to Quality Measures are skipped.
-* The list of Business Criteria is closed. Custom business criteria are skipped.
+* For the DIM_RULES table, the list of Business Criteria is closed. Custom business criteria are skipped.
 
 ## How to Build the AIP Datamart
 
 ### The Scripts
 
-The scripts are *.BAT files for Windows operating systems
+The scripts are *.BAT files for Windows operating systems.
 
 The Datamart scripts are based on an ETL (Extract-Transform-Load) approach:
 * __Extraction__ is using the REST API to export data as CSV content to allow easy data processing (there are dedicated Web Services to extract data; these services extract data using a stream to avoid memory consumption on Web Server).
@@ -65,21 +64,19 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 ### Running the Scripts 
 
 * Make sure you have access to 
-  * the REST API server (__1.13.2_ or higher)
+  * the REST API server (_1.14_ or higher)
   * a PostgreSQL server, with a database created to host target data
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3](https://www.python.org/downloads/)__ (in your path)
 * Edit the scripts ```setenv.bat``` to set the configuration variables
   * Folders
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
-  * REST API
-      * ```QSTAGS```: the Quality Standard tags 
   * Target Database
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
       * ```VACUUMDB```: the absolute path to the vacummdb command (see your PostgreSQL install directory)
       * ```_DB_HOST```: the PostgreSQL server host name
-      * ```_DB_PORT```: the PostgresQL server port
-      * ```_DB_NAME```: the target PostgresSQL database
+      * ```_DB_PORT```: the PostgreSQL server port
+      * ```_DB_NAME```: the target PostgreSQL database
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
 * Set PostgreSQL server password:
@@ -93,6 +90,12 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       login <username>
       password <password>
       ```
+_Note_: If you set an environment variable with a special character such as ```&<>()``` then you must escape the characters double times with the ```^``` character, and escape the character ```!``` three times with the ```^``` character:
+```
+REM John is the user name and R2&D2! is the password
+SET CREDENTIALS="John:R2^^^&D2^^^^^!"
+```
+
 #### Single Data Source
 
 This mode allows to extract data of a single Health domain or a single Engineering domain into a target database.
@@ -100,7 +103,7 @@ This mode allows to extract data of a single Health domain or a single Engineeri
 * Edit the scripts ```setenv.bat``` to set the default REST API URL and DOMAIN
   * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
   * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` for the Health domain, or an Engineering domain
-* Then start ```run.bat install``` from a CMD window (do not double click from the explorer)
+* Start ```run.bat install``` 
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
 After a first install, if you start ```run.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
@@ -109,17 +112,21 @@ Start ```run.bat help``` for more information on these modes.
 
 #### Multiple Data Sources
 
-This mode allows allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
+This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
 
 * Edit the scripts ```datamart.bat``` 
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
-  * ```ED_ROOT```: URL to the REST API hosting the engeneering domains; this URL can be the same as the ```HD_ROOT```
+  * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
 * Then start ```marge.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
 
 After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
 If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
+
+## Schema Upgrade
+
+If you have previously installed the Datamart tables, and have upgraded later the REST API, then the database schema may be not synchronized with some new columns that have been added. To fix that, you may need to run the ```upgrade_schema.bat``` script. For the first release of the Datamart the script is empty.
 
 ## How to Use the AIP Datamart
 
@@ -186,14 +193,21 @@ C:\>create_views
 These tables can be used to filter data along "Dimension":
 * `DIM_RULES`: A Dimension table to filter measures according to rules contribution
 
-* `DIM_QUALITY_STANDARDS`: A Dimension table to filter measures according to Quality Standards
+* `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
+
+* `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the OMG-ASCQM (aka CISQ) standard criteria
+
+* `DIM_OWASP_2017`: A optional(*) Dimension view to filter measures according to OWASP 2017 Top 10 vulnerabilities
 
 * `DIM_SNAPSHOTS`: A Dimension table to filter measures according to a period
 
 * `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base)
 
+(*): Optional means that the view is not created by default. See the `views` folder to create the view.
+
 ### Measures Tables
 
+Measures are results that can be aggregated with a BI tool. Metrics are set by column.
 Application Measures of tables can be safely aggregated (average, sum) with a BI tool.
 <br/>
 __WARNING__: You cannot aggregate measures for a set of modules because of modules overlapping. However, you can aggregate measures for a specific module name.
@@ -202,10 +216,16 @@ Scope|Applications Table|Modules Table
 -----|------------|-------
 Violations <sup>(1)</sup>|`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
 Sizing Measures|`APP_SIZING_MEASURES`|`MOD_SIZING_MEASURES`
-Health Measures|`APP_HEALTH_MEASURES`|`MOD_HEALTH_MEASURES`
 Functional Sizing Measures|`APP_FUNCTIONAL_SIZING_MEASURES`|N/A
 
 (1): Split by technology
+
+### Scores Tables
+
+Scope|Applications Table|Modules Table
+-----|------------|-------
+Health (Business Criteria) Scores|`APP_HEALTH_SCORES`|`MOD_HEALTH_SCORES`
+All Scores|`APP_SCORES`|`MOD_SCORES`
 
 ### Evolution Tables
 
@@ -228,6 +248,13 @@ Source objects|`SRC_VIOLATIONS`
 Users requests|`USR_EXCLUSIONS`
 Users requests|`USR_ACTION_PLAN`
 
+### Other tables
+
+Scope|Table
+-----|------------
+Quality Standards Mapping|`STD_RULES`
+Quality Standards Mapping|`STD_DESCRIPTIONS`
+
 ## Data Dictionary
 
 ### DIM_APPLICATIONS
@@ -246,17 +273,13 @@ application_name"             | INT      | Table primary key
 ```
 
 ### DIM_QUALITY_STANDARDS
-A Dimension table to filter measures according to Quality Standards. 
+A Dimension view to filter measures according to Quality Standards. 
 * in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or higher to get the OMG standards
 * in case of a data extraction from a measurement base, the measurement base must be __8.3.5__ or higher 
 
-The COLUMN names depend on the selected tags of the query parameter of the Web Service "dim-quality-standards".
-See the [CAST Rules Documentation Portal](https://technologies.castsoftware.com) to get the available Quality Standards tags.
-<br>
-Example of columns for the URI:
-```/AAD/datamart/dim-quality-standards?tags=AIP-TOP-PRIORITY-RULE,CWE,OMG-ASCQM-Security,OWASP-2017```
-<br>
-
+This view can be customized in order to extend the columns, by editing the SQL script: ```views/DIM_QUALITY_STANDARDS.sql```
+See the STD_DESCRIPTIONS and STD_RULES tables to get the available quality standard tags.
+By default the following BOOLEAN columns are defined:
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -264,7 +287,7 @@ metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule according to AIP
 cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
-omg_ascqm_security                   | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
+omg_ascqm                            | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
 
@@ -362,8 +385,8 @@ nb_total_points                      | INT      | (Metric #10202) AFP measures
 nb_transactional_functions_points    | INT      | (Metric #10204) AFP measures
 nb_transactions                      | INT      | (Metric #10461) Computed for AEP measures
 ```
-### APP_HEALTH_MEASURES
-Measures by application snapshot, by business criterion
+### APP_HEALTH_SCORES
+Score and number of violations by snapshot and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -374,6 +397,19 @@ nb_critical_violations               | INT      | (Metric #67011) Business Crite
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
 score                                | DECIMAL  | Business Criterion score
 ```
+
+### APP_SCORES
+Quality Indicator scores by application snapshot
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+metric_id                            | INT      | AIP Globally unique metric ID
+metric_name                          | TEXT     | Quality Indicator name
+metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure
+score                                | DECIMAL  | Quality Indicator grade
+```
+
 ### APP_SIZING_EVOLUTION
 Evolution of sizes by application snapshot
 ```
@@ -470,7 +506,7 @@ technical_debt_density               | DECIMAL  | (Metric #68002) Technical Debt
 technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 ```
 
-### MOD_HEALTH_MEASURES
+### MOD_HEALTH_SCORES
 Score and number of violations by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
@@ -483,6 +519,20 @@ nb_critical_violations               | INT      | (Metric #67011) Business Crite
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
 score                                | DECIMAL  | Business Criterion score
 ```
+
+### MOD_SCORES
+Quality Indicator scores by application snapshot and by module
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+module_name                          | TEXT     | Module name
+metric_id                            | INT      | AIP Globally unique metric ID
+metric_name                          | TEXT     | Quality Indicator name
+metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure
+score                                | DECIMAL  | Quality Indicator grade
+```
+
 ### MOD_SIZING_EVOLUTION
 Evolution of sizes by snapshot and by module
 ```
@@ -514,8 +564,28 @@ nb_violations_added                  | INT      | (Metric #67921) Number of viol
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
 ```
 
+### STD_RULES
+Mapping of Rules with Quality Standards references
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+metric_id                            | INT      | AIP Globally unique metric ID
+tag                                  | TEXT     | Quality Standard reference (aka tag)
+```
+
+### STD_DESCRIPTIONS
+Descriptions of Quality Standards references
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+standard                             | TEXT     | Standard name (it may include a version number)
+category                             | TEXT     | A category of the standard or a standard version name
+tag                                  | TEXT     | Quality Standard reference (aka tag)
+title                                | TEXT     | Title or short description of the reference
+```
+
 ### SRC_HEALTH_IMPACTS
-Propagated Risk Index, and Risk Propagation Factor by Business Critarion and Source Object
+Propagated Risk Index, and Risk Propagation Factor by Business Criterion and Source Object
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -540,7 +610,7 @@ object_status                        | TEXT     | Object status regarding the la
 action_planned                       | BOOLEAN  | An action has been planned for this object, see USR_ACTION_PLAN for more details
 is_artifact                          | BOOLEAN  | A source object on which a cost complexity can be calculated
 cost_complexity                      | INT      | This value is valid if IS_ARTIFACT if column is true
-                                     |          | Cost complexity (low, moderate, high, very-high) is a risk assessment calculated from risk assessments of
+                                     |          | Cost complexity (-1: n/a, 0:low, 1:moderate, 2:high, 3:very-high) is a risk assessment calculated from risk assessments of
                                      |          | - Cyclomatic complexity
                                      |          | - SQL cyclomatic complexity
                                      |          | - Granularity
@@ -588,7 +658,7 @@ rule_id                              | TEXT     | Local rule ID is the concatena
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | A source code component
 finding_name                         | TEXT     | Also known as the "Associated Value Name"
-finding_type                         | TEXT     | Type of finding among ["number", "percentage", "text", "object", "date", "integer", "no-value", "path", "group", "boomark"]
+finding_type                         | TEXT     | Type of finding among ["number", "percentage", "text", "object", "date", "integer", "no-value", "path", "group", "bookmark"]
 nb_findings                          | INT      | Number of findings associated to this violation ; for example the number of bookmarks, number of paths, number of objects
 ```
 
@@ -634,7 +704,7 @@ Query:
 ```
 select sum(t.nb_critical_violations), t.business_criterion_name
 from dim_snapshots s
-join app_health_measures t on t.snapshot_id = s.snapshot_id 
+join app_health_results t on t.snapshot_id = s.snapshot_id 
 where s.is_latest
 group by 2
 order by 1 desc
@@ -735,7 +805,7 @@ Data output:
 Query:
 ```
 select avg(score)
-from app_health_measures m
+from app_health_results m
 join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
 where m.business_criterion_name = 'Total Quality Index'
 ```
@@ -849,4 +919,64 @@ Data output:
 ```
 107|124|NULL|457
 ```
+
+## Findings Queries Examples
+
+### Find quick-win critical rules to fix OWASP-2017 A1-Injection vulnerabilities
+
+Find rules that are worth to fix regarding the number of findings and the associated risk
+
+```
+select s.application_name, v.metric_id, r.rule_name, r.weight, sum(v.nb_findings) as nb_findings, 
+max(v.finding_type) as type, count(*) as nb_violations
+from src_violations v
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical
+join std_rules t on t.metric_id = v.metric_id and t.tag = 'A1-2017'
+join dim_snapshots s on v.snapshot_id = s.snapshot_id and s.is_latest 
+group by 1,2,3,4
+order by 5,4 asc
+```
+
+Data output:
+
+application_name|metric_id|rule_name|weight|nb_findings|type|nb_violations
+----------------|--------|----------|------|-----------|----|-------------
+"Jurassic Park"|7750|"Avoid XPath injection vulnerabilities"|9.0|1|"path"|1
+"Jurassic Park"|8218|"Content type should be checked when receiving a HTTP Post"|8.0|2|"bookmark"|2
+"Jurassic Park"|8098|"Avoid uncontrolled format string"|9.0|2|"path"|1
+"Dream Team"   |7748|"Avoid OS command injection vulnerabilities"|9.0|2|"path"|1
+"Jurassic Park"|7746|"Avoid LDAP injection vulnerabilities"|9.0|2|"path"|1
+"Jurassic Park"|7748|"Avoid OS command injection vulnerabilities"|9.0|4|"path"|3
+
+
+### Find quick-win objects to fix OWASP-2017 A1-Injection vulnerabilities
+
+Find violations that are worth to fix regarding the number of findings and the associated risk
+
+```
+select s.application_name, m.module_name, v.metric_id, r.rule_name, o.cost_complexity, h.propagated_risk_index, '...' || right(o.object_full_name, 30), 
+v.finding_type as type
+from src_violations v
+join dim_rules r on r.rule_id = v.rule_id and r.is_critical
+join std_rules t on t.metric_id = v.metric_id and t.tag = 'A1-2017'
+join dim_snapshots s on v.snapshot_id = s.snapshot_id and s.is_latest 
+join src_objects o on o.object_id = v.object_id
+join src_health_impacts h on h.object_id = v.object_id and h.business_criterion_name = 'Security'
+join src_mod_objects m on m.object_id = v.object_id
+where v.metric_id in (7750,8218,8098,7748,7746,7748)
+```
+
+Data output:
+
+application_name|module_name|metric_id|rule_name|cost_complexity|propagated_risk_index|object_full_name|type
+--------------|-----------|---------|---------|---------------|---------------------|----------------|----
+"Dream Team"|"Adg"|7748|"Avoid OS command injection vulnerabilities"|0|180.0|"...Default Package>.DynGraph.init"|"path"
+"Jurassic Park"|"WASecu"|7746|"Avoid LDAP injection vulnerabilities"|0|1620.0|"...tyForm._Default.GetRawInputGet"|"path"
+"Jurassic Park"|"JSPBookDemo"|7748|"Avoid OS command injection vulnerabilities"|1|740.0|"...ld.servlet.FrontServlet.doPost"|"path"
+"Jurassic Park"|"JSPBookDemo"|7748|"Avoid OS command injection vulnerabilities"|1|1110.0|"...rk.servlet.FrontServlet.doPost"|"path"
+"Jurassic Park"|"WASecu"|7748|"Avoid OS command injection vulnerabilities"|0|1620.0|"...tyForm._Default.GetRawInputGet"|"path"
+"Jurassic Park"|"WASecu"|7750|"Avoid XPath injection vulnerabilities"|0|1620.0|"...tyForm._Default.GetRawInputGet"|"path"
+"Jurassic Park"|"JSPBookDemo"|8098|"Avoid uncontrolled format string"|1|690.0|"....controler.SalesControler.init"|"path"
+"Jurassic Park"|"JSPBookDemo"|8218|"Content type should be checked when receiving a HTTP Post"|1|740.0|"...ld.servlet.FrontServlet.doPost"|"bookmark"
+"Jurassic Park"|"JSPBookDemo"|8218|"Content type should be checked when receiving a HTTP Post"|1|1110.0|"...rk.servlet.FrontServlet.doPost"|"bookmark"
 
