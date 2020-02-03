@@ -33,7 +33,7 @@ echo     to transform CSV data in order to refresh measures data
 goto :FAIL
 
 :TRANSFORM
-"%INSTALLATION_FOLDER%\transform.py" --domain "%DOMAIN%" --mode "%1" --extract "%EXTRACT_FOLDER%\%DOMAIN%" --transform "%TRANSFORM_FOLDER%\%DOMAIN%" || GOTO :FAIL
+python "%INSTALLATION_FOLDER%\transform.py" --domain "%DOMAIN%" --mode "%1" --extract "%EXTRACT_FOLDER%\%DOMAIN%" --transform "%TRANSFORM_FOLDER%\%DOMAIN%" || GOTO :FAIL
 GOTO :SUCCESS
 
 :FAIL
