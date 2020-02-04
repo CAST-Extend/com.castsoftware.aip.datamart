@@ -104,7 +104,7 @@ This mode allows to extract data of a single Health domain or a single Engineeri
   * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
   * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` for the Health domain, or an Engineering domain
 * Start ```run.bat install``` 
-* In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
+* In case of errors, you will find a message on the standard output and some additional messages in the ```log\ETL-*.log``` file.
 
 After a first install, if you start ```run.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
@@ -118,7 +118,7 @@ This mode allows to extract data from an Health domain (```AAD```), and all rela
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
 * Then start ```marge.bat install``` from a CMD window (do not double click from the explorer)
-* In case of errors, you will find a message on the standard output and some additional messages in the ```ETL.log``` file.
+* In case of errors, you will find a message on the standard output and some additional messages in the ```log\ETL-*.log``` file.
 
 After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
