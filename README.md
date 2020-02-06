@@ -310,6 +310,7 @@ year_quarter                         | TEXT     | Tag the most recent applicatio
 year_month                           | TEXT     | Tag the most recent application snapshot for each month  (ex format: 2017-04)
 year_week                            | TEXT     | Tag the most recent application snapshot for each week  (ex format: 2017-W24)
 label                                | TEXT     | Snapshot label
+version                              | TEXT     | Application version
 ```
 ### DIM_RULES
 A dimension table to filter measures according to rules contribution.

@@ -1,3 +1,6 @@
+# Branch: next-release
+ - Add VERSION column for DIM_SNAPSHOTS table
+
 # Branch: master
  - Add ```--retry 5``` in ```utilities\curl-bat.bat``` script to retry extraction in case of network errors
  - Add explicit command ```python``` to run the ```transform.py``` script in ```transform.bat``` file ; otherwise the 'transform' step may be skipped, and the 'load' step fails
