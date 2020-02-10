@@ -263,7 +263,7 @@ A Dimension table to filter measures according to Application Tags. The COLUMN n
 ```
 COLUMN                        | TYPE     | DESCRIPTION
 ------------------------------+----------+-----------
-application_name"             | INT      | Table primary key
+application_name              | INT      | Table primary key
 "Age"                         | TEXT     | A range of ages of the application
 "Business Unit"               | TEXT     | The Business Unit as a sponsor or provider of the application
 "Country"                     | TEXT     | The deployment country of the application
