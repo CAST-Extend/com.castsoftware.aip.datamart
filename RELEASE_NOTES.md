@@ -1,5 +1,6 @@
 # Branch: next-release
  - Add VERSION column for DIM_SNAPSHOTS table
+ - Fix TECHNOLOGY column for SRC_OBJECTS table: replace the 'All' idenfifier with the effective technology name
 
 # Branch: master
  - Add ```--retry 5``` in ```utilities\curl-bat.bat``` script to retry extraction in case of network errors
