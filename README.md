@@ -4,6 +4,8 @@ The Datamart scripts and Datamart Web Services of Dashboards REST API are in BET
 
 REST API version to use is the latest version (**1.14** or higher).
 
+See the [release notes](RELEASE_NOTES.md) for more information.
+
 ## Contents
 
 - [Purpose](#purpose)
