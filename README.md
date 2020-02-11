@@ -272,6 +272,8 @@ application_name              | INT      | Table primary key
 "Methodology"                 | TEXT     | The application development approach
 ```
 
+Note: if you need these column names to be converted into lowercase identifiers with no space character, and with no double-quotes delimiters, then set the environment variable QUOTED_IDENTIFIER=OFF
+
 ### DIM_QUALITY_STANDARDS
 A Dimension view to filter measures according to Quality Standards. 
 * in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or higher to get the OMG standards

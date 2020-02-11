@@ -1,6 +1,7 @@
 import argparse
 import csv
 import json
+import os
 from datetime import datetime
 
 def format(s):
@@ -11,6 +12,13 @@ def format(s):
     if s.find(';') != -1:
         return  '"' + s + '"'
     return s
+
+quoted_identifier = os.environ.get('QUOTED_IDENTIFIER') != "OFF"
+
+def format_column_name (id):
+    if quoted_identifier:
+        return ("\"" + id + "\"")
+    return  (id.lower().replace(" ", "_"))
 
 def transform_dim_applications(mode, extract_directory, transform_directory):
     print ("Transform", "DIM_APPLICATIONS")
@@ -35,13 +43,13 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                 if mode == "install":
                     comma = ""
                     for p in row:
-                        f.write("\"" + p + "\" ")
-                        f.write("boolean" if p.startswith("Technology") else "text")
+                        f.write(format_column_name(p))
+                        f.write(" text") 
                         f.write(",\n")
                     f.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n");
                     f.write(");\n")
                     # End CREATE TABLE STATEMENT
-                f.write("COPY :schema.DIM_APPLICATIONS (\""  + "\",\"".join(row) + "\") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")
+                f.write("COPY :schema.DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")
                 continue
             line = ";".join([format(cell) for cell in row])
             f.write(line)
