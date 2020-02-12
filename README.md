@@ -197,9 +197,9 @@ The differences with Datapond 5.1 corresponding views are as follow:
 * When AEP has not be calculated for a snapshot, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
 * The calculation of averages has been fixed
 
-To add these 2 database views to the Datamart schema, runs `create_views.bat` file from your installation directory:
+To add these 2 database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory:
 ```
-C:\>create_views
+C:\>create_datapond_views
 ```
 ## Summary of Tables
 
@@ -218,7 +218,7 @@ These tables can be used to filter data along "Dimension":
 
 * `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base)
 
-(*): Optional means that the view is not created by default. See the `views` folder to create the view.
+(*): Optional means that the view is not created by default. runs `create_views.bat` file from your installation directory.
 
 ### Measures Tables
 

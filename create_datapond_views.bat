@@ -4,8 +4,8 @@ SETLOCAL enabledelayedexpansion
 CALL setenv.bat || GOTO :FAIL
 
 REM Load Data
-CALL :load DIM_OMG_ASCQM                        || GOTO :FAIL
-CALL :load DIM_OWASP_2017                       || GOTO :FAIL
+CALL :load BASEDATA_FLAT                        || GOTO :FAIL
+CALL :load COMPLETE_FLAT                        || GOTO :FAIL
 GOTO :SUCCESS
 
 :FAIL
