@@ -153,12 +153,25 @@ In ```install``` mode, the scripts will drop and recreate Datamart tables. Howev
 
 By querying the AIP Datamart tables, you can use the COPY SQL Statement of PostgreSQL to create a CSV output file (this file can be opened with Excel):
 ```
-copy (select ...) to 'c:/temp/output.csv' WITH (format CSV);
+copy (select ...) to 'c:/temp/output.csv' WITH (format CSV, header);
 ```
 
 Note that the output file is on the PostgreSQL server file system. If you do not have access to this file system, you can use stdout in place of a file name:
 ```
-copy (select ...) to stdout WITH (format CSV);
+copy (select ...) to stdout WITH (format CSV, header);
+```
+
+Example of a report of health factors scores that you can open with Excel:
+```
+copy (select s.application_name, s.date, max(m1.score) as efficiency, max(m2.score) as transferability, max(m3.score) as changeability, max(m4.score) as Robustness, max(m5.score) as security
+from dim_snapshots s
+left join app_scores m1 on m1.snapshot_id = s.snapshot_id and m1.metric_id = 60014
+left join app_scores m2 on m2.snapshot_id = s.snapshot_id and m2.metric_id = 60011
+left join app_scores m3 on m3.snapshot_id = s.snapshot_id and m3.metric_id = 60012
+left join app_scores m4 on m4.snapshot_id = s.snapshot_id and m4.metric_id = 60013
+left join app_scores m5 on m5.snapshot_id = s.snapshot_id and m5.metric_id = 60016
+group by 1,2
+order by 1, 2) to 'c:/temp/report.csv' with (format CSV, header);
 ```
 
 ### Power BI Desktop
