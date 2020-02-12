@@ -259,6 +259,7 @@ Source objects|`SRC_HEALTH_IMPACTS`
 Source objects|`SRC_MOD_OBJECTS`
 Source objects|`SRC_TRANSACTIONS`
 Source objects|`SRC_TRX_OBJECTS`
+Source objects|`SRC_TRX_HEALTH_IMPACTS`
 Source objects|`SRC_VIOLATIONS`
 Users requests|`USR_EXCLUSIONS`
 Users requests|`USR_ACTION_PLAN`
@@ -665,6 +666,22 @@ COLUMN                               | TYPE     | DESCRIPTION
 trx_id                               | INT      | The transaction ID from the SRC_TRANSACTIONS table
 object_id                            | INT      | The source object ID, member of the transaction from the SRC_OBJECTS table
 ```
+
+### SRC_TRX_HEALTH_IMPACTS
+Transaction Risk Indexes for the 2 latest snapshots     
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+trx_id                               | TEXT     | Concatenation of application name and object internal unique ID from central Base.
+application_name                     | INT      | Application name
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+trx_name                             | TEXT     | Transaction name
+security_risk_index                  | INT      | Transaction Risk Index (TRI) for Security health factor
+efficiency_risk_index                | INT      | Transaction Risk Index (TRI) for Efficiency health factor
+robustness_risk_index                | INT      | Transaction Risk Index (TRI) for Robustness health factor
+        
+
+
 
 ### SRC_VIOLATIONS
 Violations for the 2 latest snapshots of each application of a central base

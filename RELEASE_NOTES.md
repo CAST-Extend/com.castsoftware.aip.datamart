@@ -10,9 +10,12 @@
 If you have built a datamart schema with a prior version of the REST API, then you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart update``` command line.
 
 #### Resolved issues
- - Add VERSION column for DIM_SNAPSHOTS table
  - Fix TECHNOLOGY column for SRC_OBJECTS table: replace the 'All' idenfifier with the effective technology name
 
+#### Updates 
+ - Add SRC_TRX_HEALTH_IMPACTS table to store transaction risk indexes
+ - Add VERSION column for DIM_SNAPSHOTS table
+ 
 ## Branch: master
 
 #### Prerequisite
