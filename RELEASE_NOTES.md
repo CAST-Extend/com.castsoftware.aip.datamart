@@ -7,7 +7,7 @@
 
 #### Upgrade
 
-If you have built a datamart schema with a prior version of the REST API, then you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart update``` command line.
+You may want to preserve an existing datamart schema, because you have built some SQL views on top of it. In this case you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart update``` command line.
 
 #### Resolved issues
  - Fix TECHNOLOGY column for SRC_OBJECTS table: replace the 'All' idenfifier with the effective technology name

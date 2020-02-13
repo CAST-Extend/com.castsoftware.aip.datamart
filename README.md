@@ -604,13 +604,16 @@ title                                | TEXT     | Title or short description of 
 ```
 
 ### SRC_HEALTH_IMPACTS
-Propagated Risk Index, and Risk Propagation Factor by Business Criterion and Source Object
+Propagated Risk Index, and Risk Propagation Factor by Business Criterion and Source Object for the latest snapshot of each application
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
 business_criterion_name              | TEXT     | A business criterion
+nb_violated_rules                    | INT      | Number of violated rules impacting the business criterion
+nb_violations                        | INT      | Number of violations impacting the business criterion
 propagated_risk_index                | DECIMAL  | Propagated Risk Index (PRI) is a measurement of a risk for an object and a business criterion
 risk_propagation_factor              | DECIMAL  | The number of different call paths to reach the critical violations
 ```
@@ -679,8 +682,8 @@ trx_name                             | TEXT     | Transaction name
 security_risk_index                  | INT      | Transaction Risk Index (TRI) for Security health factor
 efficiency_risk_index                | INT      | Transaction Risk Index (TRI) for Efficiency health factor
 robustness_risk_index                | INT      | Transaction Risk Index (TRI) for Robustness health factor
-        
-
+   
+```
 
 
 ### SRC_VIOLATIONS
