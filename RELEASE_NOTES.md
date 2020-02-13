@@ -15,6 +15,7 @@ If you have built a datamart schema with a prior version of the REST API, then y
 #### Updates 
  - Add SRC_TRX_HEALTH_IMPACTS table to store transaction risk indexes
  - Add VERSION column for DIM_SNAPSHOTS table
+ - Make SRC_OBJECTS extraction more efficient 
  - `create_views.bat` script create optional views, Datapond views are created with `create_datapond_views.bat`
  
 ## Branch: master
