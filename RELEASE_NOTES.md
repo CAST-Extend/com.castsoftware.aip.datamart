@@ -14,7 +14,8 @@ You may want to preserve an existing datamart schema, because you have built som
 
 #### Updates 
  - Add SRC_TRX_HEALTH_IMPACTS table to store transaction risk indexes
- - Add VERSION column for DIM_SNAPSHOTS table
+ - Add VERSION column to DIM_SNAPSHOTS table
+ - Add NB_VIOLATIONS, NB_VIOLATED_RULES, SNAPSHOT_ID columns to SRC_HEALTH_IMPACTS table
  - `create_views.bat` script create optional views, Datapond views are created with `create_datapond_views.bat`
  
 ## Branch: master
