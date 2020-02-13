@@ -158,6 +158,7 @@ if __name__ == "__main__":
         tables = [
                     {"name":"SRC_OBJECTS", "column_name":"application_name"},
                     {"name":"SRC_TRANSACTIONS", "column_name":"application_name"},
+                    {"name":"SRC_TRX_HEALTH_IMPACTS", "column_name":"application_name"},
                     {"name":"SRC_MOD_OBJECTS", "column_name":"application_name"},
                     {"name":"SRC_TRX_OBJECTS", "column_name":"object_id"},
                     {"name":"SRC_VIOLATIONS", "column_name":"object_id"},

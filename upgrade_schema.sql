@@ -11,7 +11,7 @@ DO $$
         BEGIN 
             CREATE TABLE SRC_TRX_HEALTH_IMPACTS
             (
-                APPLICATION_NAME INT,
+                APPLICATION_NAME TEXT,
                 SNAPSHOT_ID TEXT,
                 TRX_ID  TEXT,
                 TRX_NAME TEXT,

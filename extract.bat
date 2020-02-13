@@ -71,6 +71,7 @@ call :extract datamart/src-transactions                     SRC_TRANSACTIONS    
 call :extract datamart/src-mod-objects                      SRC_MOD_OBJECTS                     || EXIT /b 1
 call :extract datamart/src-trx-objects                      SRC_TRX_OBJECTS                     || EXIT /b 1
 call :extract datamart/src-health-impacts                   SRC_HEALTH_IMPACTS                  || EXIT /b 1
+call :extract datamart/src-trx-health-impacts               SRC_TRX_HEALTH_IMPACTS              || EXIT /b 1
 call :extract datamart/src-violations                       SRC_VIOLATIONS                      || EXIT /b 1
 call :extract datamart/usr-exclusions                       USR_EXCLUSIONS                      || EXIT /b 1
 call :extract datamart/usr-action-plan                      USR_ACTION_PLAN                     || EXIT /b 1
