@@ -4,6 +4,7 @@
 #### Prerequisite
 
 - REST API **1.15**<br>
+Note: This new version of the REST API limits memory consumption when fetching a large set of data from database.
 
 #### Upgrade
 
