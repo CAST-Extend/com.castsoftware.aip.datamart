@@ -1,4 +1,3 @@
-
 ## Branch: next-release
 
 #### Prerequisite
@@ -12,12 +11,13 @@ You may want to preserve an existing datamart schema, because you have built som
 
 #### Resolved issues
  - Fix TECHNOLOGY column for SRC_OBJECTS table: replace the 'All' idenfifier with the effective technology name
+ - Check paths validity for input environment variables in `setenv.bat`
 
 #### Updates 
  - Add SRC_TRX_HEALTH_IMPACTS table to store transaction risk indexes
  - Add VERSION column to DIM_SNAPSHOTS table
  - Add NB_VIOLATIONS, NB_VIOLATED_RULES, SNAPSHOT_ID columns to SRC_HEALTH_IMPACTS table
- - `create_views.bat` script create optional views, Datapond views are created with `create_datapond_views.bat`
+  - `create_views.bat` script create optional views, Datapond views are created with `create_datapond_views.bat`
  
 ## Branch: master
 
