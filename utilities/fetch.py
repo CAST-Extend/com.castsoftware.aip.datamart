@@ -57,9 +57,10 @@ def exit(code):
     sys.exit(code)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="Fetch data from a Web Server using the environment variable 'CREDENTIALS' or %USERPROFILE%\_netrc")
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="""Fetch data from a Web Server using the environment variable 'CREDENTIALS' or %USERPROFILE%\_netrc
+For Windows OS only""")
     parser.add_argument("url", action="store", help="URL to fetch")
-    parser.add_argument("media", action="store", help="Media type: 'application/json' or 'text/csv'")
+    parser.add_argument("media", action="store", help="Media type. Typically 'application/json' or 'text/csv'")
     parser.add_argument("-o", "--output", dest="output", action="store", help="Output file path, a verbose mode is also enabled")
     parser.add_argument("-r", "--retry", type=int, dest="retry", action="store", help="Number of retries in case of network error", default=5)
     args = parser.parse_args()
