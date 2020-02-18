@@ -70,6 +70,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
   * a PostgreSQL server, with a database created to host target data
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3](https://www.python.org/downloads/)__ (in your path)
+  * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
 * Edit the scripts ```setenv.bat``` to set the configuration variables
   * Folders
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
