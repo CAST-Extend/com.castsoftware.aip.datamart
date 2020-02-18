@@ -35,7 +35,7 @@ def get_credentials(url):
     url_components = urlparse(url)
     # Strip port numbers from netloc
     host = url_components.netloc.split(':')[0]
-    username, _, password = netrc.netrc(os.path.join(os.environ["USERPROFILE"], "_netrc")).authenticators("localhost")
+    username, _, password = netrc.netrc(os.path.join(os.environ["USERPROFILE"], "_netrc")).authenticators(host)
     return [username, password]
 
 def check_status(status):
