@@ -35,7 +35,15 @@ def get_credentials(url):
     url_components = urlparse(url)
     # Strip port numbers from netloc
     host = url_components.netloc.split(':')[0]
-    username, _, password = netrc.netrc(os.path.join(os.environ["USERPROFILE"], "_netrc")).authenticators(host)
+    file_path = os.path.join(os.environ["USERPROFILE"], "_netrc")
+    try:
+        username, _, password = netrc.netrc(file_path).authenticators(host)
+    except netrc.NetrcParseError:
+        print("Malformed file " + file_path)
+        exit(1)
+    except TypeError:
+        print("Cannot find credentials, neither in CREDENTIALS environment variable, nor in " + file_path, file=sys.stderr)
+        exit(1)
     return [username, password]
 
 def check_status(status):
@@ -60,6 +68,7 @@ if __name__ == "__main__":
     
     session = requests.Session()
     session.mount('http://', HTTPAdapter(max_retries=Retry(read=args.retry, backoff_factor=1)))
+    session.mount('https://', HTTPAdapter(max_retries=Retry(read=args.retry, backoff_factor=1)))
     
     if args.output == None:
         response = session.get(args.url, headers={'accept': args.media, 'user-agent':'python'}, auth=(credentials[0], credentials[1]))
@@ -68,6 +77,7 @@ if __name__ == "__main__":
         exit(0)
     else:
         start_timer()
+        print(credentials)
         response =requests.get(args.url, headers={'accept': args.media, 'user-agent':'python'}, auth=(credentials[0], credentials[1]), stream=True)
         check_status(response.status_code)
         with open(args.output, 'wb') as f:
