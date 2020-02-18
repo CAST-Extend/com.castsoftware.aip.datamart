@@ -90,5 +90,6 @@ For Windows OS only""")
             for chunk in response.iter_content(chunk_size=1024):
                 item += 1
                 f.write(chunk)
-        print_progress()
+        print_progress() # print last progress status
+        print()# put line-feed
         exit(0)
