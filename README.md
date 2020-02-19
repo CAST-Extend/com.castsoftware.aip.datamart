@@ -68,8 +68,8 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 * Make sure you have access to 
   * the REST API server (_1.14_ or higher)
   * a PostgreSQL server, with a database created to host target data
-  * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3](https://www.python.org/downloads/)__ (in your path)
+  * __[requests](https://pypi.org/project/requests/)__ python package, installed with ```pip install requests```  
 * Edit the scripts ```setenv.bat``` to set the configuration variables
   * Folders
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
@@ -84,7 +84,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 * Set PostgreSQL server password:
     * Either in ```PGPASSWORD``` environment variable
     * Or in ```%APPDATA%\postgresql\pgpass.conf``` file which must have restricted access (see [PostgreSQL Documentation: The password file](https://www.postgresql.org/docs/9.3/libpq-pgpass.html))
-* Set credentials to authenticate to the REST API (see Curl command line)
+* Set credentials to authenticate to the REST API
     * Either in ```CREDENTIALS``` environment variable with the following format ```username:password```
     * Or in ```%USERPROFILE%/_netrc``` file which must have restricted access, append these 3 text lines:
       ```
