@@ -99,6 +99,18 @@ REM John is the user name and R2&D2! is the password
 SET CREDENTIALS="John:R2^^^&D2^^^^^!"
 ```
 
+#### Password obfuscation
+
+If you set the ```CREDENTIALS``` or the ```PGPASSWORD``` environment variables, then you can obfuscated these values as follow:
+
+```
+C:>python utilities\encode.py mysecret
+HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
+
+SET PGPASSWORD=HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
+```
+This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/Shoulder_surfing_%28computer_security%29). It does not prevent an operator to access the password in clear text.
+
 #### Single Data Source
 
 This mode allows to extract data of a single Health domain or a single Engineering domain into a target database.
