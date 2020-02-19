@@ -18,9 +18,9 @@ EXIT /b 1
 
 :CREDENTIALS
 IF [%OUTPUT%] == [] (
-    curl --retry 5 --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u "%CRED%" "%URL%" || GOTO :FAIL
+    curl --retry 5 --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u "%CREDENTIALS%" "%URL%" || GOTO :FAIL
 ) ELSE (
-    curl --retry 5 --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u "%CRED%" "%URL%" -o "%OUTPUT%" || GOTO :FAIL
+    curl --retry 5 --no-buffer -f -k -H "Accept: %MEDIATYPE%" -u "%CREDENTIALS%" "%URL%" -o "%OUTPUT%" || GOTO :FAIL
 )
 GOTO :EOF
 
@@ -34,5 +34,4 @@ IF [%OUTPUT%] == [] (
 GOTO :EOF
 
 :FAIL
-echo Curl failed with MEDIATYPE=%MEDIATYPE%, URL=%URL%, OUTPUT=%OUTPUT%, CREDENTIALS=%CREDENTIALS%
 EXIT /b 1
