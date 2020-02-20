@@ -93,7 +93,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       login <username>
       password <password>
       ```
-_Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quoetes, but escape the characters with ```^``` character:
+_Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
 ```
 REM John is the user name and R2&D2! is the password
