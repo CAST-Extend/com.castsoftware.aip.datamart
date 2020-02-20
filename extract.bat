@@ -90,5 +90,5 @@ ECHO.
 ECHO ------------------------------
 ECHO Extract %EXTRACT_FOLDER%\%DOMAIN%\%~2.csv
 ECHO ------------------------------
-call utilities\curl-bat text/csv "%ROOT%/%DOMAIN%/%~1" "%EXTRACT_FOLDER%\%DOMAIN%\%~2.csv"
+python utilities\curl.py text/csv "%ROOT%/%DOMAIN%/%~1" "%EXTRACT_FOLDER%\%DOMAIN%\%~2.csv"
 GOTO :EOF

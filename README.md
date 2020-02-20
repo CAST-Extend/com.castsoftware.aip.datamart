@@ -60,7 +60,7 @@ The URIs of the REST API follow the tables names (replace the underscore charact
 <br>
 Example to extract the DIM_APPLICATIONS content:
 ```
-curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" || EXIT /b 1
+curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
 ```
 
 ### Running the Scripts 
@@ -93,15 +93,18 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       login <username>
       password <password>
       ```
-_Note_: If you set an environment variable with a special character such as ```&<>()``` then you must escape the characters double times with the ```^``` character, and escape the character ```!``` three times with the ```^``` character:
+_Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quoetes, but escape the characters with ```^``` character:
+Example:
 ```
 REM John is the user name and R2&D2! is the password
-SET CREDENTIALS="John:R2^^^&D2^^^^^!"
+SET CREDENTIALS=John:R2^&D2^^!
 ```
+
+You can avoid this kind of issue, using the obfuscation mechanism.
 
 #### Password obfuscation
 
-If you set the ```CREDENTIALS``` or the ```PGPASSWORD``` environment variables, then you can obfuscated these values as follow:
+If you set the ```CREDENTIALS``` or the ```PGPASSWORD``` environment variables, then you can obfuscate these values as follow:
 
 ```
 C:>python utilities\encode.py mysecret
@@ -109,7 +112,7 @@ HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
 
 SET PGPASSWORD=HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
 ```
-This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/Shoulder_surfing_%28computer_security%29). It does not prevent an operator to access the password in clear text.
+This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/Shoulder_surfing_%28computer_security%29). It does not prevent an operator to access the content in clear text.
 
 #### Single Data Source
 
