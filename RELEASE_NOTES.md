@@ -4,6 +4,7 @@
 
 - REST API **1.15**<br>
 Note: This new version of the REST API limits memory consumption when fetching a large set of data from database.
+- AIP Database > 8.3.5
 
 #### Upgrade
 
@@ -20,7 +21,8 @@ Note: This new version of the REST API limits memory consumption when fetching a
  - Add ```NB_VIOLATIONS```, ```NB_VIOLATED_RULES```, ```SNAPSHOT_ID``` columns to ```SRC_HEALTH_IMPACTS``` table
  
 ##### Scripts
- - Check paths validity for input environment variables in `setenv.bat`
+ - Move environment variables checking from ```setenv.bat``` to ```checkenv.bat```
+ - Check paths validity for input environment variables in ```setenv.bat```
  - Add ```--retry 5``` option when requesting data with ```curl```, in case of network errors
  - Add explicit command ```python``` to run the ```transform.py``` script in ```transform.bat``` file ; otherwise the 'transform' step may be skipped, and the 'load' step fails
  - `create_views.bat` script create optional views, Datapond views are created with `create_datapond_views.bat`
@@ -35,4 +37,5 @@ First release.
 #### Prerequisite
 
 - REST API  **1.14**
+- AIP Database > 8.3.5
 

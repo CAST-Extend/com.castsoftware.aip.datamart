@@ -1,6 +1,7 @@
 @ECHO OFF
 SETLOCAL enabledelayedexpansion
 CALL setenv.bat || GOTO :FAIL
+CALL checkenv.bat || GOTO :FAIL
 
 set DOMAIN=%2
 if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%

@@ -4,6 +4,7 @@ SET HD_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 SET ED_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 
 CALL setenv.bat || GOTO :FAIL
+CALL checkenv.bat || GOTO :FAIL
 
 if [%1] == [install] goto :INSTALL
 if [%1] == [refresh] goto :REFRESH

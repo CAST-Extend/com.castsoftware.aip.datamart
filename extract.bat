@@ -1,6 +1,7 @@
 @ECHO OFF
 SETLOCAL enabledelayedexpansion
 CALL setenv.bat || GOTO :FAIL
+CALL checkenv.bat || GOTO :FAIL
 
 if [%2] == [] if not [%3] == [] goto :USAGE
 

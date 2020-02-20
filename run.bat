@@ -12,7 +12,7 @@ echo run install
 echo    to create or re-recreate all the datamart tables; some dependent tables or views will be dropped
 echo    use install
 echo       1. for the first run
-echo       2. if you have changed the set of quality standard tags (see variable QSTAGS of setenv.bat)
+echo       2. if you have changed the set of quality standard tags
 echo       3. to take into account a new version of the datamart Web Services
 goto :FAIL
 

@@ -2,6 +2,7 @@ ECHO OFF
 SETLOCAL enabledelayedexpansion
 
 CALL setenv.bat || GOTO :FAIL
+CALL checkenv.bat || GOTO :FAIL
 
 REM Load Data
 CALL :load DIM_OMG_ASCQM                        || GOTO :FAIL
@@ -18,5 +19,5 @@ EXIT /b 0
 
 :load
 ECHO Load %VIEWS_FOLDER%\%~1.sql
-"%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f "%VIEWS_FOLDER%\%~1.sql" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
+python utilities\run.py "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f "%VIEWS_FOLDER%\%~1.sql" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 GOTO :EOF
