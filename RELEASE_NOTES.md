@@ -1,4 +1,4 @@
-## Branch: master
+## Branch: master - February 2020
 
 #### Prerequisite
 
@@ -13,7 +13,7 @@ Note: This new version of the REST API limits memory consumption when fetching a
 
 #### What's new?
 
-##### Data scope
+##### Data
  - Fix ```TECHNOLOGY``` column for ```SRC_OBJECTS``` table: replace the 'All' identifier with the effective technology name
  - Add ```SRC_TRX_HEALTH_IMPACTS``` table to store transaction risk indexes
  - Add ```VERSION``` column to ```DIM_SNAPSHOTS``` table
@@ -23,14 +23,14 @@ Note: This new version of the REST API limits memory consumption when fetching a
  - Check paths validity for input environment variables in `setenv.bat`
  - Add ```--retry 5``` option when requesting data with ```curl```, in case of network errors
  - Add explicit command ```python``` to run the ```transform.py``` script in ```transform.bat``` file ; otherwise the 'transform' step may be skipped, and the 'load' step fails
-  - `create_views.bat` script create optional views, Datapond views are created with `create_datapond_views.bat`
- - Ability to obfuscate the CREDENTIALS and the PGPASWORD environment variables to prevent "shoulder surfing".
+ - `create_views.bat` script create optional views, Datapond views are created with `create_datapond_views.bat`
+ - Ability to obfuscate the ```CREDENTIALS``` and the ```PGPASWORD``` environment variables to prevent "shoulder surfing".
  - Add a directory ```log``` for log files
  - Rename ```ETL.log``` by adding a time-stamp in the file name. Ex: ```ETL-04-Feb-20-13-40-00.32.log```
  
-## Branch: 1.14.BETA
+## Branch: 1.14.BETA - January 2020
 
-First version
+First release.
 
 #### Prerequisite
 
