@@ -93,6 +93,8 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       login <username>
       password <password>
       ```
+    * Otherwise set the ```APIKEY``` environment variable
+    
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
 ```
@@ -104,7 +106,7 @@ You can avoid this kind of issue, using the obfuscation mechanism.
 
 #### Password obfuscation
 
-If you set the ```CREDENTIALS``` or the ```PGPASSWORD``` environment variables, then you can obfuscate these values as follow:
+If you set the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY``` environment variables, then you can obfuscate these values as follow:
 
 ```
 C:>python utilities\encode.py mysecret

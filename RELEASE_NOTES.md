@@ -21,12 +21,12 @@ Note: This new version of the REST API limits memory consumption when fetching a
  - Add ```NB_VIOLATIONS```, ```NB_VIOLATED_RULES```, ```SNAPSHOT_ID``` columns to ```SRC_HEALTH_IMPACTS``` table
  
 ##### Scripts
+ - Add ```APIKEY``` to authenticate to the REST API
  - Move environment variables checking from ```setenv.bat``` to ```checkenv.bat```
  - Check paths validity for input environment variables in ```setenv.bat```
  - Add ```--retry 5``` option when requesting data with ```curl```, in case of network errors
- - Add explicit command ```python``` to run the ```transform.py``` script in ```transform.bat``` file ; otherwise the 'transform' step may be skipped, and the 'load' step fails
- - `create_views.bat` script create optional views, Datapond views are created with `create_datapond_views.bat`
- - Ability to obfuscate the ```CREDENTIALS``` and the ```PGPASWORD``` environment variables to prevent "shoulder surfing".
+ - Move creation of datapond views to ```create_datapond_views.bat``` script ; `create_views.bat` script creates optional views,
+ - Ability to obfuscate the ```CREDENTIALS```, ```PGPASWORD```, ```APIKEY``` environment variables to prevent "shoulder surfing".
  - Add a directory ```log``` for log files
  - Rename ```ETL.log``` by adding a time-stamp in the file name. Ex: ```ETL-04-Feb-20-13-40-00.32.log```
  

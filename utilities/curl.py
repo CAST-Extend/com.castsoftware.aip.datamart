@@ -14,8 +14,11 @@ For Windows OS only""")
 
     curl_args = ['curl', '--retry', '5', '--no-buffer', '-f', '-k', '-H', 'Accept: ' + args.mediatype]
     credentials=os.getenv("CREDENTIALS")
+    apikey=os.getenv("APIKEY")
     if credentials:
         curl_args += ['-u', decode.decode(credentials)]
+    elif apikey:
+        curl_args += ['-H', 'X-API-KEY: ' + decode.decode(apikey)]
     else:
         curl_args += ['--netrc-file', os.getenv("USERPROFILE") +  '\_netrc ']
     output=args.output
