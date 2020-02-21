@@ -65,13 +65,14 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 
 ### Running the Scripts 
 
-* Make sure you have access to 
-  * the REST API server (_1.14_ or higher)
+* __Make sure__ you have access to 
+  * the REST API server (see version number above)
   * a PostgreSQL server, with a database created to host target data
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3](https://www.python.org/downloads/)__ (in your path)
   * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
-* Edit the scripts ```setenv.bat``` to set the configuration variables
+* __Download__ the zip of this repository, unzip the archive, and move the content into a single target folder
+* __Edit configuration variables__ in ```setenv.bat``` file
   * Folders
       * ```INSTALLATION_FOLDER```: the absolute path of the scripts location
   * Target Database
@@ -82,10 +83,10 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       * ```_DB_NAME```: the target PostgreSQL database
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
-* Set PostgreSQL server password:
+* __Set PostgreSQL server password__:
     * Either in ```PGPASSWORD``` environment variable
     * Or in ```%APPDATA%\postgresql\pgpass.conf``` file which must have restricted access (see [PostgreSQL Documentation: The password file](https://www.postgresql.org/docs/9.3/libpq-pgpass.html))
-* Set credentials to authenticate to the REST API (see Curl command line)
+* __Set credentials__ to authenticate to the REST API (see Curl command line)
     * Either in ```CREDENTIALS``` environment variable with the following format ```username:password```
     * Or in ```%USERPROFILE%/_netrc``` file which must have restricted access, append these 3 text lines:
       ```
@@ -120,10 +121,10 @@ This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/S
 
 This mode allows to extract data of a single Health domain or a single Engineering domain into a target database.
 
-* Edit the scripts ```setenv.bat``` to set the default REST API URL and DOMAIN
+* __Edit__ the scripts ```setenv.bat``` to set the default REST API URL and DOMAIN
   * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
   * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` for the Health domain, or an Engineering domain
-* Start ```run.bat install``` 
+* __Start__ ```run.bat install``` 
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log\ETL-*.log``` file.
 
 After a first install, if you start ```run.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
@@ -134,11 +135,10 @@ Start ```run.bat help``` for more information on these modes.
 
 This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
 
-* Edit the scripts ```setenv.bat```
-* * Edit the scripts ```datamart.bat``` to override following environment variables:
+* __Edit__ the scripts ```datamart.bat``` to override following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
-* Then start ```datamart.bat install``` from a CMD window (do not double click from the explorer)
+* __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log\ETL-*.log``` file.
 
 After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
