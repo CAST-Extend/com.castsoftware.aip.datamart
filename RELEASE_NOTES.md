@@ -21,6 +21,7 @@ Note: This new version of the REST API limits memory consumption when fetching a
  - Add ```NB_VIOLATIONS```, ```NB_VIOLATED_RULES```, ```SNAPSHOT_ID``` columns to ```SRC_HEALTH_IMPACTS``` table
  
 ##### Scripts
+ - Print a possible cause on REST API common errors
  - Add ```APIKEY``` as an alternative authentication to the REST API
  - Move environment variables checking from ```setenv.bat``` to ```checkenv.bat```
  - Check paths validity for input environment variables in ```setenv.bat```
