@@ -106,7 +106,7 @@ You can avoid this kind of issue, using the obfuscation mechanism.
 
 #### Password obfuscation
 
-If you set the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY``` environment variables, then you can obfuscate these values as follow:
+If you set the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY``` environment variables, then you can obfuscate these secret values as follow:
 
 ```
 C:>python utilities\encode.py mysecret
@@ -114,7 +114,7 @@ HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
 
 SET PGPASSWORD=HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
 ```
-This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/Shoulder_surfing_%28computer_security%29). It does not prevent an operator to access the content in clear text.
+This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/Shoulder_surfing_%28computer_security%29). It does not prevent an operator to access the secret values in clear text.
 
 #### Single Data Source
 
@@ -134,10 +134,11 @@ Start ```run.bat help``` for more information on these modes.
 
 This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
 
-* Edit the scripts ```datamart.bat``` 
+* Edit the scripts ```setenv.bat```
+* * Edit the scripts ```datamart.bat``` to override following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
-* Then start ```marge.bat install``` from a CMD window (do not double click from the explorer)
+* Then start ```datamart.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log\ETL-*.log``` file.
 
 After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
