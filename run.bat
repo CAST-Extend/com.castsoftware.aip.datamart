@@ -17,12 +17,15 @@ echo       3. to take into account a new version of the datamart Web Services
 goto :FAIL
 
 :RUN
+pushd %~dp0
 call extract %1 %2 %3   || goto :FAIL
 call transform %1 %3    || goto :FAIL
 call load %1 %3         || goto :FAIL
+popd
 GOTO :EOF
 
 :FAIL
+popd
 EXIT /b 1
 
 

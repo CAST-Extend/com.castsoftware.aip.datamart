@@ -21,10 +21,11 @@ Note: This new version of the REST API limits memory consumption when fetching a
  - Add ```NB_VIOLATIONS```, ```NB_VIOLATED_RULES```, ```SNAPSHOT_ID``` columns to ```SRC_HEALTH_IMPACTS``` table
  
 ##### Scripts
- - Print a possible cause on REST API common errors
- - Add ```APIKEY``` as an alternative authentication to the REST API
  - Move environment variables checking from ```setenv.bat``` to ```checkenv.bat```
+ - Remove ```INSTALLATION_FOLDER``` environment variable from ```setenv.bat```
  - Check paths validity for input environment variables in ```setenv.bat```
+ - Display a possible cause on REST API common errors
+ - Add ```APIKEY``` as an alternative authentication to the REST API
  - Add ```--retry 5``` option when requesting data with ```curl```, in case of network errors
  - Move creation of datapond views to ```create_datapond_views.bat``` script ; `create_views.bat` script creates optional views
  - Ability to obfuscate the ```CREDENTIALS```, ```PGPASWORD```, ```APIKEY``` environment variables to prevent "shoulder surfing"

@@ -3,6 +3,7 @@ SETLOCAL enabledelayedexpansion
 SET HD_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 SET ED_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 
+pushd %~dp0
 CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
@@ -43,14 +44,17 @@ if [%ERRORLEVEL%] == [1] call run replace_details %ED_ROOT% %%D || goto :FAIL
 GOTO :SUCCESS
 
 :FAIL
+popd
 echo Datamart %1 FAIL
 EXIT /b 1
 
 :SUCCESS
+popd
 echo Datamart %1 SUCCESS
 EXIT /b 0
 
 :SKIP
+popd
 echo Datamart is already synchronized. No new snapshot
 EXIT /b 0
 
