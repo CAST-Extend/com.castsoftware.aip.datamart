@@ -73,9 +73,10 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
   * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
 * __Download__ the zip of this repository, unzip the archive, and move the content into a single target folder
 * __Edit configuration variables__ in ```setenv.bat``` file
-  * Target Database
+  * PostgreSQL executables
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
       * ```VACUUMDB```: the absolute path to the vacummdb command (see your PostgreSQL install directory)
+  * Target Database
       * ```_DB_HOST```: the PostgreSQL server host name
       * ```_DB_PORT```: the PostgreSQL server port
       * ```_DB_NAME```: the target PostgreSQL database
