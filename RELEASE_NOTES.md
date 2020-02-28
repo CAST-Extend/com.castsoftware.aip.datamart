@@ -21,6 +21,7 @@ Note: This new version of the REST API limits memory consumption when fetching a
  - Add ```NB_VIOLATIONS```, ```NB_VIOLATED_RULES```, ```SNAPSHOT_ID``` columns to ```SRC_HEALTH_IMPACTS``` table
  
 ##### Scripts
+ - Add HTTP header ```X-Client: Datamart``` so that the Datamart requests are identified in the REST API audit trail
  - Move environment variables checking from ```setenv.bat``` to ```checkenv.bat```
  - Remove ```INSTALLATION_FOLDER``` environment variable from ```setenv.bat```
  - Check paths validity for input environment variables in ```setenv.bat```
