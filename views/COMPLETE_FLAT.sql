@@ -6,52 +6,27 @@ CREATE OR REPLACE VIEW :schema.complete_flat AS
     s.label,
     a.snapshot,
     a.snapshot_date,
-    CASE
-        WHEN s.is_latest THEN 'curr'
-        ELSE 'past'
-    END as snapshot_state,
+    a.snapshot_state,
+    a.cisq_score,
+    a.cisq_grade,
+    a.owasp_score,
+    a.owasp_grade,    
+    -- Uncomment these lines to get CUSTOM RULES scores according to CUST_RULES table
+    /* 
+    a.cust_score,
+    a.cust_grade,
+    */
+    -- Uncomment these lines to get SONAR QUBE RULES scores according to CODE_RULES table    
+    /*
+    a.sq_score,
+    a.sq_grade,
+    */
     a.snap_doy,
     a.locs,
     a.excluded_vio,
     a.ap_fixed_vio,
     a.ap_pending_vio,
-
-    -- Uncomment these lines to get CISQ scores and grades according to DATAPOND
-    -- DIM_CISQ view must be defined
-   /*(select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from aad.app_violations_measures v join aad.dim_cisq r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
-    as CISQ_SCORE,
-
-   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from aad.app_violations_measures v join aad.dim_cisq r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
-    SELECT 
-    CASE WHEN x.score >= 0.98 THEN 'A'
-       WHEN x.score >= 0.96 THEN 'B'
-       WHEN x.score >= 0.75 THEN 'C'
-       WHEN x.score >= 0.60 THEN 'D'
-       ELSE 'F'
-    END from x) as CISQ_GRADE,  
-    */
-    
-   -- Uncomment these lines to get OWASP 2017 scores according to DATAPOND
-   -- DIM_OWASP_2017 view must be defined   
-   /*
-   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from aad.app_violations_measures v join aad.dim_owasp_2017 r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
-    as OWASP_SCORE,
-    */
-
-    -- Uncomment these lines to get CUSTOM RULES scores according to DATAPOND
-    -- CUST_RULES table must be defined
-    /*
-   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from aad.app_violations_measures v join aad.cust_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
-    as CUST_SCORE
-    */
-    
-    -- Uncomment these lines to get SONAR CUBE scores according to DATAPOND
-    -- CODE_RULES table must be defined
-    /*
-   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from aad.app_violations_measures v join aad.code_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
-    as SQ_SCORE
-    */
-    
+   
     round((a.rbst_score + a.eff_score + a.sec_score) / 3::numeric, 2) AS operations,
     round((a.chg_score + a.trn_score) / 2::numeric, 2) AS maintenance,
     p.nb_total_points,

@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS :schema.dim_cisq;
+DROP VIEW IF EXISTS :schema.dim_cisq CASCADE;
 CREATE OR REPLACE VIEW :schema.dim_cisq AS 
   SELECT c.metric_id, c.rule_name, 
     BOOL_OR(c.tag = 'CISQ-Maintainability') AS cisq_maintainability,

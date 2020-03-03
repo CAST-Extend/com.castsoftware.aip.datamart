@@ -1,4 +1,4 @@
-DROP VIEW IF EXISTS :schema.dim_owasp_2017;
+DROP VIEW IF EXISTS :schema.dim_owasp_2017 CASCADE;
 CREATE OR REPLACE VIEW :schema.dim_owasp_2017 AS 
   SELECT c.metric_id, c.rule_name, 
     BOOL_OR(c.tag = 'A1-2017') AS a1_2017,

@@ -7,10 +7,71 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
     (date_part('year'::text, s.date) || lpad(date_part('month'::text, s.date)::text, 2, '0'::text))::integer AS yr_mth,  
     max(s.snapshot_number) AS snapshot, 
     s.date as snapshot_date,
+    CASE
+        WHEN s.is_latest THEN 'curr'
+        ELSE 'past'
+    END as snapshot_state,
     date_part('month'::text, s.date)::integer AS snap_mth, 
     date_part('quarter'::text, s.date)::integer AS snap_qtr, 
     date_part('year'::text, s.date)::integer AS snap_yr, 
     date_part('doy'::text, s.date)::integer AS snap_doy, 
+    
+   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from :schema.app_violations_measures v join :schema.dim_cisq r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    as cisq_score,
+
+   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from :schema.app_violations_measures v join :schema.dim_cisq r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    SELECT 
+    CASE WHEN x.score >= 0.98 THEN 'A'
+       WHEN x.score >= 0.96 THEN 'B'
+       WHEN x.score >= 0.75 THEN 'C'
+       WHEN x.score >= 0.60 THEN 'D'
+       ELSE 'F'
+    END from x) as cisq_grade,  
+
+   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from :schema.app_violations_measures v join :schema.dim_owasp_2017 r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    as owasp_score,
+    
+   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from :schema.app_violations_measures v join :schema.dim_owasp_2017 r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    SELECT 
+    CASE WHEN x.score >= 0.98 THEN 'A'
+       WHEN x.score >= 0.96 THEN 'B'
+       WHEN x.score >= 0.75 THEN 'C'
+       WHEN x.score >= 0.60 THEN 'D'
+       ELSE 'F'
+    END from x) as owasp_grade,
+    
+    -- Uncomment these lines to get CUSTOM RULES scores according to CUST_RULES table
+    -- CUST_RULES table must be defined
+    /*
+   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from :schema.app_violations_measures v join :schema.cust_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    as cust_score,
+    
+   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from :schema.app_violations_measures v join :schema.cust_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    SELECT 
+    CASE WHEN x.score >= 0.98 THEN 'A'
+       WHEN x.score >= 0.96 THEN 'B'
+       WHEN x.score >= 0.75 THEN 'C'
+       WHEN x.score >= 0.60 THEN 'D'
+       ELSE 'F'
+    END from x) as cust_grade,
+    */
+    
+    -- Uncomment these lines to get SONAR CUBE scores according to CODE_RULES table
+    -- CODE_RULES table must be defined
+    /*
+   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from :schema.app_violations_measures v join :schema.code_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    as sq_score,
+    
+    (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from :schema.app_violations_measures v join :schema.code_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    SELECT 
+    CASE WHEN x.score >= 0.98 THEN 'A'
+       WHEN x.score >= 0.96 THEN 'B'
+       WHEN x.score >= 0.75 THEN 'C'
+       WHEN x.score >= 0.60 THEN 'D'
+       ELSE 'F'
+    END from x) as sq_grade,
+    */
+    
     max(f.nb_total_points) AS curr_afp, 
 
     round(max(m.technical_debt_total)::numeric,2) AS tech_debt_cur,
