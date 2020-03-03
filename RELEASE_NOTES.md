@@ -32,7 +32,7 @@ Note: This new version of the REST API limits memory consumption when fetching a
  - Move creation of datapond views to ```create_datapond_views.bat``` script ; `create_views.bat` script creates optional views
  - Ability to obfuscate the ```CREDENTIALS```, ```PGPASWORD```, ```APIKEY``` environment variables to prevent "shoulder surfing"
  - Add a directory ```log``` for log files
- - Rename ```ETL.log``` by adding a time-stamp in the file name. Ex: ```ETL-04-Feb-20-13-40-00.32.log```
+ - Rename ```ETL.log``` by adding a time-stamp in the file name. Ex: ```ETL-2020-03-03T11-04-12.log```
  
 ## Branch: 1.14.BETA - January 2020
 
