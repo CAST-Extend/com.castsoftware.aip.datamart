@@ -1,4 +1,17 @@
-## Branch: master - February 2020
+## Branch: master - March 2020
+
+#### Prerequisite
+
+- REST API **1.16**<br>
+- AIP Database > 8.3.5
+
+#### What's new?
+
+##### Data
+ 
+ - Fix ```SRC_VIOLATIONS``` table extraction, some violations were skipped, and some findings names were not correct.
+
+## Branch: 1.15.BETA - February 2020
 
 #### Prerequisite
 
