@@ -10,7 +10,7 @@
 ##### Data
  
  - Fix ```SRC_VIOLATIONS``` table extraction, some violations were skipped, and some findings names were not correct.
- - Fix ```ACION_STATUS``` column of ```USR_ACTION_PLAN``` table. 
+ - Fix ```ACTION_STATUS``` column of ```USR_ACTION_PLAN``` table. 
 
 ## Branch: 1.15.BETA - February 2020
 
