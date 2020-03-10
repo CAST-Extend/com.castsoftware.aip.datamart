@@ -728,7 +728,7 @@ rule_id                              | TEXT     | Local rule ID is the concatena
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
-action_status                        | TEXT     | Status regarding the latest snapshot: added, pending, solved
+action_status                        | TEXT     | Status regarding the latest snapshot: added, pending, solved (ie fixed)
 last_update_date                     | DATE     | Date of last edition update
 start_date                           | DATE     | The creation date of the action plan issue
 end_date                             | DATE     | The resolution date of the action plan issue
