@@ -4,6 +4,8 @@ REM ------ DO NOT CHANGE ANYTHING BELOW THIS LINE
 REM ------
 REM ------------------------------------------------------------------------------
 
+python utilities\check_python_version.py || EXIT /b 1
+
 IF NOT DEFINED DEFAULT_DOMAIN (echo Missing variable DEFAULT_DOMAIN & EXIT /b 1)
 IF NOT DEFINED PSQL (echo Missing variable PSQL & EXIT /b 1)
 IF NOT DEFINED VACUUMDB (echo Missing variable VACUUMDB & EXIT /b 1)
@@ -28,3 +30,4 @@ IF NOT DEFINED LOG_FILE SET LOG_FILE=%INSTALLATION_FOLDER%\log\ETL-%NOW%.log
 
 SET PSQL_OPTIONS=-d %_DB_NAME% -h %_DB_HOST% -U %_DB_USER% -p %_DB_PORT% --set=ON_ERROR_STOP=true
 SET VACUUM_OPTIONS=-h %_DB_HOST% -U %_DB_USER% -p %_DB_PORT%
+

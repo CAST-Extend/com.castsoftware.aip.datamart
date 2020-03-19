@@ -13,6 +13,10 @@
  - Fix ```SRC_VIOLATIONS``` table extraction, some violations were skipped, and some findings names were not correct.
  - Fix ```ACTION_STATUS``` column of ```USR_ACTION_PLAN``` table. 
 
+##### Scripts
+
+- Check python version is higher than **3.6.4**
+
 ## Branch: 1.15.BETA - February 2020
 
 #### Prerequisite
