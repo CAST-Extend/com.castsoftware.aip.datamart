@@ -69,7 +69,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
   * the REST API server (see version number above)
   * a PostgreSQL server, with a database created to host target data
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
-  * __[Python 3](https://www.python.org/downloads/)__ (in your path)
+  * __[Python 3.6.4 or higher](https://www.python.org/downloads/)__ (in your path)
   * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
 * __Download__ the zip of this repository, unzip the archive, and move the content into a single target folder
 * __Edit configuration variables__ in ```setenv.bat``` file

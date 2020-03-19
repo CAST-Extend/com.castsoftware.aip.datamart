@@ -3,7 +3,8 @@
 #### Prerequisite
 
 - REST API **1.16**<br>
-- AIP Database > 8.3.5
+- AIP Database > **8.3.5**
+- Python > **3.6.4**
 
 #### What's new?
 
@@ -18,7 +19,8 @@
 
 - REST API **1.15**<br>
 Note: This new version of the REST API limits memory consumption when fetching a large set of data from database.
-- AIP Database > 8.3.5
+- AIP Database > **8.3.5**
+- Python > **3.6.4**
 
 #### Upgrade
 
