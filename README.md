@@ -24,7 +24,7 @@ The AIP datamart is a simple database schema of AIP results, so that anyone can 
 The AIP Datamart can be used:
 * to query AIP data from a Business Intelligence tool such as Power BI Desktop
 * to query AIP data using SQL  queries
-* to create CSV report using SQL queries and the CSV export capability of postgreSQL
+* to create CSV report using SQL queries and the CSV export capability of PostgreSQL
 
 The goals can be:
 * to make reports for stakeholders
