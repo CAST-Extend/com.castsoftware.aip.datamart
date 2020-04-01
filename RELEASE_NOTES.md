@@ -1,4 +1,4 @@
-## Branch: master - March 2020
+## Branch: 1.16.0 BETA - March 2020
 
 #### Prerequisite
 
@@ -17,7 +17,7 @@
 
 - Check python version is higher than **3.6.4**
 
-## Branch: 1.15.BETA - February 2020
+## Branch: 1.15.0 BETA - February 2020
 
 #### Prerequisite
 
@@ -54,7 +54,7 @@ Note: This new version of the REST API limits memory consumption when fetching a
  - Add a directory ```log``` for log files
  - Rename ```ETL.log``` by adding a time-stamp in the file name. Ex: ```ETL-2020-03-03T11-04-12.log```
  
-## Branch: 1.14.BETA - January 2020
+## Branch: 1.14.0 BETA - January 2020
 
 First release.
 
