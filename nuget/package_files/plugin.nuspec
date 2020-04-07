@@ -7,7 +7,7 @@
         <authors>CAST Product</authors>
         <owners>CAST</owners>
         <licenseUrl>https://github.com/CAST-Extend/com.castsoftware.aip.console.tools/blob/master/LICENSE</licenseUrl>
-        <projectUrl>https://github.com/CAST-Extend/com.castsoftware.uc.aip.datamart/blob/1.16.BETA/README.md</projectUrl>
+        <projectUrl>https://github.com/CAST-Extend/com.castsoftware.aip.datamart/blob/_THE_VERSION_/README.md</projectUrl>
         <iconUrl>https://raw.githubusercontent.com/CAST-Extend/resources/master/com.castsoftware.aip.reportgeneratorfordashboard.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Scripts to build the AIP Datamart. The AIP Datamart is a simple database schema of AIP results, so that anyone can query these data, requiring only conceptual knowledge of AIP.
@@ -15,7 +15,7 @@ The AIP Datamart can be used:
 - to query AIP data from a Business Intelligence tool such as Power BI Desktop
 - to query AIP data using SQL queries
 - to create CSV report using SQL queries and the CSV export capability of PostgreSQL</description>
-        <releaseNotes>https://github.com/CAST-Extend/com.castsoftware.uc.aip.datamart/blob/1.16.BETA/RELEASE_NOTES.md</releaseNotes>
+        <releaseNotes>https://github.com/CAST-Extend/com.castsoftware.aip.datamart/blob/_THE_VERSION_/RELEASE_NOTES.md</releaseNotes>
 		<tags>BI PowerBI Datapond Datamart Extraction CSV RESTAPI</tags>
 		<dependencies>
 			<dependency id="CAIP" version="8.3.0" />
