@@ -1,4 +1,4 @@
-## Branch: master - April 2020
+## Branch: master - 8 May 2020
 
 #### Prerequisite
 
@@ -12,6 +12,7 @@
  
  - Fix ```DIM_RULES``` table extraction, 'critical' flags were not correct in case of change between the 2 last snapshots
  - Optimize ```SRC_TRX_OBJECTS``` table extraction to fetch 55 millions of rows in 6 minutes (Intel Xeon CPU 3,5 GHz, 16 Gb RAM), and without ```GC overhead limit exceeded``` message
+ - Set the  comma character as a CSV delimiter so that CSV extracted files can be more easily loaded into Excel
  
 ## Branch: 1.16.0 BETA - March 2020
 
