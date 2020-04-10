@@ -47,7 +47,8 @@ goto :EOF
 :EXTRACT_MEASURES
 call :extract datamart/dim-snapshots                        DIM_SNAPSHOTS                       || EXIT /b 1
 call :extract datamart/dim-rules                            DIM_RULES                           || EXIT /b 1
-call :extract datamart/dim-omg-rules                        DIM_OMG_RULES                           || EXIT /b 1
+call :extract datamart/dim-omg-rules                        DIM_OMG_RULES                       || EXIT /b 1
+call :extract datamart/dim-cisq-rules                       DIM_CISQ_RULES                      || EXIT /b 1
 call :extract datamart/dim-applications                     DIM_APPLICATIONS                    || EXIT /b 1
 call :extract datamart/app-violations-measures              APP_VIOLATIONS_MEASURES             || EXIT /b 1
 call :extract datamart/app-sizing-measures                  APP_SIZING_MEASURES                 || EXIT /b 1

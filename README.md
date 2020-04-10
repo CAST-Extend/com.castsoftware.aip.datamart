@@ -228,6 +228,8 @@ These tables can be used to filter data along "Dimension":
 
 * `DIM_OMG_RULES`: A Dimension table to filter measures according to rules contribution to OMG-ASCQM index
 
+* `DIM_CISQ_RULES`: A Dimension table to filter measures according to rules contribution to CISQ index
+
 * `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
 
 * `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the OMG-ASCQM (aka CISQ) standard criteria
@@ -325,7 +327,7 @@ metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule according to AIP
 cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
-omg_ascqm                            | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
+omg_ascqm                            | BOOLEAN  | Check whether this rule detects OMG-ASCQM 2019 weakness
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
 
@@ -350,6 +352,7 @@ year_week                            | TEXT     | Tag the most recent applicatio
 label                                | TEXT     | Snapshot label
 version                              | TEXT     | Application version
 ```
+
 ### DIM_RULES
 A dimension table to filter measures according to rules contribution.
 * Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
@@ -375,8 +378,9 @@ weight_security                      | DECIMAL  | Contribution weight of the tec
 weight_total_quality_index           | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_transferability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 ```
+
 ### DIM_OMG_RULES
-A dimension table to filter measures according to rules contribution to OMG-ASCQM measures
+A dimension table to filter measures according to rules contribution to OMG-ASCQM index
 * Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
 * In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute.
 
@@ -394,6 +398,27 @@ weight_omg_reliability               | DECIMAL  | Contribution weight of the tec
 weight_omg_security                  | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_omg_index                     | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 ```
+
+### DIM_CISQ_RULES
+A dimension table to filter measures according to rules contribution to CISQ index
+* Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
+* In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute.
+
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_name                            | TEXT     | Rule name
+technical_criterion_name             | TEXT     | The Technical Criterion name of the highest contribution weight for this rule
+is_critical                          | BOOLEAN  | true if at least there is one critical contribution to a technical criterion
+weight                               | DECIMAL  | Highest weight contribution to the technical criteria
+weight_cisq_maintainability          | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_cisq_efficiency               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_cisq_reliability              | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_cisq_security                 | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_cisq_index                    | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+```
+
 ### APP_VIOLATIONS_MEASURES
 Violation ratio by application snapshot, by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.
 ```
@@ -408,6 +433,7 @@ nb_total_checks                      | INT      | Number of total checked object
 violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
 compliance_ratio                     | DECIMAL  | The value of 1 - Violation Ratio
 ```
+
 ### APP_SIZING_MEASURES
 Sizes by application snapshot
 ```
@@ -443,6 +469,7 @@ nb_total_points                      | INT      | (Metric #10202) AFP measures
 nb_transactional_functions_points    | INT      | (Metric #10204) AFP measures
 nb_transactions                      | INT      | (Metric #10461) Computed for AEP measures
 ```
+
 ### APP_HEALTH_SCORES
 Score and number of violations by snapshot and by business criterion
 ```
@@ -482,6 +509,7 @@ nb_violations_removed                | INT      | (Metric #67922) Total number o
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
 ```
+
 ### APP_FUNCTIONAL_SIZING_EVOLUTION
 Automatic Enhancement Points by application snapshot
 ```
@@ -515,6 +543,7 @@ nb_enhanced_shared_artifacts                   | INT      | (Metric #10470) AEP 
 nb_enhanced_specific_artifacts                 | INT      | (Metric #10471) AEP Measure
 nb_evolved_transactions                        | INT      | (Metric #10460) AEP Measure
 ```
+
 ### APP_HEALTH_EVOLUTION
 Evolution of quality indicators by application snapshot, by business criterion
 ```
@@ -529,6 +558,7 @@ nb_critical_violations_removed       | INT      | (Metric #67902) Number of crit
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
 ```
+
 ### MOD_VIOLATIONS_MEASURES
 Violation ratio by snapshot, by module and by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.
 ```
@@ -544,6 +574,7 @@ nb_total_checks                      | INT      | Number of checked objects
 violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
 compliance_ratio                     | DECIMAL  | The value of 1 - Violation Ratio
 ```
+
 ### MOD_SIZING_MEASURES
 Technical sizes by snapshot, by module 
 ```
@@ -606,6 +637,7 @@ nb_violations_removed                | INT      | (Metric #67922) Number of viol
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
 ```
+
 ### MOD_HEALTH_EVOLUTION
 Evolution of quality indicators by snapshot, by module and by business criterion
 ```
@@ -723,7 +755,6 @@ efficiency_risk_index                | INT      | Transaction Risk Index (TRI) f
 robustness_risk_index                | INT      | Transaction Risk Index (TRI) for Robustness health factor
    
 ```
-
 
 ### SRC_VIOLATIONS
 Violations for the 2 latest snapshots of each application of a central base
