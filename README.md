@@ -226,7 +226,7 @@ C:\>create_datapond_views
 These tables can be used to filter data along "Dimension":
 * `DIM_RULES`: A Dimension table to filter measures according to rules contribution
 
-* `DIM_OMG_RULES`: A Dimension table to filter measures according to rules contribution to OMG-ASCQM standard
+* `DIM_OMG_RULES`: A Dimension table to filter measures according to rules contribution to OMG-ASCQM index
 
 * `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
 
