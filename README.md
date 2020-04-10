@@ -226,6 +226,8 @@ C:\>create_datapond_views
 These tables can be used to filter data along "Dimension":
 * `DIM_RULES`: A Dimension table to filter measures according to rules contribution
 
+* `DIM_OMG_RULES`: A Dimension table to filter measures according to rules contribution to OMG-ASCQM standard
+
 * `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
 
 * `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the OMG-ASCQM (aka CISQ) standard criteria
@@ -372,6 +374,25 @@ weight_robustness                    | DECIMAL  | Contribution weight of the tec
 weight_security                      | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_total_quality_index           | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_transferability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+```
+### DIM_OMG_RULES
+A dimension table to filter measures according to rules contribution to OMG-ASCQM measures
+* Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
+* In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute.
+
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_name                            | TEXT     | Rule name
+technical_criterion_name             | TEXT     | The Technical Criterion name of the highest contribution weight for this rule
+is_critical                          | BOOLEAN  | true if at least there is one critical contribution to a technical criterion
+weight                               | DECIMAL  | Highest weight contribution to the technical criteria
+weight_omg_maintainability           | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_efficiency                | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_reliability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_security                  | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_index                     | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 ```
 ### APP_VIOLATIONS_MEASURES
 Violation ratio by application snapshot, by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.

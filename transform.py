@@ -139,6 +139,7 @@ if __name__ == "__main__":
     if args.mode in ['refresh', 'install', 'refresh_measures']:
         transform_dim_applications(args.mode, args.extract_directory, args.transform_directory)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES")
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES")        
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS")
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES")
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES")
