@@ -16,6 +16,11 @@
  - Optimize ```SRC_TRX_OBJECTS``` table extraction to fetch 55 millions of rows in 6 minutes (Intel Xeon CPU 3,5 GHz, 16 Gb RAM), and without ```GC overhead limit exceeded``` message
  - Set the  comma character as a CSV delimiter so that CSV extracted files can be more easily loaded into Excel
  
+##### Scripts
+
+- Check ```python``` can be found
+- Check ```curl``` can be found
+ 
 ## Branch: 1.16.0 BETA - March 2020
 
 #### Prerequisite

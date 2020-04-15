@@ -4,6 +4,9 @@ REM ------ DO NOT CHANGE ANYTHING BELOW THIS LINE
 REM ------
 REM ------------------------------------------------------------------------------
 
+WHERE PYTHON > nul 2> nul || (echo Python is not found & EXIT /b /1)
+WHERE CURL > nul 2> nul || (echo CURL is not found & EXIT /b /1)
+
 python utilities\check_python_version.py || EXIT /b 1
 
 IF NOT DEFINED DEFAULT_DOMAIN (echo Missing variable DEFAULT_DOMAIN & EXIT /b 1)
