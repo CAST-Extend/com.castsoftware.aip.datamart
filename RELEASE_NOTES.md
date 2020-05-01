@@ -1,3 +1,17 @@
+## Branch: 1.16.2 BETA - May 2020
+
+#### Prerequisite
+
+- REST API **1.16**<br>
+- AIP Database > **8.3.5**
+- Python > **3.6.4**
+
+#### What's new?
+
+##### Scripts
+
+- The third party binaries (Python, Curl, PGSQL) can be embedded in a ```thirdparty``` folder. This folder is distributed in the datamart package downloaded from ```extendng.castsoftware.com``` web site.
+
 ## Branch: 1.16.1 BETA - May 2020
 
 #### Prerequisite
@@ -6,10 +20,12 @@
 - AIP Database > **8.3.5**
 - Python > **3.6.4**
 
+#### What's new?
+
 ##### Scripts
 
 - Fix support encoded PostgreSQL password for ```datamart.bat``` command line
-- Fix README, remove the storage of sensitive inforamtion in configuration files
+- Fix README, remove the storage of sensitive information in configuration files
 
 ## Branch: 1.16.0 BETA - March 2020
 
