@@ -9,7 +9,7 @@
 ##### Scripts
 
 - Fix support encoded PostgreSQL password for ```datamart.bat``` command line
-- Fix README, remove the storage of sensitive inforamtion in configuration files
+- Fix README, remove the storage of sensitive information in configuration files
 
 ## Branch: 1.16.0 BETA - March 2020
 
