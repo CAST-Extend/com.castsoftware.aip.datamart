@@ -6,8 +6,8 @@ REM ----------------------------------------------------------------------------
 
 REM CHANGE THE POSTGRESQL PATHS 
 REM DO NOT SET DOUBLE-QUOTES
-SET PSQL=C:\Program Files\CAST\CASTStorageService3\bin\psql.exe
-SET VACUUMDB=C:\Program Files\CAST\CASTStorageService3\bin\vacuumdb.exe
+SET PSQL=psql.exe
+SET VACUUMDB=vacuumdb.exe
  
 REM IN CASE OF A SINGLE DOMAIN EXTRACTION, YOU CAN SUPPLY A DEFAULT URL AND DOMAIN FOR THE RUN.BAT COMMAND
 REM THE DATAMART.BAT COMMAND IGNORES THESE DEFAULT SETTINGS
