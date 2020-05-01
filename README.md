@@ -2,7 +2,7 @@
 
 The Datamart scripts and Datamart Web Services of Dashboards REST API are in BETA version.
 
-REST API version to use is the latest version (**1.16** or higher).
+REST API version to use is strictly **1.16**.
 
 See the [release notes](RELEASE_NOTES.md) for more information.
 
@@ -82,18 +82,8 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       * ```_DB_NAME```: the target PostgreSQL database
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
-* __Set PostgreSQL server password__:
-    * Either in ```PGPASSWORD``` environment variable
-    * Or in ```%APPDATA%\postgresql\pgpass.conf``` file which must have restricted access (see [PostgreSQL Documentation: The password file](https://www.postgresql.org/docs/9.3/libpq-pgpass.html))
-* __Set credentials__ to authenticate to the REST API (see Curl command line)
-    * Either in ```CREDENTIALS``` environment variable with the following format ```username:password```
-    * Or in ```%USERPROFILE%/_netrc``` file which must have restricted access, append these 3 text lines:
-      ```
-      machine <hostname>
-      login <username>
-      password <password>
-      ```
-    * Otherwise set the ```APIKEY``` environment variable
+* __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
+* __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
     
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
@@ -106,7 +96,7 @@ You can avoid this kind of issue, using the obfuscation mechanism.
 
 #### Password obfuscation
 
-If you set the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY``` environment variables, then you can obfuscate these secret values as follow:
+You can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY``` environment variables as follow:
 
 ```
 C:>python utilities\encode.py mysecret
