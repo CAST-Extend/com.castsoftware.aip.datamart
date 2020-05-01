@@ -1,5 +1,6 @@
 import sys,json,psycopg2,os
 import csv
+import decode
 
 # Read snapshots from STDIN
 snapshots = {}
@@ -16,6 +17,10 @@ for csv_row in csv_reader:
         snapshots[application_name] += 1
 # Compare number of snapshots from stdin with the number of snapshots stored in the Datamart tables
 try:
+    pgpassword = os.getenv("PGPASSWORD")
+    if pgpassword:
+        environment = os.environ
+        environment["PGPASSWORD"] = decode.decode(pgpassword)
     conn=psycopg2.connect(database = os.environ['_DB_NAME'], user=os.environ['_DB_USER'], host=os.environ['_DB_HOST'], port=os.environ['_DB_PORT'])
     cur = conn.cursor()
     query = "SELECT APPLICATION_NAME, COUNT(*) FROM " + os.environ['_DB_SCHEMA'] + ".DIM_SNAPSHOTS GROUP BY APPLICATION_NAME"
