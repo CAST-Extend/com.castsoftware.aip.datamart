@@ -4,6 +4,21 @@ REM ------ DO NOT CHANGE ANYTHING BELOW THIS LINE
 REM ------
 REM ------------------------------------------------------------------------------
 
+SET INSTALLATION_FOLDER=%cd%
+
+REM THIRDPARTY folder with the extension packaging
+IF NOT EXIST "%INSTALLATION_FOLDER%\thirdparty" GOTO :CHECK_EXE
+SET PATH=%INSTALLATION_FOLDER%\thirdparty\Python38-32;%PATH%
+SET PATH=%INSTALLATION_FOLDER%\thirdparty\pgsql\bin;%PATH%
+SET PATH=%INSTALLATION_FOLDER%\thirdparty\pgsql\lib;%PATH%
+SET PATH=%INSTALLATION_FOLDER%\thirdparty;%PATH%
+
+:CHECK_EXE
+WHERE PYTHON > nul 2> nul || (echo Python is not found & EXIT /b /1)
+WHERE CURL > nul 2> nul || (echo CURL is not found & EXIT /b /1)
+WHERE PSQL > nul 2> nul || (echo PSQL is not found & EXIT /b /1)
+WHERE VACUUMDB > nul 2> nul || (echo VACUUMDB is not found & EXIT /b /1)
+
 python utilities\check_python_version.py || EXIT /b 1
 
 IF NOT DEFINED DEFAULT_DOMAIN (echo Missing variable DEFAULT_DOMAIN & EXIT /b 1)
@@ -16,10 +31,6 @@ IF NOT DEFINED _DB_NAME (echo Missing variable _DB_NAME & EXIT /b 1)
 IF NOT DEFINED _DB_USER (echo Missing variable _DB_USER & EXIT /b 1)
 IF NOT DEFINED _DB_SCHEMA (echo Missing variable _DB_SCHEMA & EXIT /b 1)
 
-IF NOT EXIST "%PSQL%" (echo Invalid path for PSQL: %PSQL% & EXIT /b 1)
-IF NOT EXIST "%VACUUMDB%" (echo Invalid path for VACUUMDB: %VACUUMDB% & EXIT /b 1)
-
-SET INSTALLATION_FOLDER=%cd%
 SET EXTRACT_FOLDER=%INSTALLATION_FOLDER%\extract
 SET TRANSFORM_FOLDER=%INSTALLATION_FOLDER%\transform
 SET VIEWS_FOLDER=%INSTALLATION_FOLDER%\views
