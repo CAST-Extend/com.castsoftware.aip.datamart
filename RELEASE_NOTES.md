@@ -1,3 +1,50 @@
+## Branch: master - 8 May 2020
+
+#### Prerequisite
+
+- REST API **1.17**<br>
+- AIP Database > 8.3.5
+- Python > **3.6.4**
+
+#### What's new?
+
+##### Data
+ 
+ - Add ```DIM_OMG_RULES``` to filter rules according to OMG-ASCQM Index extension
+ - Add ```DIM_CISQ_RULES``` to filter rules according to CISQ Index extension
+ - Fix ```DIM_RULES``` table extraction, 'critical' flags were not correct in case of change between the 2 last snapshots
+ - Optimize ```SRC_TRX_OBJECTS``` table extraction to fetch 55 millions of rows in 6 minutes (Intel Xeon CPU 3,5 GHz, 16 Gb RAM), and without ```GC overhead limit exceeded``` message
+ - Set the  comma character as a CSV delimiter so that CSV extracted files can be more easily loaded into Excel
+ 
+## Branch: 1.16.2 BETA - May 2020
+
+#### Prerequisite
+
+- REST API **1.16**<br>
+- AIP Database > **8.3.5**
+- Python > **3.6.4**
+
+#### What's new?
+
+##### Scripts
+
+- The third party binaries (Python, Curl, PGSQL) can be embedded in a ```thirdparty``` folder. This folder is distributed in the datamart package downloaded from ```extendng.castsoftware.com``` web site.
+
+## Branch: 1.16.1 BETA - May 2020
+
+#### Prerequisite
+
+- REST API **1.16**<br>
+- AIP Database > **8.3.5**
+- Python > **3.6.4**
+
+#### What's new?
+
+##### Scripts
+
+- Fix support encoded PostgreSQL password for ```datamart.bat``` command line
+- Fix README, remove the storage of sensitive information in configuration files
+
 ## Branch: 1.16.0 BETA - March 2020
 
 #### Prerequisite

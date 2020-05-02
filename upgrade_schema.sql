@@ -46,5 +46,45 @@ DO $$
             WHEN OTHERS THEN
                 RAISE NOTICE 'Table SRC_TRX_HEALTH_IMPACTS already exists';
         END;
+        
+        BEGIN 
+            CREATE TABLE DIM_OMG_RULES
+            (
+                RULE_ID TEXT,
+                RULE_NAME TEXT,
+                TECHNICAL_CRITERION_NAME TEXT,  
+                IS_CRITICAL BOOLEAN,
+                WEIGHT NUMERIC,
+                WEIGHT_OMG_MAINTAINABILITY NUMERIC,
+                WEIGHT_OMG_EFFICIENCY NUMERIC,
+                WEIGHT_OMG_RELIABILITY NUMERIC,
+                WEIGHT_OMG_SECURITY NUMERIC,
+                WEIGHT_OMG_INDEX NUMERIC,
+                CONSTRAINT DIM_OMG_RULES_PKEY PRIMARY KEY (RULE_ID)
+            );
+        EXCEPTION
+            WHEN OTHERS THEN
+                RAISE NOTICE 'Table DIM_OMG_RULES already exists';
+        END;
+        
+        BEGIN 
+            CREATE TABLE DIM_CISQ_RULES
+            (
+                RULE_ID TEXT,
+                RULE_NAME TEXT,
+                TECHNICAL_CRITERION_NAME TEXT,  
+                IS_CRITICAL BOOLEAN,
+                WEIGHT NUMERIC,
+                WEIGHT_CISQ_MAINTAINABILITY NUMERIC,
+                WEIGHT_CISQ_EFFICIENCY NUMERIC,
+                WEIGHT_CISQ_RELIABILITY NUMERIC,
+                WEIGHT_CISQ_SECURITY NUMERIC,
+                WEIGHT_CISQ_INDEX NUMERIC,
+                CONSTRAINT DIM_CISQ_RULES_PKEY PRIMARY KEY (RULE_ID)
+            );
+        EXCEPTION
+            WHEN OTHERS THEN
+                RAISE NOTICE 'Table DIM_CISQ_RULES already exists';
+        END;        
     END;
 $$

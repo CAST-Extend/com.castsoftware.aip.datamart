@@ -2,7 +2,7 @@
 
 The Datamart scripts and Datamart Web Services of Dashboards REST API are in BETA version.
 
-REST API version to use is the latest version (**1.16** or higher).
+REST API version to use is strictly **1.17**.
 
 See the [release notes](RELEASE_NOTES.md) for more information.
 
@@ -68,32 +68,29 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 * __Make sure__ you have access to 
   * the REST API server (see version number above)
   * a PostgreSQL server, with a database created to host target data
-  * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
-  * __[Python 3.6.4 or higher](https://www.python.org/downloads/)__ (in your path)
-  * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
-* __Download__ the zip of this repository, unzip the archive, and move the content into a single target folder
+* __Download__ the Datamart scripts
+  * Either __Download__  the zip of this repository
+      * Unzip the archive, and move the content into a single target folder
+      * __Install__ the following softwares, on the local machine when you run the Datamart scripts:
+        * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
+        * __[Python 3.6.4 or higher](https://www.python.org/downloads/)__ (in your path)
+        * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
+        * __PGSQL__ and __VACUUMDB__ command lines (that can be found with a PostgreSQL distribution)
+  * Or __Download__ the zip of the corresponding [extendng.castsoftware.com](https://extendng.castsoftware.com/#/extension?id=com.castsoftware.aip.datamart&version=1.16.2-beta) package
+     * Unzip the archive, and move the content into a single target folder
+     * Note: you do not need to install any software, all the required embedded softwares are available in the ```thirdparty``` directory
 * __Edit configuration variables__ in ```setenv.bat``` file
-  * PostgreSQL executables
+  * PostgreSQL executables if you do not use the embedded third party binaries:
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
       * ```VACUUMDB```: the absolute path to the vacummdb command (see your PostgreSQL install directory)
-  * Target Database
+  * Target Database:
       * ```_DB_HOST```: the PostgreSQL server host name
       * ```_DB_PORT```: the PostgreSQL server port
       * ```_DB_NAME```: the target PostgreSQL database
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
-* __Set PostgreSQL server password__:
-    * Either in ```PGPASSWORD``` environment variable
-    * Or in ```%APPDATA%\postgresql\pgpass.conf``` file which must have restricted access (see [PostgreSQL Documentation: The password file](https://www.postgresql.org/docs/9.3/libpq-pgpass.html))
-* __Set credentials__ to authenticate to the REST API (see Curl command line)
-    * Either in ```CREDENTIALS``` environment variable with the following format ```username:password```
-    * Or in ```%USERPROFILE%/_netrc``` file which must have restricted access, append these 3 text lines:
-      ```
-      machine <hostname>
-      login <username>
-      password <password>
-      ```
-    * Otherwise set the ```APIKEY``` environment variable
+* __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
+* __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
     
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
@@ -106,7 +103,7 @@ You can avoid this kind of issue, using the obfuscation mechanism.
 
 #### Password obfuscation
 
-If you set the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY``` environment variables, then you can obfuscate these secret values as follow:
+You can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY``` environment variables as follow:
 
 ```
 C:>python utilities\encode.py mysecret
@@ -226,6 +223,9 @@ C:\>create_datapond_views
 These tables can be used to filter data along "Dimension":
 * `DIM_RULES`: A Dimension table to filter measures according to rules contribution
 
+* `DIM_OMG_RULES`: A Dimension table to filter measures according to rules contribution to OMG-ASCQM index
+
+* `DIM_CISQ_RULES`: A Dimension table to filter measures according to rules contribution to CISQ index
 * `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
 
 * `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the OMG-ASCQM (aka CISQ) standard criteria
@@ -322,8 +322,8 @@ COLUMN                               | TYPE     | DESCRIPTION
 metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule accordingÂ to AIP
-cwe                                  | BOOLEAN  | Check whether this ruleÂ detects a CWE weakness
-omg_ascqm                            | BOOLEAN  | Check whether this ruleÂ detects OMG/CISQ 2019 weakness
+cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
+omg_ascqm                            | BOOLEAN  | Check whether this rule detects OMG-ASCQM 2019 weakness
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
 
@@ -348,6 +348,7 @@ year_week                            | TEXT     | Tag the most recent applicatio
 label                                | TEXT     | Snapshot label
 version                              | TEXT     | Application version
 ```
+
 ### DIM_RULES
 A dimension table to filter measures according to rules contribution.
 * Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
@@ -372,6 +373,45 @@ weight_robustness                    | DECIMAL  | Contribution weight of the tec
 weight_security                      | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_total_quality_index           | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_transferability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+```
+### DIM_OMG_RULES
+A dimension table to filter measures according to rules contribution to OMG-ASCQM index
+* Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
+* In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute.
+
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_name                            | TEXT     | Rule name
+technical_criterion_name             | TEXT     | The Technical Criterion name of the highest contribution weight for this rule
+is_critical                          | BOOLEAN  | true if at least there is one critical contribution to a technical criterion
+weight                               | DECIMAL  | Highest weight contribution to the technical criteria
+weight_omg_maintainability           | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_efficiency                | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_reliability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_security                  | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_index                     | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+```
+
+### DIM_CISQ_RULES
+A dimension table to filter measures according to rules contribution to CISQ index
+* Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
+* In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute.
+
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_name                            | TEXT     | Rule name
+technical_criterion_name             | TEXT     | The Technical Criterion name of the highest contribution weight for this rule
+is_critical                          | BOOLEAN  | true if at least there is one critical contribution to a technical criterion
+weight                               | DECIMAL  | Highest weight contribution to the technical criteria
+weight_cisq_maintainability          | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_cisq_efficiency               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_cisq_reliability              | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_cisq_security                 | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_cisq_index                    | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 ```
 ### APP_VIOLATIONS_MEASURES
 Violation ratio by application snapshot, by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.

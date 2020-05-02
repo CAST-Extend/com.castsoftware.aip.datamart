@@ -4,12 +4,15 @@ import json
 import os
 from datetime import datetime
 
+#= Use comma delimiter for compliancy with Excel
+DELIMITER=','
+
 def format(s):
     if s.find('"') != -1:
         return  '"' + s.replace("\"",  "\"\"") + '"'
     if s.find('\n') != -1:
         return  '"' + s + '"'
-    if s.find(';') != -1:
+    if s.find(DELIMITER) != -1:
         return  '"' + s + '"'
     return s
 
@@ -31,11 +34,11 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
             f.write("TRUNCATE TABLE :schema.DIM_APPLICATIONS CASCADE;\n")
         elif mode == "install":
             # Begin CREATE TABLE STATEMENT
-            f.write("DROP TABLE IF EXISTS :schema.DIM_APPLICATIONS CASCADE;\n");
-            f.write("CREATE TABLE :schema.DIM_APPLICATIONS\n");
-            f.write("(\n");
+            f.write("DROP TABLE IF EXISTS :schema.DIM_APPLICATIONS CASCADE;\n")
+            f.write("CREATE TABLE :schema.DIM_APPLICATIONS\n")
+            f.write("(\n")
 
-        csv_reader = csv.reader(csv_file, delimiter=';')
+        csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         for row in csv_reader:
             if skip:
@@ -46,12 +49,12 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                         f.write(format_column_name(p))
                         f.write(" text") 
                         f.write(",\n")
-                    f.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n");
+                    f.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n")
                     f.write(");\n")
                     # End CREATE TABLE STATEMENT
-                f.write("COPY :schema.DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")
+                f.write("COPY :schema.DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
-            line = ";".join([format(cell) for cell in row])
+            line = DELIMITER.join([format(cell) for cell in row])
             f.write(line)
             f.write("\n")
         f.write("\\.\n")
@@ -67,14 +70,14 @@ def transform(mode, extract_directory, transform_directory, table_name):
 
     with open(extract_directory+"\\" + table_name + ".csv") as csv_file:
 
-        csv_reader = csv.reader(csv_file, delimiter=';')
+        csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         for row in csv_reader:
             if skip:
                 skip = False
-                f.write("COPY :schema." + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")
+                f.write("COPY :schema." + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
                 continue
-            line = ";".join([format(cell) for cell in row])
+            line = DELIMITER.join([format(cell) for cell in row])
             f.write(line)
             f.write("\n")
         f.write("\\.\n")
@@ -91,7 +94,7 @@ def transform_details(mode, extract_directory, transform_directory, table):
     f = open(ofile, "w", encoding="utf-8")
 
     with open(extract_directory+"\\" + table_name + ".csv") as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=';')
+        csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         column_value = None
         column_name = table["column_name"]
@@ -116,8 +119,8 @@ def transform_details(mode, extract_directory, transform_directory, table):
                 else:
                     f.write("DELETE FROM :schema." + table_name +  " WHERE " + column_name + " = '" + new_column_value + "' ;\n")
                 column_value = new_column_value
-                f.write("COPY :schema." + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter ';', format CSV, null 'null');\n")
-            line = ";".join([format(cell) for cell in row])
+                f.write("COPY :schema." + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+            line = DELIMITER.join([format(cell) for cell in row])
             f.write(line)
             f.write("\n")
         if skip:
@@ -136,6 +139,8 @@ if __name__ == "__main__":
     if args.mode in ['refresh', 'install', 'refresh_measures']:
         transform_dim_applications(args.mode, args.extract_directory, args.transform_directory)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES")
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES")
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES")        
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS")
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES")
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES")
