@@ -25,18 +25,18 @@ def format_column_name (id):
 
 def transform_dim_applications(mode, extract_directory, transform_directory):
     print ("Transform", "DIM_APPLICATIONS")
-    ofile = transform_directory + "\\DIM_APPLICATIONS.sql"
-    f = open(ofile, "w", encoding="utf-8")
+    sql_out = open(transform_directory + "\\DIM_APPLICATIONS.sql", "w", encoding="utf-8")
+    csv_out = open(transform_directory + "\\DIM_APPLICATIONS.csv", "w", encoding="utf-8")
 
     with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:
 
         if mode in ["refresh", "refresh_measures"]:
-            f.write("TRUNCATE TABLE DIM_APPLICATIONS CASCADE;\n")
+            sql_out.write("TRUNCATE TABLE DIM_APPLICATIONS CASCADE;\n")
         elif mode == "install":
             # Begin CREATE TABLE STATEMENT
-            f.write("DROP TABLE IF EXISTS DIM_APPLICATIONS CASCADE;\n")
-            f.write("CREATE TABLE DIM_APPLICATIONS\n")
-            f.write("(\n")
+            sql_out.write("DROP TABLE IF EXISTS DIM_APPLICATIONS CASCADE;\n")
+            sql_out.write("CREATE TABLE DIM_APPLICATIONS\n")
+            sql_out.write("(\n")
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
@@ -46,27 +46,28 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                 if mode == "install":
                     comma = ""
                     for p in row:
-                        f.write(format_column_name(p))
-                        f.write(" text") 
-                        f.write(",\n")
-                    f.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n")
-                    f.write(");\n")
+                        sql_out.write(format_column_name(p))
+                        sql_out.write(" text") 
+                        sql_out.write(",\n")
+                    sql_out.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n")
+                    sql_out.write(");\n")
                     # End CREATE TABLE STATEMENT
-                f.write("COPY DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
+                sql_out.write("COPY DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
-        f.write("\\.\n")
-        f.close()
+            csv_out.write(line)
+            csv_out.write("\n")
+    csv_out.write("\\.\n")
+    csv_out.close()
+    sql_out.close()
 
 def transform(mode, extract_directory, transform_directory, table_name):
     print ("Transform", table_name)
-    ofile = transform_directory + "\\" + table_name + ".sql"
-    f = open(ofile, "w", encoding="utf-8")
+    sql_out = open(transform_directory + "\\" + table_name + ".sql", "w", encoding="utf-8")
+    csv_out = open(transform_directory + "\\" + table_name + ".csv", "w", encoding="utf-8")
 
     if mode in ["refresh", "refresh_measures"]:
-        f.write("TRUNCATE TABLE " + table_name + " CASCADE;\n")
+        sql_out.write("TRUNCATE TABLE " + table_name + " CASCADE;\n")
 
     with open(extract_directory+"\\" + table_name + ".csv") as csv_file:
 
@@ -75,13 +76,14 @@ def transform(mode, extract_directory, transform_directory, table_name):
         for row in csv_reader:
             if skip:
                 skip = False
-                f.write("COPY " + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+                sql_out.write("COPY " + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
-        f.write("\\.\n")
-        f.close()
+            csv_out.write(line)
+            csv_out.write("\n")
+    csv_out.write("\\.\n")
+    csv_out.close()
+    sql_out.close()
 
 def transform_details(mode, extract_directory, transform_directory, table):
     table_name = table["name"]
@@ -90,8 +92,8 @@ def transform_details(mode, extract_directory, transform_directory, table):
         return
 
     print ("Transform", table_name)
-    ofile = transform_directory + "\\" + table_name + ".sql"
-    f = open(ofile, "w", encoding="utf-8")
+    sql_out = open(transform_directory + "\\" + table_name + ".sql", "w", encoding="utf-8")
+    csv_out = open(transform_directory + "\\" + table_name + ".csv", "w", encoding="utf-8")
 
     with open(extract_directory+"\\" + table_name + ".csv") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
@@ -113,19 +115,20 @@ def transform_details(mode, extract_directory, transform_directory, table):
             #print(column_name, new_column_value, table_name, column_value)
             if column_value != new_column_value:
                 if column_value != None:
-                    f.write("\\.\n")                   
+                    csv_out.write("\\.\n")   
                 if column_name == 'object_id':
-                    f.write("DELETE FROM " + table_name +  " WHERE " + column_name + " like '" + new_column_value + ":%' ;\n")
+                    sql_out.write("DELETE FROM " + table_name +  " WHERE " + column_name + " like '" + new_column_value + ":%' ;\n")
                 else:
-                    f.write("DELETE FROM " + table_name +  " WHERE " + column_name + " = '" + new_column_value + "' ;\n")
+                    sql_out.write("DELETE FROM " + table_name +  " WHERE " + column_name + " = '" + new_column_value + "' ;\n")
                 column_value = new_column_value
-                f.write("COPY " + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+                sql_out.write("COPY " + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
             line = DELIMITER.join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
+            csv_out.write(line)
+            csv_out.write("\n")
         if skip:
-            f.write("\\.\n")
-        f.close()
+            csv_out.write("\\.\n")
+    sql_out.close()
+    csv_out.close()    
 
 
 if __name__ == "__main__":
