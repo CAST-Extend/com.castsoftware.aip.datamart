@@ -80,10 +80,10 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
      * Unzip the archive, and move the content into a single target folder
      * Note: you do not need to install any software, all the required embedded softwares are available in the ```thirdparty``` directory
 * __Edit configuration variables__ in ```setenv.bat``` file
-  * PostgreSQL executables
+  * PostgreSQL executables if you do not use the embedded third party binaries:
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
       * ```VACUUMDB```: the absolute path to the vacummdb command (see your PostgreSQL install directory)
-  * Target Database
+  * Target Database:
       * ```_DB_HOST```: the PostgreSQL server host name
       * ```_DB_PORT```: the PostgreSQL server port
       * ```_DB_NAME```: the target PostgreSQL database
@@ -319,8 +319,8 @@ COLUMN                               | TYPE     | DESCRIPTION
 metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule according to AIP
-cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
-omg_ascqm                            | BOOLEAN  | Check whether this rule detects OMG/CISQ 2019 weakness
+cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
+omg_ascqm                            | BOOLEAN  | Check whether this rule detects OMG-ASCQM 2019 weakness
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
 
