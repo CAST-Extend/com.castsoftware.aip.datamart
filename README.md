@@ -65,13 +65,15 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 
 ### Running the Scripts 
 
+* __Download__ the zip of this repository, unzip the archive, and move the content into a single target folder
 * __Make sure__ you have access to 
   * the REST API server (see version number above)
   * a PostgreSQL server, with a database created to host target data
+* __Install__ the following softwares, on the local machine when you run the Datamart scripts:
   * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
   * __[Python 3.6.4 or higher](https://www.python.org/downloads/)__ (in your path)
   * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
-* __Download__ the zip of this repository, unzip the archive, and move the content into a single target folder
+  * __PGSQL__ and __VACUUMDB__ command lines (that can be found with a PostgreSQL distribution)
 * __Edit configuration variables__ in ```setenv.bat``` file
   * PostgreSQL executables
       * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
