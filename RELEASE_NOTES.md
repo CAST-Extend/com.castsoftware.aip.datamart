@@ -16,11 +16,35 @@
  - Optimize ```SRC_TRX_OBJECTS``` table extraction to fetch 55 millions of rows in 6 minutes (Intel Xeon CPU 3,5 GHz, 16 Gb RAM), and without ```GC overhead limit exceeded``` message
  - Set the  comma character as a CSV delimiter so that CSV extracted files can be more easily loaded into Excel
  
+## Branch: 1.16.2 BETA - May 2020
+
+#### Prerequisite
+
+- REST API **1.16**<br>
+- AIP Database > **8.3.5**
+- Python > **3.6.4**
+
+#### What's new?
+
 ##### Scripts
 
-- Check ```python``` can be found
-- Check ```curl``` can be found
- 
+- The third party binaries (Python, Curl, PGSQL) can be embedded in a ```thirdparty``` folder. This folder is distributed in the datamart package downloaded from ```extendng.castsoftware.com``` web site.
+
+## Branch: 1.16.1 BETA - May 2020
+
+#### Prerequisite
+
+- REST API **1.16**<br>
+- AIP Database > **8.3.5**
+- Python > **3.6.4**
+
+#### What's new?
+
+##### Scripts
+
+- Fix support encoded PostgreSQL password for ```datamart.bat``` command line
+- Fix README, remove the storage of sensitive information in configuration files
+
 ## Branch: 1.16.0 BETA - March 2020
 
 #### Prerequisite
