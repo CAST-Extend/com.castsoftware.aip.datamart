@@ -1,5 +1,5 @@
-DROP VIEW IF EXISTS :schema.basedata_flat CASCADE;
-CREATE OR REPLACE VIEW :schema.basedata_flat AS 
+DROP VIEW IF EXISTS basedata_flat CASCADE;
+CREATE OR REPLACE VIEW basedata_flat AS 
  SELECT 
     s.snapshot_id,
     a.application_name as appname,
@@ -16,10 +16,10 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
     date_part('year'::text, s.date)::integer AS snap_yr, 
     date_part('doy'::text, s.date)::integer AS snap_doy, 
     
-   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from :schema.app_violations_measures v join :schema.dim_cisq r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from app_violations_measures v join dim_cisq r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
     as cisq_score,
 
-   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from :schema.app_violations_measures v join :schema.dim_cisq r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from app_violations_measures v join dim_cisq r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
     SELECT 
     CASE WHEN x.score >= 0.98 THEN 'A'
        WHEN x.score >= 0.96 THEN 'B'
@@ -28,10 +28,10 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
        ELSE 'F'
     END from x) as cisq_grade,  
 
-   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from :schema.app_violations_measures v join :schema.dim_owasp_2017 r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from app_violations_measures v join dim_owasp_2017 r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
     as owasp_score,
     
-   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from :schema.app_violations_measures v join :schema.dim_owasp_2017 r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from app_violations_measures v join dim_owasp_2017 r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
     SELECT 
     CASE WHEN x.score >= 0.98 THEN 'A'
        WHEN x.score >= 0.96 THEN 'B'
@@ -43,10 +43,10 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
     -- Uncomment these lines to get CUSTOM RULES scores according to CUST_RULES table
     -- CUST_RULES table must be defined
     /*
-   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from :schema.app_violations_measures v join :schema.cust_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from app_violations_measures v join cust_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
     as cust_score,
     
-   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from :schema.app_violations_measures v join :schema.cust_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+   (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from app_violations_measures v join cust_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
     SELECT 
     CASE WHEN x.score >= 0.98 THEN 'A'
        WHEN x.score >= 0.96 THEN 'B'
@@ -59,10 +59,10 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
     -- Uncomment these lines to get SONAR CUBE scores according to CODE_RULES table
     -- CODE_RULES table must be defined
     /*
-   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from :schema.app_violations_measures v join :schema.code_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+   (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) from app_violations_measures v join code_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
     as sq_score,
     
-    (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from :schema.app_violations_measures v join :schema.code_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
+    (WITH x AS (select round(sum(v.nb_total_checks - v.nb_violations)::numeric/sum(v.nb_total_checks)::numeric,2) as score from app_violations_measures v join code_rules r on r.metric_id = v.metric_id where v.snapshot_id = s.snapshot_id)
     SELECT 
     CASE WHEN x.score >= 0.98 THEN 'A'
        WHEN x.score >= 0.96 THEN 'B'
@@ -289,13 +289,13 @@ CREATE OR REPLACE VIEW :schema.basedata_flat AS
             WHEN e1.business_criterion_name  = 'Total Quality Index'::text THEN e1.nb_violations_removed
             ELSE NULL::integer
         END) AS tqi_rem_vio
- from :schema.dim_snapshots s
- join :schema.dim_applications a on a.application_name = s.application_name
- left join :schema.app_sizing_measures m on m.snapshot_id = s.snapshot_id
- left join :schema.app_sizing_evolution e on e.snapshot_id = s.snapshot_id
- left join :schema.app_functional_sizing_measures f on f.snapshot_id = s.snapshot_id
- left join :schema.app_health_scores h on h.snapshot_id = s.snapshot_id
- left join :schema.app_health_evolution e1 on e1.snapshot_id = s.snapshot_id
+ from dim_snapshots s
+ join dim_applications a on a.application_name = s.application_name
+ left join app_sizing_measures m on m.snapshot_id = s.snapshot_id
+ left join app_sizing_evolution e on e.snapshot_id = s.snapshot_id
+ left join app_functional_sizing_measures f on f.snapshot_id = s.snapshot_id
+ left join app_health_scores h on h.snapshot_id = s.snapshot_id
+ left join app_health_evolution e1 on e1.snapshot_id = s.snapshot_id
  group by a.application_name, s.snapshot_id
  order by a.application_name, s.snapshot_id
  ;

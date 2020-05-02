@@ -1,4 +1,3 @@
-set search_path to :schema;
 DO $$ 
     BEGIN
         BEGIN 

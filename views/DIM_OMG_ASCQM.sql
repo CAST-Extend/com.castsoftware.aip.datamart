@@ -1,11 +1,11 @@
-DROP VIEW IF EXISTS :schema.dim_omg_ascqm CASCADE;
-CREATE OR REPLACE VIEW :schema.dim_omg_ascqm AS 
+DROP VIEW IF EXISTS dim_omg_ascqm CASCADE;
+CREATE OR REPLACE VIEW dim_omg_ascqm AS 
   SELECT c.metric_id, c.rule_name, 
     BOOL_OR(c.tag = 'OMG-ASCQM-Maintainability') AS omg_ascqm_maintainability,
     BOOL_OR(c.tag = 'OMG-ASCQM-Performance-Efficiency') AS omg_ascqm_performance_efficiency,
     BOOL_OR(c.tag = 'OMG-ASCQM-Reliability') AS omg_ascqm_reliability,
     BOOL_OR(c.tag = 'OMG-ASCQM-Security') AS omg_ascqm_security
-  FROM :schema.std_rules c 
-  JOIN :schema.std_rules r on r.metric_id = c.metric_id and r.tag =  'OMG-ASCQM'
+  FROM std_rules c 
+  JOIN std_rules r on r.metric_id = c.metric_id and r.tag =  'OMG-ASCQM'
   GROUP BY 1,2; 
  

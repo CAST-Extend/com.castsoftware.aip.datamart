@@ -1,5 +1,5 @@
-DROP VIEW IF EXISTS :schema.complete_flat;
-CREATE OR REPLACE VIEW :schema.complete_flat AS 
+DROP VIEW IF EXISTS complete_flat;
+CREATE OR REPLACE VIEW complete_flat AS 
   SELECT a.appname,
     a.yr_mth,
     s.application_id,
@@ -105,23 +105,23 @@ CREATE OR REPLACE VIEW :schema.complete_flat AS
 
    -- grab averages
     round((SELECT avg((f.tqi_rem_vio - f.tqi_add_vio)::numeric / NULLIF(e.nb_aep_total_points, 0)::numeric) AS avg
-           FROM :schema.app_functional_sizing_evolution e, :schema.basedata_flat f WHERE f.snapshot_id = e.snapshot_id
+           FROM app_functional_sizing_evolution e, basedata_flat f WHERE f.snapshot_id = e.snapshot_id
            AND f.tqi_curr_vio <> f.tqi_add_vio AND e.nb_aep_total_points > 50 ) * '-1'::integer::numeric, 3) AS avg_def_density,
            
     round((a.tqi_rem_vio - a.tqi_add_vio)::numeric / NULLIF(b.nb_aep_total_points, 0)::numeric, 3) AS raw_def_density,
     
     CASE
         WHEN (COALESCE((a.tqi_rem_vio - a.tqi_add_vio)::numeric / NULLIF(b.nb_aep_total_points, 0)::numeric / (( SELECT avg((e.tqi_rem_vio - e.tqi_add_vio)::numeric / NULLIF(f.nb_aep_total_points, 0)::numeric) AS avg
-            FROM :schema.app_functional_sizing_evolution f, :schema.basedata_flat e WHERE e.snapshot_id = f.snapshot_id
+            FROM app_functional_sizing_evolution f, basedata_flat e WHERE e.snapshot_id = f.snapshot_id
             AND e.tqi_curr_vio <> e.tqi_add_vio AND f.nb_aep_total_points > 50)) * '-1'::integer::numeric, 5.0) + 5::numeric) > 10::numeric THEN 10.0
         WHEN (COALESCE((a.tqi_rem_vio - a.tqi_add_vio)::numeric / NULLIF(b.nb_aep_total_points, 0)::numeric / (( SELECT avg((e.tqi_rem_vio - e.tqi_add_vio)::numeric / NULLIF(f.nb_aep_total_points, 0)::numeric) AS avg
-            FROM :schema.app_functional_sizing_evolution f, :schema.basedata_flat e WHERE e.snapshot_id = f.snapshot_id
+            FROM app_functional_sizing_evolution f, basedata_flat e WHERE e.snapshot_id = f.snapshot_id
             AND e.tqi_curr_vio <> e.tqi_add_vio AND f.nb_aep_total_points > 50)) * '-1'::integer::numeric, 5.0) + 5::numeric) < 1::numeric THEN 1.0
         WHEN ((a.tqi_rem_vio - a.tqi_add_vio)::numeric / NULLIF(b.nb_aep_total_points, 0)::numeric / (( SELECT avg((e.tqi_rem_vio - e.tqi_add_vio)::numeric / NULLIF(f.nb_aep_total_points, 0)::numeric) AS avg
-           FROM :schema.app_functional_sizing_evolution f, :schema.basedata_flat e WHERE e.snapshot_id = f.snapshot_id
+           FROM app_functional_sizing_evolution f, basedata_flat e WHERE e.snapshot_id = f.snapshot_id
            AND e.tqi_curr_vio <> e.tqi_add_vio AND f.nb_aep_total_points > 50)) * '-1'::integer::numeric) IS NULL THEN 5.0
         ELSE round((a.tqi_rem_vio - a.tqi_add_vio)::numeric / NULLIF(b.nb_aep_total_points, 0)::numeric / (( SELECT avg((e.tqi_rem_vio - e.tqi_add_vio)::numeric / NULLIF(f.nb_aep_total_points, 0)::numeric) AS avg
-           FROM :schema.app_functional_sizing_evolution f, :schema.basedata_flat e WHERE e.snapshot_id = f.snapshot_id
+           FROM app_functional_sizing_evolution f, basedata_flat e WHERE e.snapshot_id = f.snapshot_id
            AND e.tqi_curr_vio <> e.tqi_add_vio AND f.nb_aep_total_points > 50)) * '-1'::integer::numeric, 3) + 5::numeric
     END AS adjust_def_density,
 
@@ -145,13 +145,13 @@ CREATE OR REPLACE VIEW :schema.complete_flat AS
     round(a.locs / NULLIF(p.nb_transactions, 0)::numeric, 3) AS verbosity,
 
     round(( SELECT avg(g.locs / NULLIF(h.nb_transactions, 0)::numeric) AS avg
-           FROM :schema.app_functional_sizing_measures h, :schema.basedata_flat g
+           FROM app_functional_sizing_measures h, basedata_flat g
           WHERE g.snapshot_id = h.snapshot_id), 3) AS avg_verbosity
 
- from :schema.dim_snapshots s
- join :schema.basedata_flat a on a.snapshot_id = s.snapshot_id
- join :schema.app_functional_sizing_measures p on s.snapshot_id = p.snapshot_id
- join :schema.app_functional_sizing_evolution b on s.snapshot_id = b.snapshot_id
- join :schema.app_sizing_measures d on d.snapshot_id = s.snapshot_id
+ from dim_snapshots s
+ join basedata_flat a on a.snapshot_id = s.snapshot_id
+ join app_functional_sizing_measures p on s.snapshot_id = p.snapshot_id
+ join app_functional_sizing_evolution b on s.snapshot_id = b.snapshot_id
+ join app_sizing_measures d on d.snapshot_id = s.snapshot_id
  order by a.appname, a.snapshot
 ;
