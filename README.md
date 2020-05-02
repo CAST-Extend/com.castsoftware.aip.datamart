@@ -76,7 +76,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
         * __[Python 3.6.4 or higher](https://www.python.org/downloads/)__ (in your path)
         * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
         * __PGSQL__ and __VACUUMDB__ command lines (that can be found with a PostgreSQL distribution)
-  * Or __Download__ the zip of the corresponding [extendng.castsoftware.com](https://extendng.castsoftware.com/#/extension?id=com.castsoftware.aip.datamart&version=1.162-beta) package
+  * Or __Download__ the zip of the corresponding [extendng.castsoftware.com](https://extendng.castsoftware.com/#/extension?id=com.castsoftware.aip.datamart&version=1.16.2-beta) package
      * Unzip the archive, and move the content into a single target folder
      * Note: you do not need to install any software, all the required embedded softwares are available in the ```thirdparty``` directory
 * __Edit configuration variables__ in ```setenv.bat``` file
