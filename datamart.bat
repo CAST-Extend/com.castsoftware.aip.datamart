@@ -1,7 +1,5 @@
 @echo off
 SETLOCAL enabledelayedexpansion
-SET HD_ROOT=http://localhost:9090/CAST-RESTAPI/rest
-SET ED_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 
 pushd %~dp0
 CALL setenv.bat || GOTO :FAIL

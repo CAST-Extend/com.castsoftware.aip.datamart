@@ -11,6 +11,9 @@ IF EXIST "%INSTALLATION_FOLDER%\thirdparty\curl.exe" SET PATH=%INSTALLATION_FOLD
 IF EXIST "%INSTALLATION_FOLDER%\thirdparty\Python38-32" SET PATH=%INSTALLATION_FOLDER%\thirdparty\Python38-32;%PATH%
 IF EXIST "%INSTALLATION_FOLDER%\thirdparty\pgsql\bin" SET PATH=%INSTALLATION_FOLDER%\thirdparty\pgsql\bin;%PATH%
 
+IF EXIST "%INSTALLATION_FOLDER%\thirdparty\pgsql\bin" SET PSQL=psql.exe
+IF EXIST "%INSTALLATION_FOLDER%\thirdparty\pgsql\bin" SET VACUUMDB=vacuumdb.exe
+
 WHERE PYTHON > nul 2> nul || (echo Python is not found & EXIT /b /1)
 WHERE CURL > nul 2> nul || (echo CURL is not found & EXIT /b /1)
 WHERE PSQL > nul 2> nul || (call :EXIST PSQL "%PSQL%") || (echo PSQL is not found & EXIT /b /1)
