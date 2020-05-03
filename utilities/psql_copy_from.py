@@ -7,7 +7,7 @@ DELIMITER=','
 
 def main():
     
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         print("Usage is:");
         print("psql_copy_from.py table_name file.csv file.sql");
         print("execute SQL statements of file.sql script")
@@ -15,9 +15,9 @@ def main():
         print("Connection settings come from environment variables")
         sys.exit(2)
     
-    csv_file_name = sys.argv[1]
-    sql_file_name = sys.argv[2]
-    table_name = csv_file_name.split('.')[0]
+    table_name = sys.argv[1]
+    csv_file_name = sys.argv[2]
+    sql_file_name = sys.argv[3]
 
     try:
         sql_file = open(sql_file_name, 'r')

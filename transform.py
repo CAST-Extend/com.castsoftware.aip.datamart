@@ -52,12 +52,12 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                     sql_out.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n")
                     sql_out.write(");\n")
                     # End CREATE TABLE STATEMENT
-                sql_out.write("COPY DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
+                #sql_out.write("COPY DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
+                csv_out.write(",".join(map(format_column_name,row)));
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
             csv_out.write(line)
             csv_out.write("\n")
-    csv_out.write("\\.\n")
     csv_out.close()
     sql_out.close()
 
@@ -76,12 +76,12 @@ def transform(mode, extract_directory, transform_directory, table_name):
         for row in csv_reader:
             if skip:
                 skip = False
-                sql_out.write("COPY " + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+                #sql_out.write("COPY " + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+                csv_out.write(",".join(map(format_column_name,row)));                
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
             csv_out.write(line)
             csv_out.write("\n")
-    csv_out.write("\\.\n")
     csv_out.close()
     sql_out.close()
 
@@ -114,19 +114,16 @@ def transform_details(mode, extract_directory, transform_directory, table):
             new_column_value = row[column_position] if column_name != 'object_id' else row[column_position].split(':')[0]
             #print(column_name, new_column_value, table_name, column_value)
             if column_value != new_column_value:
-                if column_value != None:
-                    csv_out.write("\\.\n")   
                 if column_name == 'object_id':
                     sql_out.write("DELETE FROM " + table_name +  " WHERE " + column_name + " like '" + new_column_value + ":%' ;\n")
                 else:
                     sql_out.write("DELETE FROM " + table_name +  " WHERE " + column_name + " = '" + new_column_value + "' ;\n")
                 column_value = new_column_value
-                sql_out.write("COPY " + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+                #sql_out.write("COPY " + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+                csv_out.write(",".join(map(format_column_name,row)));                
             line = DELIMITER.join([format(cell) for cell in row])
             csv_out.write(line)
             csv_out.write("\n")
-        if skip:
-            csv_out.write("\\.\n")
     sql_out.close()
     csv_out.close()    
 
