@@ -131,7 +131,7 @@ Start ```run.bat help``` for more information on these modes.
 
 This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
 
-* __Edit__ the ```setenv.bat``` script to override following environment variables:
+* __Edit__ the ```setenv.bat``` script to override the following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
 * __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
