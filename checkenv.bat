@@ -6,14 +6,11 @@ REM ----------------------------------------------------------------------------
 
 SET INSTALLATION_FOLDER=%cd%
 
-REM THIRDPARTY folder with the extension packaging
-IF NOT EXIST "%INSTALLATION_FOLDER%\thirdparty" GOTO :CHECK_EXE
-SET PATH=%INSTALLATION_FOLDER%\thirdparty\Python38-32;%PATH%
-SET PATH=%INSTALLATION_FOLDER%\thirdparty\pgsql\bin;%PATH%
-SET PATH=%INSTALLATION_FOLDER%\thirdparty\pgsql\lib;%PATH%
-SET PATH=%INSTALLATION_FOLDER%\thirdparty;%PATH%
+REM Add path for embedded third party binaries
+IF EXIST "%INSTALLATION_FOLDER%\thirdparty\curl.exe" SET PATH=%INSTALLATION_FOLDER%\thirdparty;%PATH%
+IF EXIST "%INSTALLATION_FOLDER%\thirdparty\Python38-32" SET PATH=%INSTALLATION_FOLDER%\thirdparty\Python38-32;%PATH%
+IF EXIST "%INSTALLATION_FOLDER%\thirdparty\pgsql\bin" SET PATH=%INSTALLATION_FOLDER%\thirdparty\pgsql\bin;%PATH%
 
-:CHECK_EXE
 WHERE PYTHON > nul 2> nul || (echo Python is not found & EXIT /b /1)
 WHERE CURL > nul 2> nul || (echo CURL is not found & EXIT /b /1)
 WHERE PSQL > nul 2> nul || (call :EXIST PSQL "%PSQL%") || (echo PSQL is not found & EXIT /b /1)

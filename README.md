@@ -67,7 +67,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 
 * __Make sure__ you have access to 
   * the REST API server (see version number above)
-  * a PostgreSQL server, with a database created to host target data
+  * a PostgreSQL server 9.1 or higher, with a database created to host target data
 * __Download__ the Datamart scripts
   * Either __Download__  the zip of this repository
       * Unzip the archive, and move the content into a single target folder
