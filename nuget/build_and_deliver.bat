@@ -81,11 +81,21 @@ for %%a in (%PACK_DIR%) do (
     if errorlevel 1 goto endclean
 )
 
-echo Creating and zipping component package
+echo.
+echo =========================================
+echo Preparing component package
+echo =========================================
 pushd %PACK_DIR%
 for /f "delims=/" %%a in ('cd') do set PACK_DIR=%%a
 robocopy /mir /nfl /ndl /njh /njs /nc /ns %SRC_DIR% . -xd nuget -xd .git -xf .gitattributes
 if errorlevel 8 goto endclean
+robocopy /mir /nfl /ndl /njh /njs /nc /ns \\productfs01\EngTools\external_tools\datamart\thirdparty thirdparty
+if errorlevel 8 goto endclean
+
+echo.
+echo =========================================
+echo Zipping component package
+echo =========================================
 if exist *.zip del /q *.zip
 set CMD=7z.exe a -sdel -r -mx5 ..\%ID%.%VERSION%.zip .\
 echo Executing command:
