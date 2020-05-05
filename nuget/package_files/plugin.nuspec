@@ -8,7 +8,7 @@
         <owners>CAST</owners>
         <licenseUrl>https://github.com/CAST-Extend/com.castsoftware.aip.console.tools/blob/master/LICENSE</licenseUrl>
         <projectUrl>https://github.com/CAST-Extend/com.castsoftware.aip.datamart/blob/_THE_VERSION_/README.md</projectUrl>
-        <iconUrl>https://raw.githubusercontent.com/CAST-Extend/resources/master/com.castsoftware.aip.reportgeneratorfordashboard.png</iconUrl>
+        <iconUrl>https://raw.githubusercontent.com/CAST-Extend/resources/master/com.castsoftware.aip.datamart.png</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>Scripts to build the AIP Datamart. The AIP Datamart is a simple database schema of AIP results, so that anyone can query these data, requiring only conceptual knowledge of AIP.
 The AIP Datamart can be used:
