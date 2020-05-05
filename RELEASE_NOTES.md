@@ -1,4 +1,4 @@
-## Branch: 1.16.2 BETA - May 2020
+## Branch: 1.16.2 - May 2020
 
 #### Prerequisite
 
