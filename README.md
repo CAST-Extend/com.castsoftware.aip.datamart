@@ -1,5 +1,3 @@
-# Beta Version
-
 The Datamart scripts and Datamart Web Services of Dashboards REST API are in BETA version.
 
 REST API version to use is strictly **1.16**.
