@@ -1,17 +1,24 @@
 ## Branch: 1.16.3 - May 2020
 
+#### What's new?
+
 ##### Scripts
 
-- Fix missing DLL in PostgreSQL distribution
-- Ability to select a PostgreSQL distribution according to the current Windows version in thirdparty directory
+- Adapt scripts with renewed ```thirdparty``` content tested on Windows 7 and Windows 10
+  - PostgreSQL 10.12 client when ```thirdparty``` folder is available
+  - Curl 7.70  when ```thirdparty``` folder is available
 
 ## Branch: 1.16.2 - May 2020
+
+#### What's new?
 
 ##### Scripts
 
 - The third party binaries (Python, Curl, PGSQL) can be embedded in a ```thirdparty``` folder. This folder is distributed in the datamart package downloaded from ```extendng.castsoftware.com``` web site.
 
 ## Branch: 1.16.1 BETA - May 2020
+
+#### What's new?
 
 ##### Scripts
 
