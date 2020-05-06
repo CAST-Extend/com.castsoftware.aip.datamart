@@ -5,14 +5,15 @@ REM ------
 REM ------------------------------------------------------------------------------
 
 SET INSTALLATION_FOLDER=%cd%
+SET PGSQL=pgsql-10.12
 
 REM Add path for embedded third party binaries
-IF EXIST "%INSTALLATION_FOLDER%\thirdparty\curl.exe" SET PATH=%INSTALLATION_FOLDER%\thirdparty;%PATH%
+IF EXIST "%INSTALLATION_FOLDER%\thirdparty\curl-7.70\bin" SET PATH=%INSTALLATION_FOLDER%\thirdparty\curl-7.70\bin;%PATH%
 IF EXIST "%INSTALLATION_FOLDER%\thirdparty\Python38-32" SET PATH=%INSTALLATION_FOLDER%\thirdparty\Python38-32;%PATH%
-IF EXIST "%INSTALLATION_FOLDER%\thirdparty\pgsql\bin" SET PATH=%INSTALLATION_FOLDER%\thirdparty\pgsql\bin;%PATH%
 
-IF EXIST "%INSTALLATION_FOLDER%\thirdparty\pgsql\bin" SET PSQL=psql.exe
-IF EXIST "%INSTALLATION_FOLDER%\thirdparty\pgsql\bin" SET VACUUMDB=vacuumdb.exe
+IF DEFINED PGSQL IF EXIST "%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin" SET PATH=%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin;%PATH%
+IF DEFINED PGSQL IF EXIST "%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin" SET PSQL=psql.exe
+IF DEFINED PGSQL IF EXIST "%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin" SET VACUUMDB=vacuumdb.exe
 
 WHERE PYTHON > nul 2> nul || (echo Python is not found & EXIT /b /1)
 WHERE CURL > nul 2> nul || (echo CURL is not found & EXIT /b /1)
