@@ -5,8 +5,8 @@
 ##### Scripts
 
 - Adapt scripts with renewed ```thirdparty``` content tested on Windows 7 and Windows 10
-  - PostgreSQL 10.12 client when ```thirdparty``` folder is available
-  - Curl 7.70  when ```thirdparty``` folder is available
+  - PostgreSQL 10.12 client
+  - Curl 7.70
 
 ## Branch: 1.16.2 - May 2020
 
