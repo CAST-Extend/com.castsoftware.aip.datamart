@@ -417,7 +417,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 metric_id                            | INT      | AIP Globally unique metric ID
-technology                           | TEXTÂ     | Source code technology
+technology                           | TEXT     | Source code technology
 nb_violations                        | INT      | Number of violations
 nb_total_checks                      | INT      | Number of total checked objects
 violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
