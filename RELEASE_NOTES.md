@@ -20,7 +20,7 @@
 
 #### Features / Enhancements
 
-- _Scripts_: Adapt scripts with renewed ```thirdparty``` content tested on Windows 7 and Windows 10
+- **Scripts**: Adapt scripts with renewed ```thirdparty``` content tested on Windows 7 and Windows 10
   - PostgreSQL 10.12 client
   - Curl 7.70
 
