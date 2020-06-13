@@ -15,7 +15,7 @@ See the [release notes](RELEASE_NOTES.md) for more information.
 - [Findings Queries Examples](#findings-queries-examples)
 
 ## Purpose
-The AIP datamart is a simple database schema of AIP results, so that anyone can query these data, requiring only conceptual knowledge of AIP.
+The AIP datamart is an extraction of AIP results into a PostgreSQL schema, so that anyone can query these data, requiring only conceptual knowledge of AIP.
 
 The AIP Datamart can be used:
 * to query AIP data from a Business Intelligence tool such as Power BI Desktop
