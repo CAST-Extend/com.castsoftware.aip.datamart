@@ -1,4 +1,4 @@
-REST API version to use is strictly **1.17**.
+REST API version to use is **1.17** or **1.18**
 
 See the [release notes](RELEASE_NOTES.md) for more information.
 
