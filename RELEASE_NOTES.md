@@ -2,19 +2,22 @@
 
 #### Prerequisite
 
-- REST API **1.17**<br>
+- REST API **1.17** or **1.18**<br><br>
 - AIP Database > 8.3.5
 - Python > **3.6.4**
 
 #### Features / Enhancements
 
- - **Data**: Add ```DIM_OMG_RULES``` to filter rules according to OMG-ASCQM Index extension
- - **Data**: Add ```DIM_CISQ_RULES``` to filter rules according to CISQ Index extension
- - **Performance**: Optimize ```SRC_TRX_OBJECTS``` table extraction to fetch 55 millions of rows in 6 minutes (Intel Xeon CPU 3,5 GHz, 16 Gb RAM), and without ```GC overhead limit exceeded``` message
- - **Output Format**: Set the  comma character as a CSV delimiter so that CSV extracted files can be more easily loaded into Excel
+- **Data**: Add ```DIM_OMG_RULES``` to filter rules according to OMG-ASCQM Index extension
+- **Data**: Add ```DIM_CISQ_RULES``` to filter rules according to CISQ Index extension
+- **Performance**: Optimize ```SRC_TRX_OBJECTS``` table extraction to fetch 55 millions of rows in 6 minutes (Intel Xeon CPU 3,5 GHz, 16 Gb RAM), and without ```GC overhead limit exceeded``` message
+- **Output Format**: Set the  comma character as a CSV delimiter so that CSV extracted files can be more easily loaded into Excel
  
 #### Bug Fixes
- - **Data**: Fix ```DIM_RULES``` table extraction, 'critical' flags were not correct in case of change between the 2 last snapshots
+
+- **Data**: Skip inconsistent snapshots (REST API 1.18)
+- **Data**: ```STD-DESCRIPTIONS``` is not extracted if the Measurement base version is lower than 8.3.10 (REST API 1.18)
+- **Data**: Fix ```DIM_RULES``` table extraction, 'critical' flags were not correct in case of change between the 2 last snapshots
 
 ## Branch: 1.16.3 - May 2020
 
