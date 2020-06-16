@@ -2,7 +2,7 @@
 
 #### Prerequisite
 
-- REST API **1.17** or **1.18**<br><br>
+- REST API **1.17** or **1.18**<br>
 - AIP Database > 8.3.5
 - Python > **3.6.4**
 
