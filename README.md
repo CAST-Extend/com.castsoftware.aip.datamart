@@ -1,4 +1,5 @@
-REST API version to use is **1.17** or **1.18**
+REST API version to use is **1.17**, **1.18**, **1.19**
+However recommended version is REST API **1.19** to support irregular data.
 
 See the [release notes](RELEASE_NOTES.md) for more information.
 
