@@ -1,3 +1,16 @@
+## Branch: 1.19.0 - 3 August 2020
+
+#### Prerequisite
+
+- REST API **1.19**<br><br>
+- AIP Database > 8.3.5
+- Python > **3.6.4**
+
+#### Bug Fixes
+
+- **Data**: Support some irregular Data (duplicated rows, unexpected extra rows, bad application object)
+- **Scripts**: Support of more than 400 applications for Datamart.bat script
+
 ## Branch: 1.17.0 - 8 May 2020
 
 #### Prerequisite
