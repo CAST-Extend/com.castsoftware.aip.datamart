@@ -12,7 +12,7 @@ def install(domains_file):
         csv_reader = csv.reader(csv_file, delimiter=',')  
         for csv_row in csv_reader:
             for domain in csv_row:
-                exit_code = subprocess.run(['run.bat', 'append_details', os.getenv("HD_ROOT"), domain.strip()]).returncode
+                exit_code = subprocess.run(['run.bat', 'append_details', os.getenv("ED_ROOT"), domain.strip()]).returncode
                 if exit_code != 0:
                     sys.exit(exit_code)
     sys.exit(0)
@@ -26,7 +26,7 @@ def refresh(domains_file):
         csv_reader = csv.reader(csv_file, delimiter=',')  
         for csv_row in csv_reader:
             for domain in csv_row:
-                exit_code = subprocess.run(['run.bat', 'append_details', os.getenv("HD_ROOT"), domain.strip()]).returncode
+                exit_code = subprocess.run(['run.bat', 'append_details', os.getenv("ED_ROOT"), domain.strip()]).returncode
                 if exit_code != 0:
                     sys.exit(exit_code)
     sys.exit(0)
@@ -37,7 +37,7 @@ def update(domains_file):
         print("Datamart is already synchronized. No new snapshot")
         sys.exit(0)
 
-    exit_code = subprocess.run(['run.bat', 'refresh_measures', os.getenv("HD_ROOT"), 'AAD']).returncode
+    exit_code = subprocess.run(['run.bat', 'refresh_measures', os.getenv("ED_ROOT"), 'AAD']).returncode
     if exit_code != 0:
         sys.exit(exit_code)
 
