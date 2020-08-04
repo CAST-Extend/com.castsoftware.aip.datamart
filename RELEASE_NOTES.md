@@ -2,13 +2,13 @@
 
 #### Prerequisite
 
-- REST API **1.19**<br><br>
+- REST API  **1.17**, **1.18**, **1.19** (recommended)
 - AIP Database > 8.3.5
 - Python > **3.6.4**
 
 #### Bug Fixes
 
-- **Data**: Support some irregular Data (duplicated rows, unexpected extra rows, bad application object)
+- **Data**: REST API 1.19 supports some irregular Data (duplicated rows, unexpected extra rows, bad application object)
 - **Scripts**: Support of more than 400 applications for Datamart.bat script
 
 ## Branch: 1.17.0 - 8 May 2020
