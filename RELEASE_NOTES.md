@@ -8,10 +8,13 @@
 
 #### Bug Fixes
 
-- **Data**: REST API 1.19 supports some irregular Data (duplicated rows, unexpected extra rows, bad application object)
-- **Scripts**: Support of more than 400 applications for Datamart.bat script
+- **Data**: REST API 1.19 supports some irregular data (duplicated rows, unexpected extra rows, bad application object)
+- **Scripts**: Support of more than 400 applications for ```datamart.bat``` command line
+
+#### Features / Enhancements
+
 - **Scripts**: No more rotation in log files. Set a log file for each Domain.
-- **Scripts**: Add a ```JOBS ``` to transfer data in a concurrency mode for ```datamart``` command line
+- **Scripts**: Add a ```JOBS ``` environment variable to transfer data in a concurrency mode for ```datamart.bat``` command line
 
 ## Branch: 1.17.0 - 8 May 2020
 
