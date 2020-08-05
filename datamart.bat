@@ -19,13 +19,13 @@ echo    to refresh measurements tables, and to refresh engineering tables when a
 goto :FAIL
 
 :INSTALL
-call :FETCH_DOMAINS || goto :FAIL
-python datamart.py INSTALL DOMAINS.TXT || goto :FAIL
+REM call :FETCH_DOMAINS || goto :FAIL
+python datamart.py INSTALL DOMAINS.TXT %JOBS% || goto :FAIL
 GOTO :SUCCESS
 
 :REFRESH
-call :FETCH_DOMAINS || goto :FAIL
-python datamart.py REFRESH DOMAINS.TXT || goto :FAIL
+REM call :FETCH_DOMAINS || goto :FAIL
+python datamart.py REFRESH DOMAINS.TXT %JOBS% || goto :FAIL
 GOTO :SUCCESS
 
 :UPDATE
