@@ -16,19 +16,18 @@ def start_domain_transfer(domain, jobs, pos):
 
 # Start AAD transfer, abort all transfers in case of failure
 def start_aad_transfer(transfer_mode):
-    print ("Transfer domains in progress...")
     output_path = os.getenv("INSTALLATION_FOLDER") + "/log/" + "AAD.stdout"
     cmd = ['run.bat', 'install', os.getenv("HD_ROOT"), 'AAD']
     #print (">>> " + " ".join(cmd))
-    with open(output_path, "w") as output:
-        return_code = subprocess.run(['run.bat', transfer_mode, os.getenv("HD_ROOT"), 'AAD'], stdout=output, stderr=output).returncode
-        print ("Transfer domain AAD" + (": Done" if (return_code == 0) else ": Aborted"))
-        if return_code != 0:
-            sys.exit(1)
+    return_code = subprocess.run(['run.bat', transfer_mode, os.getenv("HD_ROOT"), 'AAD']).returncode
+    print ("Transfer domain AAD" + (": Done" if (return_code == 0) else ": Aborted"))
+    if return_code != 0:
+        sys.exit(1)
   
 def transfer(domains_file, total_jobs, aad_transfer_mode):
     start_aad_transfer(aad_transfer_mode)
 
+    print ("Transfer domains in progress...")
     domains = []
     # Loop on  domains of DOMAINS.TXT        
     with open(domains_file) as csv_file:
