@@ -25,7 +25,7 @@ REM MAKE SURE TO NOT INCLUDE "/" AT THE END OF URL
 SET HD_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 SET ED_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 REM Number of concurrent processes
-SET JOBS=10
+SET JOBS=1
 
 REM SET TARGET DATABASE
 SET _DB_HOST=localhost
