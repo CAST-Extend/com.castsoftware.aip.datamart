@@ -20,14 +20,14 @@ def start_aad_transfer(transfer_mode):
     cmd = ['run.bat', 'install', os.getenv("HD_ROOT"), 'AAD']
     #print (">>> " + " ".join(cmd))
     return_code = subprocess.run(['run.bat', transfer_mode, os.getenv("HD_ROOT"), 'AAD']).returncode
-    print ("Transfer domain AAD" + (": Done" if (return_code == 0) else ": Aborted"))
+    print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain AAD")
     if return_code != 0:
         sys.exit(1)
   
 def transfer(domains_file, total_jobs, aad_transfer_mode):
     start_aad_transfer(aad_transfer_mode)
 
-    print ("Transfer domains in progress...")
+    print ("Data transfer in progress...")
     domains = []
     # Loop on  domains of DOMAINS.TXT        
     with open(domains_file) as csv_file:
@@ -57,7 +57,7 @@ def transfer(domains_file, total_jobs, aad_transfer_mode):
             return_code = process.poll()
             if return_code is not None:
                 progress += 1
-                print ("Transfer (" + str(progress) + "/" + str(total) + ") domain " + domain + (": Done" if (return_code == 0) else ": Aborted"))
+                print ("Data transfer (" + str(progress) + "/" + str(total) + ") " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + domain)
                 if return_code != 0:
                     if exit_code == 0:
                         exit_code = 1
