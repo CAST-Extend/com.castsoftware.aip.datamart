@@ -5,7 +5,7 @@ import csv
 import time
   
 # Once AAD domain is transferted, start run.bat to append details for a domain  
-# Crerate a job as a pair (domain ,process) 
+# Create a job as a pair: (domain, process) 
 def start_domain_transfer(domain, jobs, pos):
     output_path = os.getenv("INSTALLATION_FOLDER") + "/log/" + domain + ".stdout"
     cmd = ['run.bat', 'append_details', os.getenv("ED_ROOT"), domain]
