@@ -1,4 +1,4 @@
-## Branch: 1.19.0 - 3 August 2020
+## Branch: 1.19.0 - 6 August 2020
 
 #### Prerequisite
 
@@ -9,12 +9,14 @@
 #### Bug Fixes
 
 - **Data**: REST API 1.19 supports some irregular data (duplicated rows, unexpected extra rows, bad application object)
-- **Scripts**: Support of more than 400 applications for ```datamart.bat``` command line
+- **Scripts**: The loop of extraction can iterate over 400 applications for ```datamart.bat``` command line
 
 #### Features / Enhancements
 
-- **Scripts**: No more rotation in log files. Set a log file for each Domain.
-- **Scripts**: Add a ```JOBS ``` environment variable to transfer data in a concurrency mode for ```datamart.bat``` command line
+- **Scripts**: There is no more a single log file for a run. We set a log file for each domain with no rotation.
+- **Scripts**: The ```datamart.bat``` command line saves the stdout/stderr of each transferred domain in the ```log``` directory
+- **Scripts**: The ```JOBS ``` environment variable has been added to transfer data with concurrent jobs for ```datamart.bat``` command line
+- **Scripts**: The extract/transform files are removed after each domain load success.
 
 ## Branch: 1.17.0 - 8 May 2020
 
