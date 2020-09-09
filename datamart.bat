@@ -44,9 +44,7 @@ echo Datamart %1 SUCCESS
 EXIT /b 0
 
 :FETCH_DOMAINS
-REM SET ED_DOMAINS
-REM We do not use a pipe because we need error handling
-echo Fetch domains from %HD_ROOT%
-(call utilities\get_domains %HD_ROOT% > DOMAINS.TXT) || goto :FAIL
+echo Fetch domains from %ED_ROOT%
+(call utilities\get_domains %ED_ROOT% DOMAINS.TXT) || EXIT /b 1
 echo. 
 GOTO :EOF
