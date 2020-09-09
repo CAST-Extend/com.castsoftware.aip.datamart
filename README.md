@@ -87,7 +87,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
 * __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
-* __Set credentials__ to authenticate to the REST API with the ```APIKEY``` environment variable or set the ```CREDENTIALS``` environment variable with the following format ```username:password```
+* __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
     
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
@@ -140,12 +140,6 @@ After a first install, if you start ```datamart.bat refresh```, the script will 
 If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
 
 #### Troubleshooting Guides
-
-> The response time to extract a table increases during a session.
-
-if you are using the ```CREDENTIALS``` environment variable, the LDAP server will be requested for each table to extract. 
-In some circumstances, to prevent  denial of service attack, the response time may increase. You should use the RESTAPI key instead.
-Remove the  ```CREDENTIALS``` variable from ```setenv.bat``` file.
 
 > I have got an "Access Denied" message.
 
