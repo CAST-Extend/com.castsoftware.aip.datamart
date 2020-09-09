@@ -147,9 +147,7 @@ Make sur you have write access on the Datamart folder.
 
 > A request to the REST API never ends
 
-Look at the REST API log to check whether there is a Java Memory error. Increase the Tomcat memory (up to 2Gb).
-If the problem persists, reproduce the issue with the ```extract.bat install``` command line to replay the extraction for with this single domain. 
-
+Look at the REST API log to check whether there is a Java Memory error. Increase the Tomcat memory.
 
 ## Schema Upgrade
 
