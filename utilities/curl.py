@@ -12,7 +12,7 @@ For Windows OS only""")
     parser.add_argument("-o", "--output", dest="output", action="store", help="Output file path")
     args = parser.parse_args()
 
-    curl_args = ['curl', '--retry', '5', '--no-buffer', '-f', '-k', '-H', 'Accept: ' + args.mediatype, '-H', 'X-Client: Datamart']
+    curl_args = ['curl', '-c', 'cookies.txt', '-b', 'cookies.txt', '--retry', '5', '--no-buffer', '-f', '-k', '-H', 'Accept: ' + args.mediatype, '-H', 'X-Client: Datamart']
     credentials=os.getenv("CREDENTIALS")
     apikey=os.getenv("APIKEY")
     if credentials:
