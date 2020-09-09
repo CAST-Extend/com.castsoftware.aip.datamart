@@ -13,6 +13,11 @@
 - **Scripts**: When running datamart.bat command line, the list of domains should not be empty when ```ED_ROOT``` and ```HD_ROOT``` URLs are distinct.
 - **Scripts**: When running datamart.bat command line, on Windows Server operating system, a redirection of standard output should work as on Windows 10.
 
+#### Features / Enhancements
+
+- **Scripts**: Do not create a user session for each request; reuse the SESSIONID set by the HTTP cookies; a single user session is used for the extraction.
+
+
 ## Branch: 1.19.0 - 6 August 2020
 
 #### Prerequisite
