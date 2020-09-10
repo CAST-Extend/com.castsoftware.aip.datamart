@@ -1,4 +1,4 @@
-## Branch: 1.19.1 - 8 September 2020
+## Branch: 1.19.1 - 10 September 2020
 
 #### Prerequisite
 
@@ -15,7 +15,7 @@
 
 #### Features / Enhancements
 
-- **Scripts**: Do not create a user session for each extraction request; a single user session must be created for the overall extraction.
+- **Scripts**: The extraction scripts do not create anymore a user session for each extraction request; few user sessions are created during the extraction.
 
 
 ## Branch: 1.19.0 - 6 August 2020
