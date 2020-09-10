@@ -15,7 +15,7 @@
 
 #### Features / Enhancements
 
-- **Scripts**: The number of Tomcat user sessions created the extraction has been dramatically reduced.
+- **Scripts**: The number of Tomcat user sessions created during the extraction has been dramatically reduced.
 
 
 ## Branch: 1.19.0 - 6 August 2020
