@@ -15,7 +15,7 @@
 
 #### Features / Enhancements
 
-- **Scripts**: The extraction scripts do not create anymore a user session for each extraction request; few user sessions are created during the extraction.
+- **Scripts**: The number of Tomcat user sessions created the extraction has been dramatically reduced.
 
 
 ## Branch: 1.19.0 - 6 August 2020
