@@ -1,4 +1,4 @@
-## Branch: 1.19.1 - 10 September 2020
+## Branch: 1.19.1 - 14 September 2020
 
 #### Prerequisite
 
@@ -8,6 +8,7 @@
 
 #### Bug Fixes
 
+- **Scripts**: Accept uppercase characters for the ```_DB_SCHEMA``` variable of ```setenv.bat``` file
 - **Scripts**: When running datamart.bat command line, the write access on temporary file ```DOMAINS.TXT``` is checked
 - **Scripts**: When running datamart.bat command line, the standard output must be redirected for AAD domain extraction. 
 - **Scripts**: When running datamart.bat command line, the list of domains should not be empty when distinct WARs are used for Engineering Dashboard and Health Dashboard

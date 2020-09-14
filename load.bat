@@ -37,11 +37,11 @@ goto :FAIL
 
 
 :INSTALL
-ECHO Create schema if not exists
+ECHO Create schema '%_DB_SCHEMA%' if not exists
 rem POSTGRESQL >= 9.3 OR ABOVE
 rem python utilities\run.py "%PSQL%" %PSQL_OPTIONS% -c "CREATE SCHEMA IF NOT EXISTS %_DB_SCHEMA%;" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 rem POSTGRESQL <= 9.2
-python utilities\run.py "%PSQL%" %PSQL_OPTIONS% -c "DO $$ BEGIN IF NOT EXISTS(SELECT schema_name FROM information_schema.schemata WHERE schema_name = '%_DB_SCHEMA%') THEN CREATE SCHEMA %_DB_SCHEMA%; END IF; END $$;" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
+python utilities\run.py "%PSQL%" %PSQL_OPTIONS% -c "DO $$ BEGIN IF NOT EXISTS(SELECT schema_name FROM information_schema.schemata WHERE schema_name = lower('%_DB_SCHEMA%')) THEN CREATE SCHEMA %_DB_SCHEMA%; END IF; END $$;" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 REM Create and Load DIM_APPLICATIONS
 CALL :load DIM_APPLICATIONS                     || EXIT /b 1
 ECHO Create other tables
