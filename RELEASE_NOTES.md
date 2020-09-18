@@ -1,3 +1,15 @@
+## Branch: 1.19.2 - 18 September 2020
+
+#### Prerequisite
+
+- REST API  >= **1.17**, >= **1.19** (recommended)
+- AIP Database > 8.3.5
+- Python > **3.6.4**
+
+#### Bug Fixes
+
+- **Scripts**: ```LOG_FILE``` variable is missing in ```create_views.bat``` and ```create_datapond_views.bat``` scripts
+
 ## Branch: 1.19.1 - 14 September 2020
 
 #### Prerequisite

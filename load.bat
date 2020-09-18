@@ -7,7 +7,6 @@ set DOMAIN=%2
 if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
 
 SET LOG_FILE=%INSTALLATION_FOLDER%\log\%DOMAIN%.log
-echo %LOG_FILE%
 
 if [%1] == [append] if [%DOMAIN%] == "AAD" goto :USAGE
 

@@ -5,6 +5,8 @@ pushd %~dp0
 CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
+SET LOG_FILE=%INSTALLATION_FOLDER%\log\DATAPOND_VIEWS.log
+
 REM Load Data
 CALL :load DIM_CISQ                             || GOTO :FAIL
 CALL :load DIM_OWASP_2017                       || GOTO :FAIL
