@@ -6,10 +6,9 @@ import time
   
 # Once AAD domain is transferted, start run.bat to append details for a domain  
 # Create a job as a pair: (domain, process) 
-def start_domain_transfer(domain, jobs, pos):
+def start_domain_transfer(domain, jobs, pos, transform_mode):
     output_path = os.getenv("INSTALLATION_FOLDER") + "/log/" + domain + ".stdout"
-    cmd = ['run.bat', 'append_details', os.getenv("ED_ROOT"), domain]
-    #print (">>> " + " ".join(cmd))
+    cmd = ['run.bat', transform_mode, os.getenv("ED_ROOT"), domain]
     with open(output_path, "w") as output:
         process = subprocess.Popen(cmd, stdout=output, stderr=output)
         jobs[pos] = (domain, process)
@@ -17,10 +16,9 @@ def start_domain_transfer(domain, jobs, pos):
 # Start AAD transfer, abort all transfers in case of failure
 def start_aad_transfer(transfer_mode):
     output_path = os.getenv("INSTALLATION_FOLDER") + "/log/" + "AAD.stdout"
-    cmd = ['run.bat', 'install', os.getenv("HD_ROOT"), 'AAD']
-    #print (">>> " + " ".join(cmd))
+    cmd = ['run.bat', transfer_mode, os.getenv("HD_ROOT"), 'AAD']
     with open(output_path, "w") as output:
-        process = subprocess.Popen(['run.bat', transfer_mode, os.getenv("HD_ROOT"), 'AAD'], stdout=output, stderr=output)
+        process = subprocess.Popen(cmd, stdout=output, stderr=output)
         return_code = process.wait()
     print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain AAD")
     if return_code != 0:
@@ -43,7 +41,7 @@ def transfer(domains_file, total_jobs, aad_transfer_mode):
     nb = min(total_jobs,total)
     jobs = [None]*nb
     for pos in range(nb):
-        start_domain_transfer(domains[pos], jobs, pos)
+        start_domain_transfer(domains[pos], jobs, pos, "append_details")
 
     # Run a pool of concurrent jobs
     # Each time a job is ended, we start a new one
@@ -64,7 +62,7 @@ def transfer(domains_file, total_jobs, aad_transfer_mode):
                     if exit_code == 0:
                         exit_code = 1
                 if nb < total:
-                    start_domain_transfer(domains[nb], jobs, pos)
+                    start_domain_transfer(domains[nb], jobs, pos, "append_details")
                     nb += 1
                     # leave remaining_jobs unchanged
                 else:
@@ -76,7 +74,7 @@ def transfer(domains_file, total_jobs, aad_transfer_mode):
           
 # Update domains  when a new snapshot has been added. A single process is used here.
 def update(domains_file):    
-    check_code = subprocess.run(['utilities\check_new_snapshot.bat', os.getenv("HD_ROOT") + '/AAD']).returncode
+    check_code = subprocess.run(['utilities\check_new_snapshot.bat', os.getenv("HD_ROOT") + '/AAD/datamart/dim-snapshots']).returncode
     if check_code == 0:
         print("Datamart is already synchronized. No new snapshot")
         sys.exit(0)
@@ -89,11 +87,12 @@ def update(domains_file):
         for csv_row in csv_reader:
             for domain in csv_row:
                 domain = domain.strip()
-                check_code = subprocess.run(['utilities\check_new_snapshot.bat', os.getenv("HD_ROOT") + '/' + domain]).returncode
-                if True: 
+                check_code = subprocess.run(['utilities\check_new_snapshot.bat', os.getenv("ED_ROOT") + '/' + domain + '/datamart/dim-snapshots']).returncode
+                if check_code != 0: 
                     jobs = [None]
-                    start_domain_transfer(domain, jobs, 0)
+                    start_domain_transfer(domain, jobs, 0, "replace_details")
                     return_code = jobs[0][1].wait()
+                    print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + domain)
                     if return_code != 0:
                         exit_code = 1
     sys.exit(exit_code)

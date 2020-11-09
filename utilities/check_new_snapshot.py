@@ -4,7 +4,7 @@ import decode
 
 # Read snapshots from STDIN
 snapshots = {}
-csv_reader = csv.reader(sys.stdin, delimiter=';')
+csv_reader = csv.reader(sys.stdin, delimiter=',')
 skip = True
 for csv_row in csv_reader:
     if skip:
