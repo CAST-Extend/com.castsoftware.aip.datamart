@@ -79,8 +79,6 @@ def update(domains_file):
         print("Datamart is already synchronized. No new snapshot")
         sys.exit(0)
 
-    start_aad_transfer("refresh_measures")
-
     exit_code = 0
     with open(domains_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')  
@@ -95,6 +93,10 @@ def update(domains_file):
                     print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + domain)
                     if return_code != 0:
                         exit_code = 1
+
+    # Do it after in order to update table of snapshots after each domain checking
+    start_aad_transfer("refresh_measures")
+
     sys.exit(exit_code)
 
 if __name__ == '__main__':
