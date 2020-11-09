@@ -161,6 +161,8 @@ if __name__ == "__main__":
     tables = []
     if args.mode != 'refresh_measures':
         tables = [
+                    # set the column name that discriminates rows of a domain
+                    # usually this is the application_name column, otherwise this is the object_id column
                     {"name":"SRC_OBJECTS", "column_name":"application_name"},
                     {"name":"SRC_TRANSACTIONS", "column_name":"application_name"},
                     {"name":"SRC_TRX_HEALTH_IMPACTS", "column_name":"application_name"},
