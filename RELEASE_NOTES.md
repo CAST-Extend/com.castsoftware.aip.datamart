@@ -1,3 +1,15 @@
+## Branch: 1.19.3 - 20 November 2020
+
+#### Prerequisite
+
+- REST API  >= **1.17**, >= **1.19** (recommended)
+- AIP Database > 8.3.5
+- Python > **3.6.4**
+
+#### Bug Fixes
+
+- **Scripts**: ```datamart update``` code review, and tests
+
 ## Branch: 1.19.2 - 18 September 2020
 
 #### Prerequisite
