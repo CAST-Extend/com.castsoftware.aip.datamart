@@ -14,7 +14,6 @@
 
 - **Data**: REST API 1.23.0 - When a quality rule has been detached, it should not be extracted into SRC_VIOLATIONS
 - **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for DIM_RULES table
-- **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for DIM_RULES table
 - **Scripts**: ```datamart update``` code review, and tests
 
 ## Branch: 1.19.2 - 18 September 2020
