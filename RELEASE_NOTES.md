@@ -2,13 +2,18 @@
 
 #### Prerequisite
 
-- REST API  >= **1.17**, >= **1.22** (recommended)
+- REST API  >= **1.17**, >= **1.23** (recommended)
 - AIP Database > 8.3.5
 - Python > **3.6.4**
 
+#### Features / Enhancements
+
+- **Data**: REST API 1.23.0 - Filter zero weights and null grades
+
 #### Bug Fixes
 
-- **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for DIM_RULES table
+- **Data**: REST API 1.23.0 - When a quality rule has been detached, it should not be extracted into SRC_VIOLATIONS
+- **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for DIM_RULES table- **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for DIM_RULES table
 - **Scripts**: ```datamart update``` code review, and tests
 
 ## Branch: 1.19.2 - 18 September 2020
