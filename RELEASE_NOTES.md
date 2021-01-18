@@ -2,7 +2,7 @@
 
 #### Prerequisite
 
-- REST API  >= **1.17**, >= **1.23** (recommended)
+- REST API  >= **1.17**, >= **1.23.1** (recommended)
 - AIP Database > 8.3.5
 - Python > **3.6.4**
 
@@ -12,6 +12,9 @@
 
 #### Bug Fixes
 
+- **Data**: REST API 1.23.1 - Some results of ```APP_HEALTH_EVOLUTION``` must be skipped because the metrics are no more attached
+- **Data**: REST API 1.23.1 - Filter duplicated rows in ```DSS_METRIC_RESULTS``` 
+- **Data**: REST API 1.23.1 - The snapshot string timestamp may be incorrect because of a JDK bug of SimpleDateFormat.format for a speific date and a specific time zone
 - **Data**: REST API 1.23.0 - When a quality rule has been detached, it should not be extracted into SRC_VIOLATIONS
 - **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for DIM_RULES table
 - **Scripts**: ```datamart update``` code review, and tests
@@ -87,7 +90,7 @@
 #### Bug Fixes
 
 - **Data**: Skip inconsistent snapshots (REST API 1.18)
-- **Data**: ```STD-DESCRIPTIONS``` is not extracted if the Measurement base version is lower than 8.3.10 (REST API 1.18)
+- **Data**: ```STD_DESCRIPTIONS``` is not extracted if the Measurement base version is lower than 8.3.10 (REST API 1.18)
 - **Data**: Fix ```DIM_RULES``` table extraction, 'critical' flags were not correct in case of change between the 2 last snapshots
 
 ## Branch: 1.16.3 - May 2020
