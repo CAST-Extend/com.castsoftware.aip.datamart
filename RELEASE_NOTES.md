@@ -15,8 +15,8 @@
 - **Data**: REST API 1.23.1 - Some results of ```APP_HEALTH_EVOLUTION``` must be skipped because the metrics are no more attached
 - **Data**: REST API 1.23.1 - Filter duplicated rows in ```DSS_METRIC_RESULTS``` 
 - **Data**: REST API 1.23.1 - The snapshot string timestamp may be incorrect because of a JDK bug of SimpleDateFormat.format for a speific date and a specific time zone
-- **Data**: REST API 1.23.0 - When a quality rule has been detached, it should not be extracted into ``` SRC_VIOLATIONS``` 
-- **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for DIM_RULES table
+- **Data**: REST API 1.23.0 - When a quality rule has been detached, it should not be extracted into ```SRC_VIOLATIONS``` 
+- **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for ```DIM_RULES``` table
 - **Scripts**: ```datamart update``` code review, and tests
 
 ## Branch: 1.19.2 - 18 September 2020
