@@ -2,12 +2,17 @@
 
 #### Prerequisite
 
-- REST API  >= **1.17**, >= **1.23.1** (recommended)
+- REST API  >= **1.17**, >= **1.24** (recommended)
 - AIP Database > 8.3.5
 - Python > **3.6.4**
 
 #### Features / Enhancements
 
+- **Data**: REST API 1.24.0 - Extraction optimization of ```APP_VIOLATIONS_MEASURES``` table
+- **Data**: REST API 1.24.0 - Extraction optimization of ```APP_SIZING_MEASURES``` table
+- **Data**: REST API 1.24.0 - Extraction optimization of ```MOD_VIOLATIONS_MEASURES``` table
+- **Data**: REST API 1.24.0 - Extraction optimization of ```MOD_SIZING_MEASURES``` table
+- **Data**: REST API 1.24.0 - Filter duplicated rows of ```STD_RULES``` table
 - **Data**: REST API 1.23.0 - Filter zero weights and null grades
 
 #### Bug Fixes
