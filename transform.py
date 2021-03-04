@@ -40,7 +40,6 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
-        lastestLine = None
         for row in csv_reader:
             if skip:
                 skip = False
@@ -56,16 +55,12 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                 f.write("COPY :schema.DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
-            if line == latestLine:
-                print("SKIP Duplicated line:" + line)
-            else:
-                f.write(line)
-                f.write("\n")
-            latestLine = line
+            f.write(line)
+            f.write("\n")
         f.write("\\.\n")
         f.close()
 
-def transform(mode, extract_directory, transform_directory, table_name):
+def transform(mode, extract_directory, transform_directory, table_name, nb_primary_columns):
     print ("Transform", table_name)
     ofile = transform_directory + "\\" + table_name + ".sql"
     f = open(ofile, "w", encoding="utf-8")
@@ -77,26 +72,32 @@ def transform(mode, extract_directory, transform_directory, table_name):
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
-        latestLine = None
+        latestKeys = None
         for row in csv_reader:
             if skip:
                 skip = False
                 f.write("COPY :schema." + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
-            if line == latestLine:
-                print("SKIP Duplicated line:" + line)
+            # if nb of primary keys is set we check the rows with duplicated keys, only the first one is kept
+            if nb_primary_columns != 0:
+                keys = row[:nb_primary_columns]
+                if keys == latestKeys:
+                    print("SKIP duplicate key values:" + line)
+                else:
+                    f.write(line)
+                    f.write("\n")
+                latestKeys = keys
             else:
                 f.write(line)
                 f.write("\n")
-            latestLine = line
         f.write("\\.\n")
         f.close()
 
 def transform_details(mode, extract_directory, transform_directory, table):
     table_name = table["name"]
     if mode != 'replace_details': 
-        transform (mode,  extract_directory, transform_directory, table_name)
+        transform (mode,  extract_directory, transform_directory, table_name, 0)
         return
 
     print ("Transform", table_name)
@@ -110,7 +111,6 @@ def transform_details(mode, extract_directory, transform_directory, table):
         column_name = table["column_name"]
         column_position = -1
         columns = None
-        latestLine = None        
         for row in csv_reader:
             if skip:
                 skip = False
@@ -132,12 +132,8 @@ def transform_details(mode, extract_directory, transform_directory, table):
                 column_value = new_column_value
                 f.write("COPY :schema." + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
             line = DELIMITER.join([format(cell) for cell in row])
-            if line == latestLine:
-                print("SKIP Duplicated line:" + line)
-            else:
-                f.write(line)
-                f.write("\n")
-            latestLine = line
+            f.write(line)
+            f.write("\n")
         if skip:
             f.write("\\.\n")
         f.close()
@@ -152,27 +148,27 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.mode in ['refresh', 'install', 'refresh_measures']:
-        transform_dim_applications(args.mode, args.extract_directory, args.transform_directory)
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES")        
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS")
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_MEASURES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_HEALTH_SCORES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SCORES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_EVOLUTION")
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_EVOLUTION")
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_HEALTH_EVOLUTION")
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_VIOLATIONS_MEASURES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SIZING_MEASURES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_SCORES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SCORES")        
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SIZING_EVOLUTION")
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION")
-        transform(args.mode, args.extract_directory, args.transform_directory, "STD_RULES")
-        transform(args.mode, args.extract_directory, args.transform_directory, "STD_DESCRIPTIONS")
+        #transform_dim_applications(args.mode, args.extract_directory, args.transform_directory)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 0)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 0)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 0)        
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 0)
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES", 3)
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES", 1)
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_MEASURES", 1)
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_HEALTH_SCORES", 2)
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SCORES", 2)
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_EVOLUTION", 1)
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_EVOLUTION", 1)
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_HEALTH_EVOLUTION", 3)
+        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_VIOLATIONS_MEASURES", 4)
+        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SIZING_MEASURES", 2)
+        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_SCORES", 3)
+        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SCORES", 3)        
+        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SIZING_EVOLUTION", 3)
+        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION", 4)
+        transform(args.mode, args.extract_directory, args.transform_directory, "STD_RULES", 0)
+        transform(args.mode, args.extract_directory, args.transform_directory, "STD_DESCRIPTIONS", 0)
     tables = []
     if args.mode != 'refresh_measures':
         tables = [
