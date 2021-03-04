@@ -8,7 +8,7 @@
 
 #### Features / Enhancements
 
-- **Scripts**: The "transform" step of ETL skips lines with duplicated keys values, and reports these linrs in the output.
+- **Scripts**: The "transform" step of ETL skips lines with duplicated keys values, and reports these lines in the output.
 
 ## Branch: 1.19.3 - 9 November 2020
 
