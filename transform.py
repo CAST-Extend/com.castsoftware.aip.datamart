@@ -40,6 +40,7 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
+        lastestLine = None
         for row in csv_reader:
             if skip:
                 skip = False
@@ -55,8 +56,12 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                 f.write("COPY :schema.DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
+            if line == latestLine:
+                print("SKIP Duplicated line:" + line)
+            else:
+                f.write(line)
+                f.write("\n")
+            latestLine = line
         f.write("\\.\n")
         f.close()
 
@@ -72,14 +77,19 @@ def transform(mode, extract_directory, transform_directory, table_name):
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
+        latestLine = None
         for row in csv_reader:
             if skip:
                 skip = False
                 f.write("COPY :schema." + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
+            if line == latestLine:
+                print("SKIP Duplicated line:" + line)
+            else:
+                f.write(line)
+                f.write("\n")
+            latestLine = line
         f.write("\\.\n")
         f.close()
 
@@ -100,6 +110,7 @@ def transform_details(mode, extract_directory, transform_directory, table):
         column_name = table["column_name"]
         column_position = -1
         columns = None
+        latestLine = None        
         for row in csv_reader:
             if skip:
                 skip = False
@@ -121,8 +132,12 @@ def transform_details(mode, extract_directory, transform_directory, table):
                 column_value = new_column_value
                 f.write("COPY :schema." + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
             line = DELIMITER.join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
+            if line == latestLine:
+                print("SKIP Duplicated line:" + line)
+            else:
+                f.write(line)
+                f.write("\n")
+            latestLine = line
         if skip:
             f.write("\\.\n")
         f.close()
