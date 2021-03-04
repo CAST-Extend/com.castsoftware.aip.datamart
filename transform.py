@@ -83,7 +83,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
             if nb_primary_columns != 0:
                 keys = row[:nb_primary_columns]
                 if keys == latestKeys:
-                    print("SKIP duplicate key values:" + line)
+                    print("\tSKIP duplicate key values: " + DELIMITER.join(keys))
                 else:
                     f.write(line)
                     f.write("\n")
@@ -167,7 +167,7 @@ if __name__ == "__main__":
         transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SCORES", 3)        
         transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SIZING_EVOLUTION", 3)
         transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION", 4)
-        transform(args.mode, args.extract_directory, args.transform_directory, "STD_RULES", 0)
+        transform(args.mode, args.extract_directory, args.transform_directory, "STD_RULES", 3)
         transform(args.mode, args.extract_directory, args.transform_directory, "STD_DESCRIPTIONS", 0)
     tables = []
     if args.mode != 'refresh_measures':
