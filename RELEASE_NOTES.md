@@ -1,14 +1,15 @@
-## Branch: 1.24.0 - 4 March 2021
+## Branch: 1.25.0 - 5 March 2021
 
 #### Prerequisite
 
-- REST API  >= **1.17**, >= **1.24** (recommended)
+- REST API  >= **1.17**, >= **1.25** (recommended)
 - AIP Database > 8.3.5
 - Python > **3.6.4**
 
 #### Features / Enhancements
 
-- **Scripts**: The "transform" step of ETL skips lines with duplicated keys values, and reports these lines in the output.
+- **Data**: REST API 1.25.0 - Skip some zombie applications
+- **Scripts**: The "transform" step of ETL scripts skips lines with duplicated keys values, and reports these lines in the output. The ETL scripts are more robust whatever the REST API release.
 
 ## Branch: 1.19.3 - 9 November 2020
 

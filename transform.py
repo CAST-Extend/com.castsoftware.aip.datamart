@@ -6,6 +6,7 @@ from datetime import datetime
 
 #= Use comma delimiter for compliancy with Excel
 DELIMITER=','
+WARNINGS=False
 
 def format(s):
     if s.find('"') != -1:
@@ -61,6 +62,7 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
         f.close()
 
 def transform(mode, extract_directory, transform_directory, table_name, nb_primary_columns):
+    global WARNINGS
     print ("Transform", table_name)
     ofile = transform_directory + "\\" + table_name + ".sql"
     f = open(ofile, "w", encoding="utf-8")
@@ -79,11 +81,12 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
                 f.write("COPY :schema." + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
-            # if nb of primary keys is set we check the rows with duplicated keys, only the first one is kept
+            # if nb of primary columns is set we check the rows with duplicated keys, only the first one is kept
             if nb_primary_columns != 0:
                 keys = row[:nb_primary_columns]
                 if keys == latestKeys:
                     print("\tSKIP duplicate key values: " + DELIMITER.join(keys))
+                    WARNINGS=True
                 else:
                     f.write(line)
                     f.write("\n")
@@ -95,6 +98,8 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
         f.close()
 
 def transform_details(mode, extract_directory, transform_directory, table):
+    global WARNINGS
+    nb_primary_columns = table["nb_primary_columns"]
     table_name = table["name"]
     if mode != 'replace_details': 
         transform (mode,  extract_directory, transform_directory, table_name, 0)
@@ -132,8 +137,19 @@ def transform_details(mode, extract_directory, transform_directory, table):
                 column_value = new_column_value
                 f.write("COPY :schema." + table_name + "("  + ",".join(columns) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
             line = DELIMITER.join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
+            # if nb of primary columns is set we check the rows with duplicated keys, only the first one is kept
+            if nb_primary_columns != 0:
+                keys = row[:nb_primary_columns]
+                if keys == latestKeys:
+                    print("\tSKIP duplicate key values: " + DELIMITER.join(keys))
+                    WARNINGS = True
+                else:
+                    f.write(line)
+                    f.write("\n")
+                latestKeys = keys
+            else:
+                f.write(line)
+                f.write("\n")
         if skip:
             f.write("\\.\n")
         f.close()
@@ -148,7 +164,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.mode in ['refresh', 'install', 'refresh_measures']:
-        #transform_dim_applications(args.mode, args.extract_directory, args.transform_directory)
+        transform_dim_applications(args.mode, args.extract_directory, args.transform_directory)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 0)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 0)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 0)        
@@ -174,16 +190,23 @@ if __name__ == "__main__":
         tables = [
                     # set the column name that discriminates rows of a domain
                     # usually this is the application_name column, otherwise this is the object_id column
-                    {"name":"SRC_OBJECTS", "column_name":"application_name"},
-                    {"name":"SRC_TRANSACTIONS", "column_name":"application_name"},
-                    {"name":"SRC_TRX_HEALTH_IMPACTS", "column_name":"application_name"},
-                    {"name":"SRC_MOD_OBJECTS", "column_name":"application_name"},
-                    {"name":"SRC_TRX_OBJECTS", "column_name":"object_id"},
-                    {"name":"SRC_VIOLATIONS", "column_name":"object_id"},
-                    {"name":"SRC_HEALTH_IMPACTS", "column_name":"object_id"},
-                    {"name":"USR_EXCLUSIONS", "column_name":"application_name"},
-                    {"name":"USR_ACTION_PLAN", "column_name":"application_name"}
+                    {"name":"SRC_OBJECTS", "column_name":"application_name", "nb_primary_columns": 2},
+                    {"name":"SRC_TRANSACTIONS", "column_name":"application_name", "nb_primary_columns": 2},
+                    {"name":"SRC_TRX_HEALTH_IMPACTS", "column_name":"application_name", "nb_primary_columns": 3},
+                    {"name":"SRC_MOD_OBJECTS", "column_name":"application_name", "nb_primary_columns": 3},
+                    {"name":"SRC_TRX_OBJECTS", "column_name":"object_id", "nb_primary_columns": 2},
+                    {"name":"SRC_VIOLATIONS", "column_name":"object_id", "nb_primary_columns": 5},
+                    {"name":"SRC_HEALTH_IMPACTS", "column_name":"object_id", "nb_primary_columns": 4},
+                    {"name":"USR_EXCLUSIONS", "column_name":"application_name", "nb_primary_columns": 0},
+                    {"name":"USR_ACTION_PLAN", "column_name":"application_name", "nb_primary_columns": 0}
                 ]
 
     for table in tables:
         transform_details(args.mode, args.extract_directory, args.transform_directory, table)
+
+    if WARNINGS:
+        print("========================================================================")
+        print("WARNING:")
+        print("There are some duplicated rows for some snapshots")
+        print("We recommend to reconsolidate these shapshots to clean up the database ")
+        print("========================================================================")
