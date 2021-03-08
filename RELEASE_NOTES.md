@@ -1,4 +1,4 @@
-## Branch: 1.25.0 - 5 March 2021
+## Branch: 1.19.4 - 5 March 2021
 
 #### Prerequisite
 
@@ -8,8 +8,13 @@
 
 #### Features / Enhancements
 
-- **Data**: REST API 1.25.0 - Skip some zombie applications
+- **Data**: REST API 1.25.0 - Extraction optimization of ```APP_VIOLATIONS_MEASURES``` table
+- **Data**: REST API 1.25.0 - Extraction optimization of ```MOD_VIOLATIONS_MEASURES``` table
 - **Scripts**: The "transform" step of ETL scripts skips lines with duplicated keys values, and reports these lines in the output. The ETL scripts are more robust whatever the REST API release.
+
+#### Bug Fixes
+
+- **Data**: REST API 1.25.0 - Skip some zombie applications
 
 ## Branch: 1.19.3 - 9 November 2020
 
