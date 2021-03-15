@@ -82,10 +82,12 @@ GOTO :EOF
 
 :FAIL
 ECHO == Extract Failed ==
+DEL cookies.txt >nul 2>&1
 EXIT /b 1
 
 :SUCCESS
 ECHO == Extract Done ==
+DEL cookies.txt >nul 2>&1
 EXIT /b 0
 
 :extract

@@ -1,20 +1,21 @@
-## Branch: 1.19.4 - 5 March 2021
+## Branch: 1.20.0 - 15 March 2021
 
 #### Prerequisite
 
-- REST API  >= **1.17**, >= **1.25** (recommended)
+- REST API  >= **1.17**, >= **1.24** (recommended), >= **2.0** (recommended)
 - AIP Database > 8.3.5
 - Python > **3.6.4**
 
 #### Features / Enhancements
 
-- **Data**: REST API 1.25.0 - Extraction optimization of ```APP_VIOLATIONS_MEASURES``` table
-- **Data**: REST API 1.25.0 - Extraction optimization of ```MOD_VIOLATIONS_MEASURES``` table
+- **Data**: REST API 2.0.0 - Extraction optimization of ```APP_VIOLATIONS_MEASURES``` table
+- **Data**: REST API 2.0.0 - Extraction optimization of ```MOD_VIOLATIONS_MEASURES``` table
 - **Scripts**: The "transform" step of ETL scripts skips lines with duplicated keys values, and reports these lines in the output. The ETL scripts are more robust whatever the REST API release.
 
 #### Bug Fixes
 
-- **Data**: REST API 1.25.0 - Skip some zombie applications
+- **Data**: REST API 2.0.0 - Skip some zombie applications
+- **Scripts**: Remove the ```cookies.txt``` file at the end of the extraction
 
 ## Branch: 1.19.3 - 9 November 2020
 
