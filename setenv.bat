@@ -26,6 +26,8 @@ SET HD_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 SET ED_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 REM Number of concurrent processes
 SET JOBS=1
+REM Max Number of concurrent connections (Curl)
+SET CONN=6
 
 REM SET TARGET DATABASE
 SET _DB_HOST=localhost
