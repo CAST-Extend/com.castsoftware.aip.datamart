@@ -36,3 +36,7 @@ SET _DB_NAME=reporting
 SET _DB_USER=
 SET _DB_SCHEMA=datamart
 SET PGPASSWORD=
+
+REM Max Number of concurrent connections (Curl) for Extraction
+REM Increasing this parameter may decrease performances. Tune it cautiously.
+SET CONN=1

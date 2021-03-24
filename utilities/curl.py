@@ -4,10 +4,26 @@ import decode
 import os
 import sys
     
+def full_executable_path(invoked):
+     # From https://bugs.python.org/issue8557  
+     # https://bugs.python.org/issue8557
+     # with subprocess.open, c:\windows\system32\curl.exe has precedence on the PATH environment variable for Windows 10
+     # which discards the path to the  thirdparty directory
+    explicit_dir = os.path.dirname(invoked)
+    if explicit_dir:
+        path = [ explicit_dir ]
+    else:
+        path = os.environ.get('PATH').split(os.path.pathsep)
+    for dir in path:
+        full_path = os.path.join(dir, invoked)
+        if os.path.exists( full_path ):
+            return full_path
+    return invoked # Not found; invoking it will likely fail
+    
 def main():    
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="""Run CURL to fetch data from a Web Server using the environment variable 'CREDENTIALS' or %USERPROFILE%\_netrc
 For Windows OS only""")
-    parser.add_argument("curl", action="store", help="Curl binary path")
+    parser.add_argument(full_executable_path("curl.exe"), action="store", help="Curl binary path")
     parser.add_argument("mediatype", action="store", help="Media type. Typically 'application/json' or 'text/csv'")
     parser.add_argument("url", action="store", help="URL to fetch")    
     parser.add_argument("-o", "--output", dest="output", action="store", help="Output file path")

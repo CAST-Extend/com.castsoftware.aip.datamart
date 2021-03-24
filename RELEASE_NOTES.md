@@ -1,3 +1,15 @@
+## Branch: 1.20.1 - 23 March 2021
+
+#### Prerequisite
+
+- REST API  >= **1.17**, >= **1.25** (recommended)
+- AIP Database > 8.3.5
+- Python > **3.6.4**
+
+#### Bug Fixes
+
+- **Scripts**: On windows 10, ```C:\windows\system32\curl.exe``` has precedence on the ```PATH``` environment variable, and discards the path to the third-party curl directory  
+
 ## Branch: 1.20.0 - 19 March 2021
 
 #### Prerequisite

@@ -6,10 +6,8 @@ REM ----------------------------------------------------------------------------
 
 SET INSTALLATION_FOLDER=%cd%
 SET PGSQL=pgsql-10.12
-SET CURL=curl.exe
 REM Add path for embedded third party binaries
 IF EXIST "%INSTALLATION_FOLDER%\thirdparty\curl-7.70\bin" SET PATH=%INSTALLATION_FOLDER%\thirdparty\curl-7.70\bin;%PATH%
-IF EXIST "%INSTALLATION_FOLDER%\thirdparty\curl-7.70\bin" SET CURL=%INSTALLATION_FOLDER%\thirdparty\curl-7.70\bin\curl.exe
 IF EXIST "%INSTALLATION_FOLDER%\thirdparty\Python38-32" SET PATH=%INSTALLATION_FOLDER%\thirdparty\Python38-32;%PATH%
 
 IF DEFINED PGSQL IF EXIST "%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin" SET PATH=%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin;%PATH%
