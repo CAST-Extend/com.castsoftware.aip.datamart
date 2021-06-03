@@ -27,7 +27,7 @@ For Windows OS only""")
     curl_args +=  [args.url]
     exit_code = subprocess.run(curl_args).returncode
     if exit_code == 22:
-        print("on error (470): check the credentials", file=sys.stderr)
+        print("on error (470/401): check the credentials", file=sys.stderr)
         print("on error (400): check the REST API version", file=sys.stderr)
         print("on error (404): check the domain name", file=sys.stderr)
     sys.exit(exit_code)
