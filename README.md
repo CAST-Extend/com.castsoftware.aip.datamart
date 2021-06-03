@@ -229,12 +229,12 @@ C:\>create_datapond_views
 These tables can be used to filter data along "Dimension":
 * `DIM_RULES`: A Dimension table to filter measures according to rules contribution
 
-* `DIM_OMG_RULES`: A Dimension table to filter measures according to rules contribution to OMG-ASCQM index
+* `DIM_OMG_RULES`: A Dimension table to filter measures according to rules contribution to ISO index
 
 * `DIM_CISQ_RULES`: A Dimension table to filter measures according to rules contribution to CISQ index
 * `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
 
-* `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the OMG-ASCQM (aka CISQ) standard criteria
+* `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the ISO standard criteria
 
 * `DIM_OWASP_2017`: A optional(*) Dimension view to filter measures according to OWASP 2017 Top 10 vulnerabilities
 
@@ -316,7 +316,7 @@ Note: if you need these column names to be converted into lowercase identifiers 
 
 ### DIM_QUALITY_STANDARDS
 A Dimension view to filter measures according to Quality Standards. 
-* in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or higher to get the OMG standards
+* in case of a data extraction from a central base, the Quality Standard extension version must be __20181030__ or higher; it is recommended to install the __20190923__ version or higher to get the ISO standards
 * in case of a data extraction from a measurement base, the measurement base must be __8.3.5__ or higher 
 
 This view can be customized in order to extend the columns, by editing the SQL script: ```views/DIM_QUALITY_STANDARDS.sql```
@@ -329,7 +329,7 @@ metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule accordingÂ to AIP
 cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
-omg_ascqm                            | BOOLEAN  | Check whether this rule detects OMG-ASCQM 2019 weakness
+omg_ascqm                            | BOOLEAN  | Check whether this rule detects ISO weakness
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
 
@@ -381,7 +381,7 @@ weight_total_quality_index           | DECIMAL  | Contribution weight of the tec
 weight_transferability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 ```
 ### DIM_OMG_RULES
-A dimension table to filter measures according to rules contribution to OMG-ASCQM index
+A dimension table to filter measures according to rules contribution to ISO index
 * Each row is a rule definition from the Assessment Model of the latest snapshot according to the 'functional/capture date' of each application , when a score exists for this application snapshot.
 * In case of a rule with multiple technical criteria contributions, we select the contribution with the highest impact on grades considering the critical attribute and the weight attribute.
 
@@ -393,11 +393,11 @@ rule_name                            | TEXT     | Rule name
 technical_criterion_name             | TEXT     | The Technical Criterion name of the highest contribution weight for this rule
 is_critical                          | BOOLEAN  | true if at least there is one critical contribution to a technical criterion
 weight                               | DECIMAL  | Highest weight contribution to the technical criteria
-weight_omg_maintainability           | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
-weight_omg_efficiency                | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
-weight_omg_reliability               | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
-weight_omg_security                  | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
-weight_omg_index                     | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
+weight_omg_maintainability           | DECIMAL  | Contribution weight of the ISO technical criterion. 0 if no contribution
+weight_omg_efficiency                | DECIMAL  | Contribution weight of the ISO technical criterion. 0 if no contribution
+weight_omg_reliability               | DECIMAL  | Contribution weight of the ISO technical criterion. 0 if no contribution
+weight_omg_security                  | DECIMAL  | Contribution weight of the ISO technical criterion. 0 if no contribution
+weight_omg_index                     | DECIMAL  | Contribution weight of the ISO technical criterion. 0 if no contribution
 ```
 
 ### DIM_CISQ_RULES
