@@ -798,7 +798,7 @@ Query:
 ```
 select sum(t.nb_critical_violations), t.business_criterion_name
 from dim_snapshots s
-join app_health_results t on t.snapshot_id = s.snapshot_id 
+join app_health_scores t on t.snapshot_id = s.snapshot_id 
 where s.is_latest
 group by 2
 order by 1 desc
@@ -899,7 +899,7 @@ Data output:
 Query:
 ```
 select avg(score)
-from app_health_results m
+from app_health_scores m
 join dim_snapshots s on m.snapshot_id = s.snapshot_id and s.is_latest
 where m.business_criterion_name = 'Total Quality Index'
 ```
