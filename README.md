@@ -60,17 +60,9 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 ### Running the Scripts 
 
 * __Make sure__ you have access to 
-  * the REST API server (see version number above)
+  * a REST API server for Dashboards (see version in the release notes)
   * a PostgreSQL server 9.1 or higher, with a database created to host target data
-* __Download__ the Datamart scripts
-  * Either __Download__  the zip of this repository
-      * Unzip the archive, and move the content into a single target folder
-      * __Install__ the following softwares, on the local machine when you run the Datamart scripts:
-        * __[curl](https://curl.haxx.se/download.html)__ command line (in your path)
-        * __[Python 3.6.4 or higher](https://www.python.org/downloads/)__ (in your path)
-        * __[psycopg2](https://pypi.org/project/psycopg2/)__ python package, installed with ```pip install psycopg2```
-        * __PGSQL__ and __VACUUMDB__ command lines (that can be found with a PostgreSQL distribution)
-  * Or __Download__ the zip of the corresponding [extendng.castsoftware.com](https://extendng.castsoftware.com) package
+* __Download__ the Datamart scripts from [extendng.castsoftware.com](https://extendng.castsoftware.com) package
      * Unzip the archive, and move the content into a single target folder
      * Note: you do not need to install any software, all the required embedded softwares are available in the ```thirdparty``` directory
 * __Edit configuration variables__ in ```setenv.bat``` file
