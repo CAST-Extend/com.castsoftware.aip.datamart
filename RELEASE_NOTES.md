@@ -4,7 +4,6 @@
 
 - REST API  >= **1.17**, >= **1.25** (recommended)
 - AIP Database > 8.3.5
-- Python > **3.6.4**
 
 #### Features / Enhancements
 
@@ -23,7 +22,6 @@
 
 - REST API  >= **1.17**, >= **1.24** (recommended)
 - AIP Database > 8.3.5
-- Python > **3.6.4**
 
 #### Features / Enhancements
 
@@ -49,7 +47,6 @@
 
 - REST API  >= **1.17**, >= **1.19** (recommended)
 - AIP Database > 8.3.5
-- Python > **3.6.4**
 
 #### Bug Fixes
 
@@ -61,7 +58,6 @@
 
 - REST API  >= **1.17**, >= **1.19** (recommended)
 - AIP Database > 8.3.5
-- Python > **3.6.4**
 
 #### Bug Fixes
 
@@ -82,7 +78,6 @@
 
 - REST API  >= **1.17**, >= **1.19** (recommended)
 - AIP Database > 8.3.5
-- Python > **3.6.4**
 
 #### Bug Fixes
 
@@ -102,7 +97,6 @@
 
 - REST API **1.17** or **1.18**<br>
 - AIP Database > 8.3.5
-- Python > **3.6.4**
 
 #### Features / Enhancements
 
