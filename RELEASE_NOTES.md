@@ -1,4 +1,4 @@
-## Branch: 1.20.0 - 19 March 2021
+## Version: 1.20.0 - 19 March 2021
 
 #### Prerequisite
 
@@ -16,7 +16,7 @@
 - **Data**: REST API 1.25.0 - Skip some zombie applications
 - **Scripts**: Remove the ```cookies.txt``` file at the end of the extraction
 
-## Branch: 1.19.3 - 9 November 2020
+## Version: 1.19.3 - 9 November 2020
 
 #### Prerequisite
 
@@ -41,7 +41,7 @@
 - **Data**: REST API 1.22.0 - When a quality index extension (ex: CISQ Index) is installed, REST API must filter these technical criteria for ```DIM_RULES``` table
 - **Scripts**: ```datamart update``` code review, and tests
 
-## Branch: 1.19.2 - 18 September 2020
+## Version: 1.19.2 - 18 September 2020
 
 #### Prerequisite
 
@@ -52,7 +52,7 @@
 
 - **Scripts**: ```LOG_FILE``` variable is missing in ```create_views.bat``` and ```create_datapond_views.bat``` scripts
 
-## Branch: 1.19.1 - 14 September 2020
+## Version: 1.19.1 - 14 September 2020
 
 #### Prerequisite
 
@@ -72,7 +72,7 @@
 - **Scripts**: The number of Tomcat user sessions created during the extraction has been dramatically reduced.
 
 
-## Branch: 1.19.0 - 6 August 2020
+## Version: 1.19.0 - 6 August 2020
 
 #### Prerequisite
 
@@ -91,7 +91,7 @@
 - **Scripts**: The ```JOBS ``` environment variable has been added to transfer data with concurrent jobs for ```datamart.bat``` command line
 - **Scripts**: The extract/transform files are removed after each domain load success.
 
-## Branch: 1.17.0 - 8 May 2020
+## Version: 1.17.0 - 8 May 2020
 
 #### Prerequisite
 
@@ -111,7 +111,7 @@
 - **Data**: ```STD_DESCRIPTIONS``` is not extracted if the Measurement base version is lower than 8.3.10 (REST API 1.18)
 - **Data**: Fix ```DIM_RULES``` table extraction, 'critical' flags were not correct in case of change between the 2 last snapshots
 
-## Branch: 1.16.3 - May 2020
+## Version: 1.16.3 - May 2020
 
 #### Features / Enhancements
 
@@ -119,20 +119,20 @@
   - PostgreSQL 10.12 client
   - Curl 7.70
 
-## Branch: 1.16.2 - May 2020
+## Version: 1.16.2 - May 2020
 
 #### Features / Enhancements
 
 - **Scripts**: The third party binaries (Python, Curl, PGSQL) can be embedded in a ```thirdparty``` folder. This folder is distributed in the datamart package downloaded from ```extendng.castsoftware.com``` web site.
 
-## Branch: 1.16.1 BETA - May 2020
+## Version: 1.16.1 BETA - May 2020
 
 #### Bug Fixes
 
 - **Scripts**: Fix support encoded PostgreSQL password for ```datamart.bat``` command line
 - **Scripts**: Fix README, remove the storage of sensitive information in configuration files
 
-## Branch: 1.16.0 BETA - March 2020
+## Version: 1.16.0 BETA - March 2020
 
 #### Prerequisite
 
@@ -149,7 +149,7 @@
  - **Data**: Fix ```SRC_VIOLATIONS``` table extraction, some violations were skipped, and some findings names were not correct.
  - **Data**: Fix ```ACTION_STATUS``` column of ```USR_ACTION_PLAN``` table. 
 
-## Branch: 1.15.0 BETA - February 2020
+## Version: 1.15.0 BETA - February 2020
 
 #### Prerequisite
 
@@ -186,7 +186,7 @@ Note: This new version of the REST API limits memory consumption when fetching a
 
 - **Data**: Fix ```TECHNOLOGY``` column for ```SRC_OBJECTS``` table: replace the 'All' identifier with the effective technology name
 
-## Branch: 1.14.0 BETA - January 2020
+## Version: 1.14.0 BETA - January 2020
 
 First release.
 
