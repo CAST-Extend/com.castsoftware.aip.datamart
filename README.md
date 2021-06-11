@@ -39,6 +39,17 @@ If the user is not granted to access to all applications, then some data will be
 If the user is granted to access all applications, then, the user will expose all data in the target database.
 * For the DIM_RULES table, the list of Business Criteria is closed. Custom business criteria are skipped.
 
+## Terms and Conditions
+
+This product is submitted to terms and conditions of CAST Products, see [extend.castsoftware.com](hhttps://extend.castsoftware.com/#/search-results?q=datamart) 
+
+By using this software, the user of this product agrees the terms and conditions of third party softwares: 
+- [Curl Copyright License](https://curl.se/docs/copyright.html)
+- [PostgreSQL License](https://www.postgresql.org/about/licence/)
+- [Python License](https://docs.python.org/3/license.html)
+
+A copy of these notices is available in the distributed package of this product.
+
 ## How to Build the AIP Datamart
 
 ### The Scripts
@@ -62,7 +73,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/
 * __Make sure__ you have access to 
   * a REST API server for Dashboards (see version in the release notes)
   * a PostgreSQL server 9.1 or higher, with a database created to host target data
-* __Download__ the Datamart scripts from [extendng.castsoftware.com](https://extendng.castsoftware.com) package
+* __Download__ the Datamart scripts from [extend.castsoftware.com](hhttps://extend.castsoftware.com/#/search-results?q=datamart) package
      * Unzip the archive, and move the content into a single target folder
      * Note: you do not need to install any software, all the required embedded softwares are available in the ```thirdparty``` directory
 * __Edit configuration variables__ in ```setenv.bat``` file
