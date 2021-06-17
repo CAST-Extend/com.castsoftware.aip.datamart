@@ -1,3 +1,16 @@
+## Version: 1.21.0 - June 2021
+
+- REST API  >= **1.17**, >= **2.1* (recommended)
+- AIP Database > 8.3.5
+
+#### Features / Enhancements
+
+- **Scripts**: An error is raised if we find two applications with the same name
+
+#### Bug Fixes
+
+- **Data**: REST API 2.1.0 - Fix a SQL sort so that the "transform" step can discover duplicated rows for ```MOD_HEALTH_SCORES``` table, without stopping in error
+
 ## Version: 1.20.0 - 19 March 2021
 
 #### Prerequisite
