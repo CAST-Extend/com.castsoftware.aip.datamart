@@ -4,7 +4,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
 
 - [Purpose](#purpose)
 - [Limitations](#limitations)
-- [Terms and Conditions](# Terms and Conditions)
+- [Terms and Conditions](#terms-and-conditions)
 - [How to Build the AIP Datamart](#how-to-build-the-aip-datamart)
 - [How to Use the AIP Datamart ](#how-to-use-the-aip-datamart)
 - [Summary of Tables](#summary-of-tables)
