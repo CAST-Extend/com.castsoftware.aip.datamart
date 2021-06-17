@@ -331,7 +331,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 metric_id                            | INT      | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
-aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule accordingÂ to AIP
+aip_top_priority                     | BOOLEAN  | Check whether this rule is a top priority rule according to AIP
 cwe                                  | BOOLEAN  | Check whether this rule detects a CWE weakness
 omg_ascqm                            | BOOLEAN  | Check whether this rule detects ISO weakness
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
@@ -340,7 +340,7 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 ### DIM_SNAPSHOTS
 A Dimension table to filter measures according to a period. 
 * Column YEAR, YEAR_MONTH, YEAR_QUARTER, YEAR_WEEK are set only for the most recent snapshot of this period for this application; they are provided to filter snapshots for a specific period
-* These columns make sense when applications are periodically analyzed. For instance, if each application is analyzed once a year, thenÂ  we can use the column YEAR as a filter; if some applications are not analyzed every week; then the YEAR_WEEK filter must be used carefully. 
+* These columns make sense when applications are periodically analyzed. For instance, if each application is analyzed once a year, then we can use the column YEAR as a filter; if some applications are not analyzed every week; then the YEAR_WEEK filter must be used carefully. 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -567,7 +567,7 @@ snapshot_id                          | TEXT     | The concatenation of the appli
 module_name                          | TEXT     | Module name
 rule_id                              | TEXT     | Local rule ID is the concatenation of local snapshot ID and the external rule ID
 metric_id                            | INT      | AIP Globally unique metric ID
-technology                           | TEXTÂ     | Source code technology
+technology                           | TEXT     | Source code technology
 nb_violations                        | INT      | Number of violations
 nb_total_checks                      | INT      | Number of checked objects
 violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
