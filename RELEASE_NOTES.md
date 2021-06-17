@@ -9,6 +9,7 @@
 
 #### Bug Fixes
 
+- **Scripts**: On windows 10, remove the precedence of ```C:\windows\system32\curl.exe``` on the third-party directory for ```curl```
 - **Data**: REST API 2.1.0 - Fix a SQL sort so that the "transform" step can discover duplicated rows for ```MOD_HEALTH_SCORES``` table, without stopping in error
 
 ## Version: 1.20.0 - 19 March 2021
