@@ -2,7 +2,7 @@
 
 #### Prerequisite
 
-- REST API  >= **1.17**, >= **1.25** (recommended)
+- REST API  >= **1.17** (**1.27** recommended)
 - AIP Database > 8.3.5
 
 #### Features / Enhancements
@@ -13,6 +13,7 @@
 
 #### Bug Fixes
 
+- **Data**: REST API 1.27.0 - Fix a SQL sort so that the "transform" step can discover duplicated rows for ```MOD_HEALTH_SCORES``` table, without stopping in error
 - **Data**: REST API 1.25.0 - Skip some zombie applications
 - **Scripts**: Remove the ```cookies.txt``` file at the end of the extraction
 
