@@ -10,13 +10,13 @@
 #### Bug Fixes
 
 - **Scripts**: On windows 10, remove the precedence of ```C:\windows\system32\curl.exe``` on the third-party directory for ```curl```
-- **Data**: REST API 2.1.0 - Fix a SQL sort so that the "transform" step can discover duplicated rows for ```MOD_HEALTH_SCORES``` table, without stopping in error
+- **Data**: REST API 1.27, REST API 2.1.0 - Fix a SQL sort so that the "transform" step can discover duplicated rows for ```MOD_HEALTH_SCORES``` table, without stopping in error
 
 ## Version: 1.20.0 - 19 March 2021
 
 #### Prerequisite
 
-- REST API  >= **1.17** (**1.27** recommended)
+- REST API  >= **1.17** (**1.27**, **2.1* recommended)
 - AIP Database > 8.3.5
 
 #### Features / Enhancements
@@ -27,6 +27,7 @@
 
 #### Bug Fixes
 
+- **Data**: REST API 1.27.0, 2.1.0 - Fix a SQL sort so that the "transform" step can discover duplicated rows for ```MOD_HEALTH_SCORES``` table, without stopping in error
 - **Data**: REST API 1.25.0 - Skip some zombie applications
 - **Scripts**: Remove the ```cookies.txt``` file at the end of the extraction
 
