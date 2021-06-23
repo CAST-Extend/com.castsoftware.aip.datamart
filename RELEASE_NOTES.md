@@ -5,7 +5,7 @@
 
 #### Features / Enhancements
 
-- **Scripts**: An error is raised if we find two applications with the same name
+- **Scripts**: An error is raised if two applications are given the same name
 
 #### Bug Fixes
 
