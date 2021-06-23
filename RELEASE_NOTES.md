@@ -1,6 +1,6 @@
 ## Version: 1.21.0 - June 2021
 
-- REST API  >= **1.17** (**1.27**, **2.1* recommended)
+- REST API  >= **1.17** (**1.27**, **2.1** recommended)
 - AIP Database > 8.3.5
 
 #### Features / Enhancements
@@ -15,7 +15,7 @@
 
 #### Prerequisite
 
-- REST API  >= **1.17** (**1.27**, **2.1* recommended)
+- REST API  >= **1.17** (**1.27**, **2.1** recommended)
 - AIP Database > 8.3.5
 
 #### Features / Enhancements
