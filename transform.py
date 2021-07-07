@@ -7,6 +7,7 @@ from datetime import datetime
 #= Use comma delimiter for compliancy with Excel
 DELIMITER=','
 WARNINGS=False
+ERRORS=False
 
 def format(s):
     if s.find('"') != -1:
@@ -25,6 +26,7 @@ def format_column_name (id):
     return  (id.lower().replace(" ", "_"))
 
 def transform_dim_applications(mode, extract_directory, transform_directory):
+    global ERRORS
     print ("Transform", "DIM_APPLICATIONS")
     ofile = transform_directory + "\\DIM_APPLICATIONS.sql"
     f = open(ofile, "w", encoding="utf-8")
@@ -41,6 +43,7 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
+        latestApplicationName = None
         for row in csv_reader:
             if skip:
                 skip = False
@@ -56,8 +59,13 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                 f.write("COPY :schema.DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
-            f.write(line)
-            f.write("\n")
+            if row[0] == latestApplicationName:
+                print("\tDuplicate application name is not supported: " + row[0])
+                ERRORS = True
+            else:
+                f.write(line)
+                f.write("\n")      
+            latestApplicationName = row[0]    
         f.write("\\.\n")
         f.close()
 
@@ -210,3 +218,9 @@ if __name__ == "__main__":
         print("There are some duplicated rows for some snapshots")
         print("We recommend to reconsolidate these shapshots to clean up the database ")
         print("========================================================================")
+
+    if ERRORS:
+        print("========================================================================")    
+        print("Errors found - Transform step is aborted")
+        print("========================================================================")        
+        exit(1);
