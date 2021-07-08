@@ -42,7 +42,7 @@ If the user is granted to access all applications, then, the user will expose al
 
 ## Terms and Conditions
 
-This product is submitted to terms and conditions of CAST Products, see [extend.castsoftware.com](https://extend.castsoftware.com/#/search-results?q=datamart) 
+These scripts are submitted to terms and conditions of [GNU License](LICENSE)
 
 By using this software, the user of this product agrees the terms and conditions of third party softwares: 
 - [Curl Copyright License](https://curl.se/docs/copyright.html)
