@@ -1,6 +1,6 @@
 ## Version: 1.21.0 - 7 July 2021
 
-- REST API  >= **1.17** (**1.27**, **2.1** recommended)
+- REST API  >= **1.17** (**1.27** recommended), WARNING: **2.X** should not be used for Datamart
 - AIP Database > 8.3.5
 
 #### Features / Enhancements
