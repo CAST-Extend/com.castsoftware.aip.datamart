@@ -25,7 +25,7 @@ def start_aad_transfer(transfer_mode):
         sys.exit(1)
   
 def transfer(domains_file, total_jobs, aad_transfer_mode):
-    print ("Data transfer of Heath Dashboard domain (AAD) in progress...")
+    print ("Data transfer of Health Dashboard domain (AAD) in progress...")
     start_aad_transfer(aad_transfer_mode)
     print ("Data transfer of Engineering Dashboard domains in progress...")
     domains = []
