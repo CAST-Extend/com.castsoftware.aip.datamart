@@ -146,9 +146,10 @@ If you start ```datamart.bat update```, the script will synchronize the datamart
 
 Make sur you have write access on the Datamart folder.
 
-> A request to the REST API never ends
+> The Datamart scripts are stuck.
 
-Look at the REST API log to check whether there is a Java Memory error. Increase the Tomcat memory.
+If the extraction step is never ending, then look at the Web Server (Tomcat) log to check whether there is a Java Memory error: "Ran out of memory"
+Increase the Java memory heap space (2Gb is a mimimum size for some huge domains).
 
 ## Schema Upgrade
 
