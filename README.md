@@ -150,7 +150,7 @@ Make sur you have write access on the Datamart folder.
 
 If the extraction step is never ending, then look at the Web Server (Tomcat) log to check whether there is a Java Memory error: "Ran out of memory".
 - In case of a single data source extraction, you will have to increase the memory ot the Tomcat server.
-- In case of a mutiple data source extraction, you can either increase the memory of the Tomcat server or decrease the number of jobs (see ```JOBS``` variable).
+- In case of a multiple data source extraction, you can either increase the memory of the Tomcat server or decrease the number of jobs (see ```JOBS``` variable).
 
 You can check the total memory currently use by the Web Server with this call:
 ```
