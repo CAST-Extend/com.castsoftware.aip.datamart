@@ -170,6 +170,20 @@ The response reports the initial memory size (mega-bytes) when Tomcat has been s
 		"totalMemory": 662,
 ```
 
+> During Datamart execution, the Dashboards are slowing down
+
+This may appear if the number of ```JOBS``` plus the number of concurrent users exceed the maximum size of the connection pool.
+You must take care to not exhaust the Database server connection pool on the REST API side. In other words, you may need to decrease the number of ```JOBS``` or increase the size of the connection pool:
+For example:
+Let's keep 10 connections for concurrent users + 10 for Datamart:
+- For REST API 2.X: 
+```
+restapi.datasource[0].maximumPoolSize=20
+```
+- For REST API 1.X:
+```
+<Resource name="jdbc/domains/LOCALHOST" url="jdbc:postgresql://localhost:2282/postgres" ... initialSize="5" maxTotal="20" maxIdle="10" maxWaitMillis="-1"/>
+```
 
 ## Schema Upgrade
 
