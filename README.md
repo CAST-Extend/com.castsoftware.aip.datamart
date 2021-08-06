@@ -66,7 +66,7 @@ The URIs of the REST API follow the tables names (replace the underscore charact
 <br>
 Example to extract the DIM_APPLICATIONS content:
 ```
-curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
+curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
 ```
 
 ### Running the Scripts 
@@ -148,8 +148,24 @@ Make sur you have write access on the Datamart folder.
 
 > The Datamart scripts are stuck.
 
-If the extraction step is never ending, then look at the Web Server (Tomcat) log to check whether there is a Java Memory error: "Ran out of memory"
-Increase the Java memory heap space (2Gb is a mimimum size for some huge domains).
+If the extraction step is never ending, then look at the Web Server (Tomcat) log to check whether there is a Java Memory error: "Ran out of memory".
+In case of a single data source extraction, you will have to increase the memory ot the Tomcat server.
+In case of a mutiple data source extraction, you can either increase the memory of the Tomcat setver or decrease the number of jobs (see ```JOBS``` variable).
+You can check the total memory currently use by the Web Server with this call:
+```
+curl -u %CREDENTIALS% "%ROOT%/server"  
+{
+	"href": "server",
+	"name": "Server",
+	"startDate": {
+		"time": 1625148593901,
+		"isoDate": "2021-07-01"
+	},
+	"memory": {
+		"totalInitialMemory": 495,
+		"totalMemory": 662,
+```
+
 
 ## Schema Upgrade
 
