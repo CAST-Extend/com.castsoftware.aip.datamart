@@ -155,6 +155,9 @@ If the extraction step is never ending, then look at the Web Server (Tomcat) log
 You can check the total memory currently use by the Web Server with this call:
 ```
 curl -u %CREDENTIALS% "%ROOT%/server"  
+```
+The response reports the initial memory size when Tomcat has been started, and the total memory size required until now:
+```
 {
 	"href": "server",
 	"name": "Server",
