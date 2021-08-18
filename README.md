@@ -132,7 +132,7 @@ This mode allows to extract data from an Health domain (```AAD```), and all rela
 * __Edit__ the ```setenv.bat``` script to override the following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
-  * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode.
+  * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
 * __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
 
@@ -392,6 +392,8 @@ year_month                           | TEXT     | Tag the most recent applicatio
 year_week                            | TEXT     | Tag the most recent application snapshot for each week  (ex format: 2017-W24)
 label                                | TEXT     | Snapshot label
 version                              | TEXT     | Application version
+consolidation_mode                   | TEXT     | Consolidation mode when application score is based on modules scores; otherwise "Full Application"
+internal_id                          | INT      | Local Snapshot ID (use with cautious as this ID depends on the schema type: measurement/central). Use preferably snapshot_id column
 ```
 
 ### DIM_RULES

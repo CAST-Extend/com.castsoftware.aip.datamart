@@ -4,8 +4,7 @@ WITH technologies AS (SELECT snapshot_id, string_agg(DISTINCT technology, ' ') A
 SELECT 
    s.application_name AS appname, 
    t.technology AS technology,
-   s.snapshot_id, 
-   --(s.application_id*1000+s.snapshot_number) as snapshot_id, -- alternative pseudo snapshot_id as an integer
+   s.internal_id AS snapshot_id,
    
    s.date AS snapshot_date,
    z.nb_code_lines AS loc,

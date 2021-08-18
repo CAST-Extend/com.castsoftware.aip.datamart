@@ -1,3 +1,17 @@
+## Version: 1.22.0 - 18 August 2021
+
+- REST API  **1.28**, **2.2.0**
+- AIP Database > 8.3.5
+
+#### Features / Enhancements
+
+- **Scripts**: Add ```DATAPOND_BASEDATA``` view
+- **Data**: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns for ```DIM_SNAPSHOTS``` table
+
+#### Bug Fixes
+
+- **DATA**: Skip detached metrics for most tables (including USR_ACTION_PLAN)
+
 ## Version: 1.21.0 - 7 July 2021
 
 - REST API  >= **1.17** (**1.27** recommended), WARNING: **2.X** should not be used for Datamart

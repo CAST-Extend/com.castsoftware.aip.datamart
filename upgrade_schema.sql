@@ -9,6 +9,20 @@ DO $$
         END;
 
         BEGIN 
+            ALTER TABLE DIM_SNAPSHOTS ADD COLUMN CONSOLIDATION_MODE TEXT;
+        EXCEPTION
+            WHEN OTHERS THEN 
+                RAISE NOTICE 'column CONSOLIDATION_MODE already exists for DIM_SNAPSHOTS';
+        END;
+
+        BEGIN 
+            ALTER TABLE DIM_SNAPSHOTS ADD COLUMN INTERNAL_ID INT;
+        EXCEPTION
+            WHEN OTHERS THEN 
+                RAISE NOTICE 'column INTERNAL_ID already exists for DIM_SNAPSHOTS';
+        END;
+
+        BEGIN 
             ALTER TABLE SRC_HEALTH_IMPACTS ADD COLUMN SNAPSHOT_ID TEXT;
         EXCEPTION
             WHEN OTHERS THEN 
@@ -17,7 +31,7 @@ DO $$
 
         BEGIN 
 
-            ALTER TABLE SRC_HEALTH_IMPACTS ADD COLUMN NB_VIOLATIONS INT;
+        ALTER TABLE SRC_HEALTH_IMPACTS ADD COLUMN NB_VIOLATIONS INT;
         EXCEPTION
             WHEN OTHERS THEN 
                 RAISE NOTICE 'column NB_VIOLATIONS already exists for SRC_HEALTH_IMPACTS';
