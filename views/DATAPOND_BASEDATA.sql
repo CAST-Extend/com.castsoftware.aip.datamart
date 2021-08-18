@@ -5,6 +5,8 @@ SELECT
    s.application_name AS appname, 
    t.technology AS technology,
    s.snapshot_id, 
+   --(s.application_id*1000+s.snapshot_number) as snapshot_id, -- alternative pseudo snapshot_id as an integer
+   
    s.date AS snapshot_date,
    z.nb_code_lines AS loc,
 
@@ -15,28 +17,30 @@ SELECT
    fe.nb_aefp_points_modified AS modified_efp,
 
    z.technical_debt_total AS debt,
-   e.technical_debt_added AS debt_added,
-   e.technical_debt_deleted AS debt_removed,
+   d.technical_debt_added AS debt_added,
+   d.technical_debt_deleted AS debt_removed,
    z.technical_debt_density AS debt_density,   
 
    h.business_criterion_name AS health_factor,
-   h.score AS hf_grade,
+   round(h.score,4) AS hf_grade,
    
-   z.nb_critical_violations AS total_cv,
+   h.nb_critical_violations AS total_cv,
    e.nb_critical_violations_added AS added_cv,
    e.nb_critical_violations_removed AS removed_cv,
 
-   z.nb_violations AS total_violations,
+   h.nb_violations AS total_violations,
    e.nb_violations_added AS added_violations,
    e.nb_violations_removed AS removed_violations
 
 FROM dim_snapshots s
 
 JOIN app_health_scores h ON h.snapshot_id = s.snapshot_id AND h.is_health_factor
+JOIN app_health_evolution e ON e.snapshot_id = s.snapshot_id AND e.business_criterion_name = h.business_criterion_name
+
 JOIN technologies t ON t.snapshot_id = s.snapshot_id
 
 JOIN app_sizing_measures z ON z.snapshot_id = s.snapshot_id
-JOIN app_sizing_evolution e ON z.snapshot_id = e.snapshot_id
+JOIN app_sizing_evolution d ON d.snapshot_id = s.snapshot_id
 
 JOIN app_functional_sizing_measures f ON f.snapshot_id = s.snapshot_id
 JOIN app_functional_sizing_evolution fe ON fe.snapshot_id = s.snapshot_id;
