@@ -244,9 +244,10 @@ If you intend to view the data with Power BI Desktop:
 
 ### Datapond
 
-This toolkit provides 2 Datapond compliant views:
+This toolkit provides some Datapond compliant views:
 * [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql): this view transposes business criteria scores to columns, and provides new metrics using SQL expressions;
 * [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql): this view extends the BASEDATA_FLAT view with AEP measures, and adds AEP based metrics using the SQL average operator.
+* [views/DATAPPOND_BASEDATA.sql](views/DATAPPOND_BASEDATA.sql): for compatibility purpose, this view reports the DATAPOND_BASEDATA table rows. 
 
 The differences with Datapond 5.1 corresponding views are as follow:
 * Some columns are missing 
@@ -273,47 +274,19 @@ These tables can be used to filter data along "Dimension":
 * `DIM_CISQ_RULES`: A Dimension table to filter measures according to rules contribution to CISQ index
 * `DIM_QUALITY_STANDARDS`: A Dimension view to filter measures according to Quality Standards
 
-* `DIM_OMG_ASCQM`: An optional(*) Dimension view to filter measures according to the ISO standard criteria
+* `DIM_OMG_ASCQM`: An optional<sup> (1)</sup> Dimension view to filter measures according to the ISO standard criteria
 
-* `DIM_OWASP_2017`: A optional(*) Dimension view to filter measures according to OWASP 2017 Top 10 vulnerabilities
+* `DIM_OWASP_2017`: A optional<sup> (1)</sup> Dimension view to filter measures according to OWASP 2017 Top 10 vulnerabilities
 
 * `DIM_SNAPSHOTS`: A Dimension table to filter measures according to a period
 
 * `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base)
 
-(*): Optional means that the view is not created by default. runs `create_views.bat` file from your installation directory.
+(1): Optional means that the view is not created by default. Run `create_views.bat` file from your installation directory.
 
-### Measures Tables
+### Basic Facts (Central Database only)
 
-Measures are results that can be aggregated with a BI tool. Metrics are set by column.
-Application Measures of tables can be safely aggregated (average, sum) with a BI tool.
-<br/>
-__WARNING__: You cannot aggregate measures for a set of modules because of modules overlapping. However, you can aggregate measures for a specific module name.
-
-Scope|Applications Table|Modules Table
------|------------|-------
-Violations <sup>(1)</sup>|`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
-Sizing Measures|`APP_SIZING_MEASURES`|`MOD_SIZING_MEASURES`
-Functional Sizing Measures|`APP_FUNCTIONAL_SIZING_MEASURES`|N/A
-
-(1): Split by technology
-
-### Scores Tables
-
-Scope|Applications Table|Modules Table
------|------------|-------
-Health (Business Criteria) Scores|`APP_HEALTH_SCORES`|`MOD_HEALTH_SCORES`
-All Scores|`APP_SCORES`|`MOD_SCORES`
-
-### Evolution Tables
-
-Scope|Applications Table|Modules Table
------|------------|-------
-Health Evolution|`APP_HEALTH_EVOLUTION`|`MOD_HEALTH_EVOLUTION`
-Sizing Evolution|`APP_SIZING_EVOLUTION`|`MOD_SIZING_EVOLUTION`
-Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
-
-### Details Tables (Central Database only)
+These results can be safely aggregated according to all dimensions.
 
 Scope|Table
 -----|------------
@@ -326,6 +299,40 @@ Source objects|`SRC_TRX_HEALTH_IMPACTS`
 Source objects|`SRC_VIOLATIONS`
 Users requests|`USR_EXCLUSIONS`
 Users requests|`USR_ACTION_PLAN`
+
+### Basic Measures Tables
+
+These results tables are split by technology, and/or rules.
+These results can be aggregated with a BI tool.
+Application Measures of tables can be safely aggregated (average, sum) with a BI tool.
+<br/>
+__WARNING__: You cannot aggregate measures for a set of modules because of modules overlapping. However, you can aggregate measures for a specific module name.
+
+Scope|Applications Table|Modules Table
+-----|------------|-------
+Basic Measures |`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
+
+### Aggregated Measures by Application/Module
+
+These results are pre-calculated accross technologies and rules.
+These results can be in turn aggregated with a BI tool. Application Measures of tables can be safely aggregated (average, sum) with a BI tool.
+<br/>
+__WARNING__: You cannot aggregate measures for a set of modules because of modules overlapping. However, you can aggregate measures for a specific module name.
+
+Scope|Applications Table|Modules Table
+-----|------------|-------
+Aggregated Sizing Measures|`APP_SIZING_MEASURES`|`MOD_SIZING_MEASURES`
+Aggregated Functional Sizing Measures|`APP_FUNCTIONAL_SIZING_MEASURES`|N/A
+Aggregated Health Measures Evolution|`APP_HEALTH_EVOLUTION`|`MOD_HEALTH_EVOLUTION`
+Aggregated Sizing Measures Evolution|`APP_SIZING_EVOLUTION`|`MOD_SIZING_EVOLUTION`
+Aggregated Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
+
+### Aggregated Measures by Application/Module and Metric
+
+Scope|Applications Table|Modules Table
+-----|------------|-------
+Aggregated Health (Business Criteria) Scores|`APP_HEALTH_SCORES`|`MOD_HEALTH_SCORES`
+All Aggregated Scores|`APP_SCORES`|`MOD_SCORES`
 
 ### Other tables
 
