@@ -7,6 +7,8 @@
 
 - **Scripts**: Add ```DATAPOND_BASEDATA``` view
 - **Data**: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns for ```DIM_SNAPSHOTS``` table
+- **Data**: Add ```APP_VIOLATIONS_EVOLUTION``` table
+- **Data**: Add ```MOD_VIOLATIONS_EVOLUTION``` table
 
 #### Bug Fixes
 

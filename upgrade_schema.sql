@@ -100,5 +100,42 @@ DO $$
             WHEN OTHERS THEN
                 RAISE NOTICE 'Table DIM_CISQ_RULES already exists';
         END;        
+
+        BEGIN 
+            CREATE TABLE :schema.APP_VIOLATIONS_EVOLUTION
+            (
+                SNAPSHOT_ID TEXT,
+                RULE_ID TEXT,
+                TECHNOLOGY TEXT,  
+                METRIC_ID INT,
+                NB_VIOLATIONS_ADDED INT,
+                NB_VIOLATIONS_REMOVED INT,
+                CONSTRAINT APP_VIOLATIONS_EVOLUTION_PKEY PRIMARY KEY (SNAPSHOT_ID, RULE_ID, TECHNOLOGY),
+                FOREIGN KEY (RULE_ID) REFERENCES :schema.DIM_RULES (RULE_ID),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+            );
+        EXCEPTION
+            WHEN OTHERS THEN
+                RAISE NOTICE 'Table APP_VIOLATIONS_EVOLUTION already exists';
+        END;        
+        
+        BEGIN 
+            CREATE TABLE :schema.MOD_VIOLATIONS_EVOLUTION
+            (
+                SNAPSHOT_ID TEXT,
+                MODULE_NAME TEXT,    
+                RULE_ID TEXT,
+                TECHNOLOGY TEXT,  
+                METRIC_ID INT,
+                NB_VIOLATIONS_ADDED INT,
+                NB_VIOLATIONS_REMOVED INT,
+                CONSTRAINT MOD_VIOLATIONS_EVOLUTION_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, RULE_ID, TECHNOLOGY),
+                FOREIGN KEY (RULE_ID) REFERENCES :schema.DIM_RULES (RULE_ID),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+            );
+        EXCEPTION
+            WHEN OTHERS THEN
+                RAISE NOTICE 'Table MOD_VIOLATIONS_EVOLUTION already exists';
+        END;
     END;
 $$

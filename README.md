@@ -311,6 +311,7 @@ __WARNING__: You cannot aggregate measures for a set of modules because of modul
 Scope|Applications Table|Modules Table
 -----|------------|-------
 Basic Measures |`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
+Basic Measures |`APP_VIOLATIONS_EVOLUTION`|`MOD_VIOLATIONS_EVOLUTION`
 
 ### Aggregated Measures by Application/Module
 
@@ -467,6 +468,7 @@ weight_cisq_reliability              | DECIMAL  | Contribution weight of the tec
 weight_cisq_security                 | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_cisq_index                    | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 ```
+
 ### APP_VIOLATIONS_MEASURES
 Violation ratio by application snapshot, by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.
 ```
@@ -481,6 +483,20 @@ nb_total_checks                      | INT      | Number of total checked object
 violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
 compliance_ratio                     | DECIMAL  | The value of 1 - Violation Ratio
 ```
+
+### APP_VIOLATIONS_EVOLUTION
+Added and removed violation numbers by application snapshot, by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application. Some rules may be not reported if both nb_added_violations and nb_removed_violations equal zero.
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+metric_id                            | INT      | AIP Globally unique metric ID
+technology                           | TEXT     | Source code technology
+nb_violations_added                  | INT      | Number of added violations
+nb_violations_removed                | INT      | Number of removed violations
+```
+
 ### APP_SIZING_MEASURES
 Sizes by application snapshot
 ```
@@ -617,6 +633,21 @@ nb_total_checks                      | INT      | Number of checked objects
 violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
 compliance_ratio                     | DECIMAL  | The value of 1 - Violation Ratio
 ```
+
+### MOD_VIOLATIONS_EVOLUTION
+Added and removed violation numbers by snapshot, by module, by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application. Some rules may be not reported if both nb_added_violations and nb_removed_violations equal zero.
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+module_name                          | TEXT     | Module name
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+metric_id                            | INT      | AIP Globally unique metric ID
+technology                           | TEXT     | Source code technology
+nb_violations_added                  | INT      | Number of added violations
+nb_violations_removed                | INT      | Number of removed violations
+```
+
 ### MOD_SIZING_MEASURES
 Technical sizes by snapshot, by module 
 ```
