@@ -329,12 +329,15 @@ Aggregated Health Measures Evolution|`APP_HEALTH_EVOLUTION`|`MOD_HEALTH_EVOLUTIO
 Aggregated Sizing Measures Evolution|`APP_SIZING_EVOLUTION`|`MOD_SIZING_EVOLUTION`
 Aggregated Functional Sizing Evolution|`APP_FUNCTIONAL_SIZING_EVOLUTION`|N/A
 
-### Aggregated Measures by Application/Module and Metric
+### Scores
+
+These results are scores that cannot be easily aggregated with a BI tool. Indeed, the scores are calculated using weighted averages, critical flags, and thresholds for rules.
 
 Scope|Applications Table|Modules Table
 -----|------------|-------
-Aggregated Health (Business Criteria) Scores|`APP_HEALTH_SCORES`|`MOD_HEALTH_SCORES`
-All Aggregated Scores|`APP_SCORES`|`MOD_SCORES`
+Health (Business Criteria) Scores|`APP_HEALTH_SCORES`|`MOD_HEALTH_SCORES`
+All Scores by Application and Module|`APP_SCORES`|`MOD_SCORES`
+All Scores split by Technology|`APP_TECHNO_SCORES`|`MOD_TECHNO_SCORES`
 
 ### Other tables
 

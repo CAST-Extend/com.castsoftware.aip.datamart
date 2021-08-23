@@ -157,7 +157,7 @@ DO $$
                 NB_VIOLATIONS_PENDING_ACTION_PLAN INT,        
                 TECHNICAL_DEBT_DENSITY NUMERIC,
                 TECHNICAL_DEBT_TOTAL NUMERIC,
-                CONSTRAINT APP_SIZING_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, TECHNOLOGY),
+                CONSTRAINT APP_TECHNO_SIZING_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, TECHNOLOGY),
                 FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
             );
         EXCEPTION
@@ -182,12 +182,47 @@ DO $$
                 NB_VIOLATIONS INT,
                 TECHNICAL_DEBT_DENSITY NUMERIC,
                 TECHNICAL_DEBT_TOTAL NUMERIC,
-                CONSTRAINT MOD_SIZING_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, TECHNOLOGY),
+                CONSTRAINT MOD_TECHNO_SIZING_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, TECHNOLOGY),
                 FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
             );
         EXCEPTION
             WHEN OTHERS THEN
                 RAISE NOTICE 'Table MOD_TECHNO_SIZING_MEASURES already exists';
         END;
+        
+        BEGIN 
+            CREATE TABLE :schema.APP_TECHNO_SCORES
+            (
+                SNAPSHOT_ID TEXT,
+                TECHNOLOGY TEXT,
+                METRIC_ID INT,
+                METRIC_NAME TEXT,
+                METRIC_TYPE TEXT,
+                SCORE DECIMAL,
+                CONSTRAINT APP_TECHNO_SCORES_PKEY PRIMARY KEY (SNAPSHOT_ID, METRIC_ID, TECHNOLOGY),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+            );
+        EXCEPTION
+            WHEN OTHERS THEN
+                RAISE NOTICE 'Table APP_TECHNO_SCORES already exists';
+        END;
+
+        BEGIN 
+                CREATE TABLE :schema.MOD_TECHNO_SCORES
+                (
+                    SNAPSHOT_ID TEXT,
+                    MODULE_NAME TEXT,
+                    METRIC_ID INT,
+                    METRIC_NAME TEXT,
+                    METRIC_TYPE TEXT,
+                    SCORE DECIMAL,
+                    CONSTRAINT MOD_TECHNO_SCORES_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, METRIC_ID, TECHNOLOGY),
+                    FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+                );
+        EXCEPTION
+            WHEN OTHERS THEN
+                RAISE NOTICE 'Table MOD_TECHNO_SCORES already exists';
+        END;
+        
     END;
 $$
