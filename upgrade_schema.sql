@@ -137,5 +137,57 @@ DO $$
             WHEN OTHERS THEN
                 RAISE NOTICE 'Table MOD_VIOLATIONS_EVOLUTION already exists';
         END;
+        
+        BEGIN 
+            CREATE TABLE :schema.APP_TECHNO_SIZING_MEASURES
+            (
+                SNAPSHOT_ID TEXT,
+                TECHNOLOGY TEXT,
+                NB_ARTIFACTS INT,
+                NB_CODE_LINES INT,
+                NB_COMMENT_LINES INT,
+                NB_COMMENTED_OUT_CODE_LINES INT,
+                NB_CRITICAL_VIOLATIONS INT,
+                NB_DECISION_POINTS INT,
+                NB_FILES INT,
+                NB_TABLES INT,
+                NB_VIOLATIONS INT,
+                NB_VIOLATIONS_EXCLUDED INT,    
+                NB_VIOLATIONS_FIXED_ACTION_PLAN INT,
+                NB_VIOLATIONS_PENDING_ACTION_PLAN INT,        
+                TECHNICAL_DEBT_DENSITY NUMERIC,
+                TECHNICAL_DEBT_TOTAL NUMERIC,
+                CONSTRAINT APP_SIZING_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, TECHNOLOGY),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+            );
+        EXCEPTION
+            WHEN OTHERS THEN
+                RAISE NOTICE 'Table APP_TECHNO_SIZING_MEASURES already exists';
+        END;
+    
+        BEGIN 
+            CREATE TABLE :schema.MOD_TECHNO_SIZING_MEASURES
+            (
+                SNAPSHOT_ID TEXT,
+                MODULE_NAME TEXT,
+                TECHNOLOGY TEXT,
+                NB_ARTIFACTS INT,
+                NB_CODE_LINES INT,
+                NB_COMMENT_LINES INT,
+                NB_COMMENTED_OUT_CODE_LINES INT,
+                NB_CRITICAL_VIOLATIONS INT,
+                NB_DECISION_POINTS INT,
+                NB_FILES INT,
+                NB_TABLES INT,
+                NB_VIOLATIONS INT,
+                TECHNICAL_DEBT_DENSITY NUMERIC,
+                TECHNICAL_DEBT_TOTAL NUMERIC,
+                CONSTRAINT MOD_SIZING_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, TECHNOLOGY),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+            );
+        EXCEPTION
+            WHEN OTHERS THEN
+                RAISE NOTICE 'Table MOD_TECHNO_SIZING_MEASURES already exists';
+        END;
     END;
 $$

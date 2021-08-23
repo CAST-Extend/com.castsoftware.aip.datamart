@@ -312,6 +312,7 @@ Scope|Applications Table|Modules Table
 -----|------------|-------
 Basic Measures |`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
 Basic Measures |`APP_VIOLATIONS_EVOLUTION`|`MOD_VIOLATIONS_EVOLUTION`
+Sizing Measures|`APP_TECHNO_SIZING_MEASURES`|`MOD_TECHNO_SIZING_MEASURES`
 
 ### Aggregated Measures by Application/Module
 
@@ -519,6 +520,29 @@ technical_debt_density               | DECIMAL  | (Metric #68002) Technical Debt
 technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 ```
 
+### APP_TECHNO_SIZING_MEASURES
+Sizes by application snapshot
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+technology                           | TEXT     | Technology
+nb_artifacts                         | INT      | (Metric #10152) Total number of artifacts
+nb_code_lines                        | INT      | (Metric #10151) Total number of code lines
+nb_comment_lines                     | INT      | (Metric #10107) Total number of comment lines
+nb_commented_out_code_lines          | INT      | (Metric #10109) Total number of code comment lines
+nb_critical_violations               | INT      | (Metric #67011) Total number of critical violations
+nb_decision_points                   | INT      | (Metric #10506) Total number of decision points
+nb_files                             | INT      | (Metric #10154) Total number of files
+nb_tables                            | INT      | (Metric #10163) Total number of tables
+nb_violations                        | INT      | (Metric #67211) Total number of violations
+nb_violations_excluded               | INT      | (Metric #67218) Total number of excluded violations
+nb_violations_fixed_action_plan      | INT      | (Metric #67217) Total number of fixed violations for action plan
+nb_violations_pending_action_plan    | INT      | (Metric #67216) Total number of pending violations in action plan
+technical_debt_density               | DECIMAL  | (Metric #68002) Technical Debt density estimates the cost per thousand of lines of code to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
+technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
+```
+
 ### APP_FUNCTIONAL_SIZING_MEASURES
 Functional size measures by application snapshot
 ```
@@ -667,6 +691,28 @@ nb_violations                        | INT      | (Metric #67211) Total number o
 technical_debt_density               | DECIMAL  | (Metric #68002) Technical Debt density estimates the cost per thousand of lines of code to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
 ```
+
+### MOD_TECHNO_SIZING_MEASURES
+Technical sizes by snapshot, by module 
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+technology                           | TEXT     | Technology
+module_name                          | TEXT     | Module name
+nb_artifacts                         | INT      | (Metric #10152) Total number of artifacts
+nb_code_lines                        | INT      | (Metric #10151) Total number of code lines
+nb_comment_lines                     | INT      | (Metric #10107) Total number of comment lines
+nb_commented_out_code_lines          | INT      | (Metric #10109) Total number of code comment lines
+nb_critical_violations               | INT      | (Metric #67011) Total number of critical violations
+nb_decision_points                   | INT      | (Metric #10506) Total number of decision points
+nb_files                             | INT      | (Metric #10154) Total number of files
+nb_tables                            | INT      | (Metric #10163) Total number of tables
+nb_violations                        | INT      | (Metric #67211) Total number of violations
+technical_debt_density               | DECIMAL  | (Metric #68002) Technical Debt density estimates the cost per thousand of lines of code to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
+technical_debt_total                 | DECIMAL  | (Metric #68001) Technical Debt estimates the cost to fix a pre-set percentage of high severity violations, of medium severity violations, and of low severity violations
+```
+
 
 ### MOD_HEALTH_SCORES
 Score and number of violations by snapshot, by module and by business criterion
