@@ -68,6 +68,7 @@ CALL :load DIM_RULES                            || EXIT /b 1
 CALL :load DIM_OMG_RULES                        || EXIT /b 1
 CALL :load DIM_CISQ_RULES                       || EXIT /b 1
 CALL :load APP_VIOLATIONS_MEASURES              || EXIT /b 1
+CALL :load APP_VIOLATIONS_EVOLUTION             || EXIT /b 1
 CALL :load APP_SIZING_MEASURES                  || EXIT /b 1
 CALL :load APP_FUNCTIONAL_SIZING_MEASURES       || EXIT /b 1
 CALL :load APP_HEALTH_SCORES                    || EXIT /b 1
@@ -76,6 +77,7 @@ CALL :load APP_SIZING_EVOLUTION                 || EXIT /b 1
 CALL :load APP_FUNCTIONAL_SIZING_EVOLUTION      || EXIT /b 1
 CALL :load APP_HEALTH_EVOLUTION                 || EXIT /b 1
 CALL :load MOD_VIOLATIONS_MEASURES              || EXIT /b 1
+CALL :load MOD_VIOLATIONS_EVOLUTION             || EXIT /b 1
 CALL :load MOD_SIZING_MEASURES                  || EXIT /b 1
 CALL :load MOD_HEALTH_SCORES                    || EXIT /b 1
 CALL :load MOD_SCORES                           || EXIT /b 1
