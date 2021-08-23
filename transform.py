@@ -178,7 +178,7 @@ if __name__ == "__main__":
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 0)        
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 0)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES", 3)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATION_EVOLUTION", 3)        
+        transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_EVOLUTION", 3)        
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES", 1)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_TECHNO_SIZING_MEASURES", 2)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_MEASURES", 1)

@@ -102,7 +102,7 @@ DO $$
         END;        
 
         BEGIN 
-            CREATE TABLE :schema.APP_VIOLATIONS_EVOLUTION
+            CREATE TABLE APP_VIOLATIONS_EVOLUTION
             (
                 SNAPSHOT_ID TEXT,
                 RULE_ID TEXT,
@@ -111,8 +111,8 @@ DO $$
                 NB_VIOLATIONS_ADDED INT,
                 NB_VIOLATIONS_REMOVED INT,
                 CONSTRAINT APP_VIOLATIONS_EVOLUTION_PKEY PRIMARY KEY (SNAPSHOT_ID, RULE_ID, TECHNOLOGY),
-                FOREIGN KEY (RULE_ID) REFERENCES :schema.DIM_RULES (RULE_ID),
-                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+                FOREIGN KEY (RULE_ID) REFERENCES DIM_RULES (RULE_ID),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES DIM_SNAPSHOTS(SNAPSHOT_ID)
             );
         EXCEPTION
             WHEN OTHERS THEN
@@ -120,7 +120,7 @@ DO $$
         END;        
         
         BEGIN 
-            CREATE TABLE :schema.MOD_VIOLATIONS_EVOLUTION
+            CREATE TABLE MOD_VIOLATIONS_EVOLUTION
             (
                 SNAPSHOT_ID TEXT,
                 MODULE_NAME TEXT,    
@@ -130,8 +130,8 @@ DO $$
                 NB_VIOLATIONS_ADDED INT,
                 NB_VIOLATIONS_REMOVED INT,
                 CONSTRAINT MOD_VIOLATIONS_EVOLUTION_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, RULE_ID, TECHNOLOGY),
-                FOREIGN KEY (RULE_ID) REFERENCES :schema.DIM_RULES (RULE_ID),
-                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+                FOREIGN KEY (RULE_ID) REFERENCES DIM_RULES (RULE_ID),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES DIM_SNAPSHOTS(SNAPSHOT_ID)
             );
         EXCEPTION
             WHEN OTHERS THEN
@@ -139,7 +139,7 @@ DO $$
         END;
         
         BEGIN 
-            CREATE TABLE :schema.APP_TECHNO_SIZING_MEASURES
+            CREATE TABLE APP_TECHNO_SIZING_MEASURES
             (
                 SNAPSHOT_ID TEXT,
                 TECHNOLOGY TEXT,
@@ -158,7 +158,7 @@ DO $$
                 TECHNICAL_DEBT_DENSITY NUMERIC,
                 TECHNICAL_DEBT_TOTAL NUMERIC,
                 CONSTRAINT APP_TECHNO_SIZING_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, TECHNOLOGY),
-                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES DIM_SNAPSHOTS(SNAPSHOT_ID)
             );
         EXCEPTION
             WHEN OTHERS THEN
@@ -166,7 +166,7 @@ DO $$
         END;
     
         BEGIN 
-            CREATE TABLE :schema.MOD_TECHNO_SIZING_MEASURES
+            CREATE TABLE MOD_TECHNO_SIZING_MEASURES
             (
                 SNAPSHOT_ID TEXT,
                 MODULE_NAME TEXT,
@@ -183,7 +183,7 @@ DO $$
                 TECHNICAL_DEBT_DENSITY NUMERIC,
                 TECHNICAL_DEBT_TOTAL NUMERIC,
                 CONSTRAINT MOD_TECHNO_SIZING_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, TECHNOLOGY),
-                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES DIM_SNAPSHOTS(SNAPSHOT_ID)
             );
         EXCEPTION
             WHEN OTHERS THEN
@@ -191,7 +191,7 @@ DO $$
         END;
         
         BEGIN 
-            CREATE TABLE :schema.APP_TECHNO_SCORES
+            CREATE TABLE APP_TECHNO_SCORES
             (
                 SNAPSHOT_ID TEXT,
                 TECHNOLOGY TEXT,
@@ -200,7 +200,7 @@ DO $$
                 METRIC_TYPE TEXT,
                 SCORE DECIMAL,
                 CONSTRAINT APP_TECHNO_SCORES_PKEY PRIMARY KEY (SNAPSHOT_ID, METRIC_ID, TECHNOLOGY),
-                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES DIM_SNAPSHOTS(SNAPSHOT_ID)
             );
         EXCEPTION
             WHEN OTHERS THEN
@@ -208,17 +208,18 @@ DO $$
         END;
 
         BEGIN 
-                CREATE TABLE :schema.MOD_TECHNO_SCORES
-                (
-                    SNAPSHOT_ID TEXT,
-                    MODULE_NAME TEXT,
-                    METRIC_ID INT,
-                    METRIC_NAME TEXT,
-                    METRIC_TYPE TEXT,
-                    SCORE DECIMAL,
-                    CONSTRAINT MOD_TECHNO_SCORES_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, METRIC_ID, TECHNOLOGY),
-                    FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)
-                );
+            CREATE TABLE MOD_TECHNO_SCORES
+            (
+                SNAPSHOT_ID TEXT,
+                MODULE_NAME TEXT,
+                TECHNOLOGY TEXT,
+                METRIC_ID INT,
+                METRIC_NAME TEXT,
+                METRIC_TYPE TEXT,
+                SCORE DECIMAL,
+                CONSTRAINT MOD_TECHNO_SCORES_PKEY PRIMARY KEY (SNAPSHOT_ID, MODULE_NAME, METRIC_ID, TECHNOLOGY),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES DIM_SNAPSHOTS(SNAPSHOT_ID)
+            );
         EXCEPTION
             WHEN OTHERS THEN
                 RAISE NOTICE 'Table MOD_TECHNO_SCORES already exists';
