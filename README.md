@@ -313,6 +313,7 @@ Scope|Applications Table|Modules Table
 Basic Measures |`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
 Basic Measures |`APP_VIOLATIONS_EVOLUTION`|`MOD_VIOLATIONS_EVOLUTION`
 Sizing Measures|`APP_TECHNO_SIZING_MEASURES`|`MOD_TECHNO_SIZING_MEASURES`
+Sizing Measures Evolution|`APP_TECHNO_SIZING_EVOLUTION`|`MOD_TECHNO_SIZING_EVOLUTION`
 
 ### Aggregated Measures by Application/Module
 
@@ -598,6 +599,25 @@ nb_violations_removed                | INT      | (Metric #67922) Total number o
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
 ```
+
+### APP_TECHNO_SIZING_EVOLUTION
+Evolution of sizes by application snapshot
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
+technology                           | TEXT     | Technology
+technology                           | TEXT     | Technology
+nb_critical_violations_added         | INT      | (Metric #67901) Total number of critical violations added
+nb_critical_violations_removed       | INT      | (Metric #67902) Total number of critical violations removed
+nb_violations_added                  | INT      | (Metric #67921) Total number of violations added
+nb_violations_removed                | INT      | (Metric #67922) Total number of violations removed
+technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
+technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
+```
+
+
 ### APP_FUNCTIONAL_SIZING_EVOLUTION
 Automatic Enhancement Points by application snapshot
 ```
@@ -759,6 +779,24 @@ nb_violations_removed                | INT      | (Metric #67922) Number of viol
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
 ```
+
+### MOD_TECHNO_SIZING_EVOLUTION
+Evolution of sizes by snapshot and by module
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
+module_name                          | TEXT     | Module name
+technology                           | TEXT     | Technology
+nb_critical_violations_added         | INT      | (Metric #67901) Number of critical violations added
+nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
+nb_violations_added                  | INT      | (Metric #67921) Number of violations added
+nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
+technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
+technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
+```
+
 ### MOD_HEALTH_EVOLUTION
 Evolution of quality indicators by snapshot, by module and by business criterion
 ```

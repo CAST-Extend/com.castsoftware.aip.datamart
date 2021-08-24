@@ -1,4 +1,4 @@
-## Version: 1.22.0 - 18 August 2021
+## Version: 1.22.0 - 23 August 2021
 
 - REST API  **1.28**, **2.2.0**
 - AIP Database > 8.3.5
@@ -11,6 +11,8 @@
 - **Data**: Add ```MOD_VIOLATIONS_EVOLUTION``` table
 - **Data**: Add ```APP_TECHNO_SIZING_MEASURES``` table
 - **Data**: Add ```MOD_TECHNO_SIZING_MEASURES``` table
+- **Data**: Add ```APP_TECHNO_SIZING_EVOLUTION``` table
+- **Data**: Add ```MOD_TECHNO_SIZING_EVOLUTION``` table
 
 #### Bug Fixes
 
