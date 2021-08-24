@@ -598,6 +598,8 @@ nb_violations_added                  | INT      | (Metric #67921) Total number o
 nb_violations_removed                | INT      | (Metric #67922) Total number of violations removed
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
+remediation_effort_added             | INT      | (Metric #1062030) Remediation effort, in number of minutes, of added violations (require OMG Automated Technical Debt Extension)
+remediation_effort_deleted           | INT      | (Metric #1062032) Remediation effort, in number of minutes, of removed violations (require OMG Automated Technical Debt Extension)
 ```
 
 ### APP_TECHNO_SIZING_EVOLUTION
@@ -615,6 +617,8 @@ nb_violations_added                  | INT      | (Metric #67921) Total number o
 nb_violations_removed                | INT      | (Metric #67922) Total number of violations removed
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
+remediation_effort_added             | INT      | (Metric #1062030) Remediation effort, in number of minutes, of added violations (require OMG Automated Technical Debt Extension)
+remediation_effort_deleted           | INT      | (Metric #1062032) Remediation effort, in number of minutes, of removed violations (require OMG Automated Technical Debt Extension)
 ```
 
 
@@ -664,6 +668,8 @@ nb_critical_violations_added         | INT      | (Metric #67901) Number of crit
 nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
+remediation_effort_added             | INT      | (Metric #1062030) Remediation effort, in number of minutes, of added violations (require OMG Automated Technical Debt Extension)
+remediation_effort_deleted           | INT      | (Metric #1062032) Remediation effort, in number of minutes, of removed violations (require OMG Automated Technical Debt Extension)
 ```
 ### MOD_VIOLATIONS_MEASURES
 Violation ratio by snapshot, by module and by technology, by rule. We extract measures for rules that are still active in the latest snapshot of each application. If for some reasons a rule has been deactivated or detached for an application, no measure are extracted for this application.
@@ -778,6 +784,8 @@ nb_violations_added                  | INT      | (Metric #67921) Number of viol
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
+remediation_effort_added             | INT      | (Metric #1062030) Remediation effort, in number of minutes, of added violations (require OMG Automated Technical Debt Extension)
+remediation_effort_deleted           | INT      | (Metric #1062032) Remediation effort, in number of minutes, of removed violations (require OMG Automated Technical Debt Extension)
 ```
 
 ### MOD_TECHNO_SIZING_EVOLUTION
@@ -795,6 +803,9 @@ nb_violations_added                  | INT      | (Metric #67921) Number of viol
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
 technical_debt_added                 | DECIMAL  | (Metric #68901) Technical debt of added violations
 technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt of removed violations
+remediation_effort_added             | INT      | (Metric #1062030) Remediation effort, in number of minutes, of added violations (require OMG Automated Technical Debt Extension)
+remediation_effort_deleted           | INT      | (Metric #1062032) Remediation effort, in number of minutes, of removed violations (require OMG Automated Technical Debt Extension)
+
 ```
 
 ### MOD_HEALTH_EVOLUTION
@@ -811,6 +822,8 @@ nb_critical_violations_added         | INT      | (Metric #67901) Number of crit
 nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
+remediation_effort_added             | INT      | (Metric #1062030) Remediation effort, in number of minutes, of added violations (require OMG Automated Technical Debt Extension)
+remediation_effort_deleted           | INT      | (Metric #1062032) Remediation effort, in number of minutes, of removed violations (require OMG Automated Technical Debt Extension)
 ```
 
 ### STD_RULES

@@ -1,4 +1,4 @@
-## Version: 1.22.0 - 23 August 2021
+## Version: 1.22.0 - 24 August 2021
 
 - REST API  **1.28**, **2.2.0**
 - AIP Database > 8.3.5
@@ -7,6 +7,10 @@
 
 - **Scripts**: Add ```DATAPOND_BASEDATA``` view
 - **Data**: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns for ```DIM_SNAPSHOTS``` table
+- **Data**: Add ```REMEDIATION_EFFORT_ADDED``` and ```REMEDIATION_EFFORT_DELETED``` columns for ```APP_SIZING_EVOLUTION``` table
+- **Data**: Add ```REMEDIATION_EFFORT_ADDED``` and ```REMEDIATION_EFFORT_DELETED``` columns for ```MOD_SIZING_EVOLUTION``` table
+- **Data**: Add ```REMEDIATION_EFFORT_ADDED``` and ```REMEDIATION_EFFORT_DELETED``` columns for ```APP_HEALTH_EVOLUTION``` table
+- **Data**: Add ```REMEDIATION_EFFORT_ADDED``` and ```REMEDIATION_EFFORT_DELETED``` columns for ```MOD_HEALTH_EVOLUTION``` table
 - **Data**: Add ```APP_VIOLATIONS_EVOLUTION``` table
 - **Data**: Add ```MOD_VIOLATIONS_EVOLUTION``` table
 - **Data**: Add ```APP_TECHNO_SIZING_MEASURES``` table
