@@ -1,4 +1,4 @@
-## Version: 1.22.0 - 23 August 2021
+## Version: 1.22.0 - 24 August 2021
 
 - REST API  **1.28**, **2.2.0**
 - AIP Database > 8.3.5
@@ -6,7 +6,8 @@
 #### Features / Enhancements
 
 - **Scripts**: Add ```DATAPOND_BASEDATA``` view
-- **Data**: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns for ```DIM_SNAPSHOTS``` table
+- **Data**: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns to ```DIM_SNAPSHOTS``` table
+- **Data**: Add ```BUSINESS_CRITERION_ID```, ```BUSINESS_CRITERION_NAME```, ```TECHNICAL_CRITERION_WEIGHT``` , ```TECHNICAL_CRITERION_ID``` columns to ```DIM_RULES``` table
 - **Data**: Add ```APP_VIOLATIONS_EVOLUTION``` table
 - **Data**: Add ```MOD_VIOLATIONS_EVOLUTION``` table
 - **Data**: Add ```APP_TECHNO_SIZING_MEASURES``` table

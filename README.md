@@ -420,9 +420,13 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
+business_criterion_id                | INT      | The Business Criterion name of the highest contribution weight for this rule
+business_criterion_name              | TEXT     | The Business Criterion ID of the highest contribution weight for this rule
+technical_criterion_weight           | DECIMAL  | Highest weight contribution to the Business Criteria
+technical_criterion_id               | INT      | The Technical Criterion ID of the highest contribution weight for this rule
 technical_criterion_name             | TEXT     | The Technical Criterion name of the highest contribution weight for this rule
 is_critical                          | BOOLEAN  | true if at least there is one critical contribution to a technical criterion
-weight                               | DECIMAL  | Highest weight contribution to the technical criteria
+weight                               | DECIMAL  | Highest weight contribution to the Technical Criteria
 weight_architectural_design          | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_changeability                 | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
 weight_documentation                 | DECIMAL  | Contribution weight of the technical criterion. 0 if no contribution
