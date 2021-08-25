@@ -71,14 +71,20 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
 
 def transform(mode, extract_directory, transform_directory, table_name, nb_primary_columns):
     global WARNINGS
-    print ("Transform", table_name)
     ofile = transform_directory + "\\" + table_name + ".sql"
+    ifile = extract_directory+"\\" + table_name + ".csv"
+
+    if not os.path.isfile(ifile):
+        return
+
+    print ("Transform", table_name)
+            
     f = open(ofile, "w", encoding="utf-8")
 
     if mode in ["refresh", "refresh_measures"]:
         f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
 
-    with open(extract_directory+"\\" + table_name + ".csv") as csv_file:
+    with open(ifile) as csv_file:
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
@@ -113,11 +119,17 @@ def transform_details(mode, extract_directory, transform_directory, table):
         transform (mode,  extract_directory, transform_directory, table_name, 0)
         return
 
-    print ("Transform", table_name)
     ofile = transform_directory + "\\" + table_name + ".sql"
+    ifile = extract_directory+"\\" + table_name + ".csv"
+
+    if not os.path.isfile(ifile):
+        return
+    
+    print ("Transform", table_name)
+    
     f = open(ofile, "w", encoding="utf-8")
 
-    with open(extract_directory+"\\" + table_name + ".csv") as csv_file:
+    with open(ifile) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         column_value = None
