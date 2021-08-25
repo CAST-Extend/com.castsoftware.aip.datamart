@@ -1,6 +1,6 @@
 DROP VIEW IF EXISTS :schema.datapond_basedata CASCADE;
 CREATE OR REPLACE VIEW :schema.datapond_basedata AS 
-WITH technologies AS (SELECT snapshot_id, string_agg(DISTINCT technology, ' ') AS technology FROM app_violations_measures GROUP BY 1)
+WITH technologies AS (SELECT snapshot_id, string_agg(DISTINCT technology, ' ') AS technology FROM :schema.app_violations_measures GROUP BY 1)
 SELECT 
    s.application_name AS appname, 
    t.technology AS technology,
@@ -31,18 +31,18 @@ SELECT
    e.nb_violations_added AS added_violations,
    e.nb_violations_removed AS removed_violations
 
-FROM dim_snapshots s
+FROM :schema.dim_snapshots s
 
-JOIN app_health_scores h ON h.snapshot_id = s.snapshot_id AND h.is_health_factor
-JOIN app_health_evolution e ON e.snapshot_id = s.snapshot_id AND e.business_criterion_name = h.business_criterion_name
+JOIN :schema.app_health_scores h ON h.snapshot_id = s.snapshot_id AND h.is_health_factor
+JOIN :schema.app_health_evolution e ON e.snapshot_id = s.snapshot_id AND e.business_criterion_name = h.business_criterion_name
 
 JOIN technologies t ON t.snapshot_id = s.snapshot_id
 
-JOIN app_sizing_measures z ON z.snapshot_id = s.snapshot_id
-JOIN app_sizing_evolution d ON d.snapshot_id = s.snapshot_id
+JOIN :schema.app_sizing_measures z ON z.snapshot_id = s.snapshot_id
+JOIN :schema.app_sizing_evolution d ON d.snapshot_id = s.snapshot_id
 
-JOIN app_functional_sizing_measures f ON f.snapshot_id = s.snapshot_id
-JOIN app_functional_sizing_evolution fe ON fe.snapshot_id = s.snapshot_id;
+JOIN :schema.app_functional_sizing_measures f ON f.snapshot_id = s.snapshot_id
+JOIN :schema.app_functional_sizing_evolution fe ON fe.snapshot_id = s.snapshot_id;
 
 
 

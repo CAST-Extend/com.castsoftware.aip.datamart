@@ -22,11 +22,11 @@ SELECT
     COALESCE(e.nb_violations_removed, 0) AS removed_violations,
     ROUND(a.score, 4) AS grade
 
-FROM app_violations_measures m
-JOIN dim_snapshots s ON s.snapshot_id = m.snapshot_id
-JOIN dim_rules r ON r.rule_id = m.rule_id
-JOIN app_scores a ON a.snapshot_id = m.snapshot_id AND m.metric_id = a.metric_id
-LEFT JOIN app_violations_evolution e ON e.snapshot_id = m.snapshot_id AND e.metric_id = m.metric_id AND e.technology = m.technology
+FROM :schema.app_violations_measures m
+JOIN :schema.dim_snapshots s ON s.snapshot_id = m.snapshot_id
+JOIN :schema.dim_rules r ON r.rule_id = m.rule_id
+JOIN :schema.app_scores a ON a.snapshot_id = m.snapshot_id AND m.metric_id = a.metric_id
+LEFT JOIN :schema.app_violations_evolution e ON e.snapshot_id = m.snapshot_id AND e.metric_id = m.metric_id AND e.technology = m.technology
 WHERE s.is_latest;
 
 
