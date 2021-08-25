@@ -13,6 +13,7 @@ CALL :load DIM_OWASP_2017                       || GOTO :FAIL
 CALL :load BASEDATA_FLAT                        || GOTO :FAIL
 CALL :load COMPLETE_FLAT                        || GOTO :FAIL
 CALL :load DATAPOND_BASEDATA                    || GOTO :FAIL
+call :load DATAPOND_VIOLATIONS                  || GOTO :FAIL
 
 GOTO :SUCCESS
 
