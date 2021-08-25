@@ -499,6 +499,7 @@ Added and removed violation numbers by application snapshot, by technology, by r
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 metric_id                            | INT      | AIP Globally unique metric ID
 technology                           | TEXT     | Source code technology
@@ -612,7 +613,6 @@ COLUMN                               | TYPE     | DESCRIPTION
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 technology                           | TEXT     | Technology
-technology                           | TEXT     | Technology
 nb_critical_violations_added         | INT      | (Metric #67901) Total number of critical violations added
 nb_critical_violations_removed       | INT      | (Metric #67902) Total number of critical violations removed
 nb_violations_added                  | INT      | (Metric #67921) Total number of violations added
@@ -691,6 +691,7 @@ Added and removed violation numbers by snapshot, by module, by technology, by ru
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+previous_snapshot_id                 | TEXT     | The concatenation of the application name and the snapshot timestamp
 module_name                          | TEXT     | Module name
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
 metric_id                            | INT      | AIP Globally unique metric ID

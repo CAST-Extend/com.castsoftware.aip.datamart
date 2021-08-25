@@ -105,6 +105,7 @@ DO $$
             CREATE TABLE APP_VIOLATIONS_EVOLUTION
             (
                 SNAPSHOT_ID TEXT,
+                PREVIOUS_SNAPSHOT_ID TEXT,                
                 RULE_ID TEXT,
                 TECHNOLOGY TEXT,  
                 METRIC_ID INT,
@@ -123,6 +124,7 @@ DO $$
             CREATE TABLE MOD_VIOLATIONS_EVOLUTION
             (
                 SNAPSHOT_ID TEXT,
+                PREVIOUS_SNAPSHOT_ID TEXT,
                 MODULE_NAME TEXT,    
                 RULE_ID TEXT,
                 TECHNOLOGY TEXT,  
