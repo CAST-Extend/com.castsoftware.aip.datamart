@@ -253,10 +253,11 @@ If you intend to view the data with Power BI Desktop:
 When the environment variable ```DATAPOND``` is set to ```ON```, then the ```DIM_APPLICATIONS``` table is renamed as ```DATAPOND_ORGANIZATION``` and columns are renamed to comply with DATAPOND toolkit.
 
 This toolkit provides some Datapond compliant views:
-* [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql): this view transposes business criteria scores to columns, and provides new metrics using SQL expressions;
+* [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql): this view transposes business criteria scores to columns, and provides new metrics using SQL expressions.
 * [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql): this view extends the BASEDATA_FLAT view with AEP measures, and adds AEP based metrics using the SQL average operator.
-* [views/DATAPPOND_BASEDATA.sql](views/DATAPPOND_BASEDATA.sql): for compatibility purpose, this view reports the DATAPOND_BASEDATA table rows. 
-* [views/DATAPOND_VIOLATIONS.sql](views/DATAPOND_VIOLATIONS.sql): for compatibility purpose, this view reports the DATAPOND_VIOLATIONS table rows. 
+* [views/DATAPOND_BASEDATA.sql](views/DATAPOND_BASEDATA.sql): this view reports the DATAPOND_BASEDATA table rows. 
+* [views/DATAPOND_VIOLATIONS.sql](views/DATAPOND_VIOLATIONS.sql): this view reports the DATAPOND_VIOLATIONS table rows. 
+* [views/DATAPOND_AP.sql](views/DATAPOND_AP.sql): this view reports the DATAPOND_AP table rows (Action Plan Issues).
 
 The differences with Datapond 5.1 corresponding views are as follow:
 * Some columns are missing 
@@ -950,10 +951,12 @@ Users Requests to remediate violations. Note that a violation can be solved and 
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 application_name                     | TEXT     | Application name
-rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_id                              | TEXT     | Key. Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+metric_id                            | TEXT     | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
+object_full_name                     | TEXT     | Object full name
 action_status                        | TEXT     | Status regarding the latest snapshot: added, pending, solved (ie fixed)
 last_update_date                     | DATE     | Date of last edition update
 start_date                           | DATE     | The creation date of the action plan issue

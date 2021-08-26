@@ -7,9 +7,11 @@
 
 - **Scripts**: Add ```DATAPOND_BASEDATA``` view
 - **Scripts**: Add ```DATAPOND_VIOLATIONS``` view
+- **Scripts**: Add ```DATAPOND_AP``` view
 - **Scripts**: When the environment variable ```DATAPOND``` is set to ```ON```, then the ```DIM_APPLICATIONS``` table is renamed as ```DATAPOND_ORGANIZATION``` and columns are renamed to comply with DATAPOND toolkit
 - **Data**: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns to ```DIM_SNAPSHOTS``` table
 - **Data**: Add ```BUSINESS_CRITERION_ID```, ```BUSINESS_CRITERION_NAME```, ```TECHNICAL_CRITERION_WEIGHT``` , ```TECHNICAL_CRITERION_ID``` columns to ```DIM_RULES``` table
+- **Data**: Add ```METRIC_ID```, ```OBJECT_FULL_NAME``` columns to ```USR_ACTION_PLAN``` table
 - **Data**: Add ```APP_VIOLATIONS_EVOLUTION``` table
 - **Data**: Add ```MOD_VIOLATIONS_EVOLUTION``` table
 - **Data**: Add ```APP_TECHNO_SIZING_MEASURES``` table
