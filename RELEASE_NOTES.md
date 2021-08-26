@@ -1,4 +1,4 @@
-## Version: 1.22.0 - 24 August 2021
+## Version: 1.22.0 - 26 August 2021
 
 - REST API  **1.28**, **2.2.0**
 - AIP Database > 8.3.5
@@ -6,6 +6,8 @@
 #### Features / Enhancements
 
 - **Scripts**: Add ```DATAPOND_BASEDATA``` view
+- **Scripts**: Add ```DATAPOND_VIOLATIONS``` view
+- **Scripts**: When the environment variable ```DATAPOND``` is set to ```ON```, then the ```DIM_APPLICATIONS``` table is renamed as ```DATAPOND_ORGANIZATION``` and columns are renamed to comply with DATAPOND toolkit
 - **Data**: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns to ```DIM_SNAPSHOTS``` table
 - **Data**: Add ```BUSINESS_CRITERION_ID```, ```BUSINESS_CRITERION_NAME```, ```TECHNICAL_CRITERION_WEIGHT``` , ```TECHNICAL_CRITERION_ID``` columns to ```DIM_RULES``` table
 - **Data**: Add ```APP_VIOLATIONS_EVOLUTION``` table

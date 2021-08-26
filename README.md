@@ -89,7 +89,10 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
       * ```_DB_SCHEMA```: the target schema name
 * __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
 * __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
-    
+* __Set EXTRACT_MOD=OFF__* to skip *MOD* tables
+* __Set EXTRACT_SRC=OFF__* to skip *SRC* tables
+* __Set DATAPOND=ON__ to restrict extracted data to DATAPOND scope, and to produce the ```DATAPOND_ORGANIZATION``` table in place of the ```DIM_APPLICATIONS``` table    
+
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
 ```
@@ -129,10 +132,13 @@ Start ```run.bat help``` for more information on these modes.
 
 This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
 
+__WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advise to use it preferably with the ```DATAPOND``` set to ```ON```.
+
 * __Edit__ the ```setenv.bat``` script to override the following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
   * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
+  * ```DATAPOND```: set the scope to DATAPOND if required
 * __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
 
@@ -244,10 +250,13 @@ If you intend to view the data with Power BI Desktop:
 
 ### Datapond
 
+When the environment variable ```DATAPOND``` is set to ```ON```, then the ```DIM_APPLICATIONS``` table is renamed as ```DATAPOND_ORGANIZATION``` and columns are renamed to comply with DATAPOND toolkit.
+
 This toolkit provides some Datapond compliant views:
 * [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql): this view transposes business criteria scores to columns, and provides new metrics using SQL expressions;
 * [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql): this view extends the BASEDATA_FLAT view with AEP measures, and adds AEP based metrics using the SQL average operator.
 * [views/DATAPPOND_BASEDATA.sql](views/DATAPPOND_BASEDATA.sql): for compatibility purpose, this view reports the DATAPOND_BASEDATA table rows. 
+* [views/DATAPOND_VIOLATIONS.sql](views/DATAPOND_VIOLATIONS.sql): for compatibility purpose, this view reports the DATAPOND_VIOLATIONS table rows. 
 
 The differences with Datapond 5.1 corresponding views are as follow:
 * Some columns are missing 

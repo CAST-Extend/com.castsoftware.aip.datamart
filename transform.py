@@ -18,27 +18,31 @@ def format(s):
         return  '"' + s + '"'
     return s
 
-quoted_identifier = os.environ.get('QUOTED_IDENTIFIER') != "OFF"
+quoted_identifier = os.environ.get('QUOTED_IDENTIFIER') != "OFF" # unset or ON by default
+datapond = os.environ.get('DATAPOND') == "ON"                    # unset or OFF by default
 
 def format_column_name (id):
+    if datapond: 
+        return "appname" if id == "application_name" else (id.lower().replace(" ", "_")) # no quoted identifier
     if quoted_identifier:
         return ("\"" + id + "\"")
     return  (id.lower().replace(" ", "_"))
 
 def transform_dim_applications(mode, extract_directory, transform_directory):
     global ERRORS
-    print ("Transform", "DIM_APPLICATIONS")
+    table_name = "DATAPOND_ORGANIZATION" if datapond else "DIM_APPLICATIONS"
+    print ("Transform", table_name)
     ofile = transform_directory + "\\DIM_APPLICATIONS.sql"
     f = open(ofile, "w", encoding="utf-8")
 
     with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:
 
         if mode in ["refresh", "refresh_measures"]:
-            f.write("TRUNCATE TABLE :schema.DIM_APPLICATIONS CASCADE;\n")
+            f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
         elif mode == "install":
             # Begin CREATE TABLE STATEMENT
-            f.write("DROP TABLE IF EXISTS :schema.DIM_APPLICATIONS CASCADE;\n")
-            f.write("CREATE TABLE :schema.DIM_APPLICATIONS\n")
+            f.write("DROP TABLE IF EXISTS :schema." + table_name + " CASCADE;\n")
+            f.write("CREATE TABLE :schema." + table_name + "\n")
             f.write("(\n")
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
@@ -53,10 +57,10 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                         f.write(format_column_name(p))
                         f.write(" text") 
                         f.write(",\n")
-                    f.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n")
+                    f.write("CONSTRAINT " + table_name + "_PKEY PRIMARY KEY (" + ("appname" if datapond else "APPLICATION_NAME") + ")\n")
                     f.write(");\n")
                     # End CREATE TABLE STATEMENT
-                f.write("COPY :schema.DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
+                f.write("COPY :schema." + table_name + " ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
             if row[0] == latestApplicationName:
@@ -77,8 +81,8 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
     if not os.path.isfile(ifile):
         return
 
-    print ("Transform", table_name)
-            
+    print ("Transform", table_name)        
+
     f = open(ofile, "w", encoding="utf-8")
 
     if mode in ["refresh", "refresh_measures"]:
