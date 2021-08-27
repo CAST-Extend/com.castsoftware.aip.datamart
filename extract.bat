@@ -62,6 +62,12 @@ call :extract datamart/app-sizing-evolution                 APP_SIZING_EVOLUTION
 call :extract datamart/app-techno-sizing-evolution          APP_TECHNO_SIZING_EVOLUTION         || EXIT /b 1
 call :extract datamart/app-functional-sizing-evolution      APP_FUNCTIONAL_SIZING_EVOLUTION     || EXIT /b 1
 call :extract datamart/app-health-evolution                 APP_HEALTH_EVOLUTION                || EXIT /b 1
+call :extract datamart/std-rules                            STD_RULES                           || EXIT /b 1
+call :extract datamart/std-descriptions                     STD_DESCRIPTIONS                    || EXIT /b 1
+if [%EXTRACT_MOD%] == [ON] CALL :EXTRACT_MEASURE_MODULES  || EXIT /b 1
+GOTO :EOF
+
+:EXTRACT_MEASURE_MODULES
 call :extract datamart/mod-violations-measures              MOD_VIOLATIONS_MEASURES             || EXIT /b 1
 call :extract datamart/mod-violations-evolution             MOD_VIOLATIONS_EVOLUTION            || EXIT /b 1
 call :extract datamart/mod-sizing-measures                  MOD_SIZING_MEASURES                 || EXIT /b 1
@@ -72,20 +78,27 @@ call :extract datamart/mod-techno-scores                    MOD_TECHNO_SCORES   
 call :extract datamart/mod-sizing-evolution                 MOD_SIZING_EVOLUTION                || EXIT /b 1
 call :extract datamart/mod-techno-sizing-evolution          MOD_TECHNO_SIZING_EVOLUTION         || EXIT /b 1
 call :extract datamart/mod-health-evolution                 MOD_HEALTH_EVOLUTION                || EXIT /b 1
-call :extract datamart/std-rules                            STD_RULES                           || EXIT /b 1
-call :extract datamart/std-descriptions                     STD_DESCRIPTIONS                    || EXIT /b 1
-goto :EOF
+GOTO :EOF
 
 :EXTRACT_DETAILS
+if [%EXTRACT_SRC%] == [ON] CALL :EXTRACT_DETAILS_SRC  || EXIT /b 1
+call :extract datamart/usr-exclusions                       USR_EXCLUSIONS                      || EXIT /b 1
+call :extract datamart/usr-action-plan                      USR_ACTION_PLAN                     || EXIT /b 1
+call :extract datamart/app-findings-measures                APP_FINDINGS_MEASURES               || EXIT /b 1
+GOTO :EOF
+
+:EXTRACT_DETAILS_SRC
 call :extract datamart/src-objects                          SRC_OBJECTS                         || EXIT /b 1
 call :extract datamart/src-transactions                     SRC_TRANSACTIONS                    || EXIT /b 1
-call :extract datamart/src-mod-objects                      SRC_MOD_OBJECTS                     || EXIT /b 1
 call :extract datamart/src-trx-objects                      SRC_TRX_OBJECTS                     || EXIT /b 1
 call :extract datamart/src-health-impacts                   SRC_HEALTH_IMPACTS                  || EXIT /b 1
 call :extract datamart/src-trx-health-impacts               SRC_TRX_HEALTH_IMPACTS              || EXIT /b 1
 call :extract datamart/src-violations                       SRC_VIOLATIONS                      || EXIT /b 1
-call :extract datamart/usr-exclusions                       USR_EXCLUSIONS                      || EXIT /b 1
-call :extract datamart/usr-action-plan                      USR_ACTION_PLAN                     || EXIT /b 1
+if [%EXTRACT_MOD%] == [ON] CALL :EXTRACT_DETAILS_MOD  || EXIT /b 1
+GOTO :EOF
+
+:EXTRACT_DETAILS_MOD
+call :extract datamart/src-mod-objects                      SRC_MOD_OBJECTS                     || EXIT /b 1
 GOTO :EOF
 
 :FAIL

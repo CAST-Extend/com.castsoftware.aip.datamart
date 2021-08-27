@@ -1,7 +1,6 @@
 ## Version: 1.22.0 - 26 August 2021
 
 - REST API  **1.28**, **2.2.0**
-- AIP Database > 8.3.5
 
 #### Features / Enhancements
 
@@ -20,6 +19,7 @@
 - **Data**: Add ```MOD_TECHNO_SIZING_MEASURES``` table
 - **Data**: Add ```APP_TECHNO_SIZING_EVOLUTION``` table
 - **Data**: Add ```MOD_TECHNO_SIZING_EVOLUTION``` table
+- **Data**: Add ```APP-FINDINGS-MEASURES``` table
 
 #### Bug Fixes
 
@@ -28,7 +28,7 @@
 ## Version: 1.21.0 - 7 July 2021
 
 - REST API  >= **1.17** (**1.27** recommended), WARNING: **2.X** should not be used for Datamart
-- AIP Database > 8.3.5
+
 
 #### Features / Enhancements
 
@@ -44,7 +44,7 @@
 #### Prerequisite
 
 - REST API  >= **1.17**, >= **1.25** (recommended)
-- AIP Database > 8.3.5
+
 
 #### Features / Enhancements
 
@@ -62,7 +62,7 @@
 #### Prerequisite
 
 - REST API  >= **1.17**, >= **1.24** (recommended)
-- AIP Database > 8.3.5
+
 
 #### Features / Enhancements
 
@@ -87,7 +87,7 @@
 #### Prerequisite
 
 - REST API  >= **1.17**, >= **1.19** (recommended)
-- AIP Database > 8.3.5
+
 
 #### Bug Fixes
 
@@ -98,7 +98,7 @@
 #### Prerequisite
 
 - REST API  >= **1.17**, >= **1.19** (recommended)
-- AIP Database > 8.3.5
+
 
 #### Bug Fixes
 
@@ -118,7 +118,7 @@
 #### Prerequisite
 
 - REST API  >= **1.17**, >= **1.19** (recommended)
-- AIP Database > 8.3.5
+
 
 #### Bug Fixes
 
@@ -137,7 +137,7 @@
 #### Prerequisite
 
 - REST API **1.17** or **1.18**<br>
-- AIP Database > 8.3.5
+
 
 #### Features / Enhancements
 
@@ -234,6 +234,6 @@ First release.
 #### Prerequisite
 
 - REST API  **1.14**
-- AIP Database > 8.3.5
+
 
 

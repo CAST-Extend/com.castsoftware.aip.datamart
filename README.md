@@ -320,10 +320,13 @@ __WARNING__: You cannot aggregate measures for a set of modules because of modul
 
 Scope|Applications Table|Modules Table
 -----|------------|-------
+Basic Measures |`APP_FINDINGS_MEASURES`<sup> (1)</sup>|None
 Basic Measures |`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
 Basic Measures |`APP_VIOLATIONS_EVOLUTION`|`MOD_VIOLATIONS_EVOLUTION`
 Sizing Measures|`APP_TECHNO_SIZING_MEASURES`|`MOD_TECHNO_SIZING_MEASURES`
 Sizing Measures Evolution|`APP_TECHNO_SIZING_EVOLUTION`|`MOD_TECHNO_SIZING_EVOLUTION`
+
+(1) Extracted from central databases only
 
 ### Aggregated Measures by Application/Module
 
@@ -501,6 +504,22 @@ nb_violations                        | INT      | Number of violations
 nb_total_checks                      | INT      | Number of total checked objects
 violation_ratio                      | DECIMAL  | The value of number of violations divided by the number of checked objects
 compliance_ratio                     | DECIMAL  | The value of 1 - Violation Ratio
+```
+
+### APP_FINDINGS_MEASURES
+Count of violations findings for the most recent snapshot only. Skip rules that have been deactivated or detached.
+
+These data extracted from central database.
+
+```
+COLUMN                               | TYPE     | DESCRIPTION
+-------------------------------------+----------+------------
+snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
+rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+metric_id                            | INT      | AIP Globally unique metric ID
+technology                           | TEXT     | Source code technology
+finding_type                         | TEXT     | Type of finding among ["number", "percentage", "text", "object", "date", "integer", "no-value", "path", "group", "bookmark"]
+nb_findings                          | INT      | Total number of findings associated to this rule ; for example the number of bookmarks, number of paths, number of objects
 ```
 
 ### APP_VIOLATIONS_EVOLUTION

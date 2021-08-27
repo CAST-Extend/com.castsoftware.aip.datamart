@@ -299,5 +299,23 @@ DO $$
                 RAISE NOTICE 'columns METRIC_ID, OBJECT_FULL_NAME, LAST_UPDATE_DATE, EXCLUSION_DATE, EXCLUSION_SNAPSHOT_ID already exist for USR_EXCLUSIONS';
         END;
         
+        BEGIN 
+            CREATE TABLE :schema.APP_FINDINGS_MEASURES
+            (
+                SNAPSHOT_ID TEXT,
+                TECHNOLOGY TEXT,
+                RULE_ID TEXT,
+                METRIC_ID INT,
+                RULE_NAME TEXT,
+                FINDING_TYPE TEXT,
+                NB_FINDINGS INT,
+                CONSTRAINT APP_FINDINGS_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, RULE_ID, TECHNOLOGY)
+                FOREIGN KEY (RULE_ID) REFERENCES :schema.DIM_RULES (RULE_ID),
+                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)    
+            );
+        EXCEPTION
+            WHEN OTHERS THEN             
+                RAISE NOTICE 'Table APP_FINDINGS_MEASURES already exists';
+        END;
     END;
 $$

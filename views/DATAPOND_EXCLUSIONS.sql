@@ -12,5 +12,5 @@ SELECT
     x.last_update_date AS last_updated_date
 FROM :schema.usr_exclusions x
 JOIN :schema.DIM_SNAPSHOTS s on s.SNAPSHOT_ID = x.exclusion_snapshot_id
-group by 1,2,3,4,5,6,7,9
+GROUP BY 1,2,3,4,5,6,7,9
 

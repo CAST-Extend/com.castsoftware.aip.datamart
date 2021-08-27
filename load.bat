@@ -104,6 +104,7 @@ CALL :load SRC_HEALTH_IMPACTS                   || EXIT /b 1
 CALL :load SRC_TRX_HEALTH_IMPACTS               || EXIT /b 1
 CALL :load USR_EXCLUSIONS                       || EXIT /b 1
 CALL :load USR_ACTION_PLAN                      || EXIT /b 1
+CALL :load APP_FINDINGS_MEASURES                || EXIT /b 1
 GOTO :EOF
 
 :FAIL

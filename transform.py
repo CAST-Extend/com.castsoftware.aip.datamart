@@ -82,7 +82,6 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
         return
 
     print ("Transform", table_name)        
-
     f = open(ofile, "w", encoding="utf-8")
 
     if mode in ["refresh", "refresh_measures"]:
@@ -136,6 +135,7 @@ def transform_details(mode, extract_directory, transform_directory, table):
     with open(ifile) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
+        latestKeys = None
         column_value = None
         column_name = table["column_name"]
         column_position = -1
@@ -149,12 +149,12 @@ def transform_details(mode, extract_directory, transform_directory, table):
                         column_position = i
                         continue
                 continue
-            new_column_value = row[column_position] if column_name != 'object_id' else row[column_position].split(':')[0]
+            new_column_value = row[column_position] if column_name == 'application_name' else row[column_position].split(':')[0]
             #print(column_name, new_column_value, table_name, column_value)
             if column_value != new_column_value:
                 if column_value != None:
                     f.write("\\.\n")                   
-                if column_name == 'object_id':
+                if column_name != 'application_name':
                     f.write("DELETE FROM :schema." + table_name +  " WHERE " + column_name + " like '" + new_column_value + ":%' ;\n")
                 else:
                     f.write("DELETE FROM :schema." + table_name +  " WHERE " + column_name + " = '" + new_column_value + "' ;\n")
@@ -230,7 +230,8 @@ if __name__ == "__main__":
                     {"name":"SRC_VIOLATIONS", "column_name":"object_id", "nb_primary_columns": 5},
                     {"name":"SRC_HEALTH_IMPACTS", "column_name":"object_id", "nb_primary_columns": 4},
                     {"name":"USR_EXCLUSIONS", "column_name":"application_name", "nb_primary_columns": 0},
-                    {"name":"USR_ACTION_PLAN", "column_name":"application_name", "nb_primary_columns": 0}
+                    {"name":"USR_ACTION_PLAN", "column_name":"application_name", "nb_primary_columns": 0},
+                    {"name":"APP_FINDINGS_MEASURES", "column_name":"snapshot_id", "nb_primary_columns": 0}
                 ]
 
     for table in tables:
