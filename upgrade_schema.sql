@@ -310,8 +310,6 @@ DO $$
                 FINDING_TYPE TEXT,
                 NB_FINDINGS INT,
                 CONSTRAINT APP_FINDINGS_MEASURES_PKEY PRIMARY KEY (SNAPSHOT_ID, RULE_ID, TECHNOLOGY)
-                FOREIGN KEY (RULE_ID) REFERENCES :schema.DIM_RULES (RULE_ID),
-                FOREIGN KEY (SNAPSHOT_ID) REFERENCES :schema.DIM_SNAPSHOTS(SNAPSHOT_ID)    
             );
         EXCEPTION
             WHEN OTHERS THEN             
