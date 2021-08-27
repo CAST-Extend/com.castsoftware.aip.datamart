@@ -25,11 +25,11 @@ python utilities\check_python_version.py || EXIT /b 1
 
 REM DEFAULT EXTRACTION SCOPE
 IF NOT DEFINED DATAPOND (SET DATAPOND=OFF)
-IF [%DATAPOND%] != [ON] IF [%DATAPOND%] != [OFF] (echo "Invalid DATAPOND value %DATAPOND%, expecting ON or OFF" & EXIT /b /1)
+IF NOT [%DATAPOND%] == [ON] IF NOT [%DATAPOND%] == [OFF] (echo "Invalid DATAPOND value %DATAPOND%, expecting ON or OFF" & EXIT /b /1)
 IF NOT DEFINED EXTRACT_SRC (SET EXTRACT_SRC=ON)
-IF [%EXTRACT_SRC%] != [ON] IF [%EXTRACT_SRC%] != [OFF] (echo "Invalid EXTRACT_SRC value %EXTRACT_SRC%, expecting ON or OFF & EXIT" /b /1)
+IF NOT [%EXTRACT_SRC%] == [ON] IF NOT [%EXTRACT_SRC%] == [OFF] (echo "Invalid EXTRACT_SRC value %EXTRACT_SRC%, expecting ON or OFF & EXIT" /b /1)
 IF NOT DEFINED EXTRACT_MOD (SET EXTRACT_MOD=ON)
-IF [%EXTRACT_MOD%] != [ON] IF [%EXTRACT_MOD%] != [OFF] (echo "Invalid EXTRACT_MOD value %EXTRACT_MOD%, expecting ON or OFF & EXIT" /b /1)
+IF NOT [%EXTRACT_MOD%] == [ON] IF NOT [%EXTRACT_MOD%] == [OFF] (echo "Invalid EXTRACT_MOD value %EXTRACT_MOD%, expecting ON or OFF & EXIT" /b /1)
 
 REM DATAPOND EXTRACTION SCOPE
 IF [%DATAPOND%]==[ON] IF NOT DEFINED EXTRACT_SRC (SET EXTRACT_SRC=OFF)

@@ -516,6 +516,7 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 snapshot_id                          | TEXT     | The concatenation of the application name and the snapshot timestamp
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+rule_name                            | TEXT     | Rule name
 metric_id                            | INT      | AIP Globally unique metric ID
 technology                           | TEXT     | Source code technology
 finding_type                         | TEXT     | Type of finding among ["number", "percentage", "text", "object", "date", "integer", "no-value", "path", "group", "bookmark"]
