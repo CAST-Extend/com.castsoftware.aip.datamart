@@ -5,15 +5,17 @@
 
 #### Features / Enhancements
 
+- **Scripts**: Add the ```DATAPOND``` environment variable.to restrict data scope when extracting multiple domains.
+- **Scripts**: When the environment variable ```DATAPOND``` is set to ```ON```, then the ```DIM_APPLICATIONS``` table is renamed as ```DATAPOND_ORGANIZATION``` and columns are renamed to comply with DATAPOND toolkit
 - **Scripts**: Add ```DATAPOND_BASEDATA``` view
 - **Scripts**: Add ```DATAPOND_VIOLATIONS``` view
 - **Scripts**: Add ```DATAPOND_AP``` view
-- **Scripts**: When the environment variable ```DATAPOND``` is set to ```ON```, then the ```DIM_APPLICATIONS``` table is renamed as ```DATAPOND_ORGANIZATION``` and columns are renamed to comply with DATAPOND toolkit
-- **Data**: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns to ```DIM_SNAPSHOTS``` table
-- **Data**: Add ```BUSINESS_CRITERION_ID```, ```BUSINESS_CRITERION_NAME```, ```TECHNICAL_CRITERION_WEIGHT``` , ```TECHNICAL_CRITERION_ID``` columns to ```DIM_RULES``` table
-- **Data**: Add ```METRIC_ID```, ```OBJECT_FULL_NAME``` columns to ```USR_ACTION_PLAN``` table
-- **Data**: Add ```APP_VIOLATIONS_EVOLUTION``` table
-- **Data**: Add ```MOD_VIOLATIONS_EVOLUTION``` table
+- **Scripts**: Add ```DATAPOND_EXCLUSIONS``` view
+
+- **Data**: Alter ```DIM_SNAPSHOTS```: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns 
+- **Data**: Alter ```DIM_RULES```: Add ```BUSINESS_CRITERION_ID```, ```BUSINESS_CRITERION_NAME```, ```TECHNICAL_CRITERION_WEIGHT``` , ```TECHNICAL_CRITERION_ID``` columns
+- **Data**: Alter ```USR_ACTION_PLAN```: Add ```METRIC_ID```, ```OBJECT_FULL_NAME``` columns
+- **Data**: Alter ```USR_EXCLUSIONS```: Add ```METRIC_ID```, ```OBJECT_FULL_NAME```, ```LAST_UPDATE_DATE```, ```EXCLUSION_DATE```, ```EXCLUSION_SNAPSHOT_ID``` columns 
 - **Data**: Add ```APP_TECHNO_SIZING_MEASURES``` table
 - **Data**: Add ```MOD_TECHNO_SIZING_MEASURES``` table
 - **Data**: Add ```APP_TECHNO_SIZING_EVOLUTION``` table

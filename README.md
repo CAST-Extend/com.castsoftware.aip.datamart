@@ -395,7 +395,7 @@ omg_ascqm                            | BOOLEAN  | Check whether this rule detec
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
 
-### DIM_SNAPSHOTS
+### DIM_SNAPDIM_SNAPSHOTS
 A Dimension table to filter measures according to a period. 
 * Column YEAR, YEAR_MONTH, YEAR_QUARTER, YEAR_WEEK are set only for the most recent snapshot of this period for this application; they are provided to filter snapshots for a specific period
 * These columns make sense when applications are periodically analyzed. For instance, if each application is analyzed once a year, then we can use the column YEAR as a filter; if some applications are not analyzed every week; then the YEAR_WEEK filter must be used carefully. 
@@ -416,7 +416,7 @@ year_week                            | TEXT     | Tag the most recent applicatio
 label                                | TEXT     | Snapshot label
 version                              | TEXT     | Application version
 consolidation_mode                   | TEXT     | Consolidation mode when application score is based on modules scores; otherwise "Full Application"
-internal_id                          | INT      | Local Snapshot ID (use with cautious as this ID depends on the schema type: measurement/central). Use preferably snapshot_id column
+internal_id                          | INT      | Local Snapshot ID (use with cautious as this ID depends on the schema type: measurement/central). Use preferably snapshot_id column. Do not use to order snapshots.
 ```
 
 ### DIM_RULES
@@ -974,11 +974,16 @@ COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
 application_name                     | TEXT     | Application name
 rule_id                              | TEXT     | Local rule ID is the concatenation of the application name and the AIP Globally unique metric ID
+metric_id                            | TEXT     | AIP Globally unique metric ID
 rule_name                            | TEXT     | Rule name
 object_id                            | INT      | Concatenation of application name and object internal unique ID from central Base
 object_name                          | TEXT     | Object name
+object_full_name                     | TEXT     | Object full name
 user_name                            | TEXT     | The author of the exclusion request
 comment                              | TEXT     | Comment describing the reason of the exclusion
+last_update_date                     | DATE     | Date of last edition update
+exclusion_date                       | DATE     | Date of exclusion creation (date of most recent violations), violations are excluded after this date
+exclusion_snapshot_id                | TEXT     | Reference of the snapshot at exclusion date, violations are excluded after this snapshot
 ```
 
 ## Measurement Queries: Basic Examples

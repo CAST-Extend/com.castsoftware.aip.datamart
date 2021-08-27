@@ -15,6 +15,7 @@ CALL :load COMPLETE_FLAT                        || GOTO :FAIL
 CALL :load DATAPOND_BASEDATA                    || GOTO :FAIL
 call :load DATAPOND_VIOLATIONS                  || GOTO :FAIL
 call :load DATAPOND_AP                          || GOTO :FAIL
+call :load DATAPOND_EXCLUSIONS                  || GOTO :FAIL
 
 GOTO :SUCCESS
 
