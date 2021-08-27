@@ -21,16 +21,16 @@ def format(s):
 quoted_identifier = os.environ.get('QUOTED_IDENTIFIER') != "OFF" # unset or ON by default
 datapond = os.environ.get('DATAPOND') == "ON"                    # unset or OFF by default
 
-def format_column_name (id):
-    if datapond: 
+def format_column_name (id, output_format):
+    if output_format == "datapond": 
         return "appname" if id == "application_name" else (id.lower().replace(" ", "_")) # no quoted identifier
     if quoted_identifier:
         return ("\"" + id + "\"")
     return  (id.lower().replace(" ", "_"))
 
-def transform_dim_applications(mode, extract_directory, transform_directory):
+def transform_dim_applications(mode, extract_directory, transform_directory, output_format):
     global ERRORS
-    table_name = "DATAPOND_ORGANIZATION" if datapond else "DIM_APPLICATIONS"
+    table_name = "DATAPOND_ORGANIZATION" if format == "datapond" else "DIM_APPLICATIONS"
     print ("Transform", table_name)
     ofile = transform_directory + "\\DIM_APPLICATIONS.sql"
     f = open(ofile, "w", encoding="utf-8")
@@ -54,13 +54,13 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
                 if mode == "install":
                     comma = ""
                     for p in row:
-                        f.write(format_column_name(p))
+                        f.write(format_column_name(p, output_format))
                         f.write(" text") 
                         f.write(",\n")
-                    f.write("CONSTRAINT " + table_name + "_PKEY PRIMARY KEY (" + ("appname" if datapond else "APPLICATION_NAME") + ")\n")
+                    f.write("CONSTRAINT " + table_name + "_PKEY PRIMARY KEY (" + format_column_name("application_name", output_format) + ")\n")
                     f.write(");\n")
                     # End CREATE TABLE STATEMENT
-                f.write("COPY :schema." + table_name + " ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
+                f.write("COPY :schema." + table_name + " ("  + ",".join([format_column_name(cell, output_format) for cell in row]) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
             if row[0] == latestApplicationName:
@@ -188,7 +188,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.mode in ['refresh', 'install', 'refresh_measures']:
-        transform_dim_applications(args.mode, args.extract_directory, args.transform_directory)
+        transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datamart")
+        # Add DATAPOND table
+        if datapond:
+            transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datapond")
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 0)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 0)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 0)        
