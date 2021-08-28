@@ -89,9 +89,9 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
       * ```_DB_SCHEMA```: the target schema name
 * __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
 * __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
-* __Set EXTRACT_MOD=OFF__* to skip *MOD* tables
-* __Set EXTRACT_SRC=OFF__* to skip *SRC* tables
-* __Set DATAPOND=ON__ to restrict extracted data to DATAPOND scope, and to produce the ```DATAPOND_ORGANIZATION``` table in place of the ```DIM_APPLICATIONS``` table    
+* __Set EXTRACT_MOD=OFF__ to skip *MOD** tables
+* __Set EXTRACT_SRC=OFF__ to skip *SRC** tables
+* __Set DATAPOND=ON__ to restrict extracted data to DATAPOND scope, and to add the ```DATAPOND_ORGANIZATION``` table   
 
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
@@ -138,7 +138,7 @@ __WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advi
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
   * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
-  * ```DATAPOND```: set the scope to DATAPOND if required
+  * ```DATAPOND```: set ```ON``` to restrict extraction to DATAPOND if required
 * __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
 
@@ -258,8 +258,10 @@ This toolkit provides some Datapond compliant views:
 * [views/DATAPOND_BASEDATA.sql](views/DATAPOND_BASEDATA.sql): this view reports the DATAPOND_BASEDATA table rows. 
 * [views/DATAPOND_VIOLATIONS.sql](views/DATAPOND_VIOLATIONS.sql): this view reports the DATAPOND_VIOLATIONS table rows. 
 * [views/DATAPOND_AP.sql](views/DATAPOND_AP.sql): this view reports the DATAPOND_AP table rows (Action Plan Issues).
+* [views/DATAPOND_PATTERNS.sql](views/DATAPOND_PATTERNS.sql): this view reports the DATAPOND_PATTERNS table rows.
 
-The differences with Datapond 5.1 corresponding views are as follow:
+
+For BASEDATA_FLAT and COMPLETE_FLAT views, the differences with Datapond 5.1 corresponding views are as follow:
 * Some columns are missing 
   * the `technologies` column has been removed
   * EFP columns have been removed; because these values are replaced with AEP metrics 
@@ -267,7 +269,7 @@ The differences with Datapond 5.1 corresponding views are as follow:
 * When AEP has not be calculated for a snapshot, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
 * The calculation of averages has been fixed
 
-To add these 2 database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory:
+To add these database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory:
 ```
 C:\>create_datapond_views
 ```
@@ -320,9 +322,9 @@ __WARNING__: You cannot aggregate measures for a set of modules because of modul
 
 Scope|Applications Table|Modules Table
 -----|------------|-------
-Basic Measures |`APP_FINDINGS_MEASURES`<sup> (1)</sup>|None
-Basic Measures |`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
-Basic Measures |`APP_VIOLATIONS_EVOLUTION`|`MOD_VIOLATIONS_EVOLUTION`
+Violations Measures |`APP_FINDINGS_MEASURES`<sup> (1)</sup>|None
+Violations Measures |`APP_VIOLATIONS_MEASURES`|`MOD_VIOLATIONS_MEASURES`
+Violations Measures |`APP_VIOLATIONS_EVOLUTION`|`MOD_VIOLATIONS_EVOLUTION`
 Sizing Measures|`APP_TECHNO_SIZING_MEASURES`|`MOD_TECHNO_SIZING_MEASURES`
 Sizing Measures Evolution|`APP_TECHNO_SIZING_EVOLUTION`|`MOD_TECHNO_SIZING_EVOLUTION`
 
@@ -398,7 +400,7 @@ omg_ascqm                            | BOOLEAN  | Check whether this rule detec
 owasp_2017                           | BOOLEAN  | Check whether this rule detects a top 10 OWASP 2017 vulnerability
 ```
 
-### DIM_SNAPDIM_SNAPSHOTS
+### DIM_SNAPSHOTS
 A Dimension table to filter measures according to a period. 
 * Column YEAR, YEAR_MONTH, YEAR_QUARTER, YEAR_WEEK are set only for the most recent snapshot of this period for this application; they are provided to filter snapshots for a specific period
 * These columns make sense when applications are periodically analyzed. For instance, if each application is analyzed once a year, then we can use the column YEAR as a filter; if some applications are not analyzed every week; then the YEAR_WEEK filter must be used carefully. 
