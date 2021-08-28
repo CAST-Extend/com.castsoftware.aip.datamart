@@ -87,11 +87,8 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
       * ```_DB_NAME```: the target PostgreSQL database
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
-* __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
-* __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
-* __Set EXTRACT_MOD=OFF__ to skip *MOD** tables
-* __Set EXTRACT_SRC=OFF__ to skip *SRC** tables
-* __Set DATAPOND=ON__ to restrict extracted data to DATAPOND scope, and to add the ```DATAPOND_ORGANIZATION``` table   
+  * __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
+  * __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
 
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
@@ -132,13 +129,13 @@ Start ```run.bat help``` for more information on these modes.
 
 This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
 
-__WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advise to use it preferably with the ```DATAPOND``` set to ```ON```.
+__WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advise to use it preferably with the ```DATAPOND``` variable set to ```ON```.
 
 * __Edit__ the ```setenv.bat``` script to override the following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
   * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
-  * ```DATAPOND```: set ```ON``` to restrict extraction to DATAPOND if required
+  * ```DATAPOND```: set ```ON``` to restrict extraction to DATAPOND scope
 * __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
 
