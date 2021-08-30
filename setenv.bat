@@ -26,8 +26,12 @@ SET HD_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 SET ED_ROOT=http://localhost:9090/CAST-RESTAPI/rest
 REM Number of concurrent processes
 SET JOBS=1
-REM IN CASE OF a DATAPOND compliant extraction set the DATAPOND variable to ON
-REM set DATAPOND=ON
+REM In case of a DATAPOND compliant extraction set the following variables:
+REM set EXTRACT_DATAPOND=ON
+REM set EXTRACT_MOD=OFF
+REM set EXTRACT_TECHNO=OFF
+REM set EXTRACT_SRC=OFF
+REM set EXTRACT_USR=ON
 
 REM SET TARGET DATABASE
 SET _DB_HOST=localhost

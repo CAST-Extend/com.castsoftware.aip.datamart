@@ -19,7 +19,7 @@ def format(s):
     return s
 
 quoted_identifier = os.environ.get('QUOTED_IDENTIFIER') != "OFF" # unset or ON by default
-datapond = os.environ.get('DATAPOND') == "ON"                    # unset or OFF by default
+datapond = os.environ.get('EXTRACT_DATAPOND') == "ON"                    # unset or OFF by default
 
 def format_column_name (id, output_format):
     if output_format == "datapond": 
@@ -30,9 +30,9 @@ def format_column_name (id, output_format):
 
 def transform_dim_applications(mode, extract_directory, transform_directory, output_format):
     global ERRORS
-    table_name = "DATAPOND_ORGANIZATION" if format == "datapond" else "DIM_APPLICATIONS"
+    table_name = "DATAPOND_ORGANIZATION" if output_format == "datapond" else "DIM_APPLICATIONS"
     print ("Transform", table_name)
-    ofile = transform_directory + "\\DIM_APPLICATIONS.sql"
+    ofile = transform_directory + "\\" + table_name + ".sql"
     f = open(ofile, "w", encoding="utf-8")
 
     with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:

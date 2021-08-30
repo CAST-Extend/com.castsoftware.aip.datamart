@@ -89,6 +89,12 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
       * ```_DB_SCHEMA```: the target schema name
   * __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
   * __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
+  * __Set the extraction scope__:
+      * ```EXTRACT_DATAPOND```: When this variable is set to ```ON```, then the ```DATAPOND_ORGANIZATION``` table is extracted as an alternative to the ```DIM_APPLICATIONS``` table
+      * ```EXTRACT_MOD```: When this variable is to ```OFF```, then the ```*MOD*``` tables are skipped.   
+      * ```EXTRACT_TECHNO```: When this variable is to ```OFF```, then the ```*TECHNO*``` tables are skipped.   
+      * ```EXTRACT_SRC```: When this variable is to ```OFF```, then the ```*SRC*``` tables are skipped.   
+      * ```EXTRACT_USR```: When this variable is to ```OFF```, then the ```*USR*``` tables are skipped.   
 
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
@@ -129,13 +135,12 @@ Start ```run.bat help``` for more information on these modes.
 
 This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
 
-__WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advise to use it preferably with the ```DATAPOND``` variable set to ```ON```.
+__WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advise to limit the extraction scope with environment variables.
 
 * __Edit__ the ```setenv.bat``` script to override the following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
   * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
-  * ```DATAPOND```: set ```ON``` to restrict extraction to DATAPOND scope
 * __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
 
@@ -247,7 +252,14 @@ If you intend to view the data with Power BI Desktop:
 
 ### Datapond
 
-When the environment variable ```DATAPOND``` is set to ```ON```, then the ```DIM_APPLICATIONS``` table is renamed as ```DATAPOND_ORGANIZATION``` and columns are renamed to comply with DATAPOND toolkit.
+To comply with the DATAPOND extract tables and to limit the resources consumption (CPU, disk space), we advise to set the extract environment variables as follow:
+```
+set EXTRACT_DATAPOND=ON
+set EXTRACT_MOD=OFF
+set EXTRACT_TECHNO=OFF
+set EXTRACT_SRC=OFF
+set EXTRACT_USR=ON
+```
 
 This toolkit provides some Datapond compliant views:
 * [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql): this view transposes business criteria scores to columns, and provides new metrics using SQL expressions.

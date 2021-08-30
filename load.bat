@@ -43,6 +43,7 @@ rem POSTGRESQL <= 9.2
 python utilities\run.py "%PSQL%" %PSQL_OPTIONS% -c "DO $$ BEGIN IF NOT EXISTS(SELECT schema_name FROM information_schema.schemata WHERE schema_name = lower('%_DB_SCHEMA%')) THEN CREATE SCHEMA %_DB_SCHEMA%; END IF; END $$;" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 REM Create and Load DIM_APPLICATIONS
 CALL :load DIM_APPLICATIONS                     || EXIT /b 1
+CALL :load DATAPOND_ORGANIZATION                || EXIT /b 1
 ECHO Create other tables
 python utilities\run.py "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f create_tables.sql >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 REM SET FOREIGN KEY FOR TEST OR A SINGLE DATA SOURCE

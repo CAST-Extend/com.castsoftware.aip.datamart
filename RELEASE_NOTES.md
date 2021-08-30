@@ -4,8 +4,12 @@
 
 #### Features / Enhancements
 
-- **Scripts**: Add the ```DATAPOND``` environment variable.to restrict data scope when extracting multiple domains.
-- **Scripts**: When the environment variable ```DATAPOND``` is set to ```ON```, then the ```DIM_APPLICATIONS``` table is renamed as ```DATAPOND_ORGANIZATION``` and columns are renamed to comply with DATAPOND toolkit
+- **Scripts**: Add ```EXTRACT_DATAPOND``` environment variable 
+- **Scripts**: Add ```EXTRACT_MOD``` environment variable 
+- **Scripts**: Add ```EXTRACT_TECHNO``` environment variable 
+- **Scripts**: Add ```EXTRACT_SRC``` environment variable 
+- **Scripts**: Add ```EXTRACT_USR``` environment variable 
+
 - **Scripts**: Add ```DATAPOND_BASEDATA``` view
 - **Scripts**: Add ```DATAPOND_VIOLATIONS``` view
 - **Scripts**: Add ```DATAPOND_AP``` view
@@ -19,7 +23,7 @@
 - **Data**: Add ```MOD_TECHNO_SIZING_MEASURES``` table
 - **Data**: Add ```APP_TECHNO_SIZING_EVOLUTION``` table
 - **Data**: Add ```MOD_TECHNO_SIZING_EVOLUTION``` table
-- **Data**: Add ```APP-FINDINGS-MEASURES``` table
+- **Data**: Add ```APP_FINDINGS_MEASURES``` table
 
 #### Bug Fixes
 
