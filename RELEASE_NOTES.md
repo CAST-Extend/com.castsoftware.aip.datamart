@@ -1,6 +1,6 @@
 ## Version: 1.22.0 - 1 September 2021
 
-- REST API  **1.28**, **2.2.0**
+- REST API  **1.28**, **2.2**
 
 #### Features / Enhancements
 
