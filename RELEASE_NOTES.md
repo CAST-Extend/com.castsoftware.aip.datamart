@@ -1,29 +1,34 @@
-## Version: 1.22.0 - 26 August 2021
+## Version: 1.22.0 - 1 September 2021
 
 - REST API  **1.28**, **2.2.0**
 
 #### Features / Enhancements
 
-- **Scripts**: Add ```EXTRACT_DATAPOND``` environment variable 
-- **Scripts**: Add ```EXTRACT_MOD``` environment variable 
-- **Scripts**: Add ```EXTRACT_TECHNO``` environment variable 
-- **Scripts**: Add ```EXTRACT_SRC``` environment variable 
-- **Scripts**: Add ```EXTRACT_USR``` environment variable 
+- **Scripts**: Add environment variables to tune the extraction scope for better performance
+    - Variable ```EXTRACT_DATAPOND```
+    - Variable ```EXTRACT_MOD```
+    - Variable ```EXTRACT_TECHNO```
+    - Variable ```EXTRACT_SRC```
+    - Variable ```EXTRACT_USR```
 
-- **Scripts**: Add ```DATAPOND_BASEDATA``` view
-- **Scripts**: Add ```DATAPOND_VIOLATIONS``` view
-- **Scripts**: Add ```DATAPOND_AP``` view
-- **Scripts**: Add ```DATAPOND_EXCLUSIONS``` view
+- **Scripts**: Add DATAPOND views
+    - View ```DATAPOND_BASEDATA```
+    - View ```DATAPOND_VIOLATIONS```
+    - View ```DATAPOND_AP```
+    - View ```DATAPOND_EXCLUSIONS```
 
-- **Data**: Alter ```DIM_SNAPSHOTS```: Add ```INTERNAL_ID``` and ```CONSOLIDATION_MODE``` columns 
-- **Data**: Alter ```DIM_RULES```: Add ```BUSINESS_CRITERION_ID```, ```BUSINESS_CRITERION_NAME```, ```TECHNICAL_CRITERION_WEIGHT``` , ```TECHNICAL_CRITERION_ID``` columns
-- **Data**: Alter ```USR_ACTION_PLAN```: Add ```METRIC_ID```, ```OBJECT_FULL_NAME``` columns
-- **Data**: Alter ```USR_EXCLUSIONS```: Add ```METRIC_ID```, ```OBJECT_FULL_NAME```, ```LAST_UPDATE_DATE```, ```EXCLUSION_DATE```, ```EXCLUSION_SNAPSHOT_ID``` columns 
-- **Data**: Add ```APP_TECHNO_SIZING_MEASURES``` table
-- **Data**: Add ```MOD_TECHNO_SIZING_MEASURES``` table
-- **Data**: Add ```APP_TECHNO_SIZING_EVOLUTION``` table
-- **Data**: Add ```MOD_TECHNO_SIZING_EVOLUTION``` table
-- **Data**: Add ```APP_FINDINGS_MEASURES``` table
+- **Data**: Add extracted columns
+    - Table ```DIM_SNAPSHOTS```: Columns ```INTERNAL_ID```, ```CONSOLIDATION_MODE```
+    - Table ```DIM_RULES```: Columns ```BUSINESS_CRITERION_ID```, ```BUSINESS_CRITERION_NAME```, ```TECHNICAL_CRITERION_WEIGHT``` , ```TECHNICAL_CRITERION_ID```
+    - Table ```USR_ACTION_PLAN```: Columns ```METRIC_ID```, ```OBJECT_FULL_NAME```
+    - Table ```USR_EXCLUSIONS```: Columns ```METRIC_ID```, ```OBJECT_FULL_NAME```, ```LAST_UPDATE_DATE```, ```EXCLUSION_DATE```, ```EXCLUSION_SNAPSHOT_ID```
+
+- **Data**: Add extracted tables
+    - Table ```APP_TECHNO_SIZING_MEASURES```
+    - Table ```MOD_TECHNO_SIZING_MEASURES```
+    - Table ```APP_TECHNO_SIZING_EVOLUTION```
+    - Table ```MOD_TECHNO_SIZING_EVOLUTION```
+    - Table ```APP_FINDINGS_MEASURES```
 
 #### Bug Fixes
 
@@ -31,7 +36,7 @@
 
 ## Version: 1.21.0 - 7 July 2021
 
-- REST API  >= **1.17** (**1.27** recommended), WARNING: **2.X** should not be used for Datamart
+- REST API  >= **1.17** (**1.27** recommended)
 
 
 #### Features / Enhancements
