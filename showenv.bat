@@ -6,6 +6,14 @@ CALL checkenv.bat || GOTO :FAIL
 echo.
 echo INSTALLATION_FOLDER=%INSTALLATION_FOLDER%
 
+echo REST API
+echo ========
+echo DEFAULT_DOMAIN=%DEFAULT_DOMAIN% 
+echo DEFAULT_ROOT=%DEFAULT_ROOT% 
+echo HD_ROOT=%HD_ROOT%
+for /l %%n in (0,1,9) do (echo ED_ROOT[%%n]=!ED_ROOT[%%n]!)
+echo JOBS=%JOBS%
+echo.
 echo.
 echo EXTRACTION SCOPE
 echo ================
@@ -15,16 +23,8 @@ echo EXTRACT_MOD=%EXTRACT_MOD%
 echo EXTRACT_SRC=%EXTRACT_SRC% 
 echo EXTRACT_USR=%EXTRACT_USR% 
 echo.
-echo REST API CLIENT SETTINGS
-echo ========================
-echo DEFAULT_DOMAIN=%DEFAULT_DOMAIN% 
-echo DEFAULT_ROOT=%DEFAULT_ROOT% 
-echo HD_ROOT=%HD_ROOT%
-for /l %%n in (0,1,9) do (echo ED_ROOT[%%n]=!ED_ROOT[%%n]!)
-echo JOBS=%JOBS%
-echo.
-echo DB SETTINGS
-echo =============
+echo TARGET DATABASE
+echo ===============
 echo _DB_HOST=%_DB_HOST% 
 echo _DB_PORT=%_DB_PORT% 
 echo _DB_NAME=%_DB_NAME% 
