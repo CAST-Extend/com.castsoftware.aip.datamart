@@ -5,9 +5,9 @@ pushd %~dp0
 CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
-if [%1] == [install] goto :INSTALL
-if [%1] == [refresh] goto :REFRESH
-if [%1] == [update] goto :UPDATE
+if [%1] == [install] (CALL :FOR_EACH_DOMAIN INSTALL && GOTO :SUCCESS)
+if [%1] == [refresh] (CALL :FOR_EACH_DOMAIN REFRESH && GOTO :SUCCESS)
+if [%1] == [update] (CALL :FOR_EACH_DOMAIN UPDATE && GOTO :SUCCESS)
 
 echo Usage is
 echo datamart install
@@ -18,20 +18,16 @@ echo datamart update
 echo    to refresh measurements tables, and to refresh engineering tables when a new snapshot has been added for a domain
 goto :FAIL
 
-:INSTALL
-call :FETCH_DOMAINS || goto :FAIL
-python datamart.py INSTALL DOMAINS.TXT %JOBS% || goto :FAIL
-GOTO :SUCCESS
+:FOR_EACH_DOMAIN
+for /l %%n in (0,1,10) do (
+  if not [!ED_ROOT[%%n]!] == [] (CALL :DATAMART %1 !ED_ROOT[%%n]! DOMAINS_%%n.TXT) || goto :FAIL
+)
+GOTO :EOF
 
-:REFRESH
-call :FETCH_DOMAINS || goto :FAIL
-python datamart.py REFRESH DOMAINS.TXT %JOBS% || goto :FAIL
-GOTO :SUCCESS
-
-:UPDATE
-call :FETCH_DOMAINS || goto :FAIL
-python datamart.py UPDATE DOMAINS.TXT || goto :FAIL
-GOTO :SUCCESS
+:DATAMART
+call :FETCH_DOMAINS %2 %3 || goto :FAIL
+python datamart.py %1 %2 %3 %JOBS% || goto :FAIL
+GOTO :EOF
 
 :FAIL
 popd
@@ -44,7 +40,8 @@ echo Datamart %1 SUCCESS
 EXIT /b 0
 
 :FETCH_DOMAINS
-echo Fetch domains from %ED_ROOT%
-(call utilities\get_domains %ED_ROOT% DOMAINS.TXT) || EXIT /b 1
+echo Fetch domains from %1
+(call utilities\get_domains %1 %2) || EXIT /b 1
 echo. 
 GOTO :EOF
+
