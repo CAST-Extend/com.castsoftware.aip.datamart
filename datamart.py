@@ -73,7 +73,7 @@ def transfer(ed_url, domains_file, total_jobs, aad_transfer_mode):
     sys.exit(exit_code)
           
 # Update domains  when a new snapshot has been added. A single process is used here.
-def update(domains_file, ed_url):    
+def update(ed_url, domains_file):    
     check_code = subprocess.run(['utilities\check_new_snapshot.bat', os.getenv("HD_ROOT") + '/AAD/datamart/dim-snapshots']).returncode
     if check_code == 0:
         print("Datamart is already synchronized. No new snapshot")
@@ -88,7 +88,7 @@ def update(domains_file, ed_url):
                 check_code = subprocess.run(['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots']).returncode
                 if check_code != 0: 
                     jobs = [None]
-                    start_domain_transfer(domain, jobs, 0, "replace_details")
+                    start_domain_transfer(ed_url, domain, jobs, 0, "replace_details")
                     return_code = jobs[0][1].wait()
                     print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + domain)
                     if return_code != 0:

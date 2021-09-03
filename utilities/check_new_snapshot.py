@@ -15,7 +15,7 @@ for csv_row in csv_reader:
         snapshots[application_name] = 1
     else:
         snapshots[application_name] += 1
-# Compare number of snapshots from stdin with the number of snapshots stored in the Datamart tables
+# Compare number of snapshots from stdin with the number of snapshots stored in the Datamart tables by application
 try:
     pgpassword = os.getenv("PGPASSWORD")
     if pgpassword:
