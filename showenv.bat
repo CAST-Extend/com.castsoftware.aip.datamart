@@ -20,7 +20,7 @@ echo ========================
 echo DEFAULT_DOMAIN=%DEFAULT_DOMAIN% 
 echo DEFAULT_ROOT=%DEFAULT_ROOT% 
 echo HD_ROOT=%HD_ROOT%
-for /l %%n in (0,1,10) do (echo ED_ROOT[%%n]=!ED_ROOT[%%n]!)
+for /l %%n in (0,1,9) do (echo ED_ROOT[%%n]=!ED_ROOT[%%n]!)
 echo JOBS=%JOBS%
 echo.
 echo DB SETTINGS

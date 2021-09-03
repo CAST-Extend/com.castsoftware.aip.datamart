@@ -19,7 +19,7 @@ echo    to refresh measurements tables, and to refresh engineering tables when a
 goto :FAIL
 
 :FOR_EACH_DOMAIN
-for /l %%n in (0,1,10) do (
+for /l %%n in (0,1,9) do (
   if not [!ED_ROOT[%%n]!] == [] (CALL :DATAMART %1 !ED_ROOT[%%n]! DOMAINS_%%n.TXT) || goto :FAIL
 )
 GOTO :EOF
