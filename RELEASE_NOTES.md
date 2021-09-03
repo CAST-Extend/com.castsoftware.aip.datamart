@@ -1,6 +1,12 @@
 ## Version: 1.22.0 - 1 September 2021
 
+#### Prerequisite
+
 - REST API  **1.28**, **2.2**
+
+#### Upgrade
+
+The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart update``` command line.
 
 #### Features / Enhancements
 
@@ -36,8 +42,9 @@
 
 ## Version: 1.21.0 - 7 July 2021
 
-- REST API  >= **1.17** (**1.27** recommended)
+#### Prerequisite
 
+- REST API  >= **1.17** (**1.27** recommended)
 
 #### Features / Enhancements
 
