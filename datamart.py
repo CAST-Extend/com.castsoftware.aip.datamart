@@ -88,14 +88,14 @@ def update(ed_url, domains_file):
                 check_code = subprocess.run(['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots']).returncode
                 if check_code != 0: 
                     jobs = [None]
-                    start_domain_transfer(ed_url, domain, jobs, 0, "replace_details")
+                    start_domain_transfer(ed_url, domain, jobs, 0, "ed-update")
                     return_code = jobs[0][1].wait()
                     print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + domain)
                     if return_code != 0:
                         exit_code = 1
 
     # Do it after in order to update table of snapshots after each domain checking
-    start_aad_transfer("refresh_measures")
+    start_aad_transfer("hd-update")
 
     sys.exit(exit_code)
 

@@ -15,7 +15,7 @@ echo    to create tables and extract data from AAD domain and all ED domains
 echo datamart refresh
 echo    to truncate tables and extract data from AAD domain and all ED domains
 echo datamart update
-echo    to refresh measurements tables, and to refresh engineering tables when a new snapshot has been added for a domain
+echo    to uodate measurements tables, and to update engineering tables when a new snapshot or a new application has been added for a domain
 goto :FAIL
 
 :FOR_EACH_DOMAIN

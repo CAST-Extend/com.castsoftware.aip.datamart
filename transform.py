@@ -37,7 +37,7 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
 
     with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:
 
-        if mode in ["refresh", "refresh_measures"]:
+        if mode in ["refresh", "hd-update"]:
             f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
         elif mode == "install":
             # Begin CREATE TABLE STATEMENT
@@ -84,7 +84,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
     print ("Transform", table_name)        
     f = open(ofile, "w", encoding="utf-8")
 
-    if mode in ["refresh", "refresh_measures"]:
+    if mode in ["refresh", "hd-update"]:
         f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
 
     with open(ifile) as csv_file:
@@ -114,11 +114,11 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
         f.write("\\.\n")
         f.close()
 
-def transform_details(mode, extract_directory, transform_directory, table):
+def transform_ed_tables(mode, extract_directory, transform_directory, table):
     global WARNINGS
     nb_primary_columns = table["nb_primary_columns"]
     table_name = table["name"]
-    if mode != 'replace_details': 
+    if mode != 'ed-update': 
         transform (mode,  extract_directory, transform_directory, table_name, 0)
         return
 
@@ -183,11 +183,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="Transform Extract CSV iles into SQL statements for PostgreSQL")
     parser.add_argument("-i", "--extract", dest="extract_directory", action="store", help="set input extract directory")
     parser.add_argument("-o", "--transform", dest="transform_directory", action="store", help="set output transform directory")
-    parser.add_argument("-m", "--mode", dest="mode", action="store", help="set generation mode: refresh, install, append_details, replace_details, refresh_measures")
+    parser.add_argument("-m", "--mode", dest="mode", action="store", help="set generation mode: refresh, install, ed-update, hd-update")
     parser.add_argument("-d", "--domain", dest="domain", action="store", help="the domain to transform")
     args = parser.parse_args()
 
-    if args.mode in ['refresh', 'install', 'refresh_measures']:
+    if args.mode in ['refresh', 'install', 'hd-update']:
         transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datamart")
         # Add DATAPOND table
         if datapond:
@@ -220,8 +220,8 @@ if __name__ == "__main__":
         transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION", 4)
         transform(args.mode, args.extract_directory, args.transform_directory, "STD_RULES", 3)
         transform(args.mode, args.extract_directory, args.transform_directory, "STD_DESCRIPTIONS", 0)
-    tables = []
-    if args.mode != 'refresh_measures':
+
+    if args.mode != 'hd-update':
         tables = [
                     # set the column name that discriminates rows of a domain
                     # usually this is the application_name column, otherwise this is the object_id column
@@ -236,9 +236,8 @@ if __name__ == "__main__":
                     {"name":"USR_ACTION_PLAN", "column_name":"application_name", "nb_primary_columns": 0},
                     {"name":"APP_FINDINGS_MEASURES", "column_name":"snapshot_id", "nb_primary_columns": 0}
                 ]
-
-    for table in tables:
-        transform_details(args.mode, args.extract_directory, args.transform_directory, table)
+        for table in tables:
+            transform_ed_tables(args.mode, args.extract_directory, args.transform_directory, table)
 
     if WARNINGS:
         print("========================================================================")

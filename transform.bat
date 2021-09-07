@@ -10,27 +10,33 @@ if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
 IF NOT EXIST "%TRANSFORM_FOLDER%\%DOMAIN%" MKDIR "%TRANSFORM_FOLDER%\%DOMAIN%"
 del /F /Q /A "%TRANSFORM_FOLDER%\%DOMAIN%"
 
-if "%1" == "append_details" if "%DOMAIN%" == "AAD" goto :USAGE
+if "%1" == "ed-update" if "%DOMAIN%" == "AAD" goto :USAGE
+if "%1" == "hd-update" if not "%DOMAIN%" == "AAD" goto :USAGE
 
 if "%1" == "refresh" goto :TRANSFORM
 if "%1" == "install" goto :TRANSFORM
-if "%1" == "append_details" goto :TRANSFORM
-if "%1" == "replace_details" goto :TRANSFORM
-if "%1" == "refresh_measures" goto :TRANSFORM
+if "%1" == "hd-update" goto :TRANSFORM
+if "%1" == "ed-update" goto :TRANSFORM
 
 :USAGE
 echo This command should be called from the run.bat command
 echo Usage is
-echo transform refresh^|install
-echo transform refresh^|install ROOT DOMAIN
-echo     to transform CSV data for an install or refresh
-echo     if the "DOMAIN" argument is not set then the DEFAULT_DOMAIN is applied
-echo transform append_details ROOT DOMAIN
-echo     to transform CSV data in order to append engineering data
-echo transform replace_details ROOT DOMAIN
-echo     to transform CSV data in order to replace engineering data
-echo transform refresh_measures ROOT DOMAIN
-echo     to transform CSV data in order to refresh measures data
+echo.
+echo Single Data Source
+echo transform install ROOT DOMAIN
+echo     All tables have been created or recreated, transform CSV data to copy all data.
+echo transform refresh ROOT DOMAIN
+echo     All tables are already filled, transform CSV data in order to truncate all tables and copy data
+echo.
+echo Multiple Data Source
+echo transform install ROOT DOMAIN
+echo     All tables have been created or recreated, transform CSV data to copy all data.
+echo transform refresh HD_ROOT AAD
+echo     All tables are already filled, transform CSV data in order to truncate all tables and copy data
+echo transform hd-update HD_ROOT AAD
+echo     All HD tables are already filled, transform CSV data in order to truncate only HD tables and copy data
+echo transform ed-update ED_ROOT ED_DOMAIN
+echo     All ED tables are already filled, if a new snapshot is added or a new application is added, transform CSV data in order to delete these data, and copy data for this application
 goto :FAIL
 
 :TRANSFORM
