@@ -23,10 +23,12 @@ def start_aad_transfer(transfer_mode):
     print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain AAD")
     if return_code != 0:
         sys.exit(1)
-  
-def transfer(ed_url, domains_file, total_jobs, aad_transfer_mode):
+        
+def transfer_aad_domain(transfer_mode):
     print ("Data transfer of Health Dashboard domain (AAD) in progress...")
     start_aad_transfer(aad_transfer_mode)
+  
+def transfer_ed_domains(ed_url, domains_file, total_jobs, aad_transfer_mode):
     print ("Data transfer of Engineering Dashboard domains in progress...")
     domains = []
     # Loop on  domains of DOMAINS.TXT        
@@ -73,8 +75,8 @@ def transfer(ed_url, domains_file, total_jobs, aad_transfer_mode):
     sys.exit(exit_code)
           
 # Update domains  when a new snapshot has been added. A single process is used here.
-def update(ed_url, domains_file):    
-    check_code = subprocess.run(['utilities\check_new_snapshot.bat', os.getenv("HD_ROOT") + '/AAD/datamart/dim-snapshots']).returncode
+def update_ed_domains(ed_url, domains_file, snapshots_file):    
+    check_code = subprocess.run(['utilities\check_new_snapshot.bat', snapshots_file]).returncode
     if check_code == 0:
         print("Datamart is already synchronized. No new snapshot")
         sys.exit(0)
@@ -85,7 +87,7 @@ def update(ed_url, domains_file):
         for csv_row in csv_reader:
             for domain in csv_row:
                 domain = domain.strip()
-                check_code = subprocess.run(['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots']).returncode
+                check_code = subprocess.run(['utilities\check_new_snapshot.bat', snapshots_file]).returncode
                 if check_code != 0: 
                     jobs = [None]
                     start_domain_transfer(ed_url, domain, jobs, 0, "ed-update")
@@ -94,24 +96,28 @@ def update(ed_url, domains_file):
                     if return_code != 0:
                         exit_code = 1
 
-    # Do it after in order to update table of snapshots after each domain checking
-    start_aad_transfer("hd-update")
-
     sys.exit(exit_code)
 
 if __name__ == '__main__':
     try:
-        # sys.argv[1] is INSTALL, REFRESH  or UPDATE
-        # sys.argv[2] is ED_ROOT value (Engineering Dashboard URL)
-        # sys.argv[3] is DOMAINS_?.TXT file name
-        # sys.argv[4] is number of JOBS
         action = sys.argv[1];
-        if action == 'INSTALL':
-            transfer (sys.argv[2], sys.argv[3], int(sys.argv[4]), "install")
-        elif action == 'REFRESH':
-            transfer (sys.argv[2], sys.argv[3], int(sys.argv[4]), "refresh")
-        elif action == 'UPDATE':
-            update (sys.argv[2], sys.argv[3])
+        if action == "HD-INSTALL":
+            transfer_aad_domain("install")
+        if action == "HD-REFRESH"]:
+            transfer_aad_domain("refresh")
+        elif action == "HD-UPDATE":
+             transfer_aad_domain("hd-update")
+        elif action == "ED-INSTALL":
+            # sys.argv[1] is ED-INSTALL
+            # sys.argv[2] is ED_ROOT value (Engineering Dashboard URL)
+            # sys.argv[3] is DOMAINS_?.TXT file name
+            # sys.argv[4] is number of JOBS
+            transfer_ed_domains (sys.argv[2], sys.argv[3], int(sys.argv[4]), "install")
+        elif action == "ED-UPDATE":
+            # sys.argv[1] is ED-UPDATE
+            # sys.argv[2] is ED_ROOT value (Engineering Dashboard URL)
+            # sys.argv[3] is DOMAINS_?.TXT file name
+            update_ed_domains (sys.argv[2], sys.argv[3], "DIM-SNAPSHOTS.CSV")
         else:    
             print("Internal error - unknown arg: " + sys.argv[1])
             sys.exit(1)
