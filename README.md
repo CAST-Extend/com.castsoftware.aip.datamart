@@ -13,7 +13,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
         - [Single Data Source](#Single-Data-Source)
         - [Multiple Data Sources](#Multiple-Data-Sources)
         - [Troubleshooting Guides](#Troubleshooting-Guides)
-- [Schema Upgrade](#Schema-Upgrade)
+    - [Schema Upgrade](#Schema-Upgrade)
 - [How to Use the AIP Datamart](#How-to-Use-the-AIP-Datamart)
     - [Grant Access to Users](#Grant-Access-to-Users)
     - [Custom Tables](#Custom-Tables)
@@ -272,7 +272,7 @@ restapi.datasource[0].maximumPoolSize=20
 
 ----
 
-## Schema Upgrade
+### Schema Upgrade
 
 If you have previously installed the Datamart tables, and have upgraded later the REST API, then the database schema may be not synchronized with some new columns that have been added. To fix that, you may need to run the ```upgrade_schema.bat``` script. For the first release of the Datamart the script is empty.
 
