@@ -150,11 +150,29 @@ If you start ```datamart.bat update```, the script will synchronize the datamart
 
 #### Troubleshooting Guides
 
-> I have got an "Access Denied" message.
+----
+
+__&#11199; I have got an "Access Denied" message__
 
 Make sur you have write access on the Datamart folder.
 
-> The Datamart scripts are stuck.
+----
+
+__&#11199; The data transfer fails on the load step__
+
+The Datamart scripts fails with a message such as:
+> Data tansfer ABORTED for domain XXX<br>
+> Datamart install Fail
+
+And in the log\XXX.log file you can find this SQL error message:
+>DETAIL: Key (previous_snapshot_id)=(XXXXXXX:2020-11-10 23:46:00) is not present in table "dim_snapshots"```
+
+Any bad reference to the ```dim_snapshots``` table denotes an erroneous snapshot.
+This snapshot should be removed from the central base, and the measurement base, using AIP tools.
+
+----
+
+__&#11199; The Datamart scripts are stuck__
 
 If the extraction step is never ending, then look at the Web Server (Tomcat) log to check whether there is a Java Memory error: "Ran out of memory".
 - In case of a single data source extraction, you will have to increase the memory or the Tomcat server.
@@ -177,8 +195,9 @@ The response reports the initial memory size (mega-bytes) when Tomcat has been s
 		"totalInitialMemory": 495,
 		"totalMemory": 662,
 ```
+----
 
-> During Datamart execution, the Dashboards are slowing down
+__&#11199; During Datamart execution, the Dashboards are slowing down__
 
 This may appear if the number of ```JOBS``` plus the number of concurrent users exceed the maximum size of the database connection pool on REST API side.
 You must take care to not exhaust the number of Database server connections. In other words, you may need to decrease the number of ```JOBS``` or increase the size of the connection pool:
@@ -192,6 +211,8 @@ restapi.datasource[0].maximumPoolSize=20
 ```
 <Resource name="jdbc/domains/LOCALHOST" url="jdbc:postgresql://localhost:2282/postgres" ... initialSize="5" maxTotal="20" maxIdle="10" maxWaitMillis="-1"/>
 ```
+
+----
 
 ## Schema Upgrade
 
