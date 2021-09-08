@@ -165,7 +165,7 @@ The Datamart scripts fails with a message such as:
 > Datamart install Fail
 
 And in the log\XXX.log file you can find this SQL error message:
->DETAIL: Key (previous_snapshot_id)=(XXXXXXX:2020-11-10 23:46:00) is not present in table "dim_snapshots"```
+>DETAIL: Key (previous_snapshot_id)=(XXXXXXX:2020-11-10 23:46:00) is not present in table "dim_snapshots"
 
 Any bad reference to the ```dim_snapshots``` table denotes an erroneous snapshot.
 This snapshot should be removed from the central base, and the measurement base, using AIP tools.
