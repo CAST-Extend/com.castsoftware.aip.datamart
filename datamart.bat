@@ -5,9 +5,9 @@ pushd %~dp0
 CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
-if [%1] == [install] (CALL :DATAMART_INSTALL && GOTO :SUCCESS)
-if [%1] == [refresh] (CALL :DATAMART_REFRESH && GOTO :SUCCESS)
-if [%1] == [update] (CALL :DATAMART_UDPATE && GOTO :SUCCESS)
+if [%1] == [install] (goto :DATAMART_INSTALL)
+if [%1] == [refresh] (goto :DATAMART_REFRESH)
+if [%1] == [update] (goto :DATAMART_UDPATE)
 
 echo Usage is
 echo datamart install
@@ -37,17 +37,17 @@ GOTO :SUCCESS
 
 :FOR_EACH_ED_DOMAIN
 for /l %%n in (0,1,9) do (
-  if not [!ED_ROOT[%%n]!] == [] (CALL :ED_DATAMART %1 !ED_ROOT[%%n]! DOMAINS_%%n.TXT) || goto :FAIL
+  if not [!ED_ROOT[%%n]!] == [] (CALL :ED_DATAMART %1 !ED_ROOT[%%n]! DOMAINS_%%n.TXT) || EXIT /b 1
 )
 GOTO :EOF
 
 :HD_DATAMART
-python datamart.py %1 %2 || goto :FAIL
+python datamart.py %1 %2 || EXIT /b 1
 GOTO :EOF
 
 :ED_DATAMART
-call :FETCH_DOMAINS %2 %3 || goto :FAIL
-python datamart.py %1 %2 %3 %JOBS% || goto :FAIL
+call :FETCH_DOMAINS %2 %3 || EXIT /b 1
+python datamart.py %1 %2 %3 %JOBS% || EXIT /b 1
 GOTO :EOF
 
 :FAIL

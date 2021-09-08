@@ -1,9 +1,8 @@
 @echo off
 if [%1] == [refresh] goto :RUN
 if [%1] == [install] goto :RUN
-if [%1] == [append_details] goto :RUN
-if [%1] == [replace_details] goto :RUN
-if [%1] == [refresh_measures] goto :RUN
+if [%1] == [hd-update] goto :RUN
+if [%1] == [ed-update] goto :RUN
 
 echo Usage is
 echo run refresh

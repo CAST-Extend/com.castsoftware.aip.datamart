@@ -24,11 +24,11 @@ def start_aad_transfer(transfer_mode):
     if return_code != 0:
         sys.exit(1)
         
-def transfer_aad_domain(transfer_mode):
+def transfer_aad_domain(aad_transfer_mode):
     print ("Data transfer of Health Dashboard domain (AAD) in progress...")
     start_aad_transfer(aad_transfer_mode)
   
-def transfer_ed_domains(ed_url, domains_file, total_jobs, aad_transfer_mode):
+def transfer_ed_domains(ed_url, domains_file, total_jobs):
     print ("Data transfer of Engineering Dashboard domains in progress...")
     domains = []
     # Loop on  domains of DOMAINS.TXT        
@@ -43,7 +43,7 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs, aad_transfer_mode):
     nb = min(total_jobs,total)
     jobs = [None]*nb
     for pos in range(nb):
-        start_domain_transfer(ed_url, domains[pos], jobs, pos, "append_details")
+        start_domain_transfer(ed_url, domains[pos], jobs, pos, "install")
 
     # Run a pool of concurrent jobs
     # Each time a job is ended, we start a new one
@@ -64,7 +64,7 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs, aad_transfer_mode):
                     if exit_code == 0:
                         exit_code = 1
                 if nb < total:
-                    start_domain_transfer(ed_url, domains[nb], jobs, pos, "append_details")
+                    start_domain_transfer(ed_url, domains[nb], jobs, pos, "install")
                     nb += 1
                     # leave remaining_jobs unchanged
                 else:
@@ -95,6 +95,8 @@ def update_ed_domains(ed_url, domains_file, snapshots_file):
                     print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + domain)
                     if return_code != 0:
                         exit_code = 1
+                else:
+                    print ("Data transfer skipped (data up to date) for domain " + domain)
 
     sys.exit(exit_code)
 
@@ -103,7 +105,7 @@ if __name__ == '__main__':
         action = sys.argv[1];
         if action == "HD-INSTALL":
             transfer_aad_domain("install")
-        if action == "HD-REFRESH"]:
+        elif action == "HD-REFRESH":
             transfer_aad_domain("refresh")
         elif action == "HD-UPDATE":
              transfer_aad_domain("hd-update")
@@ -112,7 +114,7 @@ if __name__ == '__main__':
             # sys.argv[2] is ED_ROOT value (Engineering Dashboard URL)
             # sys.argv[3] is DOMAINS_?.TXT file name
             # sys.argv[4] is number of JOBS
-            transfer_ed_domains (sys.argv[2], sys.argv[3], int(sys.argv[4]), "install")
+            transfer_ed_domains (sys.argv[2], sys.argv[3], int(sys.argv[4]))
         elif action == "ED-UPDATE":
             # sys.argv[1] is ED-UPDATE
             # sys.argv[2] is ED_ROOT value (Engineering Dashboard URL)
