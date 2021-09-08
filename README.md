@@ -14,12 +14,12 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
         - [Multiple Data Sources](#Multiple-Data-Sources)
         - [Troubleshooting Guides](#Troubleshooting-Guides)
     - [Schema Upgrade](#Schema-Upgrade)
+    - [Datapond](#Datapond)    
 - [How to Use the AIP Datamart](#How-to-Use-the-AIP-Datamart)
     - [Grant Access to Users](#Grant-Access-to-Users)
     - [Custom Tables](#Custom-Tables)
     - [CSV Reports](#CSV-Reports)
     - [Power BI Desktop](#Power-BI-Desktop)
-    - [Datapond](#Datapond)
 - [Summary of Tables](#Summary-of-Tables)
     - [Dimension Tables](#Dimension-Tables)
     - [Basic Facts (Central Database only)](#Basic-Facts-Central-Database-only)
@@ -276,6 +276,40 @@ restapi.datasource[0].maximumPoolSize=20
 
 If you have previously installed the Datamart tables, and have upgraded later the REST API, then the database schema may be not synchronized with some new columns that have been added. To fix that, you may need to run the ```upgrade_schema.bat``` script. For the first release of the Datamart the script is empty.
 
+### Datapond
+
+To comply with the DATAPOND extract tables and to limit the resources consumption (CPU, disk space), we advise to set the extract environment variables as follow:
+```
+set EXTRACT_DATAPOND=ON
+set EXTRACT_MOD=OFF
+set EXTRACT_TECHNO=OFF
+set EXTRACT_SRC=OFF
+set EXTRACT_USR=ON
+```
+
+This toolkit provides some Datapond compliant views:
+* [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql): this view transposes business criteria scores to columns, and provides new metrics using SQL expressions.
+* [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql): this view extends the BASEDATA_FLAT view with AEP measures, and adds AEP based metrics using the SQL average operator.
+* [views/DATAPOND_BASEDATA.sql](views/DATAPOND_BASEDATA.sql): this view reports the DATAPOND_BASEDATA table rows. 
+* [views/DATAPOND_VIOLATIONS.sql](views/DATAPOND_VIOLATIONS.sql): this view reports the DATAPOND_VIOLATIONS table rows. 
+* [views/DATAPOND_AP.sql](views/DATAPOND_AP.sql): this view reports the DATAPOND_AP table rows (Action Plan Issues).
+* [views/DATAPOND_PATTERNS.sql](views/DATAPOND_PATTERNS.sql): this view reports the DATAPOND_PATTERNS table rows.
+
+
+For BASEDATA_FLAT and COMPLETE_FLAT views, the differences with Datapond 5.1 corresponding views are as follow:
+* Some columns are missing 
+  * the `technologies` column has been removed
+  * EFP columns have been removed; because these values are replaced with AEP metrics 
+* For some data, the precision for decimal values may differ; because the Datapond applies some pre-rounding with Python scripts using the "rounding half to even" strategy, which is not the PostgreSQL rounding strategy
+* When AEP has not be calculated for a snapshot, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
+* The calculation of averages has been fixed
+
+To add these database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory:
+```
+C:\>create_datapond_views
+```
+
+
 ## How to Use the AIP Datamart
 
 ### Grant Access to Users
@@ -329,38 +363,6 @@ If you intend to view the data with Power BI Desktop:
 * Restart the PC, then launch Power BI Desktop
 * Import AIP Datamart tables using PostgreSQL plugin
 
-### Datapond
-
-To comply with the DATAPOND extract tables and to limit the resources consumption (CPU, disk space), we advise to set the extract environment variables as follow:
-```
-set EXTRACT_DATAPOND=ON
-set EXTRACT_MOD=OFF
-set EXTRACT_TECHNO=OFF
-set EXTRACT_SRC=OFF
-set EXTRACT_USR=ON
-```
-
-This toolkit provides some Datapond compliant views:
-* [views/BASEDATA_FLAT.sql](views/BASEDATA_FLAT.sql): this view transposes business criteria scores to columns, and provides new metrics using SQL expressions.
-* [views/COMPLETE_FLAT.sql](views/COMPLETE_FLAT.sql): this view extends the BASEDATA_FLAT view with AEP measures, and adds AEP based metrics using the SQL average operator.
-* [views/DATAPOND_BASEDATA.sql](views/DATAPOND_BASEDATA.sql): this view reports the DATAPOND_BASEDATA table rows. 
-* [views/DATAPOND_VIOLATIONS.sql](views/DATAPOND_VIOLATIONS.sql): this view reports the DATAPOND_VIOLATIONS table rows. 
-* [views/DATAPOND_AP.sql](views/DATAPOND_AP.sql): this view reports the DATAPOND_AP table rows (Action Plan Issues).
-* [views/DATAPOND_PATTERNS.sql](views/DATAPOND_PATTERNS.sql): this view reports the DATAPOND_PATTERNS table rows.
-
-
-For BASEDATA_FLAT and COMPLETE_FLAT views, the differences with Datapond 5.1 corresponding views are as follow:
-* Some columns are missing 
-  * the `technologies` column has been removed
-  * EFP columns have been removed; because these values are replaced with AEP metrics 
-* For some data, the precision for decimal values may differ; because the Datapond applies some pre-rounding with Python scripts using the "rounding half to even" strategy, which is not the PostgreSQL rounding strategy
-* When AEP has not be calculated for a snapshot, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
-* The calculation of averages has been fixed
-
-To add these database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory:
-```
-C:\>create_datapond_views
-```
 
 ## Summary of Tables
 
