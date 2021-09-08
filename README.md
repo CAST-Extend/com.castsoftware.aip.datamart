@@ -219,7 +219,7 @@ Make sur you have write access on the Datamart folder.
 __&#11199; The data transfer fails on the load step__
 
 The Datamart scripts fails with a message such as:
-> Data tansfer ABORTED for domain XXX<br>
+> Data transfer ABORTED for domain XXX<br>
 > Datamart install Fail
 
 And in the log\XXX.log file you can find this SQL error message:
