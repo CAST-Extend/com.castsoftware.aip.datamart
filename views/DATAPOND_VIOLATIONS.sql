@@ -2,7 +2,7 @@ DROP VIEW IF EXISTS :schema.datapond_violations CASCADE;
 CREATE OR REPLACE VIEW :schema.datapond_violations AS 
 SELECT 
     application_name AS appname, 
-    s.internal_id AS snapshot_id, 
+    s.snapshot_number AS snapshot_id, 
     s.date AS snapshot_date,
     m.technology,
     r.business_criterion_id AS health_factor,
