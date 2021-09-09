@@ -2,9 +2,9 @@ import sys,json,psycopg2,os
 import csv
 import decode
 
-# Read snapshots from STDIN
+# Read left snapshots from STDIN
 snapshots = {}
-csv_reader = csv.reader(sys.stdin, delimiter=',')
+csv_reader = csv.reader(sys.stdin, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 skip = True
 for csv_row in csv_reader:
     if skip:
@@ -15,28 +15,18 @@ for csv_row in csv_reader:
         snapshots[application_name] = 1
     else:
         snapshots[application_name] += 1
+
+# Read right snapshots from CSV File (Datamart table)
 # Compare number of snapshots from stdin with the number of snapshots stored in the Datamart tables by application
 try:
-    pgpassword = os.getenv("PGPASSWORD")
-    if pgpassword:
-        environment = os.environ
-        environment["PGPASSWORD"] = decode.decode(pgpassword)
-    conn=psycopg2.connect(database = os.environ['_DB_NAME'], user=os.environ['_DB_USER'], host=os.environ['_DB_HOST'], port=os.environ['_DB_PORT'])
-    cur = conn.cursor()
-    query = "SELECT APPLICATION_NAME, COUNT(*) FROM " + os.environ['_DB_SCHEMA'] + ".DIM_SNAPSHOTS GROUP BY APPLICATION_NAME"
-    cur.execute(query)
-    rows = cur.fetchall()
-    exit_code = 0
-    for row in rows:
+    csv_reader = csv.reader(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    for csv_row in csv_reader:
         try:
-            if snapshots[row[0]] != row[1]:
-                exit_code = 1
-                break
+            if snapshots[csv_row[0]] != csv_row[1]:
+                sys.exit(1)
         except:
             continue
-    cur.close()
-    conn.close()
-    sys.exit(exit_code)
+    sys.exit(0)
 except Exception as e:
     print("Unable to connect to the datamart database" )
     print(e)

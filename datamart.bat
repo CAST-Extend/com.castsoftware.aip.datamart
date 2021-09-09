@@ -29,15 +29,15 @@ GOTO :SUCCESS
 GOTO :SUCCESS
 
 :DATAMART_UPDATE
-call :FETCH_SNAPSHOTS %HD_ROOT% DIM_SNAPSHOTS.CSV || goto :FAIL
+call :FETCH_SNAPSHOTS DATAMART_SNAPSHOTS.CSV || goto :FAIL
 (CALL :HD_DATAMART HD-UPDATE %HD_ROOT%) || goto :FAIL
-(CALL :FOR_EACH_ED_DOMAIN ED-UPDATE) || goto :FAIL
+(CALL :FOR_EACH_ED_DOMAIN ED-UPDATE DATAMART_SNAPSHOTS.CSV) || goto :FAIL
 GOTO :SUCCESS
 
 
 :FOR_EACH_ED_DOMAIN
 for /l %%n in (0,1,9) do (
-  if not [!ED_ROOT[%%n]!] == [] (CALL :ED_DATAMART %1 !ED_ROOT[%%n]! DOMAINS_%%n.TXT) || EXIT /b 1
+  if not [!ED_ROOT[%%n]!] == [] (CALL :ED_DATAMART %1 !ED_ROOT[%%n]! DOMAINS_%%n.TXT %2) || EXIT /b 1
 )
 GOTO :EOF
 
@@ -67,7 +67,7 @@ echo.
 GOTO :EOF
 
 :FETCH_SNAPSHOTS
-echo Fetch snapshots from %1
-(call utilities\get_snapshots %1 %2) || EXIT /b 1
+echo Fetch snapshots from Datamart
+(call utilities\get_snapshots %1) || EXIT /b 1
 echo. 
 GOTO :EOF
