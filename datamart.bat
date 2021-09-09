@@ -30,6 +30,10 @@ GOTO :SUCCESS
 
 :DATAMART_UPDATE
 call :FETCH_SNAPSHOTS DATAMART_SNAPSHOTS.CSV || goto :FAIL
+if call utilities\check_new_snapshot.bat %HD_ROOT%/AAD/datamart/dim-snapshots DATAMART_SNAPSHOTS.CSV do (
+echo Datamart is already synchronized. No new snapshot
+GOTO :SUCCESS
+)
 (CALL :HD_DATAMART HD-UPDATE %HD_ROOT%) || goto :FAIL
 (CALL :FOR_EACH_ED_DOMAIN ED-UPDATE DATAMART_SNAPSHOTS.CSV) || goto :FAIL
 GOTO :SUCCESS

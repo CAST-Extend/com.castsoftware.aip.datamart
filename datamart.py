@@ -76,11 +76,6 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
           
 # Update domains  when a new snapshot has been added. A single process is used here.
 def update_ed_domains(ed_url, domains_file, snapshots_file):    
-    check_code = subprocess.run(['utilities\check_new_snapshot.bat', os.getenv("HD_ROOT") + '/AAD/datamart/dim-snapshots', snapshot_file]).returncode
-    if check_code == 0:
-        print("Datamart is already synchronized. No new snapshot")
-        sys.exit(0)
-
     exit_code = 0
     with open(domains_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')  
