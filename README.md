@@ -12,7 +12,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
         - [Password obfuscation](#Password-obfuscation)
         - [Single Data Source](#Single-Data-Source)
         - [Multiple Data Sources](#Multiple-Data-Sources)
-        - [Troubleshooting Guides](#Troubleshooting-Guides)
+        - [Troubleshooting Guide](#Troubleshooting-Guide)
     - [Schema Upgrade](#Schema-Upgrade)
     - [Datapond](#Datapond)    
 - [How to Use the AIP Datamart](#How-to-Use-the-AIP-Datamart)
@@ -136,9 +136,6 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
      * Unzip the archive, and move the content into a single target folder
      * Note: you do not need to install any software, all the required embedded softwares are available in the ```thirdparty``` directory
 * __Edit configuration variables__ in ```setenv.bat``` file
-  * PostgreSQL executables if you do not use the embedded third party binaries:
-      * ```PSQL```: the absolute path to the psql command (see your PostgreSQL install directory)
-      * ```VACUUMDB```: the absolute path to the vacummdb command (see your PostgreSQL install directory)
   * Target Database:
       * ```_DB_HOST```: the PostgreSQL server host name
       * ```_DB_PORT```: the PostgreSQL server port
@@ -153,6 +150,8 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
       * ```EXTRACT_TECHNO```: When this variable is to ```OFF```, then the ```*TECHNO*``` tables are skipped.   
       * ```EXTRACT_SRC```: When this variable is to ```OFF```, then the ```*SRC*``` tables are skipped.   
       * ```EXTRACT_USR```: When this variable is to ```OFF```, then the ```*USR*``` tables are skipped.   
+   *__Set the debug mode for data checking__:
+      * ```DEBUG```: When this variable is to ```ON```, then the ```extract``` and ```transform``` folders are not clean up.
 
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 Example:
@@ -206,15 +205,12 @@ After a first install, if you start ```datamart.bat refresh```, the script will 
 
 If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
 
-#### Troubleshooting Guides
-
-----
+#### Troubleshooting Guide
 
 __&#11199; I have got an "Access Denied" message__
 
 Make sur you have write access on the Datamart folder.
 
-----
 
 __&#11199; The data transfer fails on the load step__
 
@@ -227,8 +223,6 @@ And in the log\XXX.log file you can find this SQL error message:
 
 Any bad reference to the ```dim_snapshots``` table denotes an erroneous snapshot.
 This snapshot should be removed from the central base, and the measurement base, using AIP tools.
-
-----
 
 __&#11199; The Datamart scripts are stuck__
 
@@ -253,7 +247,6 @@ The response reports the initial memory size (mega-bytes) when Tomcat has been s
 		"totalInitialMemory": 495,
 		"totalMemory": 662,
 ```
-----
 
 __&#11199; During Datamart execution, the Dashboards are slowing down__
 
@@ -270,7 +263,6 @@ restapi.datasource[0].maximumPoolSize=20
 <Resource name="jdbc/domains/LOCALHOST" url="jdbc:postgresql://localhost:2282/postgres" ... initialSize="5" maxTotal="20" maxIdle="10" maxWaitMillis="-1"/>
 ```
 
-----
 
 ### Schema Upgrade
 

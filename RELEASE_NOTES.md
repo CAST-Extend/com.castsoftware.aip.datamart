@@ -17,6 +17,8 @@ The Datamart schema has been extended. If you want to preserve an existing datam
     - Variable ```EXTRACT_SRC```
     - Variable ```EXTRACT_USR```
 
+- **Scripts**: Add ```DEBUG``` environment variable to inspect ```extract``` and ```transform``` folders after a run.
+
 - **Scripts**: Add DATAPOND views
     - View ```DATAPOND_BASEDATA```
     - View ```DATAPOND_VIOLATIONS```
