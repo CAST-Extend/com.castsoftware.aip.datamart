@@ -207,12 +207,12 @@ If you start ```datamart.bat update```, the script will synchronize the datamart
 
 #### Troubleshooting Guide
 
-__&#11199; I have got an "Access Denied" message__
+__&#9888; I have got an "Access Denied" message__
 
 Make sur you have write access on the Datamart folder.
 
 
-__&#11199; The data transfer fails on the load step__
+__&#9888; The data transfer fails on the load step__
 
 The Datamart scripts fails with a message such as:
 > Data transfer ABORTED for domain XXX<br>
@@ -224,7 +224,7 @@ And in the log\XXX.log file you can find this SQL error message:
 Any bad reference to the ```dim_snapshots``` table denotes an erroneous snapshot.
 This snapshot should be removed from the central base, and the measurement base, using AIP tools.
 
-__&#11199; The Datamart scripts are stuck__
+__&#9888; The Datamart scripts are stuck__
 
 If the extraction step is never ending, then look at the Web Server (Tomcat) log to check whether there is a Java Memory error: "Ran out of memory".
 - In case of a single data source extraction, you will have to increase the memory or the Tomcat server.
@@ -248,7 +248,7 @@ The response reports the initial memory size (mega-bytes) when Tomcat has been s
 		"totalMemory": 662,
 ```
 
-__&#11199; During Datamart execution, the Dashboards are slowing down__
+__&#9888; During Datamart execution, the Dashboards are slowing down__
 
 This may appear if the number of ```JOBS``` plus the number of concurrent users exceed the maximum size of the database connection pool on REST API side.
 You must take care to not exhaust the number of Database server connections. In other words, you may need to decrease the number of ```JOBS``` or increase the size of the connection pool:
