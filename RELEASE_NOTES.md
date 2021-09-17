@@ -40,7 +40,7 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 #### Bug Fixes
 
-- **DATA**: Skip detached metrics for most tables (including USR_ACTION_PLAN)
+- **Data**: Skip detached metrics for most tables (including USR_ACTION_PLAN)
 
 ## Version: 1.21.0 - 7 July 2021
 
