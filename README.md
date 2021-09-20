@@ -503,7 +503,7 @@ year_week                            | TEXT     | Tag the most recent applicatio
 label                                | TEXT     | Snapshot label
 version                              | TEXT     | Application version
 consolidation_mode                   | TEXT     | Consolidation mode when application score is based on modules scores; otherwise "Full Application"
-internal_id                          | INT      | Local Snapshot ID (use with cautious as this ID depends on the schema type: measurement/central). Use preferably snapshot_id column. Do not use to order snapshots.
+internal_id                          | INT      | RESERVED - Do not use - Local Snapshot ID (use with cautious as this ID depends on the schema type: measurement/central). Use preferably snapshot_id column, or snapshot_number column. Do not use to order snapshots.
 ```
 
 ### DIM_RULES
