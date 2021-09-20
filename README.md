@@ -451,7 +451,7 @@ A Dimension table to filter measures according to Application Tags. The COLUMN n
 
 ```
 COLUMN                        | TYPE     | DESCRIPTION
-------------------------------+----------+-----------
+------------------------------+----------+------------
 application_name              | INT      | Table primary key
 "Age"                         | TEXT     | A range of ages of the application
 "Business Unit"               | TEXT     | The Business Unit as a sponsor or provider of the application
@@ -498,8 +498,8 @@ snapshot_number                      | INT      | The snapshot sequence number
 is_latest                            | BOOLEAN  | Check whether this is the latest snapshot of this application
 year                                 | INT      | Tag the most recent application snapshot for each year (ex format: 2017-Q3)
 year_quarter                         | TEXT     | Tag the most recent application snapshot for each quarter (ex format: 2017-Q3)
-year_month                           | TEXT     | Tag the most recent application snapshot for each month  (ex format: 2017-04)
-year_week                            | TEXT     | Tag the most recent application snapshot for each week  (ex format: 2017-W24)
+year_month                           | TEXT     | Tag the most recent application snapshot for each month (ex format: 2017-04)
+year_week                            | TEXT     | Tag the most recent application snapshot for each week (ex format: 2017-W24)
 label                                | TEXT     | Snapshot label
 version                              | TEXT     | Application version
 consolidation_mode                   | TEXT     | Consolidation mode when application score is based on modules scores; otherwise "Full Application"
@@ -592,8 +592,6 @@ compliance_ratio                     | DECIMAL  | The value of 1 - Violation Rat
 
 ### APP_FINDINGS_MEASURES
 Count of violations findings for the most recent snapshot only. Skip rules that have been deactivated or detached.
-
-These data extracted from central database.
 
 ```
 COLUMN                               | TYPE     | DESCRIPTION
