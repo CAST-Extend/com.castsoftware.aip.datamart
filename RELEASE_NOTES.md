@@ -24,6 +24,8 @@ The Datamart schema has been extended. If you want to preserve an existing datam
     - View ```DATAPOND_VIOLATIONS```
     - View ```DATAPOND_AP```
     - View ```DATAPOND_EXCLUSIONS```
+    
+- **Scripts**: Add ```load_data_dictionary.bat``` script to load definitions of tables and columns.    
 
 - **Data**: Add extracted columns
     - Table ```DIM_SNAPSHOTS```: Columns ```INTERNAL_ID```, ```CONSOLIDATION_MODE```
