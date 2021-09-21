@@ -5,6 +5,8 @@ def build_markdown():
     doc = xml.dom.minidom.parse("DataDictionary.xml");
     tables = doc.getElementsByTagName("table")
 
+    print("## Data Dictionary")
+
     for table in tables:
         name = table.getElementsByTagName("name")[0].firstChild.data
         print ("- [" + name + "](#" + name + ")")
