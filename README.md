@@ -12,6 +12,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
         - [Password obfuscation](#Password-obfuscation)
         - [Single Data Source](#Single-Data-Source)
         - [Multiple Data Sources](#Multiple-Data-Sources)
+        - [Load the Data Dictionary](#Load-the-Data-Dictionary)
         - [Troubleshooting Guide](#Troubleshooting-Guide)
     - [Schema Upgrade](#Schema-Upgrade)
     - [Datapond](#Datapond)    
@@ -165,6 +166,10 @@ __WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advi
 After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
 If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
+
+### Load the Data Dictionary
+
+Once your datamart schema has been created, you can load the documentation of tables and columns by running: ```load_data_dictionary```.
 
 #### Troubleshooting Guide
 
