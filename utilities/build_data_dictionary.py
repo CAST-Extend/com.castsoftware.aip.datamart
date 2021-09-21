@@ -2,7 +2,7 @@ import xml.dom.minidom
 import sys
 
 def build_markdown():
-    doc = xml.dom.minidom.parse("DataDictionary.xml");
+    doc = xml.dom.minidom.parse("data_dictionary.xml");
     tables = doc.getElementsByTagName("table")
 
     print("## Data Dictionary")
@@ -38,7 +38,7 @@ def build_markdown():
         print("")
 
 def build_sql():
-    doc = xml.dom.minidom.parse("DataDictionary.xml");
+    doc = xml.dom.minidom.parse("data_dictionary.xml");
     tables = doc.getElementsByTagName("table")
     for table in tables:
         name = table.getElementsByTagName("name")[0].firstChild.data
