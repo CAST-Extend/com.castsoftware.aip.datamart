@@ -27,7 +27,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
     - [Aggregated Measures by Application/Module](#Aggregated-Measures-by-Application-Module)
     - [Scores](#Scores)
     - [Other tables](#Other-tables)
-- [Data Dictionary](#data_dictionary.md)
+- [Data Dictionary](data_dictionary.md)
 - [Measurement Queries: Basic Examples](#Measurement-Queries-Basic-Examples)
 - [Measurement Queries: Advanced Examples](#Measurement-Queries-Advanced-Examples)
 - [Findings Queries Examples](#Findings-Queries-Examples)
