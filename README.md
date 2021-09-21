@@ -167,7 +167,7 @@ After a first install, if you start ```datamart.bat refresh```, the script will 
 
 If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
 
-### Load the Descriptions
+#### Load the Descriptions
 
 Once your datamart schema has been created, you can load the descriptions of tables and columns by running: ```load_data_dictionary.bat```.
 
