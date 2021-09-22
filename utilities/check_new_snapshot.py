@@ -19,7 +19,7 @@ for csv_row in csv_reader:
 # Read right snapshots from CSV File (Datamart table)
 # Compare number of snapshots from stdin with the number of snapshots stored in the Datamart tables by application
 try:
-    csv_reader = csv.reader(f, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    csv_reader = csv.reader(sys.argv[1], delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     for csv_row in csv_reader:
         try:
             if snapshots[csv_row[0]] != csv_row[1]:
