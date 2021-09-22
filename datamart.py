@@ -75,7 +75,7 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
     sys.exit(exit_code)
           
 # Update domains  when a new snapshot has been added. A single process is used here.
-def update_ed_domains(ed_url, domains_file, _jobs, snapshots_file):    
+def update_ed_domains(ed_url, domains_file, _total_jobs, snapshots_file):    
     exit_code = 0
     with open(domains_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')  
@@ -91,7 +91,7 @@ def update_ed_domains(ed_url, domains_file, _jobs, snapshots_file):
                     if return_code != 0:
                         exit_code = 1
                 else:
-                    print ("Data transfer skipped (data up to date) for domain " + domain)
+                    print("Datamart is already synchronized. No new snapshot for domain " + domain)
 
     sys.exit(exit_code)
 
