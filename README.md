@@ -141,7 +141,7 @@ This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/S
 This mode allows to extract data of a single Health domain or a single Engineering domain into a target database.
 
 * __Edit__ the scripts ```setenv.bat``` to set the default REST API URL and DOMAIN
-  * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/CAST-RESTAPI/rest```
+  * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/rest```
   * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` for the Health domain, or an Engineering domain
 * __Start__ ```run.bat install``` 
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
@@ -158,7 +158,8 @@ __WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advi
 
 * __Edit__ the ```setenv.bat``` script to override the following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
-  * ```ED_ROOT```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
+  * ```ED_ROOT[0]```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
+  * ```ED_ROOT[1]```: URL to a second REST API hosting the engineering domains  
   * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
 * __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
