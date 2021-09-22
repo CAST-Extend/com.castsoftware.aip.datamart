@@ -7,7 +7,7 @@ CALL checkenv.bat || GOTO :FAIL
 
 if [%1] == [install] (goto :DATAMART_INSTALL)
 if [%1] == [refresh] (goto :DATAMART_REFRESH)
-if [%1] == [update] (goto :DATAMART_UDPATE)
+if [%1] == [update] (goto :DATAMART_UPDATE)
 
 echo Usage is
 echo datamart install
