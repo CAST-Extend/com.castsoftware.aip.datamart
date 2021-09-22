@@ -51,7 +51,7 @@ GOTO :EOF
 
 :ED_DATAMART
 call :FETCH_DOMAINS %2 %3 || EXIT /b 1
-python datamart.py %1 %2 %3 %JOBS% || EXIT /b 1
+python datamart.py %1 %2 %3 %JOBS% %4 || EXIT /b 1
 GOTO :EOF
 
 :FAIL

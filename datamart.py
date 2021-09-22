@@ -75,7 +75,7 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
     sys.exit(exit_code)
           
 # Update domains  when a new snapshot has been added. A single process is used here.
-def update_ed_domains(ed_url, domains_file, snapshots_file):    
+def update_ed_domains(ed_url, domains_file, _jobs, snapshots_file):    
     exit_code = 0
     with open(domains_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')  
@@ -114,7 +114,9 @@ if __name__ == '__main__':
             # sys.argv[1] is ED-UPDATE
             # sys.argv[2] is ED_ROOT value (Engineering Dashboard URL)
             # sys.argv[3] is DOMAINS_?.TXT file name
-            update_ed_domains (sys.argv[2], sys.argv[3], sys.argv[4])
+            # sys.argv[4] is number of JOBS (not used)
+            # sys.argv[5] is DATAMART_SNAPSHOTS.CSV file
+            update_ed_domains (sys.argv[2], sys.argv[3], int(sys.argv[4]), sys.argv[5])
         else:    
             print("Internal error - unknown arg: " + sys.argv[1])
             sys.exit(1)
