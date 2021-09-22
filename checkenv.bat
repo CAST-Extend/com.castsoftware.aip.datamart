@@ -39,6 +39,8 @@ IF NOT [%EXTRACT_TECHNO%] == [ON] IF NOT [%EXTRACT_TECHNO%] == [OFF] (echo "Inva
 IF NOT DEFINED EXTRACT_USR (SET EXTRACT_USR=ON)
 IF NOT [%EXTRACT_USR%] == [ON] IF NOT [%EXTRACT_USR%] == [OFF] (echo "Invalid EXTRACT_USR value %EXTRACT_USR%, expecting ON or OFF & EXIT" /b /1)
 
+IF NOT DEFINED DEBUG (SET DEBUG=OFF)
+IF NOT [%DEBUG%] == [ON] IF NOT [%DEBUG%] == [OFF] (echo "Invalid DEBUG value %DEBUG%, expecting ON or OFF & EXIT" /b /1)
 
 IF NOT DEFINED DEFAULT_DOMAIN (echo Missing variable DEFAULT_DOMAIN & EXIT /b 1)
 IF NOT DEFINED DEFAULT_ROOT (echo Missing variable DEFAULT_ROOT & EXIT /b 1)

@@ -7,7 +7,7 @@ SELECT
     x.rule_name AS exclusions_metric_name,
     x.user_name AS exclusions_admin_id,
     x.comment AS exclusions_comments,
-    s.internal_id AS exclusions_added_since_snapshot,
+    s.snapshot_number AS exclusions_added_since_snapshot,
     count(*) AS count_of_exclusions,
     x.last_update_date AS last_updated_date
 FROM :schema.usr_exclusions x

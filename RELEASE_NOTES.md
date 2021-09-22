@@ -6,7 +6,7 @@
 
 #### Upgrade
 
-The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart update``` command line.
+The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart refresh``` command line.
 
 #### Features / Enhancements
 
@@ -17,11 +17,15 @@ The Datamart schema has been extended. If you want to preserve an existing datam
     - Variable ```EXTRACT_SRC```
     - Variable ```EXTRACT_USR```
 
+- **Scripts**: Add ```DEBUG``` environment variable to inspect ```extract``` and ```transform``` folders after a run.
+
 - **Scripts**: Add DATAPOND views
     - View ```DATAPOND_BASEDATA```
     - View ```DATAPOND_VIOLATIONS```
     - View ```DATAPOND_AP```
     - View ```DATAPOND_EXCLUSIONS```
+    
+- **Scripts**: Add ```load_data_dictionary.bat``` script to load definitions of tables and columns.    
 
 - **Data**: Add extracted columns
     - Table ```DIM_SNAPSHOTS```: Columns ```INTERNAL_ID```, ```CONSOLIDATION_MODE```
@@ -38,7 +42,7 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 #### Bug Fixes
 
-- **DATA**: Skip detached metrics for most tables (including USR_ACTION_PLAN)
+- **Data**: Skip detached metrics for most tables (including USR_ACTION_PLAN)
 
 ## Version: 1.21.0 - 7 July 2021
 
