@@ -15,7 +15,7 @@ try:
     rows = cur.fetchall()
     exit_code = 0
     
-    with open(sys.argv[1], 'w') as csvfile:
+    with open(sys.argv[1], 'w', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerows(rows)
 
