@@ -13,31 +13,29 @@ if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
 IF NOT EXIST "%EXTRACT_FOLDER%\%DOMAIN%" MKDIR "%EXTRACT_FOLDER%\%DOMAIN%"
 del /F /Q /A "%EXTRACT_FOLDER%\%DOMAIN%"
 
-if [%1] == [append_details] if [%DOMAIN%] == [AAD] goto :USAGE
-
 if [%1] == [refresh]          (call :EXTRACT_ALL      && GOTO :SUCCESS)
-if [%1] == [refresh_measures] (call :EXTRACT_MEASURES && GOTO :SUCCESS)
+if [%1] == [hd-update]        (call :EXTRACT_MEASURES && GOTO :SUCCESS)
 if [%1] == [install]          (call :EXTRACT_ALL      && GOTO :SUCCESS)
-if [%1] == [append_details]   (call :EXTRACT_DETAILS  && GOTO :SUCCESS)
-if [%1] == [replace_details]  (call :EXTRACT_DETAILS  && GOTO :SUCCESS)
+if [%1] == [ed-update]        (call :EXTRACT_DETAILS  && GOTO :SUCCESS)
 
 if [%ERRORLEVEL%] == [1] GOTO :FAIL
 
 :USAGE
-echo This command should be called from the run.bat command
+echo This command should be called from the run.bat command or datamart.bat command
 echo Usage is
+echo.
+echo Single Data Source
 echo extract refresh^|install
 echo extract refresh^|install ROOT DOMAIN
 echo     To make a full extraction for a refresh or an install
 echo     if ROOT and DOMAIN are not set then the DEFAULT_DOMAIN and DEFAULT_ROOT are applied
-echo extract append_details ROOT DOMAIN
-echo     To make a partial extraction in order to append engineering data
-echo extract replace_details ROOT DOMAIN
+echo.
+echo Multiple Data Source
+echo extract ed-update ED_ROOT ED_DOMAIN
 echo     To make a partial extraction in order to replace engineering data
-echo extract refresh_measures ROOT DOMAIN
+echo extract hd-update HD_ROOT AAD
 echo     To make a partial extraction in order to refresh measures data
 goto :FAIL
-
 
 :EXTRACT_ALL
 call :EXTRACT_MEASURES || EXIT /b 1
