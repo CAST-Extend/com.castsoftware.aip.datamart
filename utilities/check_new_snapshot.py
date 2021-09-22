@@ -24,7 +24,6 @@ with open(sys.argv[1]) as csvfile:
         application_name = csv_row[0]
         nb_snapshots = csv_row[1]
         right_snapshots[csv_row[0]] = nb_snapshots
-        sys.exit(0)
 
 # Compare the number of applications of both sides
 if len(left_snapshots) != len(right_snapshots):
