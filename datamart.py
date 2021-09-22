@@ -114,7 +114,7 @@ if __name__ == '__main__':
             # sys.argv[1] is ED-UPDATE
             # sys.argv[2] is ED_ROOT value (Engineering Dashboard URL)
             # sys.argv[3] is DOMAINS_?.TXT file name
-            update_ed_domains (sys.argv[2], sys.argv[3], "DIM-SNAPSHOTS.CSV")
+            update_ed_domains (sys.argv[2], sys.argv[3], sys.argv[4])
         else:    
             print("Internal error - unknown arg: " + sys.argv[1])
             sys.exit(1)
