@@ -82,7 +82,8 @@ def update_ed_domains(ed_url, domains_file, snapshots_file):
         for csv_row in csv_reader:
             for domain in csv_row:
                 domain = domain.strip()
-                check_code = subprocess.run(['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots', snapshot_file]).returncode                if check_code != 0: 
+                check_code = subprocess.run(['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots', snapshots_file]).returncode
+                if check_code != 0: 
                     jobs = [None]
                     start_domain_transfer(ed_url, domain, jobs, 0, "ed-update")
                     return_code = jobs[0][1].wait()
