@@ -112,7 +112,7 @@ ECHO == Load Failed (see %LOG_FILE% file) ==
 EXIT /b 1
 
 :SUCCESS
-ECHO Cleanup "%DOMAIN%" intermediate files
+IF [%DEBUG%] == [OFF] ECHO Cleanup "%DOMAIN%" intermediate files
 IF [%DEBUG%] == [OFF] RMDIR /Q /S "%EXTRACT_FOLDER%\%DOMAIN%
 IF [%DEBUG%] == [OFF] RMDIR /Q /S "%TRANSFORM_FOLDER%\%DOMAIN%"
 ECHO == Load Done: schema '%_DB_SCHEMA%', database '%_DB_NAME%', host '%_DB_HOST%' ==
