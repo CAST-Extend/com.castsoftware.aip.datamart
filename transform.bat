@@ -10,12 +10,11 @@ if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
 IF NOT EXIST "%TRANSFORM_FOLDER%\%DOMAIN%" MKDIR "%TRANSFORM_FOLDER%\%DOMAIN%"
 del /F /Q /A "%TRANSFORM_FOLDER%\%DOMAIN%"
 
-if [%1) == [refresh] goto :TRANSFORM
+if [%1] == [refresh] goto :TRANSFORM
 if [%1] == [install] goto :TRANSFORM
 if [%1] == [hd-update] goto :TRANSFORM
 if [%1] == [ed-update] goto :TRANSFORM
 
-echo %1 
 :USAGE
 echo This command should be called from the run.bat or datamart.bat command
 echo Usage is
