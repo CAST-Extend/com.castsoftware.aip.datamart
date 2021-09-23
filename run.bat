@@ -1,6 +1,7 @@
 @echo off
 if [%1] == [refresh] goto :RUN
 if [%1] == [install] goto :RUN
+if [%1] == [ed-install] goto :RUN
 if [%1] == [hd-update] goto :RUN
 if [%1] == [ed-update] goto :RUN
 

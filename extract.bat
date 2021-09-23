@@ -14,8 +14,9 @@ IF NOT EXIST "%EXTRACT_FOLDER%\%DOMAIN%" MKDIR "%EXTRACT_FOLDER%\%DOMAIN%"
 del /F /Q /A "%EXTRACT_FOLDER%\%DOMAIN%"
 
 if [%1] == [refresh]          (call :EXTRACT_ALL      && GOTO :SUCCESS)
-if [%1] == [hd-update]        (call :EXTRACT_MEASURES && GOTO :SUCCESS)
 if [%1] == [install]          (call :EXTRACT_ALL      && GOTO :SUCCESS)
+if [%1] == [ed-install]       (call :EXTRACT_DETAILS  && GOTO :SUCCESS)
+if [%1] == [hd-update]        (call :EXTRACT_MEASURES && GOTO :SUCCESS)
 if [%1] == [ed-update]        (call :EXTRACT_DETAILS  && GOTO :SUCCESS)
 
 if [%ERRORLEVEL%] == [1] GOTO :FAIL
@@ -31,11 +32,15 @@ echo     To make a full extraction for a refresh or an install
 echo     if ROOT and DOMAIN are not set then the DEFAULT_DOMAIN and DEFAULT_ROOT are applied
 echo.
 echo Multiple Data Source
-echo extract ed-update ED_ROOT ED_DOMAIN
-echo     To make a partial extraction in order to replace engineering data
+echo extract install HD_ROOT AAD
+echo     To make a full extraction of all tables
+echo extract refresh HD_ROOT AAD
+echo     To make a full extraction of all tables
+echo extract ed-install^|ed-update ED_ROOT ED_DOMAIN
+echo     To make a partial extraction of ED tables
 echo extract hd-update HD_ROOT AAD
-echo     To make a partial extraction in order to refresh measures data
-goto :FAIL
+echo     To make a partial extraction of HD tables
+EXIT /b 1
 
 :EXTRACT_ALL
 call :EXTRACT_MEASURES || EXIT /b 1

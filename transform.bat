@@ -6,12 +6,12 @@ CALL checkenv.bat || GOTO :FAIL
 set DOMAIN=%2
 if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
 
-
 IF NOT EXIST "%TRANSFORM_FOLDER%\%DOMAIN%" MKDIR "%TRANSFORM_FOLDER%\%DOMAIN%"
 del /F /Q /A "%TRANSFORM_FOLDER%\%DOMAIN%"
 
-if [%1] == [refresh] goto :TRANSFORM
 if [%1] == [install] goto :TRANSFORM
+if [%1] == [refresh] goto :TRANSFORM
+if [%1] == [ed-install] goto :TRANSFORM
 if [%1] == [hd-update] goto :TRANSFORM
 if [%1] == [ed-update] goto :TRANSFORM
 
@@ -21,20 +21,20 @@ echo Usage is
 echo.
 echo Single Data Source
 echo transform install ROOT DOMAIN
-echo     All tables have been created or recreated, transform CSV data to copy all data.
+echo     Add COPY statement to CSV content
 echo transform refresh ROOT DOMAIN
-echo     All tables are already filled, transform CSV data in order to truncate all tables and copy data
+echo     Add TRUNCATE AND COPY Statements to CSV content
 echo.
 echo Multiple Data Source
-echo transform install ROOT DOMAIN
-echo     All tables have been created or recreated, transform CSV data to copy all data.
-echo transform refresh HD_ROOT AAD
-echo     All tables are already filled, transform CSV data in order to truncate all tables and copy data
-echo transform hd-update HD_ROOT AAD
-echo     All HD tables are already filled, transform CSV data in order to truncate only HD tables and copy data
+echo transform install HD_ROOT AAD
+echo     Add COPY statement to CSV content
+echo transform ed-install ED_ROOT DOMAIN
+echo     Add COPY statement to CSV content
+echo transform refresh^|hd-update HD_ROOT AAD
+echo     Add TRUNCATE AND COPY Statements to CSV content
 echo transform ed-update ED_ROOT ED_DOMAIN
-echo     All ED tables are already filled, if a new snapshot is added or a new application is added, transform CSV data in order to delete these data, and copy data for this application
-goto :FAIL
+echo     Add DELETE and COPY statement to CSV content
+EXIT /b 1
 
 :TRANSFORM
 python transform.py --domain "%DOMAIN%" --mode "%1" --extract "%EXTRACT_FOLDER%\%DOMAIN%" --transform "%TRANSFORM_FOLDER%\%DOMAIN%" || GOTO :FAIL

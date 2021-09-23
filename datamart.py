@@ -43,7 +43,7 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
     nb = min(total_jobs,total)
     jobs = [None]*nb
     for pos in range(nb):
-        start_domain_transfer(ed_url, domains[pos], jobs, pos, "install")
+        start_domain_transfer(ed_url, domains[pos], jobs, pos, "ed-install")
 
     # Run a pool of concurrent jobs
     # Each time a job is ended, we start a new one
@@ -64,7 +64,7 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
                     if exit_code == 0:
                         exit_code = 1
                 if nb < total:
-                    start_domain_transfer(ed_url, domains[nb], jobs, pos, "install")
+                    start_domain_transfer(ed_url, domains[nb], jobs, pos, "ed-install")
                     nb += 1
                     # leave remaining_jobs unchanged
                 else:

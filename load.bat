@@ -8,8 +8,9 @@ if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
 
 SET LOG_FILE=%INSTALLATION_FOLDER%\log\%DOMAIN%.log
 
-if [%1] == [refresh] (call :REFRESH && GOTO :SUCCESS)
 if [%1] == [install] (call :INSTALL && GOTO :SUCCESS)
+if [%1] == [refresh] (call :REFRESH && GOTO :SUCCESS)
+if [%1] == [ed-install] (call :LOAD_DETAILS && GOTO :SUCCESS)
 if [%1] == [ed-update] (call :LOAD_DETAILS && GOTO :SUCCESS)
 if [%1] == [hd-update] (call :LOAD_MEASURES && GOTO :SUCCESS)
 
@@ -22,16 +23,15 @@ echo.
 echo Single Data Source
 echo load refresh^|install
 echo load refresh^|install DOMAIN
-echo     to load CSV data for an install or refresh
+echo     To load CSV data for an install or refresh
 echo     if the "DOMAIN" argument is not set then the DEFAULT_DOMAIN is applied
 echo.
 echo Multiple Data Source
-echo load ed-update ED_DOMAIN
-echo     to load CSV data in order to replace engineering data
-echo load hd-update AAD
-echo     to load CSV data in order to refresh measures data
-goto :FAIL
-
+echo load install^|refresh^|hd-update HD_ROOT AAD
+echo     To load CSV health data
+echo load ed-install^|ed-update ED_ROOT DOMAIN
+echo     To load CSV engineering date
+EXIT /b 1
 
 
 :INSTALL
