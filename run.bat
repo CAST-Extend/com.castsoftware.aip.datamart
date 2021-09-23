@@ -14,7 +14,7 @@ echo    use install
 echo       1. for the first run
 echo       2. if you have changed the set of quality standard tags
 echo       3. to take into account a new version of the datamart Web Services
-goto :FAIL
+EXIT /b 1
 
 :RUN
 pushd %~dp0
