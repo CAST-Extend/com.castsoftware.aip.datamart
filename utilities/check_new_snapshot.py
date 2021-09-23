@@ -28,6 +28,9 @@ with open(sys.argv[1]) as csvfile:
 # Compare the number of snapshots from stdin with the number of snapshots stored in the Datamart tables by application
 for application in left_snapshots:
     #print("left_snapshots[" + application + "] (" + str(left_snapshots[application]) + ") != right_snapshots[" + application + "] (" + str(right_snapshots[application]) + "))" + " = " + str(left_snapshots[application] != right_snapshots[application]))
-    if left_snapshots[application] != right_snapshots[application]:
+    try:
+        if left_snapshots[application] != right_snapshots[application]:
+            sys.exit(1)
+    except:
         sys.exit(1)
 
