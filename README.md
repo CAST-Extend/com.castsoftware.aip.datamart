@@ -320,8 +320,8 @@ If you intend to view the data with Power BI Desktop:
     * Import AIP Datamart tables using the PostgreSQL plugin
 
 * For Power BI Desktop versions released before December **2019**, you must install **NpgSQL** (.NET data provider for PostgreSQL) on your local machine:
-    * Download [.NET data provider for PostgreSQL](https://github.com/npgsql/Npgsql/releases)
-    * Install **NpgSQL** as Administrator (since the DLL would be pushed to GAC - Global Assembly Cache). During the installation stage, enable "NpgSQL GAC Installation"
+    * Download [.NET data provider for PostgreSQL](https://github.com/npgsql/npgsql/releases/download/v4.0.12/Npgsql-4.0.12.msi)
+    * Install **NpgSQL** as Administrator (since the DLL would be pushed to GAC - Global Assembly Cache). During the installation stage, enabled "NpgSQL GAC Installation"
     * Restart the PC, then launch Power BI Desktop
     * Import AIP Datamart tables using the PostgreSQL plugin
 
