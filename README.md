@@ -315,12 +315,15 @@ order by 1, 2) to 'c:/temp/report.csv' with (format CSV, header);
 ### Power BI Desktop
 
 If you intend to view the data with Power BI Desktop:
-* Install the Power BI Desktop tool from [Microsoft marketplace](https://powerbi.microsoft.com/en-us/downloads/)
-* Download the [PostgreSQL plugin](https://github.com/npgsql/Npgsql/releases)
-* Install npgsql as Administrator (since the DLL would be pushed to GAC). During the installation stage, enabled "Npgsql GAC Installation"
-* Restart the PC, then launch Power BI Desktop
-* Import AIP Datamart tables using PostgreSQL plugin
+* For latest release of Power BI:
+    * Install the Power BI Desktop tool from [Microsoft marketplace](https://powerbi.microsoft.com/en-us/downloads/)
+    * Import AIP Datamart tables using the PostgreSQL plugin
 
+* For Power BI Desktop versions released before December **2019**, you must install **NpgSQL** (.NET data provider for PostgreSQL) on your local machine:
+    * Download [.NET data provider for PostgreSQL](https://github.com/npgsql/Npgsql/releases)
+    * Install **NpgSQL** as Administrator (since the DLL would be pushed to GAC - Global Assembly Cache). During the installation stage, enable "NpgSQL GAC Installation"
+    * Restart the PC, then launch Power BI Desktop
+    * Import AIP Datamart tables using the PostgreSQL plugin
 
 ## Summary of Tables
 
