@@ -77,21 +77,29 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
 # Update domains  when a new snapshot has been added. A single process is used here.
 def update_ed_domains(ed_url, domains_file, _total_jobs, snapshots_file):    
     exit_code = 0
+    
+    domains = []
+    # Loop on  domains of DOMAINS.TXT        
     with open(domains_file) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')  
         for csv_row in csv_reader:
             for domain in csv_row:
-                domain = domain.strip()
-                check_code = subprocess.run(['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots', snapshots_file]).returncode
-                if check_code != 0: 
-                    jobs = [None]
-                    start_domain_transfer(ed_url, domain, jobs, 0, "ed-update")
-                    return_code = jobs[0][1].wait()
-                    print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + domain)
-                    if return_code != 0:
-                        exit_code = 1
-                else:
-                    print("Datamart is already synchronized. No new snapshot for domain " + domain)
+                domains.append(domain.strip())   
+
+    total = len(domains)
+    progress = 0
+    for domain in domains:
+        progress += 1    
+        check_code = subprocess.run(['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots', snapshots_file]).returncode
+        if check_code != 0: 
+            jobs = [None]
+            start_domain_transfer(ed_url, domain, jobs, 0, "ed-update")
+            return_code = jobs[0][1].wait()
+            print ("Data transfer (" + str(progress) + "/" + str(total) + ") " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + domain)
+            if return_code != 0:
+                exit_code = 1
+        else:
+            print("Data transfer (" + str(progress) + "/" + str(total) + ") skipped for domain " + domain + ", Datamart is already synchronized, no new snapshot.")
 
     sys.exit(exit_code)
 
