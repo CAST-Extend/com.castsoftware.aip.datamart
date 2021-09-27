@@ -73,6 +73,13 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
         time.sleep(2) # awaits 2 seconds between each iteration
         
     sys.exit(exit_code)
+
+def check_new_snapshot (ed_url, domain, snapshots_file):
+    output_path = os.getenv("INSTALLATION_FOLDER") + "/log/datamart_update.stdout"
+    cmd = ['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots', snapshots_file]
+    with open(output_path, "a") as output:
+        check_code = subprocess.run(cmd, stdout=output, stderr=output).returncode
+    return check_code
           
 # Update domains  when a new snapshot has been added. A single process is used here.
 def update_ed_domains(ed_url, domains_file, _total_jobs, snapshots_file):    
@@ -90,7 +97,8 @@ def update_ed_domains(ed_url, domains_file, _total_jobs, snapshots_file):
     progress = 0
     for domain in domains:
         progress += 1    
-        check_code = subprocess.run(['utilities\check_new_snapshot.bat', ed_url + '/' + domain + '/datamart/dim-snapshots', snapshots_file]).returncode
+        check_code = check_new_snapshot(ed_url, domain, snapshots_file)
+        
         if check_code != 0: 
             jobs = [None]
             start_domain_transfer(ed_url, domain, jobs, 0, "ed-update")
