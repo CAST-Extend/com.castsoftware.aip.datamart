@@ -2,7 +2,7 @@
 
 #### Prerequisite
 
-- REST API  **1.28**, **2.2**
+- REST API  **2.3.0**
 
 #### Upgrade
 
@@ -11,6 +11,8 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 #### Features / Enhancements
 
 - **Scripts**: Support multiple REST API hosting the engineering domains
+
+- **Scripts**: Reset logs before a run
 
 - **Scripts**: Add environment variables to tune the extraction scope for better performance
     - Variable ```EXTRACT_DATAPOND```

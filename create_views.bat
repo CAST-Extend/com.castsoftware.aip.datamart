@@ -6,6 +6,7 @@ CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
 SET LOG_FILE=%INSTALLATION_FOLDER%\log\VIEWS.log
+echo > "%LOG_FILE%"
 
 REM Load Data
 CALL :load DIM_OMG_ASCQM                        || GOTO :FAIL

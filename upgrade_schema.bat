@@ -6,6 +6,7 @@ CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
 SET LOG_FILE=%INSTALLATION_FOLDER%\log\schema_upgrade.log
+echo > "%LOG_FILE%"
 
 python utilities\run.py "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f upgrade_schema.sql >> "%LOG_FILE%" 2>&1 || GOTO :FAIL
 GOTO :SUCCESS
