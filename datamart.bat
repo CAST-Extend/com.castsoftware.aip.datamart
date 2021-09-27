@@ -65,6 +65,7 @@ echo Datamart %1 SUCCESS
 EXIT /b 0
 
 :FETCH_DOMAINS
+echo. 
 echo Fetch domains from %1
 (call utilities\get_domains %1 %2) || EXIT /b 1
 echo. 
