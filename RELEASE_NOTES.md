@@ -2,8 +2,8 @@
 
 #### Prerequisite
 
-- REST API 1 >= **1.28.0**
-- REST API 2 >= **2.2.1**
+- REST API 1.X >= **1.28.0**
+- REST API 2.X >= **2.2.1**
 
 #### Upgrade
 
@@ -11,7 +11,7 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 #### Features / Enhancements
 
-- **Scripts**: Support multiple REST API hosting the engineering domains
+- **Scripts**: Support multiple Dashboards/REST API servers hosting the engineering domains
 
 - **Scripts**: Reset logs before a run
 
