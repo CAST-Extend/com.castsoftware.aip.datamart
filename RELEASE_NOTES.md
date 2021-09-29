@@ -1,8 +1,9 @@
-## Version: 1.22.0 - 27 September 2021
+## Version: 1.22.0 - 29 September 2021
 
 #### Prerequisite
 
-- REST API  >= **2.2.1**
+- REST API 1 >= **1.28.0**
+- REST API 2 >= **2.2.1**
 
 #### Upgrade
 
