@@ -6,7 +6,7 @@ CALL checkenv.bat || GOTO :FAIL
 set DOMAIN=%2
 if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
 
-SET LOG_FILE=%INSTALLATION_FOLDER%\log\%DOMAIN%.log
+SET LOG_FILE=%LOG_FOLDER%\%DOMAIN%.log
 echo > "%LOG_FILE%"
 
 if [%1] == [install] (call :INSTALL && GOTO :SUCCESS)

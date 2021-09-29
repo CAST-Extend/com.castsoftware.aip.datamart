@@ -7,7 +7,8 @@ import time
 # Once AAD domain is transferted, start run.bat to append details for a domain  
 # Create a job as a pair: (domain, process) 
 def start_domain_transfer(ed_url, domain, jobs, pos, transform_mode):
-    output_path = os.getenv("INSTALLATION_FOLDER") + "/log/" + domain + ".stdout"
+    os.makedirs(os.getenv("LOG_FOLDER"), exist_ok=True)
+    output_path = os.getenv("LOG_FOLDER") + "/" + domain + ".stdout"
     cmd = ['run.bat', transform_mode, ed_url, domain]
     with open(output_path, "w") as output:
         process = subprocess.Popen(cmd, stdout=output, stderr=output)
@@ -15,7 +16,8 @@ def start_domain_transfer(ed_url, domain, jobs, pos, transform_mode):
 
 # Start AAD transfer, abort all transfers in case of failure
 def start_aad_transfer(transfer_mode):
-    output_path = os.getenv("INSTALLATION_FOLDER") + "/log/" + "AAD.stdout"
+    os.makedirs(os.getenv("LOG_FOLDER"), exist_ok=True)
+    output_path = os.getenv("LOG_FOLDER") + "/" + "AAD.stdout"
     cmd = ['run.bat', transfer_mode, os.getenv("HD_ROOT"), 'AAD']
     with open(output_path, "w") as output:
         process = subprocess.Popen(cmd, stdout=output, stderr=output)

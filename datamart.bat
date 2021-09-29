@@ -29,7 +29,7 @@ GOTO :SUCCESS
 GOTO :SUCCESS
 
 :DATAMART_UPDATE
-echo > "%INSTALLATION_FOLDER%\log\datamart_update.stdout"
+echo > %LOG_FOLDER%\datamart_update.stdout
 call :FETCH_SNAPSHOTS DATAMART_SNAPSHOTS.CSV || goto :FAIL
 (call utilities\check_new_snapshot.bat %HD_ROOT%/AAD/datamart/dim-snapshots DATAMART_SNAPSHOTS.CSV) && (
 echo Datamart is already synchronized. No new snapshot for domain AAD
@@ -42,6 +42,9 @@ GOTO :SUCCESS
 
 :FOR_EACH_ED_DOMAIN
 for /l %%n in (0,1,9) do (
+  SET EXTRACT_FOLDER=%EXTRACT_FOLDER%\%%n
+  SET TRANSFORM_FOLDER=%TRANSFORM_FOLDER%\%%n
+  SET LOG_FOLDER=%LOG_FOLDER%\%%n
   if not [!ED_ROOT[%%n]!] == [] (CALL :ED_DATAMART %1 !ED_ROOT[%%n]! DOMAINS_%%n.TXT %2) || EXIT /b 1
 )
 GOTO :EOF

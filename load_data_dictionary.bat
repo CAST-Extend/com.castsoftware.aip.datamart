@@ -5,7 +5,7 @@ pushd %~dp0
 CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
-SET LOG_FILE=%INSTALLATION_FOLDER%\log\build_data_dictionay.log
+SET LOG_FILE=%LOG_FOLDER%\build_data_dictionay.log
 
 ECHO Build build_data_dictionary.sql
 python utilities\build_data_dictionary.py sql > build_data_dictionary.sql || GOTO :FAIL

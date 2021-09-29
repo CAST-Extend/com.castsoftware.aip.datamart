@@ -5,7 +5,7 @@ pushd %~dp0
 CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
-SET LOG_FILE=%INSTALLATION_FOLDER%\log\DATAPOND_VIEWS.log
+SET LOG_FILE=%LOG_FOLDER%\DATAPOND_VIEWS.log
 echo > "%LOG_FILE%"
 
 REM Load Data
