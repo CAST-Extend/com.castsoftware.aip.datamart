@@ -3,26 +3,32 @@ import sys
 
 def build_markdown():
     doc = xml.dom.minidom.parse("data_dictionary.xml");
-    tables = doc.getElementsByTagName("table")
+    tablesElements = doc.getElementsByTagName("table")
+    tablesDict = {}
+    tablesNames = []
+    for tableElement in tablesElements:
+        tableName = tableElement.getElementsByTagName("name")[0].firstChild.data
+        tablesDict[tableName] = tableElement
+        tablesNames.append(tableName)
+    tablesNames = sorted(tablesNames)
 
     print("## Data Dictionary")
 
-    for table in tables:
-        name = table.getElementsByTagName("name")[0].firstChild.data
-        print ("- [" + name + "](#" + name + ")")
+    for tableName in tablesNames:
+        print ("- [" + tableName + "](#" + tableName + ")")
     
     print()
-    for table in tables:
-        name = table.getElementsByTagName("name")[0].firstChild.data
-        print ("### " + name)
-        description = table.getElementsByTagName("description")[0].firstChild.data
+    for tableName in tablesNames:
+        print ("### " + tableName)
+        tableElement = tablesDict[tableName]
+        description = tableElement.getElementsByTagName("description")[0].firstChild.data
         print (description)
-        columns = table.getElementsByTagName("column")
+        columns = tableElement.getElementsByTagName("column")
         if columns.length == 0:
             continue
         print ("```")
         
-        description_length = 47 if name == "APP_FUNCTIONAL_SIZING_EVOLUTION" else 37
+        description_length = 47 if tableName == "APP_FUNCTIONAL_SIZING_EVOLUTION" else 37
 
         print ("COLUMN" + (" " * (description_length - 6))  + "| TYPE     | DESCRIPTION")
         print (("-" * description_length) + "+----------+------------")
@@ -39,15 +45,15 @@ def build_markdown():
 
 def build_sql():
     doc = xml.dom.minidom.parse("data_dictionary.xml");
-    tables = doc.getElementsByTagName("table")
-    for table in tables:
-        name = table.getElementsByTagName("name")[0].firstChild.data
-        description = table.getElementsByTagName("description")[0].firstChild.data
-        table_type = table.attributes["type"].value        
+    tablesElements = doc.getElementsByTagName("table")
+    for tableElement in tablesElements:
+        name = tableElement.getElementsByTagName("name")[0].firstChild.data
+        description = tableElement.getElementsByTagName("description")[0].firstChild.data
+        table_type = tableElement.attributes["type"].value        
         if table_type != "table":
             continue
         print ("COMMENT ON TABLE :schema." + name + " IS '" + description.replace("'","''") + "';")
-        columns = table.getElementsByTagName("column")
+        columns = tableElement.getElementsByTagName("column")
         if columns.length == 0:
             continue
         for column in columns:

@@ -265,6 +265,19 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 </table>
 
 <table type="table">
+<name>APP_TECHNO_SCORES</name>
+<description>Quality Indicator scores by application snapshot</description>
+<columns>
+<column type="TEXT">   <name>snapshot_id</name>                 <description>The concatenation of the application name and the snapshot timestamp</description></column>
+<column type="TEXT">   <name>technology</name>                  <description>Source code technology</description></column>
+<column type="INT">    <name>metric_id</name>                   <description>AIP Globally unique metric ID</description></column>
+<column type="TEXT">   <name>metric_name</name>                 <description>Quality Indicator name</description></column>
+<column type="TEXT">   <name>metric_type</name>                 <description>Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure</description></column>
+<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade</description></column>
+</columns>
+</table>
+
+<table type="table">
 <name>APP_SIZING_EVOLUTION</name>
 <description>Evolution of sizes by application snapshot</description>
 <columns>
@@ -436,6 +449,20 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <columns>
 <column type="TEXT">   <name>snapshot_id</name>                 <description>The concatenation of the application name and the snapshot timestamp</description></column>
 <column type="TEXT">   <name>module_name</name>                 <description>Module name</description></column>
+<column type="INT">    <name>metric_id</name>                   <description>AIP Globally unique metric ID</description></column>
+<column type="TEXT">   <name>metric_name</name>                 <description>Quality Indicator name</description></column>
+<column type="TEXT">   <name>metric_type</name>                 <description>Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure</description></column>
+<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade</description></column>
+</columns>
+</table>
+
+<table type="table">
+<name>MOD_TECHNO_SCORES</name>
+<description>Quality Indicator scores by application snapshot and by module</description>
+<columns>
+<column type="TEXT">   <name>snapshot_id</name>                 <description>The concatenation of the application name and the snapshot timestamp</description></column>
+<column type="TEXT">   <name>module_name</name>                 <description>Module name</description></column>
+<column type="TEXT">   <name>technology</name>                  <description>Source code technology</description></column>
 <column type="INT">    <name>metric_id</name>                   <description>AIP Globally unique metric ID</description></column>
 <column type="TEXT">   <name>metric_name</name>                 <description>Quality Indicator name</description></column>
 <column type="TEXT">   <name>metric_type</name>                 <description>Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure</description></column>
