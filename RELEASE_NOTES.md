@@ -39,11 +39,13 @@ The Datamart schema has been extended. If you want to preserve an existing datam
     - Table ```USR_EXCLUSIONS```: Columns ```METRIC_ID```, ```OBJECT_FULL_NAME```, ```LAST_UPDATE_DATE```, ```EXCLUSION_DATE```, ```EXCLUSION_SNAPSHOT_ID```
 
 - **Data**: Add extracted tables
-    - Table ```APP_TECHNO_SIZING_MEASURES```
-    - Table ```MOD_TECHNO_SIZING_MEASURES```
-    - Table ```APP_TECHNO_SIZING_EVOLUTION```
-    - Table ```MOD_TECHNO_SIZING_EVOLUTION```
     - Table ```APP_FINDINGS_MEASURES```
+    - Table ```APP_TECHNO_SCORES```    
+    - Table ```APP_TECHNO_SIZING_EVOLUTION```
+    - Table ```APP_TECHNO_SIZING_MEASURES```
+    - Table ```MOD_TECHNO_SCORES```        
+    - Table ```MOD_TECHNO_SIZING_EVOLUTION```
+    - Table ```MOD_TECHNO_SIZING_MEASURES```
 
 #### Bug Fixes
 
