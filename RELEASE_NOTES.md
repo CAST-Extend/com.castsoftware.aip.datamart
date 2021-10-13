@@ -7,8 +7,8 @@
 
 #### Bug Fixes
 
-- **Scripts**: Add ```APIUSER``` environment variable for REST API 2.Xs
-- **Scripts**: Fix error messages, and stops immediately in case of bad settings of environment variables
+- **Scripts**: Add ```APIUSER``` environment variable for REST API 2.X
+- **Scripts**: Fix error messages, and stop immediately in case of bad settings of environment variables
 
 ## Version: 1.22.0 - 29 September 2021
 
