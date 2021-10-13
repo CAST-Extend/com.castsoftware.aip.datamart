@@ -15,52 +15,53 @@ IF DEFINED PGSQL IF EXIST "%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin" SET PAT
 IF DEFINED PGSQL IF EXIST "%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin" SET PSQL=psql.exe
 IF DEFINED PGSQL IF EXIST "%INSTALLATION_FOLDER%\thirdparty\%PGSQL%\bin" SET VACUUMDB=vacuumdb.exe
 
-WHERE PYTHON > nul 2> nul || (echo Python is not found & EXIT /b /1)
-WHERE CURL > nul 2> nul || (echo CURL is not found & EXIT /b /1)
-WHERE PSQL > nul 2> nul || (call :EXIST PSQL "%PSQL%") || (echo PSQL is not found & EXIT /b /1)
-WHERE VACUUMDB > nul 2> nul || (call :EXIST VACUUMDB "%VACUUMDB%") || (echo VACUUMDB is not found & EXIT /b /1)
+WHERE PYTHON > nul 2> nul || (echo ERROR: Python is not found & EXIT /b 1)
+WHERE CURL > nul 2> nul || (echo ERROR: CURL is not found & EXIT /b 1)
+WHERE PSQL > nul 2> nul || (call :EXIST PSQL "%PSQL%") || (echo ERROR: PSQL is not found & EXIT /b 1)
+WHERE VACUUMDB > nul 2> nul || (call :EXIST VACUUMDB "%VACUUMDB%") || (echo ERROR: VACUUMDB is not found & EXIT /b 1)
 
 python utilities\check_python_version.py || EXIT /b 1
 
+IF DEFINED APIKEY IF NOT DEFINED APIUSER (echo ERROR: APIUSER must be set along APIKEY & EXIT /b 1)
 
 REM DEFAULT EXTRACTION SCOPE
 IF NOT DEFINED EXTRACT_DATAPOND (SET EXTRACT_DATAPOND=OFF)
-IF NOT [%EXTRACT_DATAPOND%] == [ON] IF NOT [%EXTRACT_DATAPOND%] == [OFF] (echo "Invalid EXTRACT_DATAPOND value %EXTRACT_DATAPOND%, expecting ON or OFF" & EXIT /b /1)
+IF NOT [%EXTRACT_DATAPOND%] == [ON] IF NOT [%EXTRACT_DATAPOND%] == [OFF] (echo ERROR: Invalid EXTRACT_DATAPOND value %EXTRACT_DATAPOND%, expecting ON or OFF & EXIT /b 1)
 
 IF NOT DEFINED EXTRACT_SRC (SET EXTRACT_SRC=ON)
-IF NOT [%EXTRACT_SRC%] == [ON] IF NOT [%EXTRACT_SRC%] == [OFF] (echo "Invalid EXTRACT_SRC value %EXTRACT_SRC%, expecting ON or OFF & EXIT" /b /1)
+IF NOT [%EXTRACT_SRC%] == [ON] IF NOT [%EXTRACT_SRC%] == [OFF] (echo ERROR: Invalid EXTRACT_SRC value %EXTRACT_SRC%, expecting ON or OFF & EXIT /b 1)
 
 IF NOT DEFINED EXTRACT_MOD (SET EXTRACT_MOD=ON)
-IF NOT [%EXTRACT_MOD%] == [ON] IF NOT [%EXTRACT_MOD%] == [OFF] (echo "Invalid EXTRACT_MOD value %EXTRACT_MOD%, expecting ON or OFF & EXIT" /b /1)
+IF NOT [%EXTRACT_MOD%] == [ON] IF NOT [%EXTRACT_MOD%] == [OFF] (echo ERROR: Invalid EXTRACT_MOD value %EXTRACT_MOD%, expecting ON or OFF & EXIT /b 1)
 
 IF NOT DEFINED EXTRACT_TECHNO (SET EXTRACT_TECHNO=ON)
-IF NOT [%EXTRACT_TECHNO%] == [ON] IF NOT [%EXTRACT_TECHNO%] == [OFF] (echo "Invalid EXTRACT_TECHNO value %EXTRACT_TECHNO%, expecting ON or OFF & EXIT" /b /1)
+IF NOT [%EXTRACT_TECHNO%] == [ON] IF NOT [%EXTRACT_TECHNO%] == [OFF] (echo ERROR: Invalid EXTRACT_TECHNO value %EXTRACT_TECHNO%, expecting ON or OFF & EXIT /b 1)
 
 IF NOT DEFINED EXTRACT_USR (SET EXTRACT_USR=ON)
-IF NOT [%EXTRACT_USR%] == [ON] IF NOT [%EXTRACT_USR%] == [OFF] (echo "Invalid EXTRACT_USR value %EXTRACT_USR%, expecting ON or OFF & EXIT" /b /1)
+IF NOT [%EXTRACT_USR%] == [ON] IF NOT [%EXTRACT_USR%] == [OFF] (echo ERROR: Invalid EXTRACT_USR value %EXTRACT_USR%, expecting ON or OFF & EXIT /b 1)
 
 IF NOT DEFINED DEBUG (SET DEBUG=OFF)
-IF NOT [%DEBUG%] == [ON] IF NOT [%DEBUG%] == [OFF] (echo "Invalid DEBUG value %DEBUG%, expecting ON or OFF & EXIT" /b /1)
+IF NOT [%DEBUG%] == [ON] IF NOT [%DEBUG%] == [OFF] (echo ERROR: Invalid DEBUG value %DEBUG%, expecting ON or OFF & EXIT /b 1)
 
-IF NOT DEFINED DEFAULT_DOMAIN (echo Missing variable DEFAULT_DOMAIN & EXIT /b 1)
-IF NOT DEFINED DEFAULT_ROOT (echo Missing variable DEFAULT_ROOT & EXIT /b 1)
-IF NOT DEFINED _DB_HOST (echo Missing variable _DB_HOST & EXIT /b 1)
-IF NOT DEFINED _DB_PORT (echo Missing variable _DB_PORT & EXIT /b 1)
-IF NOT DEFINED _DB_NAME (echo Missing variable _DB_NAME & EXIT /b 1)
-IF NOT DEFINED _DB_USER (echo Missing variable _DB_USER & EXIT /b 1)
-IF NOT DEFINED _DB_SCHEMA (echo Missing variable _DB_SCHEMA & EXIT /b 1)
+IF NOT DEFINED DEFAULT_DOMAIN (echo ERROR: Missing variable DEFAULT_DOMAIN & EXIT /b 1)
+IF NOT DEFINED DEFAULT_ROOT (echo ERROR: Missing variable DEFAULT_ROOT & EXIT /b 1)
+IF NOT DEFINED _DB_HOST (echo ERROR: Missing variable _DB_HOST & EXIT /b 1)
+IF NOT DEFINED _DB_PORT (echo ERROR: Missing variable _DB_PORT & EXIT /b 1)
+IF NOT DEFINED _DB_NAME (echo ERROR: Missing variable _DB_NAME & EXIT /b 1)
+IF NOT DEFINED _DB_USER (echo ERROR: Missing variable _DB_USER & EXIT /b 1)
+IF NOT DEFINED _DB_SCHEMA (echo ERROR: Missing variable _DB_SCHEMA & EXIT /b 1)
 
 IF NOT DEFINED EXTRACT_FOLDER SET EXTRACT_FOLDER=%INSTALLATION_FOLDER%\extract
 IF NOT DEFINED TRANSFORM_FOLDER SET TRANSFORM_FOLDER=%INSTALLATION_FOLDER%\transform
 IF NOT DEFINED LOG_FOLDER SET LOG_FOLDER=%INSTALLATION_FOLDER%\log
 
-IF NOT EXIST %EXTRACT_FOLDER% MKDIR %EXTRACT_FOLDER%
-IF NOT EXIST %TRANSFORM_FOLDER% MKDIR %TRANSFORM_FOLDER%
-IF NOT EXIST %LOG_FOLDER% MKDIR %LOG_FOLDER%
+IF NOT EXIST %EXTRACT_FOLDER% mkdir %EXTRACT_FOLDER%
+IF NOT EXIST %TRANSFORM_FOLDER% mkdir %TRANSFORM_FOLDER%
+IF NOT EXIST %LOG_FOLDER% mkdir %LOG_FOLDER%
 
 SET VIEWS_FOLDER=%INSTALLATION_FOLDER%\views
 
-FOR /f %%D in ('python utilities\isodatetime.py') do SET NOW=%%D
+FOR /f %%D in ('python utilities\isodatetime.py') do set NOW=%%D
 IF NOT DEFINED JOBS SET JOBS=1
 
 SET PSQL_OPTIONS=-d %_DB_NAME% -h %_DB_HOST% -U %_DB_USER% -p %_DB_PORT% --set=ON_ERROR_STOP=true

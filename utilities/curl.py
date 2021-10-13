@@ -34,7 +34,7 @@ For Windows OS only""")
     if credentials:
         curl_args += ['-u', decode.decode(credentials)]
     elif apikey:
-        curl_args += ['-H', 'X-API-KEY: ' + decode.decode(apikey)]
+        curl_args += ['-H', 'X-API-USER: '  + decode.decode(os.getenv("APIUSER")), '-H', 'X-API-KEY: ' + decode.decode(apikey)]
     else:
         curl_args += ['--netrc-file', os.getenv("USERPROFILE") +  '\_netrc ']
     output=args.output

@@ -105,7 +105,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
       * ```_DB_USER```: the PostgreSQL user name 
       * ```_DB_SCHEMA```: the target schema name
   * __Set PostgreSQL server password__ in ```PGPASSWORD``` environment variable
-  * __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` environment variable
+  * __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` and ```APIUSER``` environment variables
   * __Set the extraction scope__:
       * ```EXTRACT_DATAPOND```: When this variable is set to ```ON```, then the ```DATAPOND_ORGANIZATION``` table is extracted as an alternative to the ```DIM_APPLICATIONS``` table
       * ```EXTRACT_MOD```: When this variable is to ```OFF```, then the ```*MOD*``` tables are skipped.   
@@ -125,7 +125,7 @@ You can avoid this kind of issue, using the obfuscation mechanism.
 
 #### Password obfuscation
 
-You can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY``` environment variables as follow:
+You can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY```, ```APIUSER``` environment variables as follow:
 
 ```
 C:>python utilities\encode.py mysecret
@@ -172,6 +172,10 @@ If you start ```datamart.bat update```, the script will synchronize the datamart
 Once your datamart schema has been created, you can load the descriptions of tables and columns by running: ```load_data_dictionary.bat```.
 
 #### Troubleshooting Guide
+
+__&#9888; All extract tables are empty__
+
+Make sur your service account is authorized to access the applications.
 
 __&#9888; I have got an "Access Denied" message__
 

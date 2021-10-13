@@ -1,3 +1,15 @@
+## Version: 1.22.1 - 12 October 2021
+
+#### Prerequisite
+
+- REST API 1.X >= **1.28.0**
+- REST API 2.X >= **2.2.1**
+
+#### Bug Fixes
+
+- **Scripts**: Add ```APIUSER``` environment variable for REST API 2.Xs
+- **Scripts**: Fix error messages, and stops immediately in case of bad settings of environment variables
+
 ## Version: 1.22.0 - 29 September 2021
 
 #### Prerequisite
