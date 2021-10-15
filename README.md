@@ -175,11 +175,11 @@ Once your datamart schema has been created, you can load the descriptions of tab
 
 __&#9888; All extract tables are empty__
 
-Make sur your service account is authorized to access the applications.
+Make sure your service account is authorized to access the applications.
 
 __&#9888; I have got an "Access Denied" message__
 
-Make sur you have write access on the Datamart folder.
+Make sure you have write access on the Datamart folder.
 
 
 __&#9888; The data transfer fails on the load step__
