@@ -85,7 +85,8 @@ echo.
 echo =========================================
 echo Preparing component package
 echo =========================================
-curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zipb -o archive.zip
+pushd %PACK_DIR%
+curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zip -o archive.zip
 set CMD=7z.exe x archive.zip
 echo %CMD%
 call %CMD% >%TMPFIC% 2>&1
@@ -93,7 +94,6 @@ if errorlevel 1 (
     type %TMPFIC%
     goto endclean
 )
-pushd %PACK_DIR%
 for /f "delims=/" %%a in ('cd') do set PACK_DIR=%%a
 robocopy /mir /nfl /ndl /njh /njs /nc /ns %SRC_DIR% . -xd nuget -xd .git -xf .gitattributes
 if errorlevel 8 goto endclean
