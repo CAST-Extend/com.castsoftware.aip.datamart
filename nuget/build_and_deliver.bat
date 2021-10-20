@@ -86,7 +86,7 @@ echo =========================================
 echo Preparing component package
 echo =========================================
 pushd %PACK_DIR%
-curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zip
+curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zipb -o archive.zip
 set CMD=7z.exe x archive.zip
 echo %CMD%
 call %CMD% >%TMPFIC% 2>&1
