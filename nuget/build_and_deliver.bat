@@ -73,7 +73,24 @@ for %%a in (%WORKSPACE% %TOOLS_DIR% %SRC_DIR%) do (
         goto endclean
     )
 )
+
 cd /d %WORKSPACE%
+
+echo.
+echo =========================================
+echo Add lib\cast-datamart*.jar
+echo =========================================
+mkdir lib
+pushd lib
+curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zip -o archive.zip
+set CMD=7z.exe x archive.zip
+echo %CMD%
+call %CMD% >%TMPFIC% 2>&1
+if errorlevel 1 (
+    type %TMPFIC%
+    goto endclean
+)
+popd
 
 for %%a in (%PACK_DIR%) do (
     if exist %%a rmdir /s /q %%a
@@ -86,20 +103,11 @@ echo =========================================
 echo Preparing component package
 echo =========================================
 pushd %PACK_DIR%
-curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zip -o archive.zip
-set CMD=7z.exe x archive.zip
-echo %CMD%
-call %CMD% >%TMPFIC% 2>&1
-if errorlevel 1 (
-    type %TMPFIC%
-    goto endclean
-)
 for /f "delims=/" %%a in ('cd') do set PACK_DIR=%%a
 robocopy /mir /nfl /ndl /njh /njs /nc /ns %SRC_DIR% . -xd nuget -xd .git -xf .gitattributes
 if errorlevel 8 goto endclean
 robocopy /mir /nfl /ndl /njh /njs /nc /ns \\productfs01\EngTools\external_tools\datamart\thirdparty thirdparty
 if errorlevel 8 goto endclean
-
 echo.
 echo =========================================
 echo Zipping component package
