@@ -1,3 +1,15 @@
+# Version: 2.1.0 - ?? December 2021
+
+#### Prerequisite
+
+- REST API 2.X >= **2.5.0**
+- cast-datamart JAR = **2.1.0**
+
+#### Upgrade
+
+The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart refresh``` command line.
+
+
 ## Version: 1.22.1 - 12 October 2021
 
 #### Prerequisite
