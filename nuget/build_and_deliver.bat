@@ -82,7 +82,13 @@ echo Add lib\cast-datamart*.jar
 echo =========================================
 mkdir lib
 pushd lib
-curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zip -o archive.zip
+set CMD=curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zip -o archive.zip
+echo %CMD%
+call %CMD%
+if errorlevel 1 (
+    type %TMPFIC%
+    goto endclean
+)
 set CMD=7z.exe x archive.zip
 echo %CMD%
 call %CMD% >%TMPFIC% 2>&1
@@ -90,6 +96,7 @@ if errorlevel 1 (
     type %TMPFIC%
     goto endclean
 )
+rm archive.zip
 popd
 
 for %%a in (%PACK_DIR%) do (
@@ -107,6 +114,8 @@ for /f "delims=/" %%a in ('cd') do set PACK_DIR=%%a
 robocopy /mir /nfl /ndl /njh /njs /nc /ns %SRC_DIR% . -xd nuget -xd .git -xf .gitattributes
 if errorlevel 8 goto endclean
 robocopy /mir /nfl /ndl /njh /njs /nc /ns \\productfs01\EngTools\external_tools\datamart\thirdparty thirdparty
+if errorlevel 8 goto endclean
+robocopy /mir /nfl /ndl /njh /njs /nc /ns %WORKSPACE%\lib lib
 if errorlevel 8 goto endclean
 echo.
 echo =========================================
