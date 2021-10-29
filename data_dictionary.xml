@@ -182,13 +182,21 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 
 <table type="table">
 <name>APP_SIZING_MEASURES</name>
-<description>Sizes by application snapshot</description>
+<description>Sizes by application snapshot.</description>
 <columns>
 <column type="TEXT">   <name>snapshot_id</name>                         <description>The concatenation of the application name and the snapshot timestamp</description></column>
 <column type="INT">    <name>nb_artifacts</name>                        <description>(Metric #10152) Total number of artifacts</description></column>
 <column type="INT">    <name>nb_code_lines</name>                       <description>(Metric #10151) Total number of code lines</description></column>
 <column type="INT">    <name>nb_comment_lines</name>                    <description>(Metric #10107) Total number of comment lines</description></column>
 <column type="INT">    <name>nb_commented_out_code_lines</name>         <description>(Metric #10109) Total number of code comment lines</description></column>
+<column type="INT">    <name>nb_complexity_very_high</name>             <description>(Metric #67002) Total number of artifacts with a very high cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_high</name>                  <description>(Metric #67003) Total number of artifacts with a high cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_medium</name>                <description>(Metric #67004) Total number of artifacts with a medium cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_low</name>                   <description>(Metric #67005) Total number of artifacts with a low cost complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_very_high</name>             <description>(Metric #65505) Total number of artifacts with a very high cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_high</name>                  <description>(Metric #65504) Total number of artifacts with a high cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_medium</name>                <description>(Metric #65503) Total number of artifacts with a medium cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_low</name>                   <description>(Metric #65502) Total number of artifacts with a low cyclomatic complexity</description></column>
 <column type="INT">    <name>nb_critical_violations</name>              <description>(Metric #67011) Total number of critical violations</description></column>
 <column type="INT">    <name>nb_decision_points</name>                  <description>(Metric #10506) Total number of decision points</description></column>
 <column type="INT">    <name>nb_files</name>                            <description>(Metric #10154) Total number of files</description></column>
@@ -212,6 +220,14 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>nb_code_lines</name>                       <description>(Metric #10151) Total number of code lines</description></column>
 <column type="INT">    <name>nb_comment_lines</name>                    <description>(Metric #10107) Total number of comment lines</description></column>
 <column type="INT">    <name>nb_commented_out_code_lines</name>         <description>(Metric #10109) Total number of code comment lines</description></column>
+<column type="INT">    <name>nb_complexity_very_high</name>             <description>(Metric #67002) Total number of artifacts with a very high cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_high</name>                  <description>(Metric #67003) Total number of artifacts with a high cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_medium</name>                <description>(Metric #67004) Total number of artifacts with a medium cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_low</name>                   <description>(Metric #67005) Total number of artifacts with a low cost complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_very_high</name>             <description>(Metric #65505) Total number of artifacts with a very high cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_high</name>                  <description>(Metric #65504) Total number of artifacts with a high cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_medium</name>                <description>(Metric #65503) Total number of artifacts with a medium cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_low</name>                   <description>(Metric #65502) Total number of artifacts with a low cyclomatic complexity</description></column>
 <column type="INT">    <name>nb_critical_violations</name>              <description>(Metric #67011) Total number of critical violations</description></column>
 <column type="INT">    <name>nb_decision_points</name>                  <description>(Metric #10506) Total number of decision points</description></column>
 <column type="INT">    <name>nb_files</name>                            <description>(Metric #10154) Total number of files</description></column>
@@ -398,6 +414,14 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>nb_code_lines</name>               <description>(Metric #10151) Total number of code lines</description></column>
 <column type="INT">    <name>nb_comment_lines</name>            <description>(Metric #10107) Total number of comment lines</description></column>
 <column type="INT">    <name>nb_commented_out_code_lines</name> <description>(Metric #10109) Total number of code comment lines</description></column>
+<column type="INT">    <name>nb_complexity_very_high</name>     <description>(Metric #67002) Total number of artifacts with a very high cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_high</name>          <description>(Metric #67003) Total number of artifacts with a high cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_medium</name>        <description>(Metric #67004) Total number of artifacts with a medium cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_low</name>           <description>(Metric #67005) Total number of artifacts with a low cost complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_very_high</name>     <description>(Metric #65505) Total number of artifacts with a very high cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_high</name>          <description>(Metric #65504) Total number of artifacts with a high cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_medium</name>        <description>(Metric #65503) Total number of artifacts with a medium cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_low</name>           <description>(Metric #65502) Total number of artifacts with a low cyclomatic complexity</description></column>
 <column type="INT">    <name>nb_critical_violations</name>      <description>(Metric #67011) Total number of critical violations</description></column>
 <column type="INT">    <name>nb_decision_points</name>          <description>(Metric #10506) Total number of decision points</description></column>
 <column type="INT">    <name>nb_files</name>                    <description>(Metric #10154) Total number of files</description></column>
@@ -419,6 +443,14 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>nb_code_lines</name>               <description>(Metric #10151) Total number of code lines</description></column>
 <column type="INT">    <name>nb_comment_lines</name>            <description>(Metric #10107) Total number of comment lines</description></column>
 <column type="INT">    <name>nb_commented_out_code_lines</name> <description>(Metric #10109) Total number of code comment lines</description></column>
+<column type="INT">    <name>nb_complexity_very_high</name>     <description>(Metric #67002) Total number of artifacts with a very high cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_high</name>          <description>(Metric #67003) Total number of artifacts with a high cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_medium</name>        <description>(Metric #67004) Total number of artifacts with a medium cost complexity</description></column>
+<column type="INT">    <name>nb_complexity_low</name>           <description>(Metric #67005) Total number of artifacts with a low cost complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_very_high</name>     <description>(Metric #65505) Total number of artifacts with a very high cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_high</name>          <description>(Metric #65504) Total number of artifacts with a high cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_medium</name>        <description>(Metric #65503) Total number of artifacts with a medium cyclomatic complexity</description></column>
+<column type="INT">    <name>nb_cyclomatic_low</name>           <description>(Metric #65502) Total number of artifacts with a low cyclomatic complexity</description></column>
 <column type="INT">    <name>nb_critical_violations</name>      <description>(Metric #67011) Total number of critical violations</description></column>
 <column type="INT">    <name>nb_decision_points</name>          <description>(Metric #10506) Total number of decision points</description></column>
 <column type="INT">    <name>nb_files</name>                    <description>(Metric #10154) Total number of files</description></column>
@@ -566,8 +598,8 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="TEXT">   <name>object_status</name>               <description>Object status regarding the latest snapshot: added, updated, unchanged</description></column>
 <column type="BOOLEAN"><name>action_planned</name>              <description>An action has been planned for this object, see USR_ACTION_PLAN for more details</description></column>
 <column type="BOOLEAN"><name>is_artifact</name>                 <description>A source object on which a cost complexity can be calculated</description></column>
-<column type="INT">    <name>cost_complexity</name>             <description>This value is valid if IS_ARTIFACT if column is true
-Cost complexity (-1: n/a, 0:low, 1:moderate, 2:high, 3:very-high) is a risk assessment calculated from risk assessments of
+<column type="INT">    <name>complexityity</name>             <description>This value is valid if IS_ARTIFACT if column is true
+Cost complexity (-1: n/a, 0:low, 1:medium, 2:high, 3:very-high) is a risk assessment calculated from risk assessments of
 - Cyclomatic complexity
 - SQL cyclomatic complexity
 - Granularity

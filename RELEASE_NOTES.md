@@ -1,14 +1,27 @@
-# Version: 2.1.0 - ?? December 2021
+# Version: 2.1.0 - 29 October 2021
 
 #### Prerequisite
 
-- REST API 2.X >= **2.5.0**
+- REST API 1.X is not supported
+- REST API 2.X >= **2.4.0**
 - cast-datamart JAR = **2.1.0**
 
+#### Features / Enhancements
+
+- **Data**: Add extracted columns
+    - Table ```APP_SIZING_MEASURES```       : Columns ```NB_COMPLEXITY_VERY_HIGH```, ```NB_COMPLEXITY_HIGH```, ```NB_COMPLEXITY_MEDIUM```, ```NB_COMPLEXITY_LOW```
+    - Table ```APP_TECHNO_SIZING_MEASURES```: Columns ```NB_COMPLEXITY_VERY_HIGH```, ```NB_COMPLEXITY_HIGH```, ```NB_COMPLEXITY_MEDIUM```, ```NB_COMPLEXITY_LOW```
+    - Table ```MOD_SIZING_MEASURES```       : Columns ```NB_COMPLEXITY_VERY_HIGH```, ```NB_COMPLEXITY_HIGH```, ```NB_COMPLEXITY_MEDIUM```, ```NB_COMPLEXITY_LOW```
+    - Table ```MOD_TECHNO_SIZING_MEASURES```: Columns ```NB_COMPLEXITY_VERY_HIGH```, ```NB_COMPLEXITY_HIGH```, ```NB_COMPLEXITY_MEDIUM```, ```NB_COMPLEXITY_LOW```
+
+    - Table ```APP_SIZING_MEASURES```       : Columns ```NB_CYCLOMATIC_VERY_HIGH```, ```NB_CYCLOMATIC_HIGH```, ```NB_CYCLOMATIC_MEDIUM```, ```NB_CYCLOMATIC_LOW```
+    - Table ```APP_TECHNO_SIZING_MEASURES```: Columns ```NB_CYCLOMATIC_VERY_HIGH```, ```NB_CYCLOMATIC_HIGH```, ```NB_CYCLOMATIC_MEDIUM```, ```NB_CYCLOMATIC_LOW```
+    - Table ```MOD_SIZING_MEASURES```       : Columns ```NB_CYCLOMATIC_VERY_HIGH```, ```NB_CYCLOMATIC_HIGH```, ```NB_CYCLOMATIC_MEDIUM```, ```NB_CYCLOMATIC_LOW```
+    - Table ```MOD_TECHNO_SIZING_MEASURES```: Columns ```NB_CYCLOMATIC_VERY_HIGH```, ```NB_CYCLOMATIC_HIGH```, ```NB_CYCLOMATIC_MEDIUM```, ```NB_CYCLOMATIC_LOW```
+        
 #### Upgrade
 
 The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart refresh``` command line.
-
 
 ## Version: 1.22.1 - 12 October 2021
 

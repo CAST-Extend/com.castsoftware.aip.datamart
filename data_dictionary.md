@@ -158,7 +158,7 @@ technical_debt_deleted               | DECIMAL  | (Metric #68902) Technical debt
 ```
 
 ### APP_SIZING_MEASURES
-Sizes by application snapshot
+Sizes by application snapshot.
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -167,6 +167,14 @@ nb_artifacts                         | INT      | (Metric #10152) Total number o
 nb_code_lines                        | INT      | (Metric #10151) Total number of code lines
 nb_comment_lines                     | INT      | (Metric #10107) Total number of comment lines
 nb_commented_out_code_lines          | INT      | (Metric #10109) Total number of code comment lines
+nb_complexity_very_high              | INT      | (Metric #67002) Total number of artifacts with a very high cost complexity
+nb_complexity_high                   | INT      | (Metric #67003) Total number of artifacts with a high cost complexity
+nb_complexity_medium                 | INT      | (Metric #67004) Total number of artifacts with a medium cost complexity
+nb_complexity_low                    | INT      | (Metric #67005) Total number of artifacts with a low cost complexity
+nb_cyclomatic_very_high              | INT      | (Metric #65505) Total number of artifacts with a very high cyclomatic complexity
+nb_cyclomatic_high                   | INT      | (Metric #65504) Total number of artifacts with a high cyclomatic complexity
+nb_cyclomatic_medium                 | INT      | (Metric #65503) Total number of artifacts with a medium cyclomatic complexity
+nb_cyclomatic_low                    | INT      | (Metric #65502) Total number of artifacts with a low cyclomatic complexity
 nb_critical_violations               | INT      | (Metric #67011) Total number of critical violations
 nb_decision_points                   | INT      | (Metric #10506) Total number of decision points
 nb_files                             | INT      | (Metric #10154) Total number of files
@@ -219,6 +227,14 @@ nb_artifacts                         | INT      | (Metric #10152) Total number o
 nb_code_lines                        | INT      | (Metric #10151) Total number of code lines
 nb_comment_lines                     | INT      | (Metric #10107) Total number of comment lines
 nb_commented_out_code_lines          | INT      | (Metric #10109) Total number of code comment lines
+nb_complexity_very_high              | INT      | (Metric #67002) Total number of artifacts with a very high cost complexity
+nb_complexity_high                   | INT      | (Metric #67003) Total number of artifacts with a high cost complexity
+nb_complexity_medium                 | INT      | (Metric #67004) Total number of artifacts with a medium cost complexity
+nb_complexity_low                    | INT      | (Metric #67005) Total number of artifacts with a low cost complexity
+nb_cyclomatic_very_high              | INT      | (Metric #65505) Total number of artifacts with a very high cyclomatic complexity
+nb_cyclomatic_high                   | INT      | (Metric #65504) Total number of artifacts with a high cyclomatic complexity
+nb_cyclomatic_medium                 | INT      | (Metric #65503) Total number of artifacts with a medium cyclomatic complexity
+nb_cyclomatic_low                    | INT      | (Metric #65502) Total number of artifacts with a low cyclomatic complexity
 nb_critical_violations               | INT      | (Metric #67011) Total number of critical violations
 nb_decision_points                   | INT      | (Metric #10506) Total number of decision points
 nb_files                             | INT      | (Metric #10154) Total number of files
@@ -462,6 +478,14 @@ nb_artifacts                         | INT      | (Metric #10152) Total number o
 nb_code_lines                        | INT      | (Metric #10151) Total number of code lines
 nb_comment_lines                     | INT      | (Metric #10107) Total number of comment lines
 nb_commented_out_code_lines          | INT      | (Metric #10109) Total number of code comment lines
+nb_complexity_very_high              | INT      | (Metric #67002) Total number of artifacts with a very high cost complexity
+nb_complexity_high                   | INT      | (Metric #67003) Total number of artifacts with a high cost complexity
+nb_complexity_medium                 | INT      | (Metric #67004) Total number of artifacts with a medium cost complexity
+nb_complexity_low                    | INT      | (Metric #67005) Total number of artifacts with a low cost complexity
+nb_cyclomatic_very_high              | INT      | (Metric #65505) Total number of artifacts with a very high cyclomatic complexity
+nb_cyclomatic_high                   | INT      | (Metric #65504) Total number of artifacts with a high cyclomatic complexity
+nb_cyclomatic_medium                 | INT      | (Metric #65503) Total number of artifacts with a medium cyclomatic complexity
+nb_cyclomatic_low                    | INT      | (Metric #65502) Total number of artifacts with a low cyclomatic complexity
 nb_critical_violations               | INT      | (Metric #67011) Total number of critical violations
 nb_decision_points                   | INT      | (Metric #10506) Total number of decision points
 nb_files                             | INT      | (Metric #10154) Total number of files
@@ -514,6 +538,14 @@ nb_artifacts                         | INT      | (Metric #10152) Total number o
 nb_code_lines                        | INT      | (Metric #10151) Total number of code lines
 nb_comment_lines                     | INT      | (Metric #10107) Total number of comment lines
 nb_commented_out_code_lines          | INT      | (Metric #10109) Total number of code comment lines
+nb_complexity_very_high              | INT      | (Metric #67002) Total number of artifacts with a very high cost complexity
+nb_complexity_high                   | INT      | (Metric #67003) Total number of artifacts with a high cost complexity
+nb_complexity_medium                 | INT      | (Metric #67004) Total number of artifacts with a medium cost complexity
+nb_complexity_low                    | INT      | (Metric #67005) Total number of artifacts with a low cost complexity
+nb_cyclomatic_very_high              | INT      | (Metric #65505) Total number of artifacts with a very high cyclomatic complexity
+nb_cyclomatic_high                   | INT      | (Metric #65504) Total number of artifacts with a high cyclomatic complexity
+nb_cyclomatic_medium                 | INT      | (Metric #65503) Total number of artifacts with a medium cyclomatic complexity
+nb_cyclomatic_low                    | INT      | (Metric #65502) Total number of artifacts with a low cyclomatic complexity
 nb_critical_violations               | INT      | (Metric #67011) Total number of critical violations
 nb_decision_points                   | INT      | (Metric #10506) Total number of decision points
 nb_files                             | INT      | (Metric #10154) Total number of files
@@ -592,8 +624,8 @@ technology                           | TEXT     | Associated Technology: JEE, .N
 object_status                        | TEXT     | Object status regarding the latest snapshot: added, updated, unchanged
 action_planned                       | BOOLEAN  | An action has been planned for this object, see USR_ACTION_PLAN for more details
 is_artifact                          | BOOLEAN  | A source object on which a cost complexity can be calculated
-cost_complexity                      | INT      | This value is valid if IS_ARTIFACT if column is true
-                                     |          | Cost complexity (-1: n/a, 0:low, 1:moderate, 2:high, 3:very-high) is a risk assessment calculated from risk assessments of
+complexityity                        | INT      | This value is valid if IS_ARTIFACT if column is true
+                                     |          | Cost complexity (-1: n/a, 0:low, 1:medium, 2:high, 3:very-high) is a risk assessment calculated from risk assessments of
                                      |          | - Cyclomatic complexity
                                      |          | - SQL cyclomatic complexity
                                      |          | - Granularity
