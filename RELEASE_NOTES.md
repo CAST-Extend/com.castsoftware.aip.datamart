@@ -1,4 +1,4 @@
-# Version: 2.1.0 - 29 October 2021
+# Version: 2.1.0 - 2 November 2021
 
 #### Prerequisite
 
@@ -13,16 +13,18 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 #### Features / Enhancements
 
 - **Data**: Add extracted columns
-    - Table ```APP_SIZING_MEASURES```       : Columns ```NB_COMPLEXITY_VERY_HIGH```, ```NB_COMPLEXITY_HIGH```, ```NB_COMPLEXITY_MEDIUM```, ```NB_COMPLEXITY_LOW```
-    - Table ```APP_TECHNO_SIZING_MEASURES```: Columns ```NB_COMPLEXITY_VERY_HIGH```, ```NB_COMPLEXITY_HIGH```, ```NB_COMPLEXITY_MEDIUM```, ```NB_COMPLEXITY_LOW```
-    - Table ```MOD_SIZING_MEASURES```       : Columns ```NB_COMPLEXITY_VERY_HIGH```, ```NB_COMPLEXITY_HIGH```, ```NB_COMPLEXITY_MEDIUM```, ```NB_COMPLEXITY_LOW```
-    - Table ```MOD_TECHNO_SIZING_MEASURES```: Columns ```NB_COMPLEXITY_VERY_HIGH```, ```NB_COMPLEXITY_HIGH```, ```NB_COMPLEXITY_MEDIUM```, ```NB_COMPLEXITY_LOW```
+    - Table ```APP_SIZING_MEASURES```, ```APP_TECHNO_SIZING_MEASURES``` , ```MOD_SIZING_MEASURES```, ```MOD_TECHNO_SIZING_MEASURES```:
+      - Column ```NB_COMPLEXITY_VERY_HIGH```
+      - Column ```NB_COMPLEXITY_HIGH```
+      - Column ```NB_COMPLEXITY_MEDIUM```
+      - Column ```NB_COMPLEXITY_LOW```
 
-    - Table ```APP_SIZING_MEASURES```       : Columns ```NB_CYCLOMATIC_VERY_HIGH```, ```NB_CYCLOMATIC_HIGH```, ```NB_CYCLOMATIC_MEDIUM```, ```NB_CYCLOMATIC_LOW```
-    - Table ```APP_TECHNO_SIZING_MEASURES```: Columns ```NB_CYCLOMATIC_VERY_HIGH```, ```NB_CYCLOMATIC_HIGH```, ```NB_CYCLOMATIC_MEDIUM```, ```NB_CYCLOMATIC_LOW```
-    - Table ```MOD_SIZING_MEASURES```       : Columns ```NB_CYCLOMATIC_VERY_HIGH```, ```NB_CYCLOMATIC_HIGH```, ```NB_CYCLOMATIC_MEDIUM```, ```NB_CYCLOMATIC_LOW```
-    - Table ```MOD_TECHNO_SIZING_MEASURES```: Columns ```NB_CYCLOMATIC_VERY_HIGH```, ```NB_CYCLOMATIC_HIGH```, ```NB_CYCLOMATIC_MEDIUM```, ```NB_CYCLOMATIC_LOW```
-        
+    - Table ```APP_SIZING_MEASURES```, ```APP_TECHNO_SIZING_MEASURES``` , ```MOD_SIZING_MEASURES```, ```MOD_TECHNO_SIZING_MEASURES```:<br>
+      - Column ```NB_CYCLOMATIC_VERY_HIGH```
+      - Column ```NB_CYCLOMATIC_HIGH```
+      - Column ```NB_CYCLOMATIC_MEDIUM```,
+      - Colmun ```NB_CYCLOMATIC_LOW```
+  
 ## Version: 1.22.1 - 12 October 2021
 
 #### Prerequisite
