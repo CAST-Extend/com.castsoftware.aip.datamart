@@ -1,4 +1,4 @@
-# Version: 2.1.0 - 2 November 2021
+# Version: 2.1.0 - 9 November 2021
 
 #### Prerequisite
 
@@ -24,6 +24,10 @@ The Datamart schema has been extended. If you want to preserve an existing datam
       - Column ```NB_CYCLOMATIC_HIGH```
       - Column ```NB_CYCLOMATIC_MEDIUM```,
       - Colmun ```NB_CYCLOMATIC_LOW```
+  
+#### Bug Fixes
+
+- **Scripts**: Allow space characters in the installation (or root) folder name
   
 ## Version: 1.22.1 - 12 October 2021
 
