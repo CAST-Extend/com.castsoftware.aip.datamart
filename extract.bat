@@ -11,7 +11,7 @@ if [%ROOT%] == [] set ROOT=%DEFAULT_ROOT%
 if [%DOMAIN%] == [] set DOMAIN=%DEFAULT_DOMAIN%
 
 IF NOT EXIST "%EXTRACT_FOLDER%\%DOMAIN%" MKDIR "%EXTRACT_FOLDER%\%DOMAIN%"
-del /F /Q /A "%EXTRACT_FOLDER%\%DOMAIN%"
+IF [%DEBUG%] == [OFF] DEL /F /Q /A "%EXTRACT_FOLDER%\%DOMAIN%"
 
 if [%1] == [refresh]          (call :EXTRACT_ALL      && GOTO :SUCCESS)
 if [%1] == [install]          (call :EXTRACT_ALL      && GOTO :SUCCESS)
