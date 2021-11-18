@@ -6,6 +6,8 @@
 - REST API 2.X >= **2.4.0**
 - Extractor is cast-datamart-2.1.0.jar
 
+Starting from REST API 2.4.0, if you have deployed the Dashboards/REST API with Tomcat, you will be able to overwrite the REST API backend to update the Datamart Extractor Web Services.
+
 #### Upgrade
 
 The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart refresh``` command line.
