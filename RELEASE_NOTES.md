@@ -6,7 +6,7 @@
 
 #### Bug Fixes
 
-- **Data**: Avoid unknown snapshot reference for sizing measures evolution tables when some bad snapshots have been skipped
+- **Data**: Avoid unknown snapshot reference for sizing measures evolution tables (APP_SIZING_EVOLUTION) when some bad snapshots have been skipped 
 
 # Version: 2.1.0 - 9 November 2021
 
