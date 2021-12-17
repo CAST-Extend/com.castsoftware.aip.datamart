@@ -1,3 +1,13 @@
+# Version: 2.1.1 - 17 December 2021
+
+- REST API 1.X is not supported
+- REST API 2.X >= **2.4.3**
+- Extractor is cast-datamart-2.1.1.jar
+
+#### Bug Fixes
+
+- **Data**: Avoid unknown snapshot reference for sizing measures evolution tables when some bad snapshots have been skipped
+
 # Version: 2.1.0 - 9 November 2021
 
 #### Prerequisite
