@@ -1,7 +1,7 @@
 ## Version: 2.2.0 - 21 December 2021
 
 - REST API 1.X is not supported
-- REST API 2.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.2.0.jar
+- REST API 2.4.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.2.0.jar
 
 #### Upgrade
 
@@ -17,7 +17,7 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 - REST API 1.X is not supported
 - REST API 2.X >= **2.4.3**
-- REST API 2.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.1.1.jar
+- REST API 2.4.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.1.1.jar
 
 #### Bug Fixes
 
@@ -29,7 +29,6 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 - REST API 1.X is not supported
 - REST API 2.X >= **2.4.0**
-- REST API 2.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.1.0.jar
 
 Starting from REST API 2.4.0, if you have deployed the Dashboards/REST API with Tomcat, you will be able to overwrite the REST API backend to update the Datamart Extractor Web Services.
 
