@@ -127,7 +127,8 @@ business_criterion_name              | TEXT     | Business Criterion Name (Total
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
 nb_critical_violations               | INT      | (Metric #67011) Business Criterion score
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
-score                                | DECIMAL  | Business Criterion score
+score                                | DECIMAL  | Business Criterion grade (between 1.0 and 4.0)
+compliance_score                     | DECIMAL  | Business Criterion compliance score (between 0.0 and 1.0)
 ```
 
 ### APP_SCORES
@@ -139,7 +140,8 @@ snapshot_id                          | TEXT     | The concatenation of the appli
 metric_id                            | INT      | AIP Globally unique metric ID
 metric_name                          | TEXT     | Quality Indicator name
 metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure
-score                                | DECIMAL  | Quality Indicator grade
+score                                | DECIMAL  | Quality Indicator grade (between 1.0 and 4.0)
+compliance_score                     | DECIMAL  | Quality Indicator compliance score (between 0.0 and 1.0)
 ```
 
 ### APP_SIZING_EVOLUTION
@@ -197,7 +199,8 @@ technology                           | TEXT     | Source code technology
 metric_id                            | INT      | AIP Globally unique metric ID
 metric_name                          | TEXT     | Quality Indicator name
 metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure
-score                                | DECIMAL  | Quality Indicator grade
+score                                | DECIMAL  | Quality Indicator grade (between 1.0 and 4.0)
+compliance_score                     | DECIMAL  | Quality Indicator compliance score (between 0.0 and 1.0)
 ```
 
 ### APP_TECHNO_SIZING_EVOLUTION
@@ -435,7 +438,8 @@ business_criterion_name              | TEXT     | Business Criterion Name (Total
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
 nb_critical_violations               | INT      | (Metric #67011) Business Criterion score
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
-score                                | DECIMAL  | Business Criterion score
+score                                | DECIMAL  | Business Criterion grade (between 1.0 and 4.0)
+compliance_score                     | DECIMAL  | Business Criterion compliance score (between 0.0 and 1.0)
 ```
 
 ### MOD_SCORES
@@ -448,7 +452,8 @@ module_name                          | TEXT     | Module name
 metric_id                            | INT      | AIP Globally unique metric ID
 metric_name                          | TEXT     | Quality Indicator name
 metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure
-score                                | DECIMAL  | Quality Indicator grade
+score                                | DECIMAL  | Quality Indicator grade (between 1.0 and 4.0)
+compliance_score                     | DECIMAL  | Quality Indicator compliance score (between 0.0 and 1.0)
 ```
 
 ### MOD_SIZING_EVOLUTION
@@ -506,7 +511,8 @@ technology                           | TEXT     | Source code technology
 metric_id                            | INT      | AIP Globally unique metric ID
 metric_name                          | TEXT     | Quality Indicator name
 metric_type                          | TEXT     | Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure
-score                                | DECIMAL  | Quality Indicator grade
+score                                | DECIMAL  | Quality Indicator grade (between 1.0 and 4.0)
+compliance_score                     | DECIMAL  | Quality Indicator compliance score (between 0.0 and 1.0)
 ```
 
 ### MOD_TECHNO_SIZING_EVOLUTION

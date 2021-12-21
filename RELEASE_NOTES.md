@@ -1,20 +1,35 @@
-# Version: 2.1.1 - 17 December 2021
+## Version: 2.2.0 - 21 December 2021
+
+- REST API 1.X is not supported
+- REST API 2.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.2.0.jar
+
+#### Upgrade
+
+The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart refresh``` command line.
+
+#### Features / Enhancements
+
+- **Data**: Add extracted column
+    - Tables ```APP_HEALTH_SCORES```, ```APP_SCORES``` , ```APP_TECHNO_SCORES```, ```MOD_HEALTH_SCORES```, ```MOD_SCORES``` , ```MOD_TECHNO_SCORES```,
+      - Column ```COMPLIANCE_SCORE```
+
+## Version: 2.1.1 - 17 December 2021
 
 - REST API 1.X is not supported
 - REST API 2.X >= **2.4.3**
-- Extractor is cast-datamart-2.1.1.jar
+- REST API 2.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.1.1.jar
 
 #### Bug Fixes
 
 - **Data**: Avoid unknown snapshot reference for sizing measures evolution tables (APP_SIZING_EVOLUTION) when some bad snapshots have been skipped 
 
-# Version: 2.1.0 - 9 November 2021
+## Version: 2.1.0 - 9 November 2021
 
 #### Prerequisite
 
 - REST API 1.X is not supported
 - REST API 2.X >= **2.4.0**
-- Extractor is cast-datamart-2.1.0.jar
+- REST API 2.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.1.0.jar
 
 Starting from REST API 2.4.0, if you have deployed the Dashboards/REST API with Tomcat, you will be able to overwrite the REST API backend to update the Datamart Extractor Web Services.
 
@@ -25,7 +40,7 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 #### Features / Enhancements
 
 - **Data**: Add extracted columns
-    - Table ```APP_SIZING_MEASURES```, ```APP_TECHNO_SIZING_MEASURES``` , ```MOD_SIZING_MEASURES```, ```MOD_TECHNO_SIZING_MEASURES```:
+    - Tables ```APP_SIZING_MEASURES```, ```APP_TECHNO_SIZING_MEASURES``` , ```MOD_SIZING_MEASURES```, ```MOD_TECHNO_SIZING_MEASURES```:
       - Column ```NB_COMPLEXITY_VERY_HIGH```
       - Column ```NB_COMPLEXITY_HIGH```
       - Column ```NB_COMPLEXITY_MEDIUM```

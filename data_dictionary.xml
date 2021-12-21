@@ -264,7 +264,8 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="BOOLEAN"><name>is_health_factor</name>                    <description>Check whether this business criterion is a health factor</description></column>
 <column type="INT">    <name>nb_critical_violations</name>              <description>(Metric #67011) Business Criterion score</description></column>
 <column type="INT">    <name>nb_violations</name>                       <description>(Metric #67211) Business Criterion score</description></column>
-<column type="DECIMAL"><name>score</name>                               <description>Business Criterion score</description></column>
+<column type="DECIMAL"><name>score</name>                               <description>Business Criterion grade (between 1.0 and 4.0)</description></column>
+<column type="DECIMAL"><name>compliance_score</name>                    <description>Business Criterion compliance score (between 0.0 and 1.0)</description></column>
 </columns>
 </table>
 
@@ -276,7 +277,9 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>metric_id</name>                   <description>AIP Globally unique metric ID</description></column>
 <column type="TEXT">   <name>metric_name</name>                 <description>Quality Indicator name</description></column>
 <column type="TEXT">   <name>metric_type</name>                 <description>Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure</description></column>
-<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade</description></column>
+<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade (between 1.0 and 4.0)</description></column>
+<column type="DECIMAL"><name>compliance_score</name>            <description>Quality Indicator compliance score (between 0.0 and 1.0)</description></column>
+
 </columns>
 </table>
 
@@ -289,7 +292,8 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>metric_id</name>                   <description>AIP Globally unique metric ID</description></column>
 <column type="TEXT">   <name>metric_name</name>                 <description>Quality Indicator name</description></column>
 <column type="TEXT">   <name>metric_type</name>                 <description>Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure</description></column>
-<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade</description></column>
+<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade (between 1.0 and 4.0)</description></column>
+<column type="DECIMAL"><name>compliance_score</name>            <description>Quality Indicator compliance score (between 0.0 and 1.0)</description></column>
 </columns>
 </table>
 
@@ -471,7 +475,9 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="BOOLEAN"><name>is_health_factor</name>            <description>Check whether this business criterion is a health factor</description></column>
 <column type="INT">    <name>nb_critical_violations</name>      <description>(Metric #67011) Business Criterion score</description></column>
 <column type="INT">    <name>nb_violations</name>               <description>(Metric #67211) Business Criterion score</description></column>
-<column type="DECIMAL"><name>score</name>                       <description>Business Criterion score</description></column>
+<column type="DECIMAL"><name>score</name>                       <description>Business Criterion grade (between 1.0 and 4.0)</description></column>
+<column type="DECIMAL"><name>compliance_score</name>            <description>Business Criterion compliance score (between 0.0 and 1.0)</description></column>
+
 </columns>
 </table>
 
@@ -484,7 +490,8 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>metric_id</name>                   <description>AIP Globally unique metric ID</description></column>
 <column type="TEXT">   <name>metric_name</name>                 <description>Quality Indicator name</description></column>
 <column type="TEXT">   <name>metric_type</name>                 <description>Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure</description></column>
-<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade</description></column>
+<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade (between 1.0 and 4.0)</description></column>
+<column type="DECIMAL"><name>compliance_score</name>            <description>Quality Indicator compliance score (between 0.0 and 1.0)</description></column>
 </columns>
 </table>
 
@@ -498,7 +505,8 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>metric_id</name>                   <description>AIP Globally unique metric ID</description></column>
 <column type="TEXT">   <name>metric_name</name>                 <description>Quality Indicator name</description></column>
 <column type="TEXT">   <name>metric_type</name>                 <description>Quality Indicator type: business-criterion, technical-criterion, quality-rule, quality-distribution, quality-distribution-category, quality-measure</description></column>
-<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade</description></column>
+<column type="DECIMAL"><name>score</name>                       <description>Quality Indicator grade (between 1.0 and 4.0)</description></column>
+<column type="DECIMAL"><name>compliance_score</name>            <description>Quality Indicator compliance score (between 0.0 and 1.0)</description></column>
 </columns>
 </table>
 
