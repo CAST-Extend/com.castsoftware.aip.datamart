@@ -11,6 +11,7 @@ echo > "%LOG_FILE%"
 REM Load Data
 CALL :load DIM_OMG_ASCQM                        || GOTO :FAIL
 CALL :load DIM_OWASP_2017                       || GOTO :FAIL
+CALL :load APP_ISO_SCORES_VIEW                  || GOTO :FAIL
 GOTO :SUCCESS
 
 :FAIL
