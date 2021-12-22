@@ -118,7 +118,7 @@ nb_violations_removed                | INT      | (Metric #67922) Number of viol
 ```
 
 ### APP_HEALTH_SCORES
-Score and number of violations by snapshot and by business criterion
+Scores and number of violations by snapshot and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
@@ -428,7 +428,7 @@ nb_violations_removed                | INT      | (Metric #67922) Number of viol
 ```
 
 ### MOD_HEALTH_SCORES
-Score and number of violations by snapshot, by module and by business criterion
+Scores and number of violations by snapshot, by module and by business criterion
 ```
 COLUMN                               | TYPE     | DESCRIPTION
 -------------------------------------+----------+------------
