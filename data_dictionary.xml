@@ -257,7 +257,7 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 
 <table type="table">
 <name>APP_HEALTH_SCORES</name>
-<description>Score and number of violations by snapshot and by business criterion</description>
+<description>Scores and number of violations by snapshot and by business criterion</description>
 <columns>
 <column type="TEXT">   <name>snapshot_id</name>                         <description>The concatenation of the application name and the snapshot timestamp</description></column>
 <column type="TEXT">   <name>business_criterion_name</name>             <description>Business Criterion Name (Total Quality Index, Security, etc.)</description></column>
@@ -467,7 +467,7 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 
 <table type="table">
 <name>MOD_HEALTH_SCORES</name>
-<description>Score and number of violations by snapshot, by module and by business criterion</description>
+<description>Scores and number of violations by snapshot, by module and by business criterion</description>
 <columns>
 <column type="TEXT">   <name>snapshot_id</name>                 <description>The concatenation of the application name and the snapshot timestamp</description></column>
 <column type="TEXT">   <name>module_name</name>                 <description>Module name</description></column>
