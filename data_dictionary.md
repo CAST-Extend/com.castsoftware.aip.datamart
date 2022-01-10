@@ -115,6 +115,8 @@ nb_critical_violations_added         | INT      | (Metric #67901) Number of crit
 nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
+remediation_effort_added             | INT      | (Metric #1062030) Added Remediation effort in minutes according to OMG Technical Debt
+remediation_effort_deleted           | INT      | (Metric #1062032) Deleted Remediation effort in minutes according to OMG Technical Debt
 ```
 
 ### APP_HEALTH_SCORES
@@ -127,6 +129,7 @@ business_criterion_name              | TEXT     | Business Criterion Name (Total
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
 nb_critical_violations               | INT      | (Metric #67011) Business Criterion score
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
+remediation_effort                   | INT      | (Metric #1062020) Remediation effort in minutes according to OMG Technical Debt
 score                                | DECIMAL  | Business Criterion grade (between 1.0 and 4.0)
 compliance_score                     | DECIMAL  | Business Criterion compliance score (between 0.0 and 1.0)
 ```
@@ -425,6 +428,8 @@ nb_critical_violations_added         | INT      | (Metric #67901) Number of crit
 nb_critical_violations_removed       | INT      | (Metric #67902) Number of critical violations removed
 nb_violations_added                  | INT      | (Metric #67921) Number of violations added
 nb_violations_removed                | INT      | (Metric #67922) Number of violations removed
+remediation_effort_added             | INT      | (Metric #1062030) Added Remediation effort in minutes according to OMG Technical Debt
+remediation_effort_deleted           | INT      | (Metric #1062032) Deleted Remediation effort in minutes according to OMG Technical Debt
 ```
 
 ### MOD_HEALTH_SCORES
@@ -438,6 +443,7 @@ business_criterion_name              | TEXT     | Business Criterion Name (Total
 is_health_factor                     | BOOLEAN  | Check whether this business criterion is a health factor
 nb_critical_violations               | INT      | (Metric #67011) Business Criterion score
 nb_violations                        | INT      | (Metric #67211) Business Criterion score
+remediation_effort                   | INT      | (Metric #1062020) Remediation effort in minutes according to OMG Technical Debt
 score                                | DECIMAL  | Business Criterion grade (between 1.0 and 4.0)
 compliance_score                     | DECIMAL  | Business Criterion compliance score (between 0.0 and 1.0)
 ```

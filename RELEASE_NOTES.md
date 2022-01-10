@@ -1,8 +1,26 @@
+## Version: 2.3.0 - 14 January 2022
+
+- REST API 1.X is not supported
+- REST API 2.4.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with **cast-datamart-2.3.0.jar**
+
+#### Upgrade
+
+The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart refresh``` command line.
+
+#### Features / Enhancements
+
+- **Data**: Add extracted column
+    - Tables ```APP_HEALTH_SCORES```, ```MOD_HEALTH_SCORES```
+      - Column ```REMEDIATION_EFFORT```
+    - Tables ```APP_HEALTH_EVOLUTION```, ```MOD_HEALTH_EVOLUTION```
+      - Column ```REMEDIATION_EFFORT_ADDED```
+      - Column ```REMEDIATION_EFFORT_DELETED```      
+
 ## Version: 2.2.0 - 10 January 2022
 
 - REST API 1.X is not supported
 - REST API 2.X >= **2.5.0**
-- REST API 2.4.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.2.0.jar
+- REST API 2.4.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with **cast-datamart-2.2.0.jar**
 
 #### Upgrade
 

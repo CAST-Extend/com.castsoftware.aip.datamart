@@ -264,6 +264,7 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="BOOLEAN"><name>is_health_factor</name>                    <description>Check whether this business criterion is a health factor</description></column>
 <column type="INT">    <name>nb_critical_violations</name>              <description>(Metric #67011) Business Criterion score</description></column>
 <column type="INT">    <name>nb_violations</name>                       <description>(Metric #67211) Business Criterion score</description></column>
+<column type="INT">    <name>remediation_effort</name>                  <description>(Metric #1062020) Remediation effort in minutes according to OMG Technical Debt</description></column>
 <column type="DECIMAL"><name>score</name>                               <description>Business Criterion grade (between 1.0 and 4.0)</description></column>
 <column type="DECIMAL"><name>compliance_score</name>                    <description>Business Criterion compliance score (between 0.0 and 1.0)</description></column>
 </columns>
@@ -374,6 +375,8 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>nb_critical_violations_removed</name><description>(Metric #67902) Number of critical violations removed</description></column>
 <column type="INT">    <name>nb_violations_added</name>           <description>(Metric #67921) Number of violations added</description></column>
 <column type="INT">    <name>nb_violations_removed</name>         <description>(Metric #67922) Number of violations removed</description></column>
+<column type="INT">    <name>remediation_effort_added</name>      <description>(Metric #1062030) Added Remediation effort in minutes according to OMG Technical Debt</description></column>
+<column type="INT">    <name>remediation_effort_deleted</name>    <description>(Metric #1062032) Deleted Remediation effort in minutes according to OMG Technical Debt</description></column>
 </columns>
 </table>
 
@@ -475,6 +478,7 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="BOOLEAN"><name>is_health_factor</name>            <description>Check whether this business criterion is a health factor</description></column>
 <column type="INT">    <name>nb_critical_violations</name>      <description>(Metric #67011) Business Criterion score</description></column>
 <column type="INT">    <name>nb_violations</name>               <description>(Metric #67211) Business Criterion score</description></column>
+<column type="INT">    <name>remediation_effort</name>          <description>(Metric #1062020) Remediation effort in minutes according to OMG Technical Debt</description></column>
 <column type="DECIMAL"><name>score</name>                       <description>Business Criterion grade (between 1.0 and 4.0)</description></column>
 <column type="DECIMAL"><name>compliance_score</name>            <description>Business Criterion compliance score (between 0.0 and 1.0)</description></column>
 
@@ -556,6 +560,8 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="INT">    <name>nb_critical_violations_removed</name><description>(Metric #67902) Number of critical violations removed</description></column>
 <column type="INT">    <name>nb_violations_added</name>           <description>(Metric #67921) Number of violations added</description></column>
 <column type="INT">    <name>nb_violations_removed</name>         <description>(Metric #67922) Number of violations removed</description></column>
+<column type="INT">    <name>remediation_effort_added</name>      <description>(Metric #1062030) Added Remediation effort in minutes according to OMG Technical Debt</description></column>
+<column type="INT">    <name>remediation_effort_deleted</name>    <description>(Metric #1062032) Deleted Remediation effort in minutes according to OMG Technical Debt</description></column>
 </columns>
 </table>
 
