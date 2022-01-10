@@ -1,6 +1,7 @@
-## Version: 2.2.0 - 21 December 2021
+## Version: 2.2.0 - 10 January 2022
 
 - REST API 1.X is not supported
+- REST API 2.X >= **2.5.0**
 - REST API 2.4.X prior versions deployed with Tomcat, you must replace cast-datamart-X.Y.Z.jar with cast-datamart-2.2.0.jar
 
 #### Upgrade
