@@ -29,7 +29,11 @@ SELECT
 
    h.nb_violations AS total_violations,
    e.nb_violations_added AS added_violations,
-   e.nb_violations_removed AS removed_violations
+   e.nb_violations_removed AS removed_violations,
+   
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN h.remediation_effort ELSE NULL::numeric END) AS atdm_debt,
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.remediation_effort_added ELSE NULL::numeric END) AS atdm_debt_added,
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.remediation_effort_deleted ELSE NULL::numeric END) AS atdm_debt_deleted
 
 FROM :schema.dim_snapshots s
 
@@ -42,7 +46,9 @@ JOIN :schema.app_sizing_measures z ON z.snapshot_id = s.snapshot_id
 JOIN :schema.app_sizing_evolution d ON d.snapshot_id = s.snapshot_id
 
 JOIN :schema.app_functional_sizing_measures f ON f.snapshot_id = s.snapshot_id
-JOIN :schema.app_functional_sizing_evolution fe ON fe.snapshot_id = s.snapshot_id;
+JOIN :schema.app_functional_sizing_evolution fe ON fe.snapshot_id = s.snapshot_id
+
+
 
 
 

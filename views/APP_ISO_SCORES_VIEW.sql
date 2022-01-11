@@ -9,6 +9,12 @@ MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Reliability'::text THEN m.nb
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Performance-Efficiency'::text THEN m.nb_violations ELSE NULL::integer END) AS iso_performance_violations,
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Maintainability'::text THEN m.nb_violations ELSE NULL::integer END) AS iso_maintainability_violations,
 
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Index'::text THEN m.remediation_effort ELSE NULL::integer END) AS iso_index_effort,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Security'::text THEN m.remediation_effort ELSE NULL::integer END) AS iso_security_effort,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Reliability'::text THEN m.remediation_effort ELSE NULL::integer END) AS iso_reliability_effort,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Performance-Efficiency'::text THEN m.remediation_effort ELSE NULL::integer END) AS iso_performance_effort,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Maintainability'::text THEN m.remediation_effort ELSE NULL::integer END) AS iso_maintainability_effort,
+
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Index'::text THEN m.score ELSE NULL::numeric END) AS iso_index_score,
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Security'::text THEN m.score ELSE NULL::numeric END) AS iso_security_score,
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Reliability'::text THEN m.score ELSE NULL::numeric END) AS iso_reliability_score,
