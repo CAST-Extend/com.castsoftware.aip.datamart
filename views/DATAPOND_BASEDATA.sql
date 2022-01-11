@@ -31,9 +31,13 @@ SELECT
    e.nb_violations_added AS added_violations,
    e.nb_violations_removed AS removed_violations,
    
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN h.remediation_effort ELSE NULL::numeric END) AS atdm_debt,
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.remediation_effort_added ELSE NULL::numeric END) AS atdm_debt_added,
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.remediation_effort_deleted ELSE NULL::numeric END) AS atdm_debt_deleted
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN h.omg_technical_debt/(8*60) ELSE NULL::numeric END) AS atdm_debt,
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_added/(8*60) ELSE NULL::numeric END) AS atdm_debt_added,
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_deleted/(8*60) ELSE NULL::numeric END) AS atdm_debt_deleted
+
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN h.omg_technical_debt/(8*60) ELSE NULL::numeric END) AS atdm_debt,
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_added/(8*60) ELSE NULL::numeric END) AS atdm_debt_added,
+   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_deleted/(8*60) ELSE NULL::numeric END) AS atdm_debt_deleted
 
 FROM :schema.dim_snapshots s
 

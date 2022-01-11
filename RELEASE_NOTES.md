@@ -11,10 +11,10 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 - **Data**: Add extracted column
     - Tables ```APP_HEALTH_SCORES```, ```MOD_HEALTH_SCORES```
-      - Column ```REMEDIATION_EFFORT```
+      - Column ```OMG_TECHNICAL_DEBT```
     - Tables ```APP_HEALTH_EVOLUTION```, ```MOD_HEALTH_EVOLUTION```
-      - Column ```REMEDIATION_EFFORT_ADDED```
-      - Column ```REMEDIATION_EFFORT_DELETED```      
+      - Column ```OMG_TECHNICAL_DEBT_ADDED```
+      - Column ```OMG_TECHNICAL_DEBT_DELETED```      
 
 ## Version: 2.2.0 - 10 January 2022
 
