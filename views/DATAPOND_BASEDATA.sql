@@ -35,10 +35,6 @@ SELECT
    MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_added/(8*60) ELSE NULL::numeric END) AS atdm_debt_added,
    MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_deleted/(8*60) ELSE NULL::numeric END) AS atdm_debt_deleted
 
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN h.omg_technical_debt/(8*60) ELSE NULL::numeric END) AS atdm_debt,
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_added/(8*60) ELSE NULL::numeric END) AS atdm_debt_added,
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_deleted/(8*60) ELSE NULL::numeric END) AS atdm_debt_deleted
-
 FROM :schema.dim_snapshots s
 
 JOIN :schema.app_health_scores h ON h.snapshot_id = s.snapshot_id AND h.is_health_factor
