@@ -1,6 +1,8 @@
 DROP VIEW IF EXISTS :schema.datapond_basedata CASCADE;
 CREATE OR REPLACE VIEW :schema.datapond_basedata AS 
-WITH technologies AS (SELECT snapshot_id, string_agg(DISTINCT technology, ' ') AS technology FROM :schema.app_violations_measures GROUP BY 1)
+WITH technologies AS (SELECT snapshot_id, string_agg(DISTINCT technology, ' ') AS technology FROM :schema.app_violations_measures GROUP BY 1),
+omg_measure AS (SELECT omg_technical_debt, snapshot_id FROM :schema.app_health_scores WHERE business_criterion_name = 'CISQ-Index'),
+omg_evolution AS (SELECT omg_technical_debt_added, omg_technical_debt_deleted, snapshot_id FROM :schema.app_health_evolution WHERE business_criterion_name = 'CISQ-Index')
 SELECT 
    s.application_name AS appname, 
    t.technology AS technology,
@@ -31,9 +33,9 @@ SELECT
    e.nb_violations_added AS added_violations,
    e.nb_violations_removed AS removed_violations,
    
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN h.omg_technical_debt/(8*60) ELSE NULL::numeric END) AS atdm_debt,
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_added/(8*60) ELSE NULL::numeric END) AS atdm_debt_added,
-   MAX(CASE WHEN h.business_criterion_name = 'CISQ-Index'::text THEN e.omg_technical_debt_deleted/(8*60) ELSE NULL::numeric END) AS atdm_debt_deleted
+   omgm.omg_technical_debt/(8*60) as atdm_debt,
+   omge.omg_technical_debt_added/(8*60) as atdm_debt_added,
+   omge.omg_technical_debt_deleted/(8*60) as atdm_debt_deleted
 
 FROM :schema.dim_snapshots s
 
@@ -48,7 +50,6 @@ JOIN :schema.app_sizing_evolution d ON d.snapshot_id = s.snapshot_id
 JOIN :schema.app_functional_sizing_measures f ON f.snapshot_id = s.snapshot_id
 JOIN :schema.app_functional_sizing_evolution fe ON fe.snapshot_id = s.snapshot_id
 
-
-
-
+JOIN omg_measure omgm ON omgm.snapshot_id = s.snapshot_id
+JOIN omg_evolution omge ON omge.snapshot_id = s.snapshot_id
 
