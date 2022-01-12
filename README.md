@@ -237,9 +237,9 @@ restapi.datasource[0].maximumPoolSize=20
 
 __&#9888; The ```datamart``` command line is taking too much time__
 
-First you can parallelize the extraction with concurrent processes by settings the ```JOBS``` command line. see [Running the Scripts ](#Running-the-Scripts)
+Firstly, you can parallelize the extraction with concurrent processes by settings the ```JOBS``` variable. See [Running the Scripts ](#Running-the-Scripts)
 
-Secondly, you can reduce the extraction scope either by extracting only the measurement base with the ```run``` command or by ignoring some set of tables [Running the Scripts ](#Running-the-Scripts)
+Secondly, you can reduce the extraction scope either by extracting only the measurement base with the ```run``` command or by ignoring some set of tables. See [Running the Scripts ](#Running-the-Scripts)
 
 At last, you can use the ```dartamart update``` command line in order to synchronize the datamart with new snapshots only.
 
@@ -248,17 +248,17 @@ At last, you can use the ```dartamart update``` command line in order to synchro
 
 If the Datamart schema has been extended with new tables, or new columns, you need to perform some actions.
 
-- You are using ```run install``` or  ```datamart install``` command line, then you need:
-    - to run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns
+- You are using ```run install``` or  ```datamart install``` command line, then you need to:
+    - run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns.
   
-- You are using ```run refresh``` or  ```datamart refresh``` command line to preserve some SQL Views, then you need:
-    - to run the ```upgrade_schema.bat``` script to install new tables and columns
-    - to run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns
+- You are using ```run refresh``` or  ```datamart refresh``` command line to preserve some SQL Views, then you need to:
+    - run the ```upgrade_schema.bat``` script to install new tables and columns,
+    - run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns.
 
-- You are using ```datamart update``` command line to refresh data coming only from new snapshots, then you need:
-    - to run the ```upgrade_schema.bat``` script to install new tables and columns
-    - to run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns
-    - to run the ```datamart refresh``` before the next ```datamart update``` run
+- You are using ```datamart update``` command line to refresh data coming only from new snapshots, then you need to:
+    - run the ```upgrade_schema.bat``` script to install new tables and columns,
+    - run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns,
+    - run the ```datamart refresh``` before the next ```datamart update``` run.
     
 ### Datapond
 
