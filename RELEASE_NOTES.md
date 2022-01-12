@@ -16,6 +16,11 @@ The Datamart schema has been extended. If you want to preserve an existing datam
       - Column ```OMG_TECHNICAL_DEBT_ADDED```
       - Column ```OMG_TECHNICAL_DEBT_DELETED```      
 
+
+#### Bug Fixes
+
+- **Scripts**: Fix column name for ```load_data_dictionary.bat``` script
+
 ## Version: 2.2.0 - 10 January 2022
 
 - REST API 1.X is not supported

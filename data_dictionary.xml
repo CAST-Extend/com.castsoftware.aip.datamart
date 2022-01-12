@@ -612,7 +612,7 @@ owasp_2017                           | BOOLEAN  | Check whether this rule detect
 <column type="TEXT">   <name>object_status</name>               <description>Object status regarding the latest snapshot: added, updated, unchanged</description></column>
 <column type="BOOLEAN"><name>action_planned</name>              <description>An action has been planned for this object, see USR_ACTION_PLAN for more details</description></column>
 <column type="BOOLEAN"><name>is_artifact</name>                 <description>A source object on which a cost complexity can be calculated</description></column>
-<column type="INT">    <name>complexityity</name>             <description>This value is valid if IS_ARTIFACT if column is true
+<column type="INT">    <name>cost_complexity</name>             <description>This value is valid if IS_ARTIFACT if column is true
 Cost complexity (-1: n/a, 0:low, 1:medium, 2:high, 3:very-high) is a risk assessment calculated from risk assessments of
 - Cyclomatic complexity
 - SQL cyclomatic complexity

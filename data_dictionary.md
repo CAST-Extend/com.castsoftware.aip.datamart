@@ -636,7 +636,7 @@ technology                           | TEXT     | Associated Technology: JEE, .N
 object_status                        | TEXT     | Object status regarding the latest snapshot: added, updated, unchanged
 action_planned                       | BOOLEAN  | An action has been planned for this object, see USR_ACTION_PLAN for more details
 is_artifact                          | BOOLEAN  | A source object on which a cost complexity can be calculated
-complexityity                        | INT      | This value is valid if IS_ARTIFACT if column is true
+cost_complexity                      | INT      | This value is valid if IS_ARTIFACT if column is true
                                      |          | Cost complexity (-1: n/a, 0:low, 1:medium, 2:high, 3:very-high) is a risk assessment calculated from risk assessments of
                                      |          | - Cyclomatic complexity
                                      |          | - SQL cyclomatic complexity
