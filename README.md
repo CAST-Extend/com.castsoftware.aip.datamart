@@ -235,11 +235,31 @@ restapi.datasource[0].maximumPoolSize=20
 <Resource name="jdbc/domains/LOCALHOST" url="jdbc:postgresql://localhost:2282/postgres" ... initialSize="5" maxTotal="20" maxIdle="10" maxWaitMillis="-1"/>
 ```
 
+__&#9888; The ```datamart``` command line is taking too much time__
+
+First you can parallelize the extraction with concurrent processes by settings the ```JOBS``` command line. see [Running the Scripts ](#Running-the-Scripts)
+
+Secondly, you can reduce the extraction scope either by extracting only the measurement base with the ```run``` command or by ignoring some set of tables [Running the Scripts ](#Running-the-Scripts)
+
+At last, you can use the ```dartamart update``` command line in order to synchronize the datamart with new snapshots only.
+
 
 ### Schema Upgrade
 
-If you have previously installed the Datamart tables, and have upgraded later the REST API, then the database schema may be not synchronized with some new columns that have been added. To fix that, you may need to run the ```upgrade_schema.bat``` script. For the first release of the Datamart the script is empty.
+If the Datamart schema has been extended with new tables, or new columns, you need to perform some actions.
 
+- You are using ```run install``` or  ```datamart install``` command line, then you need:
+    - to run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns
+  
+- You are using ```run refresh``` or  ```datamart refresh``` command line to preserve some SQL Views, then you need:
+    - to run the ```upgrade_schema.bat``` script to install new tables and columns
+    - to run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns
+
+- You are using ```datamart update``` command line to refresh data coming only from new snapshots, then you need:
+    - to run the ```upgrade_schema.bat``` script to install new tables and columns
+    - to run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns
+    - to run the ```datamart refresh``` before the next ```datamart update``` run
+    
 ### Datapond
 
 To comply with the DATAPOND extract tables and to limit the resources consumption (CPU, disk space), we advise to set the extract environment variables as follow:
