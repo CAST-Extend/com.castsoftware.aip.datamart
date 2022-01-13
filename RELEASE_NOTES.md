@@ -10,12 +10,25 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 #### Features / Enhancements
 
 - **Data**: Add extracted column
-    - Tables ```APP_HEALTH_SCORES```, ```MOD_HEALTH_SCORES```
+    - Tables ```APP_HEALTH_SCORES```, ```MOD_HEALTH_SCORES```, View ```APP_ISO_SCORES_VIEW```
       - Column ```OMG_TECHNICAL_DEBT```
     - Tables ```APP_HEALTH_EVOLUTION```, ```MOD_HEALTH_EVOLUTION```
       - Column ```OMG_TECHNICAL_DEBT_ADDED```
       - Column ```OMG_TECHNICAL_DEBT_DELETED```      
 
+- **Data**: Add columns (OMG Technical Debt) to ```APP_ISO_SCORES_VIEW``` View
+    - Column ```ISO_INDEX_TECHNICAL_DEBT```
+    - Column ```ISO_SECURITY_TECHNICAL_DEBT``` 
+    - Column ```ISO_RELIABILITY_TECHNICAL_DEBT```
+    - Column ```ISO_PERFORMANCE_TECHNICAL_DEBT``` 
+    - Column ```ISO_MAINTAINABILITY_TECHNICAL_DEBT``` 
+    
+- **Data**: Add columns (OMG Technical debt) to ```DATAPOND_BASEDATA``` View
+    - Column ```ATDM_DEBT```
+    - Column ```ATDM_DEBT_ADDED```
+    - Column ```ATDM_DEBT_DELETED```        
+
+- **Scripts**: Automatically load descriptions of Datamart tables and columns
 
 #### Bug Fixes
 
@@ -36,6 +49,8 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 - **Data**: Add extracted column
     - Tables ```APP_HEALTH_SCORES```, ```APP_SCORES``` , ```APP_TECHNO_SCORES```, ```MOD_HEALTH_SCORES```, ```MOD_SCORES``` , ```MOD_TECHNO_SCORES```,
       - Column ```COMPLIANCE_SCORE```
+      
+- **Data**: Add ```APP_ISO_SCORES_VIEW``` view     
 
 ## Version: 2.1.1 - 17 December 2021
 
