@@ -114,7 +114,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
   * __Set the debug mode for data checking__:
       * ```DEBUG```: When this variable is to ```ON```, then the ```extract``` and ```transform``` folders are not clean up.
   * __Copy the JAR__
-      * Starting from REST API 2.4.0, if you have deployed the Dashboards/REST API with Tomcat, you can overwrite the REST API backend so that you do not need to upgrade the REST API and/or the Dashboards. Replace the Datamart JAR file of the WEB-INF\lib folder of your deployed Tomcar webapp with the JAR file from the ```lib``` folder of the Datamart distribution.
+      * Starting from REST API 2.4.0, if you have deployed the Dashboards/REST API with Tomcat, you can overwrite the REST API backend so that you do not need to upgrade the REST API and/or the Dashboards. Replace the Datamart JAR file of the WEB-INF\lib folder of your deployed Tomcat webapp with the JAR file from the ```lib``` folder of the Datamart distribution.
 
 _Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
 ```
