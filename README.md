@@ -236,7 +236,7 @@ Firstly, you can parallelize the extraction with concurrent processes by setting
 
 Secondly, you can reduce the extraction scope either by extracting only the measurement base with the ```run``` command or by ignoring some set of tables that you do not need. See [Running the Scripts ](#Running-the-Scripts)
 
-At last, you can use the ```dartamart update``` command line in order to synchronize the datamart with new snapshots only.
+At last, you can use the ```datamart update``` command line in order to synchronize the datamart with new snapshots only.
 
 ### Schema Upgrade
 
