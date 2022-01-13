@@ -46,6 +46,7 @@ CALL :load DIM_APPLICATIONS                     || EXIT /b 1
 CALL :load DATAPOND_ORGANIZATION                || EXIT /b 1
 ECHO Create other tables
 python utilities\run.py "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f create_tables.sql >> "%LOG_FILE%" 2>&1 || EXIT /b 1
+CALL load_data_dictionary                       || EXIT /b 1
 REM SET FOREIGN KEY FOR TEST OR A SINGLE DATA SOURCE
 REM python utilities\run.py "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f add_foreign_keys.sql >> "%LOG_FILE%" 2>&1 || EXIT /b 1
 CALL :LOAD_OTHER_MEASURES                       || EXIT /b 1
