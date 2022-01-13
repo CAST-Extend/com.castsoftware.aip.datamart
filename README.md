@@ -12,7 +12,6 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
         - [Password obfuscation](#Password-obfuscation)
         - [Single Data Source](#Single-Data-Source)
         - [Multiple Data Sources](#Multiple-Data-Sources)
-        - [Load the Descriptions](#Load-the-Descriptions)
         - [Troubleshooting Guide](#Troubleshooting-Guide)
     - [Schema Upgrade](#Schema-Upgrade)
     - [Datapond](#Datapond)    
@@ -169,10 +168,6 @@ After a first install, if you start ```datamart.bat refresh```, the script will 
 
 If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
 
-#### Load the Descriptions
-
-Once your datamart schema has been created, you can load the descriptions of tables and columns by running: ```load_data_dictionary.bat```.
-
 #### Troubleshooting Guide
 
 __&#9888; All extract tables are empty__
@@ -239,25 +234,21 @@ __&#9888; The ```datamart``` command line is taking too much time__
 
 Firstly, you can parallelize the extraction with concurrent processes by settings the ```JOBS``` variable. See [Running the Scripts ](#Running-the-Scripts)
 
-Secondly, you can reduce the extraction scope either by extracting only the measurement base with the ```run``` command or by ignoring some set of tables. See [Running the Scripts ](#Running-the-Scripts)
+Secondly, you can reduce the extraction scope either by extracting only the measurement base with the ```run``` command or by ignoring some set of tables that you do not need. See [Running the Scripts ](#Running-the-Scripts)
 
 At last, you can use the ```dartamart update``` command line in order to synchronize the datamart with new snapshots only.
 
-
 ### Schema Upgrade
 
-If the Datamart schema has been extended with new tables, or new columns, you need to perform some actions.
+If the Datamart schema has been extended with new tables, or new columns, you may need to perform some actions.
 
-- You are using ```run install``` or  ```datamart install``` command line, then you need to:
-    - run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns.
-  
+- You are using ```run install``` or  ```datamart install``` command line, then you do not need to do anything.
+      
 - You are using ```run refresh``` or  ```datamart refresh``` command line to preserve some SQL Views, then you need to:
     - run the ```upgrade_schema.bat``` script to install new tables and columns,
-    - run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns.
 
 - You are using ```datamart update``` command line to refresh data coming only from new snapshots, then you need to:
     - run the ```upgrade_schema.bat``` script to install new tables and columns,
-    - run the ```load_dictionary.bat``` script to install descriptions of new tables and new columns,
     - run the ```datamart refresh``` before the next ```datamart update``` run.
     
 ### Datapond
