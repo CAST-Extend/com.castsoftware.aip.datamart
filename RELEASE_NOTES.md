@@ -11,6 +11,8 @@
 
 #### Upgrade
 
+see [Schema Upgrade](README.md#Schema-Upgrade)
+
 The Datamart schema has been extended. If you want to preserve an existing datamart schema, because you have built some SQL views on top of it, you must upgrade this schema with ```upgrade_schema``` command line, and refresh the data with ```run refresh``` or ```datamart refresh``` command line.
 
 #### Features / Enhancements
