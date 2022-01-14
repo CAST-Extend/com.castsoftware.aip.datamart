@@ -4,10 +4,10 @@
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
-|= 2.6.X (coming soon)|Fully compatible|
-|≥ 2.4.X (Tomcat)|Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.3.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
-|≥ 2.4.X (Zip File)|Not compatible|
-|= 1.X|Not compatible|
+|= 2.6.X (coming soon)     |Fully compatible|
+|≥ 2.4.X (Tomcat)          |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.3.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|≥ 2.4.X (Zip File)        |Not compatible|
+|= 1.X                     |Not compatible|
 
 #### Upgrade
 
