@@ -242,12 +242,12 @@ At last, you can use the ```datamart update``` command line in order to synchron
 
 If the Datamart schema has been extended with new tables, or new columns, you may need to perform some actions.
 
-- You are using ```run install``` or  ```datamart install``` command line, then you do not need to do anything.
+- If you are using ```run install``` or  ```datamart install``` command line, then you do not need to do anything.
       
-- You are using ```run refresh``` or  ```datamart refresh``` command line to preserve some SQL Views, then you need to:
+- If you are using ```run refresh``` or  ```datamart refresh``` command line to preserve some SQL Views, then you need to:
     - run the ```upgrade_schema.bat``` script to install new tables and columns,
 
-- You are using ```datamart update``` command line to refresh data coming only from new snapshots, then you need to:
+- If you are using ```datamart update``` command line to refresh data coming only from new snapshots, then you need to:
     - run the ```upgrade_schema.bat``` script to install new tables and columns,
     - run the ```datamart refresh``` before the next ```datamart update``` run.
     
