@@ -39,7 +39,7 @@ The Datamart schema has been extended, you may need to upgrade the datamart sche
 #### Bug Fixes
 
 - **Scripts**: Fix column name for ```load_data_dictionary.bat``` script
-- **Scripts**: Recreate the DIM_APPLICATIONS/DATAPOND_ORGANIZATION table regardless of the extraction mode
+- **Scripts**: Scripts: Add new columns for DIM_APPLICATIONS/DATAPOND_ORGANIZATION table when application tags have been added
 
 ## Version: 2.2.0 - 10 January 2022
 
@@ -110,7 +110,7 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 #### Bug Fixes
 
-- **Scripts**: Scripts: Recreate the DIM_APPLICATIONS table regardless of the extraction mode
+- **Scripts**: Scripts: Add new columns for DIM_APPLICATIONS table when application tags have been added
   
 ## Version: 1.22.1 - 12 October 2021
 
