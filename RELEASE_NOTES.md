@@ -7,7 +7,7 @@
 
 #### Bug Fixes
 
-- **Scripts**: Scripts: Recreate the DIM_APPLICATIONS table regardless of the extraction mode
+- **Scripts**: Scripts: Add new columns for DIM_APPLICATIONS table when application tags have been added
 
 ## Version: 1.22.1 - 12 October 2021
 
