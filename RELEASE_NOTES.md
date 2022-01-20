@@ -100,6 +100,17 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 #### Bug Fixes
 
 - **Scripts**: Allow space characters in the installation (or root) folder name
+
+## Version: 1.22.2 - 20 January 2022
+
+#### Prerequisite
+
+- REST API 1.X >= **1.28.0**
+- REST API 2.X >= **2.2.1**
+
+#### Bug Fixes
+
+- **Scripts**: Scripts: Recreate the DIM_APPLICATIONS table regardless of the extraction mode
   
 ## Version: 1.22.1 - 12 October 2021
 
