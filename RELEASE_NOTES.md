@@ -1,4 +1,4 @@
-## Version: 2.3.0 - 14 January 2022
+## Version: 2.3.0 - 20 January 2022
 
 #### Compatibility
 
@@ -39,6 +39,7 @@ The Datamart schema has been extended, you may need to upgrade the datamart sche
 #### Bug Fixes
 
 - **Scripts**: Fix column name for ```load_data_dictionary.bat``` script
+- **Scripts**: Recreate the DIM_APPLICATIONS/DATAPOND_ORGANIZATION table regardless of the extraction mode
 
 ## Version: 2.2.0 - 10 January 2022
 
