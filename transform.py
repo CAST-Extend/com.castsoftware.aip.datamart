@@ -37,25 +37,31 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
 
     with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:
 
-        # Begin CREATE TABLE STATEMENT
-        f.write("DROP TABLE IF EXISTS :schema." + table_name + " CASCADE;\n")
-        f.write("CREATE TABLE :schema." + table_name + "\n")
-        f.write("(\n")
-
+        if mode in ["refresh", "hd-update"]:
+            f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
+        elif mode == "install":
+            # Begin CREATE TABLE STATEMENT
+            f.write("DROP TABLE IF EXISTS :schema." + table_name + " CASCADE;\n")
+            f.write("CREATE TABLE :schema." + table_name + "\n")
+            f.write("(\n")
+            
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         latestApplicationName = None
         for row in csv_reader:
             if skip:
                 skip = False
-                comma = ""
-                for p in row:
-                    f.write(format_column_name(p, output_format))
-                    f.write(" text") 
-                    f.write(",\n")
-                f.write("CONSTRAINT " + table_name + "_PKEY PRIMARY KEY (" + format_column_name("application_name", output_format) + ")\n")
-                f.write(");\n")
-                # End CREATE TABLE STATEMENT
+                if mode in ["refresh", "hd-update"]:
+                    for p in row:
+                        f.write("ALTER TABLE :schema." + table_name + " ADD COLUMN IF NOT EXISTS " + format_column_name(p, output_format) + " text;\n")
+                elif mode == "install":
+                    for p in row:
+                        f.write(format_column_name(p, output_format))
+                        f.write(" text") 
+                        f.write(",\n")
+                    f.write("CONSTRAINT " + table_name + "_PKEY PRIMARY KEY (" + format_column_name("application_name", output_format) + ")\n")
+                    f.write(");\n")
+                    # End CREATE TABLE STATEMENT
                 f.write("COPY :schema." + table_name + " ("  + ",".join([format_column_name(cell, output_format) for cell in row]) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
