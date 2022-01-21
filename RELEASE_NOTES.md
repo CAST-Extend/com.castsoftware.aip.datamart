@@ -4,6 +4,7 @@
 
 - REST API 1.X >= **1.28.0**
 - REST API 2.X >= **2.2.1**
+- PostgreSQL version 9.6 or higher is a new prerequisite.
 
 #### Bug Fixes
 
