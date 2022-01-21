@@ -92,7 +92,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
 
 * __Make sure__ you have access to 
   * a REST API server for Dashboards (see version in the release notes)
-  * a PostgreSQL server 9.1 or higher, with a database created to host target data
+  * a PostgreSQL server 9.6 or higher, with a database created to host target data
 * __Download__ the Datamart scripts from [extend.castsoftware.com](https://extend.castsoftware.com/#/search-results?q=datamart) package
      * Unzip the archive, and move the content into a single target folder
      * Note: you do not need to install any software, all the required embedded softwares are available in the ```thirdparty``` directory
