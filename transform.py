@@ -31,24 +31,31 @@ def transform_dim_applications(mode, extract_directory, transform_directory):
 
     with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:
 
-        # Begin CREATE TABLE STATEMENT
-        f.write("DROP TABLE IF EXISTS :schema.DIM_APPLICATIONS CASCADE;\n")
-        f.write("CREATE TABLE :schema.DIM_APPLICATIONS\n")
-        f.write("(\n")
+        if mode in ["refresh", "refresh_measures"]:
+            f.write("TRUNCATE TABLE :schema.DIM_APPLICATIONS CASCADE;\n")
+        elif mode == "install":
+            # Begin CREATE TABLE STATEMENT
+            f.write("DROP TABLE IF EXISTS :schema.DIM_APPLICATIONS CASCADE;\n")
+            f.write("CREATE TABLE :schema.DIM_APPLICATIONS\n")
+            f.write("(\n")        
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         for row in csv_reader:
             if skip:
                 skip = False
-                comma = ""
-                for p in row:
-                    f.write(format_column_name(p))
-                    f.write(" text") 
-                    f.write(",\n")
-                f.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n")
-                f.write(");\n")
-                # End CREATE TABLE STATEMENT
+                if mode in ["refresh", "refresh_measures"]:
+                    for p in row:
+                        f.write("ALTER TABLE :schema.DIM_APPLICATIONS ADD COLUMN IF NOT EXISTS " + format_column_name(p) + " text;\n")
+                elif mode == "install":
+                    for p in row:
+                        f.write(format_column_name(p))
+                        f.write(" text") 
+                        f.write(",\n")
+                    f.write("CONSTRAINT DIM_APPLICATIONS_PKEY PRIMARY KEY (APPLICATION_NAME)\n")
+                    f.write(");\n")
+                    # End CREATE TABLE STATEMENT
+
                 f.write("COPY :schema.DIM_APPLICATIONS ("  + ",".join(map(format_column_name,row)) + ") FROM stdin WITH (delimiter '" + DELIMITER +"', format CSV, null 'null');\n")
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
