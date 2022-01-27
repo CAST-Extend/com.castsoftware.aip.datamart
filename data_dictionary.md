@@ -728,7 +728,7 @@ object_full_name                     | TEXT     | Object full name
 action_status                        | TEXT     | Status regarding the latest snapshot: added, pending, solved (ie fixed)
 last_update_date                     | DATE     | Date of last edition update
 start_date                           | DATE     | The creation date of the action plan issue
-end_date                             | DATE     | The resolution date of the action plan issue
+end_date                             | DATE     | The deactivation date of the action plan issue
 user_name                            | TEXT     | The author of the action plan issue
 comment                              | TEXT     | Additional text
 priority                             | TEXT     | Priority

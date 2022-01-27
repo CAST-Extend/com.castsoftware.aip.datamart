@@ -694,7 +694,7 @@ Cost complexity (-1: n/a, 0:low, 1:medium, 2:high, 3:very-high) is a risk assess
 <column type="TEXT">   <name>action_status</name>               <description>Status regarding the latest snapshot: added, pending, solved (ie fixed)</description></column>
 <column type="DATE">   <name>last_update_date</name>            <description>Date of last edition update</description></column>
 <column type="DATE">   <name>start_date</name>                  <description>The creation date of the action plan issue</description></column>
-<column type="DATE">   <name>end_date</name>                    <description>The resolution date of the action plan issue</description></column>
+<column type="DATE">   <name>end_date</name>                    <description>The deactivation date of the action plan issue</description></column>
 <column type="TEXT">   <name>user_name</name>                   <description>The author of the action plan issue</description></column>
 <column type="TEXT">   <name>comment</name>                     <description>Additional text</description></column>
 <column type="TEXT">   <name>priority</name>                    <description>Priority</description></column>
