@@ -1,4 +1,4 @@
-## Version: 2.3.0 - 27 January 2022
+## Version: 2.3.1 - 27 January 2022
 
 #### Compatibility
 
