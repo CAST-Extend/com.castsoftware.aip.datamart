@@ -5,7 +5,7 @@
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
 |= 2.5.1                   |Fully compatible|
-|≥ 2.4.X (Tomcat)          |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.3.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|≥ 2.4.X (Tomcat)          |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.3.1.jar``` file from the ```lib``` folder of this Datamart distribution.|
 |≥ 2.4.X (Zip File)        |Not compatible|
 |≤ 2.3.X                   |Not compatible|
 |1.X                       |Not compatible|
@@ -37,6 +37,8 @@ PostgreSQL version 9.6 or higher is a new prerequisite.
     - Column ```ATDM_DEBT_DELETED```        
 
 - **Scripts**: Automatically load descriptions of Datamart tables and columns
+
+**WARNING**: the columns for the OMG Technical Debt cannot exceed a value of 2,147,483,647 minutes which is 4,473,924 work days.
 
 #### Bug Fixes
 
