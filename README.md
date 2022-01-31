@@ -574,6 +574,20 @@ Data output:
 
 ## Measurement Queries: Advanced Examples
 
+### Top 10 rules by snapshot, technology, number of violations
+
+Query:
+```
+select r.*, t.technology, t.nb_violations
+from
+( select snapshot_id, rule_id, technology, nb_violations,  
+  row_number() over (partition by snapshot_id, technology order by snapshot_id, technology, nb_violations desc) as rnb
+  from app_violations_measures
+) as t
+join dim_rules r on r.rule_id = t.rule_id
+where t.rnb <= 10;
+```
+
 ### Ratio of Critical Violations per Function Point
 
 Query:
@@ -594,6 +608,7 @@ where s.is_latest and s.application_name = 'Big Ben')
 Data output:
 ```
 0.13920194943649101432
+```
 ```
 
 ### Delta of critical violations by rule between first Quarter of 2013 and last Quarter of 2013
