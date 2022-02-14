@@ -1,3 +1,29 @@
+## Version: 2.4.0 - 14 February 2022
+
+#### Compatibility
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|= 2.5.2                   |Fully compatible|
+|= 2.5.1                   |Fully compatible (but technical debt limited to 2,147,483,647)
+|≥ 2.4.X (Tomcat)          |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.4.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|≥ 2.4.X (Zip File)        |Not compatible|
+|≤ 2.3.X                   |Not compatible|
+|1.X                       |Not compatible|
+
+#### Upgrade
+
+The Datamart schema has been changed, you may need to upgrade the datamart schema: see [Schema Upgrade](README.md#Schema-Upgrade).
+
+#### Features / Enhancements
+
+- **Data**: Change column type from INT to BIGINT:
+    - Tables ```APP_HEALTH_SCORES```, ```MOD_HEALTH_SCORES```, View ```APP_ISO_SCORES_VIEW```
+      - Column ```OMG_TECHNICAL_DEBT```
+    - Tables ```APP_HEALTH_EVOLUTION```, ```MOD_HEALTH_EVOLUTION```
+      - Column ```OMG_TECHNICAL_DEBT_ADDED```
+      - Column ```OMG_TECHNICAL_DEBT_DELETED```
+
 ## Version: 2.3.1 - 27 January 2022
 
 #### Compatibility
@@ -14,6 +40,13 @@
 
 The Datamart schema has been extended, you may need to upgrade the datamart schema: see [Schema Upgrade](README.md#Schema-Upgrade)
 PostgreSQL version 9.6 or higher is a new prerequisite.
+
+- **Data**: Add extracted column
+    - Tables ```APP_HEALTH_SCORES```, ```MOD_HEALTH_SCORES```, View ```APP_ISO_SCORES_VIEW```
+      - Column ```OMG_TECHNICAL_DEBT```
+    - Tables ```APP_HEALTH_EVOLUTION```, ```MOD_HEALTH_EVOLUTION```
+      - Column ```OMG_TECHNICAL_DEBT_ADDED```
+      - Column ```OMG_TECHNICAL_DEBT_DELETED```
 
 #### Features / Enhancements
 

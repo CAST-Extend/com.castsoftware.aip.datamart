@@ -9,11 +9,11 @@ MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Reliability'::text THEN m.nb
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Performance-Efficiency'::text THEN m.nb_violations ELSE NULL::integer END) AS iso_performance_violations,
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Maintainability'::text THEN m.nb_violations ELSE NULL::integer END) AS iso_maintainability_violations,
 
-MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Index'::text THEN m.omg_technical_debt ELSE NULL::integer END) AS iso_index_technical_debt,
-MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Security'::text THEN m.omg_technical_debt ELSE NULL::integer END) AS iso_security_technical_debt,
-MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Reliability'::text THEN m.omg_technical_debt ELSE NULL::integer END) AS iso_reliability_technical_debt,
-MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Performance-Efficiency'::text THEN m.omg_technical_debt ELSE NULL::integer END) AS iso_performance_technical_debt,
-MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Maintainability'::text THEN m.omg_technical_debt ELSE NULL::integer END) AS iso_maintainability_technical_debt,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Index'::text THEN m.omg_technical_debt ELSE NULL::bigint END) AS iso_index_technical_debt,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Security'::text THEN m.omg_technical_debt ELSE NULL::bigint END) AS iso_security_technical_debt,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Reliability'::text THEN m.omg_technical_debt ELSE NULL::bigint END) AS iso_reliability_technical_debt,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Performance-Efficiency'::text THEN m.omg_technical_debt ELSE NULL::bigint END) AS iso_performance_technical_debt,
+MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Maintainability'::text THEN m.omg_technical_debt ELSE NULL::bigint END) AS iso_maintainability_technical_debt,
 
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Index'::text THEN m.score ELSE NULL::numeric END) AS iso_index_score,
 MAX(CASE WHEN m.business_criterion_name = 'ISO-5055-Security'::text THEN m.score ELSE NULL::numeric END) AS iso_security_score,

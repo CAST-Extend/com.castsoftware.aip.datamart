@@ -246,10 +246,12 @@ If the Datamart schema has been extended with new tables, or new columns, you ma
       
 - If you are using ```run refresh``` or  ```datamart refresh``` command line to preserve some SQL Views, then you need to:
     - run the ```upgrade_schema.bat``` script to install new tables and columns,
+    - you may need to reinstall the impacted views with ```create_views.bat``` and ```create_datapond_views.bat```
 
 - If you are using ```datamart update``` command line to refresh data coming only from new snapshots, then you need to:
     - run the ```upgrade_schema.bat``` script to install new tables and columns,
-    - run the ```datamart refresh``` before the next ```datamart update``` run.
+    - you may need to reinstall the impacted views with ```create_views.bat``` and ```create_datapond_views.bat```
+    - run the ```datamart refresh``` before the next ```datamart update``` run
     
 ### Datapond
 
