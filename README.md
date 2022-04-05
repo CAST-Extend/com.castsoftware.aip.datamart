@@ -611,7 +611,6 @@ Data output:
 ```
 0.13920194943649101432
 ```
-```
 
 ### Delta of critical violations by rule between first Quarter of 2013 and last Quarter of 2013
 
