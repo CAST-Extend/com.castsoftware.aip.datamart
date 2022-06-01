@@ -10,7 +10,7 @@
 
 #### Bug Fixes
 
-- **Data**: When the latest snapshot of an application is a malformed snapshot, no rule of this application is extracted into DIM_RULES table.
+- **Data**: Even when the latest snapshot of an application is a malformed snapshot, rules of this application must be extracted into DIM_RULES table.
 
 ## Version: 2.4.0 - 14 February 2022
 
@@ -163,7 +163,7 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 #### Bug Fixes
 
 - **Scripts**: Scripts: Add new columns for DIM_APPLICATIONS table when application tags have been added
-- **Data** : REST API 1.28.8: When the latest snapshot of an application is a malformed snapshot, no rule of this application is extracted into DIM_RULES table.
+- **Data** : REST API 1.28.8: Even when the latest snapshot of an application is a malformed snapshot, rules of this application must be extracted into DIM_RULES table.
   
 ## Version: 1.22.1 - 12 October 2021
 
