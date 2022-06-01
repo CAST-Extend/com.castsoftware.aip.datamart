@@ -1,10 +1,24 @@
+## Version: 2.5.1 - 1 June 2022
+
+#### Compatibility
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.7.0                   |Fully compatible|
+|≥ 2.5.1 (Tomcat)          |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.5.1.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|1.X                       |Not compatible|
+
+#### Bug Fixes
+
+- **Data**: When the latest snapshot of an application is a malformed snapshot, no rule of this application is extracted into DIM_RULES table.
+
 ## Version: 2.4.0 - 14 February 2022
 
 #### Compatibility
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
-|= 2.5.2                   |Fully compatible|
+|≥ 2.5.2                   |Fully compatible|
 |= 2.5.1                   |Fully compatible (but technical debt limited to 2,147,483,647)
 |≥ 2.4.X (Tomcat)          |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.4.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
 |≥ 2.4.X (Zip File)        |Not compatible|
@@ -142,13 +156,14 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 #### Prerequisite
 
-- REST API 1.X >= **1.28.0**
+- REST API 1.X >= **1.28.0** (**1.28.8** recommended)
 - REST API 2.X >= **2.2.1**
 - PostgreSQL version 9.6 or higher is a new prerequisite.
 
 #### Bug Fixes
 
 - **Scripts**: Scripts: Add new columns for DIM_APPLICATIONS table when application tags have been added
+- **Data** : REST API 1.28.8: When the latest snapshot of an application is a malformed snapshot, no rule of this application is extracted into DIM_RULES table.
   
 ## Version: 1.22.1 - 12 October 2021
 
