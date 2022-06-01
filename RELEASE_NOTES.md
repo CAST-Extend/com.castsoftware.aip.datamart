@@ -2,14 +2,15 @@
 
 #### Prerequisite
 
-- REST API 1.X >= **1.28.0**
+- REST API 1.X >= **1.28.0** (**1.28.8** recommended)
 - REST API 2.X >= **2.2.1**
 - PostgreSQL version 9.6 or higher is a new prerequisite.
 
 #### Bug Fixes
 
 - **Scripts**: Scripts: Add new columns for DIM_APPLICATIONS table when application tags have been added
-
+- **Data** : REST API 1.28.8: When the latest snapshot of an application is a malformed snapshot, no rule of this application is extracted into DIM_RULES table.
+  
 ## Version: 1.22.1 - 12 October 2021
 
 #### Prerequisite
