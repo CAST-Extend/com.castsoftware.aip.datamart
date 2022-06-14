@@ -65,7 +65,7 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
             if row[0] == latestApplicationName:
-                print("\tDuplicate application name is not supported: " + row[0])
+                print("\tERROR: Duplicate application name is not supported: " + row[0])
                 ERRORS = True
             else:
                 f.write(line)

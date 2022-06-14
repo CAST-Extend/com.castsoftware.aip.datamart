@@ -111,6 +111,7 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
       * ```EXTRACT_TECHNO```: When this variable is to ```OFF```, then the ```*TECHNO*``` tables are skipped.   
       * ```EXTRACT_SRC```: When this variable is to ```OFF```, then the ```*SRC*``` tables are skipped.   
       * ```EXTRACT_USR```: When this variable is to ```OFF```, then the ```*USR*``` tables are skipped.   
+      * ```EXTRACT_ZERO_WEIGHT```: When this variable is to ```ON```, then the Zero Weight Rules and Results are extracted. Note: this variable is for a specific customer context, as Zero Weights and Rules are not pushed to the measurement base for latest AIP releases.
   * __Set the debug mode for data checking__:
       * ```DEBUG```: When this variable is to ```ON```, then the ```extract``` and ```transform``` folders are not clean up.
   * __Copy the JAR__
