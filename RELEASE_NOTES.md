@@ -9,7 +9,7 @@
 
 #### Features / Enhancements
 
-- **Scripts**: Add the ```EXTRACT_ZERO_WEIGHT``` environment variable, in order to extract also Zero Weight Rules and Results. Note: this variable is for a specific customer context, as Zero Weights and Rules are not pushed to the measurement base for latest AIP releases.
+- **Scripts**: Add the ```EXTRACT_ZERO_WEIGHT``` environment variable, in order to extract also Zero Weight Rules and Results. Note: this variable is for a specific customer context, as Zero Weights Rules are not pushed to the measurement base for latest AIP releases.
 
 ## Version: 2.5.1 - 1 June 2022
 
