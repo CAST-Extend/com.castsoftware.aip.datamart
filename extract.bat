@@ -133,9 +133,7 @@ ECHO.
 ECHO ------------------------------
 ECHO Extract %EXTRACT_FOLDER%\%DOMAIN%\%~2.csv
 ECHO ------------------------------
-rem python utilities\curl.py text/csv "%ROOT%/%DOMAIN%/%~1" -o "%EXTRACT_FOLDER%\%DOMAIN%\%~2.csv"
 set EXTRACT_URL=%ROOT%/%DOMAIN%/%~1
 if [%EXTRACT_ZERO_WEIGHT%] == [ON] set EXTRACT_URL=%EXTRACT_URL%?extract-zero-weight=on
-echo %EXTRACT_URL%
 python utilities\curl.py text/csv "%EXTRACT_URL%" -o "%EXTRACT_FOLDER%\%DOMAIN%\%~2.csv"
 GOTO :EOF
