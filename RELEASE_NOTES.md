@@ -1,3 +1,20 @@
+## Version: 2.5.3 - 21 June 2022
+
+#### Compatibility
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.6.3                   |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.5.3.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|1.X                       |Not compatible|
+
+#### Bug Fixes
+
+- **Data**: Set XXX_VIOLATIONS_EVOLUTION extraction with a strict order of rows to skip duplicated value.
+
+#### Features / Enhancements
+
+- **Scripts**: Add the ```EXTRACT_ZERO_WEIGHT``` environment variable, in order to extract also Zero Weight Rules and Results. Note: this variable is for a specific customer context, as Zero Weights Rules are not pushed to the measurement base for latest AIP releases.
+
 ## Version: 2.5.2 - 14 June 2022
 
 #### Compatibility
