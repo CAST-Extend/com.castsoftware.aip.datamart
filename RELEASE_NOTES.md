@@ -9,7 +9,7 @@
 
 #### Bug Fixes
 
-- **Data**: Set XXX_VIOLATIONS_EVOLUTION extraction with a strict order of rows to skip duplicated value.
+- **Data**: Set XXX_VIOLATIONS_EVOLUTION extraction with a strict order of rows to skip duplicated values.
 
 ## Version: 2.5.2 - 14 June 2022
 
