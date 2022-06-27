@@ -182,14 +182,15 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 #### Prerequisite
 
-- REST API 1.X >= **1.28.0** (**1.28.8** recommended)
+- REST API 1.X >= **1.28.0** (**1.28.9** recommended)
 - REST API 2.X >= **2.2.1**
 - PostgreSQL version 9.6 or higher is a new prerequisite.
 
 #### Bug Fixes
 
 - **Scripts**: Scripts: Add new columns for DIM_APPLICATIONS table when application tags have been added
-- **Data** : REST API 1.28.8: Even when the latest snapshot of an application is a malformed snapshot, rules of this application must be extracted into DIM_RULES table.
+- **Data**: REST API 1.28.8: Even when the latest snapshot of an application is a malformed snapshot, rules of this application must be extracted into DIM_RULES table.
+- **Data**: REST API 1.28.9: Set XXX_VIOLATIONS_EVOLUTION extraction with a strict order of rows to skip duplicated values.
   
 ## Version: 1.22.1 - 12 October 2021
 
