@@ -1,3 +1,5 @@
+## Version: 1.22.2 - 20 January 2022
+
 #### Prerequisite
 
 - REST API 1.X >= **1.28.0** (**1.28.9** recommended)
