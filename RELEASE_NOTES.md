@@ -1,15 +1,16 @@
-## Version: 2.5.3 - 21 June 2022
+## Version: 2.5.3 - 27 June 2022
 
 #### Compatibility
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
+|≥ 2.7.0                   |Fully compatible|
 |≥ 2.6.3                   |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-2.5.3.jar``` file from the ```lib``` folder of this Datamart distribution.|
 |1.X                       |Not compatible|
 
 #### Bug Fixes
 
-- **Data**: Set XXX_VIOLATIONS_EVOLUTION extraction with a strict order of rows to skip duplicated values.
+- **Data**: REST API 2.7.0: Set a strict order of extracted rows for XXX_VIOLATIONS_EVOLUTION table, in order to skip duplicated rows.
 
 ## Version: 2.5.2 - 14 June 2022
 
@@ -190,7 +191,7 @@ The Datamart schema has been extended. If you want to preserve an existing datam
 
 - **Scripts**: Scripts: Add new columns for DIM_APPLICATIONS table when application tags have been added
 - **Data**: REST API 1.28.8: Even when the latest snapshot of an application is a malformed snapshot, rules of this application must be extracted into DIM_RULES table.
-- **Data**: REST API 1.28.9: Set XXX_VIOLATIONS_EVOLUTION extraction with a strict order of rows to skip duplicated values.
+- **Data**: REST API 1.28.9: Set a strict order of extracted rows for XXX_VIOLATIONS_EVOLUTION table, in order to skip duplicated rows.
   
 ## Version: 1.22.1 - 12 October 2021
 
