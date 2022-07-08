@@ -82,7 +82,7 @@ echo Add lib\cast-datamart*.jar
 echo =========================================
 mkdir lib
 pushd lib
-set CMD=curl http://jenkins5/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zip -o archive.zip
+set CMD=curl %JENKINS_JAR_DATAMART_URL%/job/DASHBOARD_Master_Build_Datamart_JAR/lastSuccessfulBuild/artifact/target/archive.zip -o archive.zip
 echo %CMD%
 call %CMD%
 if errorlevel 1 (
