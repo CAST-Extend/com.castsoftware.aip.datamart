@@ -20,6 +20,29 @@ def format(s):
 
 quoted_identifier = os.environ.get('QUOTED_IDENTIFIER') != "OFF" # unset or ON by default
 datapond = os.environ.get('EXTRACT_DATAPOND') == "ON"                    # unset or OFF by default
+skipped_applications =  {}
+
+def initialize_skipped_applications():
+   for i in range(0,99):
+     application = os.environ.get('SKIP_APPLICATIONS[' + str(i) + ']' )
+     if application is not None:
+        skipped_applications[application] = True
+        
+# extract the application name from a column value formatted as application-name:XXX        
+def decode_application_name (column_name, column_value):
+    if (colum_name == 'application_name')
+        return column_value
+    if (column_name == 'snapshot_id')
+        return column_value.spmit(':')[0]
+    if (column_name == 'rule_id')
+        return column_value.split(':')[0]
+    if (column_name == 'object_id')
+        return column_value.split(':')[0]
+    return None
+    
+ def is_skipped_application (column_name, column_value):
+    application = decode_application_name(column_name, column_value)
+    return skipped_applications[application] is not None
 
 def format_column_name (id, output_format):
     if output_format == "datapond": 
@@ -48,6 +71,8 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
         skip = True
         latestApplicationName = None
         for row in csv_reader:
+            if (bool(skipped_applications) and is_skipped_applications('application_name', row[0])):
+                continue
             if skip:
                 skip = False
                 if mode in ["refresh", "hd-update"]:
@@ -93,10 +118,14 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         latestKeys = None
+        first_column_name = None
         for row in csv_reader:
             if skip:
                 skip = False
                 f.write("COPY :schema." + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+                first_column_name = row[0]
+                continue
+            if (bool(skipped_applications) and is_skipped_applications(first_column_name, row[0])):
                 continue
             line = DELIMITER.join([format(cell) for cell in row])
             # if nb of primary columns is set we check the rows with duplicated keys, only the first one is kept
@@ -151,6 +180,8 @@ def transform_ed_tables(mode, extract_directory, transform_directory, table):
                         continue
                 continue
             new_column_value = row[column_position] if column_name == 'application_name' else row[column_position].split(':')[0]
+            if (bool(skipped_applications) and is_skipped_applications(column_name, column_position)):
+                continue
             #print(column_name, new_column_value, table_name, column_value)
             if column_value != new_column_value:
                 if column_value != None:
