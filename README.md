@@ -12,6 +12,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
         - [Password obfuscation](#Password-obfuscation)
         - [Single Data Source](#Single-Data-Source)
         - [Multiple Data Sources](#Multiple-Data-Sources)
+        - [Datamart Dedicated user](#Datamart-Dedicated-User)
         - [Troubleshooting Guide](#Troubleshooting-Guide)
     - [Schema Upgrade](#Schema-Upgrade)
     - [Datapond](#Datapond)    
@@ -57,6 +58,7 @@ The use cases are:
 * The effective extracted data depend on the user's authorizations running the REST API from the extraction scripts. 
 If the user is not granted to access to all applications, then some data will be skipped.
 If the user is granted to access all applications, then, the user will expose all data in the target database.
+See also: See [Datamart dedicated user](#Datamart-Dedicated-User)
 * For the DIM_RULES table, the list of Business Criteria is closed. Custom business criteria are skipped.
 
 ## Terms and Conditions
@@ -167,6 +169,12 @@ __WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advi
 After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
 If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
+
+#### Datamart Dedicated User
+
+We advise to create a Datamart dedicated user.
+This user should be authorized to access all applications.
+If ever you need to skip some applications for the extraction process, then you will be able to remove these applications from the set of authorized applications for this user (make sure this user has no "admin" role).
 
 #### Troubleshooting Guide
 
