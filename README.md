@@ -172,7 +172,7 @@ If you start ```datamart.bat update```, the script will synchronize the datamart
 
 #### Datamart Dedicated User
 
-We advise to create a Datamart dedicated user.
+We advise to create a Datamart dedicated user for the [Dashboards REST API](https://doc.castsoftware.com/display/DASHBOARDS/User+roles+-+2.x+and+above).
 This user should be authorized to access all applications.
 If ever you need to skip some applications for the extraction process, then you will be able to remove these applications from the set of authorized applications for this user (make sure this user has no "admin" role).
 
