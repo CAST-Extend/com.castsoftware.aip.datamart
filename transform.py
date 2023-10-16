@@ -132,7 +132,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
         continue
 
       try: 
-        rule_id_position = row.index(rule_id') 
+        rule_id_position = row.index('rule_id') 
         if [rule_id_position] in rules:
           print("\tSKIP unknown rule: " + row[rule_id_position])
           SKIPS=True
