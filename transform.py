@@ -133,7 +133,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
 
       try: 
         rule_id_position = row.index('rule_id') 
-        if [rule_id_position] in rules:
+        if not row[rule_id_position] in rules:
           print("\tSKIP unknown rule: " + row[rule_id_position])
           SKIPS=True
           continue
@@ -142,7 +142,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
 
       try: 
         snapshot_id_position = row.index('snapshot_id') 
-        if row[snapshot_id_position] in snapshots:
+        if not row[snapshot_id_position] in snapshots:
           print("\tSKIP unknown snapshot: " + row[snapshot_id_position])
           SKIPS=True
           continue
