@@ -60,6 +60,7 @@ If the user is not granted to access to all applications, then some data will be
 If the user is granted to access all applications, then, the user will expose all data in the target database.
 See also: See [Datamart dedicated user](#Datamart-Dedicated-User)
 * For the DIM_RULES table, the list of Business Criteria is closed. Custom business criteria are skipped.
+* The Datamart takes a kind of snapshot of the published data, so the Datamart scripts must be run outside a source code analysis or a metrics calculation.
 
 ## Terms and Conditions
 
