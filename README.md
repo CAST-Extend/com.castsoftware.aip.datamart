@@ -188,6 +188,13 @@ __&#9888; I have got an "Access Denied" message__
 
 Make sure you have write access on the Datamart folder.
 
+__&#9888; A foreign constraint on DIM_RULES table is violated__
+
+This may happen because of these two limitations:
+- The Datamart scripts must be run outside a source code analysis or a metrics calculation.
+- The Datamart fails when a technical criteron is not attached to the Technical Quality Index (#60017 - TQI).
+
+See [Limitations](#Limitations)
 
 __&#9888; The data transfer fails on the load step__
 
