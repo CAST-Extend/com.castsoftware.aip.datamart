@@ -61,6 +61,7 @@ If the user is granted to access all applications, then, the user will expose al
 See also: See [Datamart dedicated user](#Datamart-Dedicated-User)
 * For the DIM_RULES table, the list of Business Criteria is closed. Custom business criteria are skipped.
 * The Datamart takes a kind of snapshot of the published data, so the Datamart scripts must be run outside a source code analysis or a metrics calculation.
+* The Datamart fails when a technical criteron is not attached to the Technical Quality Index (#60017 - TQI). This configuration is not supported by the Datamart, but neither is it supported by the platform, as it creates an inconsistency between metrics calculated with results attached to the TQI and those calculated globally.
 
 ## Terms and Conditions
 
