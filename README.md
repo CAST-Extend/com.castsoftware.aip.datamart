@@ -338,6 +338,24 @@ Note: You can isolate your custom tables and views in a separate schema, ```my_s
 
 With the SQL statement ```set search_path to datamart,my_schema;``` you will have access to both datamart tables/views and your own tables/views
 
+Example of a view to get all applications with a size:
+```
+DROP VIEW IF EXISTS my_schema.applications_sizes CASCADE;
+CREATE OR REPLACE VIEW my_schema.applications_sizes AS
+SELECT
+    s.application_name,
+   CASE 
+       WHEN m.nb_code_lines < 1000 THEN 'XS'
+       WHEN m.nb_code_lines < 10000 THEN 'S'
+       WHEN m.nb_code_lines < 100000 THEN 'M'
+       WHEN m.nb_code_lines < 1000000 THEN 'L'
+       ELSE 'XL'
+   END as size
+FROM dim_applications x
+JOIN dim_snapshots s ON s.application_name= x.application_name AND s.is_latest
+JOIN app_sizing_measures m on m.snapshot_id = s.snapshot_id
+```
+
 ### CSV Reports
 
 By querying the AIP Datamart tables, you can use the COPY SQL Statement of PostgreSQL to create a CSV output file (this file can be opened with Excel):
