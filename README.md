@@ -18,7 +18,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
     - [Datapond](#Datapond)    
 - [How to Use the AIP Datamart](#How-to-Use-the-AIP-Datamart)
     - [Grant Access to Users](#Grant-Access-to-Users)
-    - [Custom Tables](#Custom-Tables)
+    - [Custom Tables and Views](#Custom-Tables-and-Views)
     - [CSV Reports](#CSV-Reports)
     - [Power BI Desktop](#Power-BI-Desktop)
 - [Summary of Tables](#Summary-of-Tables)
@@ -328,11 +328,15 @@ GRANT USAGE ON SCHEMA datamart TO reports;
 GRANT SELECT ON ALL TABLES IN SCHEMA datamart TO reports;
 ```
 
-### Custom Tables
+### Custom Tables and Views
 
 In ```refresh``` mode, the scripts will truncate the Datamart tables. All other tables and views are left unchanged.
 
 In ```install``` mode, the scripts will drop and recreate Datamart tables. However, you can add your own tables. Indeed, when you run the scripts it leaves these tables unchanged. Only the database views must be recreated.
+
+Note: You can isolate your custom tables and views in a separate schema, ```my_schema``` for example.
+
+With the SQL statement ```set search_path to datamart,my_schema;``` you will have access to both datamart tables/views and your own tables/views
 
 ### CSV Reports
 
