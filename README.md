@@ -184,6 +184,17 @@ __&#9888; All extract tables are empty__
 
 Make sure your service account is authorized to access the applications.
 
+__&#9888; Some columns (```nb_complexity_xxx```, ```nb_cyclomatic_xxx```) are empty__
+
+These measures correspond to "distribution" type metrics.
+If you extract data from a measurement base only (using the ```run.bat``` script), then these measures will be missing.
+You will have to consider multiple data source extraction from central bases to get these measures (using the ```datamart.bat``` script).
+In this case, to limit the volume and extraction time, it is possible to deactivate the extraction of source objects and user data (action plan), by adding in ```setenv.bat``` :
+```
+set EXTRACT_SRC=OFF
+set EXTRACT_USR=OFF
+```
+
 __&#9888; I have got an "Access Denied" message__
 
 Make sure you have write access on the Datamart folder.

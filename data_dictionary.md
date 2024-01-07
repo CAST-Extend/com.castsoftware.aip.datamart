@@ -289,7 +289,7 @@ We give an example here based on the demo site:
 ```
 COLUMN                        | TYPE     | DESCRIPTION
 ------------------------------+----------+------------
-application_name              | INT      | Table primary key
+application_name              | TEXT     | Table primary key
 "Age"                         | TEXT     | A range of ages of the application
 "Business Unit"               | TEXT     | The Business Unit as a sponsor or provider of the application
 "Country"                     | TEXT     | The deployment country of the application
