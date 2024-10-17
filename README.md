@@ -111,10 +111,11 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
   * __Set credentials__ to authenticate to the REST API in ```CREDENTIALS``` environment variable with the following format ```username:password``` or set the ```APIKEY``` and ```APIUSER``` environment variables
   * __Set the extraction scope__:
       * ```EXTRACT_DATAPOND```: When this variable is set to ```ON```, then the ```DATAPOND_ORGANIZATION``` table is extracted as an alternative to the ```DIM_APPLICATIONS``` table
-      * ```EXTRACT_MOD```: When this variable is to ```OFF```, then the ```*MOD*``` tables are skipped.   
-      * ```EXTRACT_TECHNO```: When this variable is to ```OFF```, then the ```*TECHNO*``` tables are skipped.   
-      * ```EXTRACT_SRC```: When this variable is to ```OFF```, then the ```*SRC*``` tables are skipped.   
-      * ```EXTRACT_USR```: When this variable is to ```OFF```, then the ```*USR*``` tables are skipped.   
+      * ```EXTRACT_MOD```: When this variable is set to ```OFF```, then the ```*MOD*``` tables are skipped.   
+      * ```EXTRACT_TECHNO```: When this variable is set to ```OFF```, then the ```*TECHNO*``` tables are skipped.   
+      * ```EXTRACT_SRC```: When this variable is set to ```OFF```, then the ```*SRC*``` tables are skipped.   
+      * ```EXTRACT_USR```: When this variable is set to ```OFF```, then the ```*USR*``` tables are skipped.   
+      * ```EXTRACT_SNAPSHOTS_MONTHS```: When this variable is set, then only snapshots below X months are extracted. If ever the latest snapshot of an application is older than X months, then this snapshot is still extracted.
   * __Set the debug mode for data checking__:
       * ```DEBUG```: When this variable is to ```ON```, then the ```extract``` and ```transform``` folders are not clean up.
   * __Copy the JAR__

@@ -1,3 +1,19 @@
+## Version: 2.5.4 - 17 October 2024
+
+#### Compatibility
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.13.1                  |Fully compatible|
+|≥ 2.7.0                   |Compatible except the support of ```EXTRACT_SNAPSHOTS_MONTHS``` environment variable
+|1.X                       |Not compatible|
+
+#### Features / Enhancements
+
+- **Scripts**: Add the ```EXTRACT_SNAPSHOTS_MONTHS``` environment variable, in order to limit the extraction of snapshots up to X months.
+- **Data**: Limit memory consumption when using Datamart 
+- **Data**: Optimization of some queries for data extraction of ```APP_SCORES, APP_TECHNO_SCORES, MOD_SCORES, MOD_TECHNO_SCORES``` tables.
+
 ## Version: 2.5.3 - 27 June 2022
 
 #### Compatibility
