@@ -1,10 +1,11 @@
-## Version: 2.5.4 - 17 October 2024
+## Version: 2.5.4 - 28 November 2024
 
 #### Compatibility
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
 |≥ 2.13.1                  |Fully compatible|
+|≥ 2.12.6                  |Fully compatible|
 |≥ 2.7.0                   |Compatible except the support of ```EXTRACT_SNAPSHOTS_MONTHS``` environment variable
 |1.X                       |Not compatible|
 
