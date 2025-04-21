@@ -1,3 +1,30 @@
+## Version: 3.0.0 - 20 April 2025
+
+#### Compatibility
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ ?.13.3                  |Fully compatible|
+|≥ 2.12.8                  |Fully compatible|
+|1.X                       |Not compatible|
+
+#### Features / Enhancements
+
+- **Data**: Limit memory consumption when using Datamart (a JDBC fix setting enables and end to end streaming)
+- **Data**: Some SQL Queries for Datamart Extraction has been recoded to limit use of JOIN clauses for a better efficiency. 
+
+Below a sample of extractions for a huge database (41551  snapshots, 2 billions of rows in DSS_METRIC_RESULTS):
+
+| **REST API Memory settings**         | **Extraction Restriction**                                                               | **Extraction Time (transform & load time is not included)** |
+|-------------------------------------|-------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| -**Xmx2048m** -Xms512m              | SET EXTRACT_SNAPSHOTS_MONTHS=4<br>set EXTRACT_MOD=OFF<br>set EXTRACT_TECHNO=OFF           | 12 min                                                      |
+| -**Xmx2048m** -Xms512m              | SET EXTRACT_SNAPSHOTS_MONTHS=4                                                            | 2h 30min                                                    |
+| -**Xmx2048m** -Xms512m              | SET EXTRACT_SNAPSHOTS_MONTHS=6                                                            | 3h 24min                                                    |
+| -**Xmx2048m** -Xms512m              | N/A                                                                                       | 7h 40min                                                    |
+| -**Xmx512m** -Xms512m               | SET EXTRACT_SNAPSHOTS_MONTHS=6                                                            | 3h 25min                                                    |
+
+
+
 ## Version: 2.5.4 - 28 November 2024
 
 #### Compatibility
