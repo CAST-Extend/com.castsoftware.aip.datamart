@@ -4,7 +4,7 @@
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
-|≥ ?.13.3                  |Fully compatible|
+|≥ 2.13.3                  |Fully compatible|
 |≥ 2.12.8                  |Fully compatible|
 |1.X                       |Not compatible|
 
