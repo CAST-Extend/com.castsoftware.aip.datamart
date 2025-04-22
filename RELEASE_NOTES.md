@@ -10,7 +10,7 @@
 
 #### Features / Enhancements
 
-- **Data**: Limit memory consumption when using Datamart (a JDBC fix setting enables and end to end streaming)
+- **Data**: Limit memory consumption when using Datamart (a JDBC setting fix enables and end to end streaming)
 - **Data**: Some SQL Queries for Datamart Extraction has been recoded to limit use of JOIN clauses for a better efficiency. 
 
 Below a sample of extractions for a huge database (41551  snapshots, 2 billions of rows in DSS_METRIC_RESULTS):
