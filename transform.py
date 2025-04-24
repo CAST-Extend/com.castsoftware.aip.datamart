@@ -193,10 +193,10 @@ if __name__ == "__main__":
         # Add DATAPOND table
         if datapond:
             transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datapond")
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 0)
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 0)
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 0)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 0)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 1)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 1)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 1)        
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 1)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES", 3)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_EVOLUTION", 3)        
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES", 1)
