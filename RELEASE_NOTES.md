@@ -1,3 +1,19 @@
+## Version: 3.0.1 - 21 July 2025
+
+#### Compatibility
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.13.3                  |Fully compatible|
+|≥ 2.12.8                  |Fully compatible|
+|1.X                       |Not compatible|
+
+#### Bug Fixes
+
+- **Data**: Support of detached technical criterion
+- **Data**: Set a strict order MOD_VIOLATIONS_MEASURES and MOD_VIOLATIONS_EVOLUTION in order to skup duplicated rows in database.
+- **Data**: When setting EXTRACT_SNAPSHOTS_MONTHS, some rows of XXX_SIZING_MEASURES were not filtered causing useless results extraction.
+
 ## Version: 3.0.0 - 20 April 2025
 
 #### Compatibility
