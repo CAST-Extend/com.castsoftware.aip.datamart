@@ -1,4 +1,25 @@
-## Version: 3.0.1 - 21 July 2025
+## Version: 3.0.2 - 24 July 2025
+
+#### Compatibility
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.13.3                  |Fully compatible|
+|≥ 2.12.8                  |Fully compatible|
+|1.X                       |Not compatible|
+
+#### Bug Fixes
+
+- **Data**: Deduplicate rows of tables DSS_SNAPSHOTS, ADG_DELTA_SNAPSHOTS when querying the source database, reducing the detection of duplicated results at the level of the transform step. 
+
+There are 2 duplication cases detected:
+- 2 applications with the same name
+- 2 snapshots with different ID, but but with the same properties
+
+In case of duplication, we select the one with the most recent functional date.
+Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by the transform step.
+
+## Version: 3.0.1 - 21 July 2025 (intermediate version, not released)
 
 #### Compatibility
 
