@@ -21,14 +21,6 @@ Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by t
 
 ## Version: 3.0.1 - 21 July 2025 (intermediate version, not released)
 
-#### Compatibility
-
-|Dashboard REST API Release|Compatibility|
-|--------------------------|-------------|
-|≥ 2.13.3                  |Fully compatible|
-|≥ 2.12.8                  |Fully compatible|
-|1.X                       |Not compatible|
-
 #### Bug Fixes
 
 - **Data**: Support of detached technical criterion
