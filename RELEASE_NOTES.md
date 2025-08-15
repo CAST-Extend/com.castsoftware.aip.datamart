@@ -14,7 +14,7 @@
 
 There are 2 duplication cases detected:
 - 2 applications with the same name
-- 2 snapshots with different ID, but but with the same properties
+- 2 snapshots with different ID, but with the same properties & results
 
 In case of duplication, we select the one with the most recent functional date.
 Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by the transform step.
