@@ -4,7 +4,7 @@
 
 |Imaging Console Release   |
 |--------------------------|
-|3.5.0 (coming soon)       |
+|≥ 3.5.0 (coming soon)       |
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
@@ -38,7 +38,7 @@ Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by t
 
 |Imaging Console Release   |
 |--------------------------|
-|3.4.5                     |
+|≥ 3.4.5                     |
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
