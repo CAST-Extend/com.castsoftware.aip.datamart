@@ -13,6 +13,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
         - [Single Data Source](#Single-Data-Source)
         - [Multiple Data Sources](#Multiple-Data-Sources)
         - [Datamart Dedicated user](#Datamart-Dedicated-User)
+        - [Datamart for Imaging Console](#Datamart-for-Imaging-Console)
         - [Troubleshooting Guide](#Troubleshooting-Guide)
     - [Schema Upgrade](#Schema-Upgrade)
     - [Datapond](#Datapond)    
@@ -178,6 +179,20 @@ If you start ```datamart.bat update```, the script will synchronize the datamart
 We advise to create a Datamart dedicated user for the [Dashboards REST API](https://doc.castsoftware.com/display/DASHBOARDS/User+roles+-+2.x+and+above).
 This user should be authorized to access all applications.
 If ever you need to skip some applications for the extraction process, then you will be able to remove these applications from the set of authorized applications for this user (make sure this user has no "admin" role).
+
+#### Datamart for Imaging Console
+
+To run the Datamart with ```com.castsoftware.imaging.console```, you must set the ```APIKEY``` variable generated from the user profile.
+The ```APIUSER``` variable must be set also for compatibility, must it should have no effect.
+
+The ```setenv.bat``` file will look like this:
+```
+SET APIKEY=zil1wN4m.x...
+SET APIUSER=datamart
+
+SET DEFAULT_ROOT=http://xxxx:8090/ dashboards/rest
+SET DEFAULT_DOMAIN=AAD
+```
 
 #### Troubleshooting Guide
 

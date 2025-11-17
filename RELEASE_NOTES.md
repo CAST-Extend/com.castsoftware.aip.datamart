@@ -2,9 +2,9 @@
 
 #### Compatibility
 
-|Imaging Console Release   |
-|--------------------------|
-|≥ 3.5.0 (coming soon)       |
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.3.0                   |Not compatible  |
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
@@ -36,9 +36,9 @@ Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by t
 
 #### Compatibility
 
-|Imaging Console Release   |
-|--------------------------|
-|≥ 3.4.5                     |
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.3.0                   |Fully compatible|
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
