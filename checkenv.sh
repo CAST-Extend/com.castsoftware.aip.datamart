@@ -8,14 +8,14 @@ INSTALLATION_FOLDER="$(pwd)"
 PGSQL="pgsql-10.12"
 
 # Add path for embedded third party binaries
-[ -d "$INSTALLATION_FOLDER/thirdparty/curl-7.70/bin" ] && export PATH="$INSTALLATION_FOLDER/thirdparty/curl-7.70/bin:$PATH"
-[ -d "$INSTALLATION_FOLDER/thirdparty/Python38-32" ] && export PATH="$INSTALLATION_FOLDER/thirdparty/Python38-32:$PATH"
+#[ -d "$INSTALLATION_FOLDER/thirdparty/curl-7.70/bin" ] && export PATH="$INSTALLATION_FOLDER/thirdparty/curl-7.70/bin:$PATH"
+#[ -d "$INSTALLATION_FOLDER/thirdparty/Python38-32" ] && export PATH="$INSTALLATION_FOLDER/thirdparty/Python38-32:$PATH"
 
-if [ -n "$PGSQL" ] && [ -d "$INSTALLATION_FOLDER/thirdparty/$PGSQL/bin" ]; then
-  export PATH="$INSTALLATION_FOLDER/thirdparty/$PGSQL/bin:$PATH"
-  export PSQL="psql"
-  export VACUUMDB="vacuumdb"
-fi
+#if [ -n "$PGSQL" ] && [ -d "$INSTALLATION_FOLDER/thirdparty/$PGSQL/bin" ]; then
+#  export PATH="$INSTALLATION_FOLDER/thirdparty/$PGSQL/bin:$PATH"
+#  export PSQL="psql"
+#  export VACUUMDB="vacuumdb"
+#fi
 
 command -v python >/dev/null 2>&1 || { echo "ERROR: Python is not found"; exit 1; }
 command -v curl >/dev/null 2>&1 || { echo "ERROR: CURL is not found"; exit 1; }

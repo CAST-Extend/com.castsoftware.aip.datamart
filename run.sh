@@ -11,9 +11,9 @@ popd() {
 }
 
 run() {
-  ./extract "$1" "$2" "$3" || fail
-  ./transform "$1" "$3" || fail
-  ./load "$1" "$3" || fail
+  ./extract.sh "$1" "$2" "$3" || fail
+  ./transform.sh "$1" "$3" || fail
+  ./load.sh "$1" "$3" || fail
 }
 
 fail() {
