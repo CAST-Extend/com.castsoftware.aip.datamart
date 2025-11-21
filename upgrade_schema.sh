@@ -5,7 +5,6 @@ ORIGINAL_DIR="$(pwd)"
 cd "$(dirname "$0")" || exit 1
 
 # Load environment
-. ./setenv.sh || fail
 . ./checkenv.sh || fail
 
 # Define the log file

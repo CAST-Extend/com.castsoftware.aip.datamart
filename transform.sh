@@ -1,37 +1,5 @@
 #!/bin/sh
 
-# === Load environment ===
-. ./setenv.sh || fail
-. ./checkenv.sh || fail
-
-# === Get arguments ===
-MODE="$1"
-DOMAIN="$2"
-
-# Use default domain if not provided
-if [ -z "$DOMAIN" ]; then
-  DOMAIN="$DEFAULT_DOMAIN"
-fi
-
-# === Create transform folder if it doesn't exist ===
-if [ ! -d "$TRANSFORM_FOLDER/$DOMAIN" ]; then
-  mkdir -p "$TRANSFORM_FOLDER/$DOMAIN"
-fi
-
-# Delete files if DEBUG is OFF
-if [ "$DEBUG" = "OFF" ]; then
-  rm -f "$TRANSFORM_FOLDER/$DOMAIN"/*
-fi
-
-# === Dispatch based on mode ===
-case "$MODE" in
-  install|refresh|ed-install|hd-update|ed-update)
-    transform
-    ;;
-  *)
-    usage
-    ;;
-esac
 
 # === Functions ===
 
@@ -77,3 +45,36 @@ success() {
   echo "== Transform Done =="
   exit 0
 }
+
+
+# === Load environment ===
+. ./checkenv.sh || fail
+
+# === Get arguments ===
+MODE="$1"
+DOMAIN="$2"
+
+# Use default domain if not provided
+if [ -z "$DOMAIN" ]; then
+  DOMAIN="$DEFAULT_DOMAIN"
+fi
+
+# === Create transform folder if it doesn't exist ===
+if [ ! -d "$TRANSFORM_FOLDER/$DOMAIN" ]; then
+  mkdir -p "$TRANSFORM_FOLDER/$DOMAIN"
+fi
+
+# Delete files if DEBUG is OFF
+if [ "$DEBUG" = "OFF" ]; then
+  rm -f "$TRANSFORM_FOLDER/$DOMAIN"/*
+fi
+
+# === Dispatch based on mode ===
+case "$MODE" in
+  install|refresh|ed-install|hd-update|ed-update)
+    transform
+    ;;
+  *)
+    usage
+    ;;
+esac

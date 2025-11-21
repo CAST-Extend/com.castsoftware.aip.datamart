@@ -1,5 +1,3 @@
-#!/bin/sh
-
 # ------------------------------------------------------------------------------
 # DO NOT CHANGE ANYTHING BELOW THIS LINE
 # ------------------------------------------------------------------------------
@@ -20,8 +18,8 @@ PGSQL="pgsql-10.12"
 command -v python >/dev/null 2>&1 || { echo "ERROR: Python is not found"; exit 1; }
 command -v curl >/dev/null 2>&1 || { echo "ERROR: CURL is not found"; exit 1; }
 
-command -v "${PSQL:-psql}" >/dev/null 2>&1 || { [ -x "$PSQL" ] || { echo "ERROR: PSQL is not found"; exit 1; }; }
-command -v "${VACUUMDB:-vacuumdb}" >/dev/null 2>&1 || { [ -x "$VACUUMDB" ] || { echo "ERROR: VACUUMDB is not found"; exit 1; }; }
+# command -v "${PSQL:-psql}" >/dev/null 2>&1 || { [ -x "$PSQL" ] || { echo "ERROR: PSQL is not found"; exit 1; }; }
+# command -v "${VACUUMDB:-vacuumdb}" >/dev/null 2>&1 || { [ -x "$VACUUMDB" ] || { echo "ERROR: VACUUMDB is not found"; exit 1; }; }
 
 python utilities/check_python_version.py || exit 1
 

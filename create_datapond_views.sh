@@ -23,7 +23,6 @@ load() {
 }
 
 # Setup env
-. ./setenv.sh || fail
 . ./checkenv.sh || fail
 
 # Initialize log file

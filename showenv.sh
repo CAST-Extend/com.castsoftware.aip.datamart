@@ -5,7 +5,6 @@ ORIGINAL_DIR="$(pwd)"
 cd "$(dirname "$0")" || exit 1
 
 # Load environment
-. ./setenv.sh || { echo "Failed to source setenv.sh"; exit 1; }
 . ./checkenv.sh || { echo "Failed to source checkenv.sh"; exit 1; }
 
 echo

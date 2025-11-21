@@ -3,7 +3,6 @@
 set -eu
 
 # Load environment
-. ./setenv.sh || fail
 . ./checkenv.sh || fail
 
 MODE="$1"
