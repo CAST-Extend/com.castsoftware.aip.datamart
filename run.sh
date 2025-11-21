@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# For debug
+# set -x
+
 # Simulate pushd/popd behavior
 pushd() {
   OLD_DIR="$(pwd)"

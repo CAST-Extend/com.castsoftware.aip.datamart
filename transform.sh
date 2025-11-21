@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# For debug
+# set -x
 
 # === Functions ===
 
