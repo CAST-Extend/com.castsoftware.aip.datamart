@@ -22,7 +22,6 @@ for_each_ed_domain() {
 }
 
 hd_datamart() {
-  export LOG_FOLDER
   python datamart.py "$1" "$2"
 }
 

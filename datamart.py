@@ -7,14 +7,14 @@ import time
   
 def os_script(name):
     if os.name == 'posix':
-        return name + ".sh"
+        return "./" + name + ".sh"
     return name + ".bat"
     
 # Once AAD domain is transferted, start run.bat to append details for a domain  
 # Create a job as a pair: (domain, process) 
 def start_domain_transfer(ed_url, domain, jobs, pos, transform_mode):
     os.makedirs(os.getenv("LOG_FOLDER"), exist_ok=True)
-    output_path = os.getenv("LOG_FOLDER") + "/" + domain + ".stdout"
+    output_path = os.path.join(os.getenv("LOG_FOLDER"), domain + ".stdout")
     cmd = [os_script('run'), transform_mode, ed_url, domain]
     with open(output_path, "w") as output:
         process = subprocess.Popen(cmd, stdout=output, stderr=output)
@@ -23,7 +23,7 @@ def start_domain_transfer(ed_url, domain, jobs, pos, transform_mode):
 # Start AAD transfer, abort all transfers in case of failure
 def start_aad_transfer(transfer_mode):
     os.makedirs(os.getenv("LOG_FOLDER"), exist_ok=True)
-    output_path = os.getenv("LOG_FOLDER") + "/" + "AAD.stdout"
+    output_path = os.path.join(os.getenv("LOG_FOLDER"), "AAD.stdout")
     cmd = [os_script('run'), transfer_mode, os.getenv("HD_ROOT"), 'AAD']
     with open(output_path, "w") as output:
         process = subprocess.Popen(cmd, stdout=output, stderr=output)
@@ -83,8 +83,8 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
     sys.exit(exit_code)
 
 def check_new_snapshot (ed_url, domain, snapshots_file):
-    output_path = os.getenv("INSTALLATION_FOLDER") + "/log/datamart_update.stdout"
-    cmd = [os_script('utilities\\check_new_snapshot'), ed_url + '/' + domain + '/datamart/dim-snapshots', snapshots_file]
+    output_path = os.path.join(os.getenv("INSTALLATION_FOLDER"), "log", "datamart_update.stdout")
+    cmd = [os_script(os.path.join('utilities', 'check_new_snapshot')), os.path.join(ed_url, domain, 'datamart', 'dim-snapshots'), snapshots_file]
     with open(output_path, "a") as output:
         check_code = subprocess.run(cmd, stdout=output, stderr=output).returncode
     return check_code

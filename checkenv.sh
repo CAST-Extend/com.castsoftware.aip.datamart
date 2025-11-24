@@ -9,17 +9,7 @@ set -o pipefail
 # ------------------------------------------------------------------------------
 
 INSTALLATION_FOLDER="$(pwd)"
-PGSQL="pgsql-10.12"
-
-# Add path for embedded third party binaries
-#[ -d "$INSTALLATION_FOLDER/thirdparty/curl-7.70/bin" ] && export PATH="$INSTALLATION_FOLDER/thirdparty/curl-7.70/bin:$PATH"
-#[ -d "$INSTALLATION_FOLDER/thirdparty/Python38-32" ] && export PATH="$INSTALLATION_FOLDER/thirdparty/Python38-32:$PATH"
-
-#if [ -n "$PGSQL" ] && [ -d "$INSTALLATION_FOLDER/thirdparty/$PGSQL/bin" ]; then
-#  export PATH="$INSTALLATION_FOLDER/thirdparty/$PGSQL/bin:$PATH"
-#  export PSQL="psql"
-#  export VACUUMDB="vacuumdb"
-#fi
+export INSTALLATION_FOLDER
 
 export PSQL="psql"
 export VACUUMDB="vacuumdb"
@@ -27,8 +17,8 @@ export VACUUMDB="vacuumdb"
 command -v python >/dev/null 2>&1 || { echo "ERROR: Python is not found"; exit 1; }
 command -v curl >/dev/null 2>&1 || { echo "ERROR: CURL is not found"; exit 1; }
 
-# command -v "${PSQL:-psql}" >/dev/null 2>&1 || { [ -x "$PSQL" ] || { echo "ERROR: PSQL is not found"; exit 1; }; }
-# command -v "${VACUUMDB:-vacuumdb}" >/dev/null 2>&1 || { [ -x "$VACUUMDB" ] || { echo "ERROR: VACUUMDB is not found"; exit 1; }; }
+command -v "${PSQL:-psql}" >/dev/null 2>&1 || { [ -x "$PSQL" ] || { echo "ERROR: PSQL is not found"; exit 1; }; }
+command -v "${VACUUMDB:-vacuumdb}" >/dev/null 2>&1 || { [ -x "$VACUUMDB" ] || { echo "ERROR: VACUUMDB is not found"; exit 1; }; }
 
 python utilities/check_python_version.py || exit 1
 
@@ -72,8 +62,12 @@ case "$EXTRACT_ZERO_WEIGHT" in ON|OFF) ;; *) echo "ERROR: Invalid EXTRACT_ZERO_W
 : "${EXTRACT_FOLDER:=$INSTALLATION_FOLDER/extract}"
 : "${TRANSFORM_FOLDER:=$INSTALLATION_FOLDER/transform}"
 : "${LOG_FOLDER:=$INSTALLATION_FOLDER/log}"
+export EXTRACT_FOLDER
+export TRANSFORM_FOLDER
+export LOG_FOLDER
 
 mkdir -p "$EXTRACT_FOLDER" "$TRANSFORM_FOLDER" "$LOG_FOLDER"
+
 
 export VIEWS_FOLDER="$INSTALLATION_FOLDER/views"
 
@@ -81,6 +75,7 @@ NOW=$(python utilities/isodatetime.py)
 export NOW
 
 : "${JOBS:=1}"
+export JOBS
 
 export PSQL_OPTIONS="-d $_DB_NAME -h $_DB_HOST -U $_DB_USER -p $_DB_PORT --set=ON_ERROR_STOP=true"
 export VACUUM_OPTIONS="-h $_DB_HOST -U $_DB_USER -p $_DB_PORT"
