@@ -15,6 +15,9 @@ PGSQL="pgsql-10.12"
 #  export VACUUMDB="vacuumdb"
 #fi
 
+export PSQL="psql"
+export VACUUMDB="vacuumdb"
+
 command -v python >/dev/null 2>&1 || { echo "ERROR: Python is not found"; exit 1; }
 command -v curl >/dev/null 2>&1 || { echo "ERROR: CURL is not found"; exit 1; }
 

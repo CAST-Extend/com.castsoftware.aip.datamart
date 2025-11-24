@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+# set -x
 
 #######################################
 # Usage
@@ -41,7 +41,7 @@ install_() {
         --set=schema="${_DB_SCHEMA}" -f create_tables.sql \
         >> "$LOG_FILE" 2>&1 || return 1
 
-    load_data_dictionary || return 1
+    sh ./load_data_dictionary.sh || return 1
 
     load_other_measures || return 1
     load_details || return 1
