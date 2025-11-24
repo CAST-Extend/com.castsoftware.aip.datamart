@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # set -x
+set -e
+set -o pipefail
 
 #######################################
 # Usage
@@ -155,9 +157,6 @@ load_view() {
         --set=schema="${_DB_SCHEMA}" -f "$sql" \
         >> "$LOG_FILE" 2>&1 || return 1
 }
-
-set -e
-set -o pipefail
 
 . ./checkenv.sh || fail
 

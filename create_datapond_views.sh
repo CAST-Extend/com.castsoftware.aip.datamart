@@ -1,9 +1,7 @@
 #!/bin/sh
 
-# initializations
-ORIGINAL_DIR="$(pwd)"
-cd "$(dirname "$0")" || exit 1
-LOG_FILE="${LOG_FOLDER}/DATAPOND_VIEWS.log"
+set -e
+set -o pipefail
 
 fail() {
   echo "== Load Failed (see $LOG_FILE) =="
@@ -24,6 +22,11 @@ load() {
 
 # Setup env
 . ./checkenv.sh || fail
+
+# initializations
+ORIGINAL_DIR="$(pwd)"
+cd "$(dirname "$0")" || exit 1
+LOG_FILE="${LOG_FOLDER}/DATAPOND_VIEWS.log"
 
 # Initialize log file
 : > "$LOG_FILE"
