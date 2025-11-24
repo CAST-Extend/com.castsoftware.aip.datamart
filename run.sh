@@ -1,8 +1,9 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
 
-# For debug
 # set -x
+set -e
+set -o pipefail
+
 
 # Simulate pushd/popd behavior
 pushd() {

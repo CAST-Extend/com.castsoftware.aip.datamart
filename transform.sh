@@ -1,7 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-# For debug
 # set -x
+set -e
+set -o pipefail
+
 
 # === Functions ===
 

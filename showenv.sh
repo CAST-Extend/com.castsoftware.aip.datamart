@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# set -x
+set -e
+set -o pipefail
 
 # Save current directory (optional)
 ORIGINAL_DIR="$(pwd)"

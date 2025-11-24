@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+# set -x
+set -e
+set -o pipefail
 
 # Store the start time in milliseconds (requires GNU date)
 start_time=$(date +%s%3N)
