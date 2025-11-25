@@ -5,13 +5,11 @@ set -e
 set -o pipefail
 
 fail() {
-    popd >/dev/null
     echo "== Load Datamart Descriptions Failed (see ${LOG_FILE} file) =="
     exit 1
 }
 
 success() {
-    popd >/dev/null
     exit 0
 }
 

@@ -8,7 +8,7 @@ set -o pipefail
 # DO NOT CHANGE ANYTHING BELOW THIS LINE
 # ------------------------------------------------------------------------------
 
-export INSTALLATION_FOLDER="$(pwd)/scripts"
+export INSTALLATION_FOLDER="$(pwd)"
 export OUTPUT_FOLDER="$(pwd)/outputdir"
 export VIEWS_FOLDER="$(pwd)/views"
 
