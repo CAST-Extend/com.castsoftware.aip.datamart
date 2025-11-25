@@ -16,7 +16,7 @@ success() {
 run() {
     local base="$1"
     python utilities/run.py "$PSQL" $PSQL_OPTIONS \
-        --set=schema="$ _DB_SCHEMA" \
+        --set=schema="$_DB_SCHEMA" \
         -f "${base}.sql" >> "${LOG_FILE}" 2>&1 \
         || return 1
 }
