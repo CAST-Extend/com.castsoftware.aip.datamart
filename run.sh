@@ -4,17 +4,6 @@
 set -e
 set -o pipefail
 
-
-# Simulate pushd/popd behavior
-pushd() {
-  OLD_DIR="$(pwd)"
-  cd "$1" || return 1
-}
-
-popd() {
-  [ -n "$OLD_DIR" ] && cd "$OLD_DIR" || return 1
-}
-
 run() {
   ./extract.sh "$1" "$2" "$3" || fail
   ./transform.sh "$1" "$3" || fail
@@ -22,7 +11,6 @@ run() {
 }
 
 fail() {
-  popd
   echo "== Failed =="
   exit 1
 }
@@ -44,9 +32,7 @@ main() {
   case "$1" in
     refresh|install|ed-install|hd-update|ed-update)
       SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-      pushd "$SCRIPT_DIR" || exit 1
       run "$@"
-      popd
       ;;
     *)
       usage
