@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-# set -x
+#set -x
 set -e
 set -o pipefail
-
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-pushd "$SCRIPT_DIR" >/dev/null
 
 fail() {
     popd >/dev/null

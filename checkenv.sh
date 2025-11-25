@@ -8,8 +8,9 @@ set -o pipefail
 # DO NOT CHANGE ANYTHING BELOW THIS LINE
 # ------------------------------------------------------------------------------
 
-INSTALLATION_FOLDER="$(pwd)"
-export INSTALLATION_FOLDER
+export INSTALLATION_FOLDER="$(pwd)/scripts"
+export OUTPUT_FOLDER="$(pwd)/outputdir"
+export VIEWS_FOLDER="$(pwd)/views"
 
 export PSQL="psql"
 export VACUUMDB="vacuumdb"
@@ -59,17 +60,12 @@ case "$EXTRACT_ZERO_WEIGHT" in ON|OFF) ;; *) echo "ERROR: Invalid EXTRACT_ZERO_W
 [ -z "$_DB_SCHEMA" ] && { echo "ERROR: Missing variable _DB_SCHEMA"; exit 1; }
 
 # Set folders
-: "${EXTRACT_FOLDER:=$INSTALLATION_FOLDER/extract}"
-: "${TRANSFORM_FOLDER:=$INSTALLATION_FOLDER/transform}"
-: "${LOG_FOLDER:=$INSTALLATION_FOLDER/log}"
-export EXTRACT_FOLDER
-export TRANSFORM_FOLDER
-export LOG_FOLDER
+export EXTRACT_FOLDER="$OUTPUT_FOLDER/extract"
+export TRANSFORM_FOLDER="$OUTPUT_FOLDER/transform"
+export LOG_FOLDER="$OUTPUT_FOLDER/log"
+
 
 mkdir -p "$EXTRACT_FOLDER" "$TRANSFORM_FOLDER" "$LOG_FOLDER"
-
-
-export VIEWS_FOLDER="$INSTALLATION_FOLDER/views"
 
 NOW=$(python utilities/isodatetime.py)
 export NOW
