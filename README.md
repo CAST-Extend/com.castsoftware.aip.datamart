@@ -417,7 +417,7 @@ For BASEDATA_FLAT and COMPLETE_FLAT views, the differences with Datapond 5.1 cor
 
 To add these database views to the Datamart schema, runs `create_datapond_views.sh` file from your installation directory:
 ```
-C:\>create_datapond_views
+$ create_datapond_views.sh
 ```
 
 
