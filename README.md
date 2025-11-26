@@ -8,7 +8,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
 - [Terms and Conditions](#Terms-and-Conditions)
 - [How to Build the AIP Datamart](#How-to-Build-the-AIP-Datamart)
     - [The Scripts](#The-Scripts)
-    - [Docker] (#Docker) 
+    - [Docker](#Docker) 
     - [Running the Scripts ](#Running-the-Scripts)
         - [Password obfuscation](#Password-obfuscation)
         - [Single Data Source](#Single-Data-Source)
