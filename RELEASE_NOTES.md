@@ -1,10 +1,48 @@
+## Version: 3.0.2 - 18 August 2025
+
+#### Compatibility
+
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.3.0                   |Not compatible  |
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.13.2                  |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.2.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|≥ 2.12.9                  |Fully compatible|
+|2.12.8                    |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.2.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|1.X                       |Not compatible|
+
+#### Bug Fixes
+
+- **Data**: Deduplicate rows of tables DSS_SNAPSHOTS, ADG_DELTA_SNAPSHOTS when querying the source database, reducing the detection of duplicated results at the level of the transform step. 
+
+There are 2 duplication cases detected:
+- 2 applications with the same name
+- 2 snapshots with different ID, but with the same properties & results
+
+In case of duplication, we select the one with the most recent functional date.
+Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by the transform step.
+
+## Version: 3.0.1 - 21 July 2025 (intermediate version, not released)
+
+#### Bug Fixes
+
+- **Data**: Support of detached technical criterion
+- **Data**: Set a strict order MOD_VIOLATIONS_MEASURES and MOD_VIOLATIONS_EVOLUTION in order to skup duplicated rows in database.
+- **Data**: When setting EXTRACT_SNAPSHOTS_MONTHS, some rows of XXX_SIZING_MEASURES were not filtered causing useless results extraction.
+
 ## Version: 3.0.0 - 20 April 2025
 
 #### Compatibility
 
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.3.0                   |Fully compatible|
+
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
-|≥ 2.13.3                  |Fully compatible|
+|≥ 2.13.2                  |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
 |≥ 2.12.8                  |Fully compatible|
 |1.X                       |Not compatible|
 

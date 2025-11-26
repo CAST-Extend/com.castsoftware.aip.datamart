@@ -32,10 +32,10 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
     global ERRORS
     table_name = "DATAPOND_ORGANIZATION" if output_format == "datapond" else "DIM_APPLICATIONS"
     print ("Transform", table_name)
-    ofile = transform_directory + "\\" + table_name + ".sql"
+    ofile = os.path.join(transform_directory, table_name + ".sql")
     f = open(ofile, "w", encoding="utf-8")
 
-    with open(extract_directory+'\\DIM_APPLICATIONS.csv') as csv_file:
+    with open(os.path.join(extract_directory, 'DIM_APPLICATIONS.csv')) as csv_file:
         if mode in ["refresh", "hd-update"]:
             f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
         elif mode == "install":
@@ -76,8 +76,8 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
 
 def transform(mode, extract_directory, transform_directory, table_name, nb_primary_columns):
     global WARNINGS
-    ofile = transform_directory + "\\" + table_name + ".sql"
-    ifile = extract_directory+"\\" + table_name + ".csv"
+    ofile = os.path.join(transform_directory, table_name + ".sql")
+    ifile = os.path.join(extract_directory, table_name + ".csv")
 
     if not os.path.isfile(ifile):
         return
@@ -123,8 +123,8 @@ def transform_ed_tables(mode, extract_directory, transform_directory, table):
         transform (mode,  extract_directory, transform_directory, table_name, 0)
         return
 
-    ofile = transform_directory + "\\" + table_name + ".sql"
-    ifile = extract_directory+"\\" + table_name + ".csv"
+    ofile = os.path.join(transform_directory, table_name + ".sql")
+    ifile = os.path.join(extract_directory, table_name + ".csv")
 
     if not os.path.isfile(ifile):
         return
@@ -193,10 +193,10 @@ if __name__ == "__main__":
         # Add DATAPOND table
         if datapond:
             transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datapond")
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 0)
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 0)
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 0)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 0)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 1)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 1)
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 1)        
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 1)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES", 3)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_EVOLUTION", 3)        
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES", 1)

@@ -5,6 +5,9 @@ import os
 import sys
     
 def full_executable_path(invoked):
+    if os.name == 'posix':
+        return "curl"
+        
      # From https://bugs.python.org/issue8557  
      # https://bugs.python.org/issue8557
      # with subprocess.open, c:\windows\system32\curl.exe has precedence on the PATH environment variable for Windows 10
@@ -21,7 +24,7 @@ def full_executable_path(invoked):
     return invoked # Not found; invoking it will likely fail
     
 def main():    
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="""Run CURL to fetch data from a Web Server using the environment variable 'CREDENTIALS' or %USERPROFILE%\_netrc
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="""Run CURL to fetch data from a Web Server using the environment variable 'CREDENTIALS' or %USERPROFILE%\\_netrc
 For Windows OS only""")
     parser.add_argument("mediatype", action="store", help="Media type. Typically 'application/json' or 'text/csv'")
     parser.add_argument("url", action="store", help="URL to fetch")    
@@ -36,7 +39,7 @@ For Windows OS only""")
     elif apikey:
         curl_args += ['-H', 'X-API-USER: '  + decode.decode(os.getenv("APIUSER")), '-H', 'X-API-KEY: ' + decode.decode(apikey)]
     else:
-        curl_args += ['--netrc-file', os.getenv("USERPROFILE") +  '\_netrc ']
+        curl_args += ['--netrc-file', os.getenv("USERPROFILE") +  '\\_netrc ']
     output=args.output
     if output:
         curl_args += ['-o', output]
