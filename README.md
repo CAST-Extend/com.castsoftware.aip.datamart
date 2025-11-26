@@ -70,6 +70,7 @@ See also: See [Datamart dedicated user](#Datamart-Dedicated-User)
 These scripts are submitted to terms and conditions of [GNU License](LICENSE)
 
 By using this software, the user of this product agrees the terms and conditions of third party softwares: 
+- [Red Hat Universal Base Image EULA](https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf)
 - [Curl Copyright License](https://curl.se/docs/copyright.html)
 - [PostgreSQL License](https://www.postgresql.org/about/licence/)
 - [Python License](https://docs.python.org/3/license.html)
