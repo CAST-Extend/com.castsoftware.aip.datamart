@@ -115,7 +115,7 @@ $ run install
 Examples of Datamart script sessions:
 ```
 $ docker run --name datamart --env-file .env -t castimaging/datamart:latest run.sh install
-$ docker exec -t datamart run.sh refresh
+$ docker restart datamart && docker exec -t datamart run.sh refresh
 ```
 
 All the logs and intermediate output files are saved in the ```outputdir``` directory of the docker container.
@@ -127,7 +127,7 @@ $ docker run --name datamart --env-file .env -v ./datamart:/home/datamart/output
 
 To ensure that the CSV are not removed at the end of the session, you can set the ```DEBUG``` environment variable:
 ```
-$ docker exec -t -e DEBUG=ON datamart run.sh install
+$ docker restart datamart && docker exec -t -e DEBUG=ON datamart run.sh install
 ```
 
 Below an exemple of the ```.env``` file (see next section for detailed explanations):
