@@ -73,13 +73,13 @@ By using this software, the user of this product agrees the terms and conditions
 - [PostgreSQL License](https://www.postgresql.org/about/licence/)
 - [Python License](https://docs.python.org/3/license.html)
 
-A copy of these notices is available in the distributed package of this product.
+A copy of these notices is available in the Docker image distribution.
 
 ## How to Build the AIP Datamart
 
 ### The Scripts
 
-The scripts are *.BAT files for Windows operating systems.
+The scripts are *.sh files for BASH (Bourne-Again shell).
 
 The Datamart scripts are based on an ETL (Extract-Transform-Load) approach:
 * __Extraction__ is using the REST API to export data as CSV content to allow easy data processing (there are dedicated Web Services to extract data; these services extract data using a stream to avoid memory consumption on Web Server).
@@ -93,15 +93,108 @@ Example to extract the DIM_APPLICATIONS content:
 curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
 ```
 
+### Docker 
+
+All the scripts are explained in the next sections. In this section, we describe how to run scripts from a docker container.
+
+You can pull the latest image docker from ```docker.hub```:
+```
+docker pull castimaging/datamart:latest
+```
+
+However, it i strongly recommended to check the compatibility matrix of the release notes to ensure that you will get a datamart release compliant with your Dashboard release.
+
+
+To start a bash session  with an interactive mode:
+```
+$ docker run --name datamart --env-file .env -it castimaging/datamart:latest bash
+$ run install
+```
+
+Exmples of Datamart script sessions:
+```
+docker run --name datamart --env-file .env -t castimaging/datamart:latest run.sh install
+docker exec -t datamart run.sh refresh
+```
+
+All the logs and intermediate ouput files are saved in the ```outputdir``` directory of the docker container.
+You can map this directory to a directory of the host system with the ```-v``` option:
+```
+$ chmod -R 777 ./datamart
+$ docker run --name datamart --env-file .env -v ./datamart:/home/datamart/outputdir -t castimaging/datamart:latest run.sh install
+```
+
+To ensure that the CSV are not removed at the end of the session, you can set the ```DEBUG``` environment variable:
+```
+$ docker exec -t -e DEBUG=ON datamart ./run.sh install
+```
+
+Below an exemple of the ```.env``` file (see next section for detailed explanations):
+```
+# ------------------------------------------------------------------------------
+# CONFIGURE THE FOLLOWING SETTINGS
+# ------------------------------------------------------------------------------
+
+# -----
+# REST API
+# -----
+
+# Set REST API credentials or API key and user
+# CREDENTIALS=
+# APIUSER=
+# APIKEY=
+
+# In case of a single domain extraction (run.sh)
+# Do NOT include a trailing slash
+DEFAULT_ROOT=http://xxx:8090/dashboards/rest
+DEFAULT_DOMAIN=AAD
+
+# In case of a multiple domains extraction (datamart.sh),
+# Set HD (Health Dashboard) and ED (Engineering Dashboard) URLs
+# Up to 10 ED domains (ED_ROOT_0 to ED_ROOT_9)
+# Do NOT include a trailing slash
+# HD_ROOT=http://xxx:8090/dashboards/rest
+# ED_ROOT_0=http://xxw:8090/dashboards/rest
+# ED_ROOT_1=
+# ED_ROOT_2=
+# ...
+# ED_ROOT_9=
+
+# Number of concurrent processes
+JOBS=1
+
+# -----
+# EXTRACTION SCOPE
+# -----
+
+# For Datapond-compliant extraction, you may enable the following
+# EXTRACT_DATAPOND=ON
+# EXTRACT_MOD=OFF
+# EXTRACT_TECHNO=OFF
+# EXTRACT_SRC=OFF
+# EXTRACT_USR=ON
+
+# Limit the snapshot interval in months
+# EXTRACT_SNAPSHOTS_MONTHS=6
+
+# -----
+# TARGET DATABASE
+# -----
+
+_DB_HOST=xxxxx
+_DB_PORT=2284
+_DB_NAME=reporting
+_DB_USER=xxxxx
+_DB_SCHEMA=datamart
+PGPASSWORD=xxxxx
+```
+
 ### Running the Scripts 
 
 * __Make sure__ you have access to 
   * a REST API server for Dashboards (see version in the release notes)
   * a PostgreSQL server 9.6 or higher, with a database created to host target data
-* __Download__ the Datamart scripts from [extend.castsoftware.com](https://extend.castsoftware.com/#/search-results?q=datamart) package
-     * Unzip the archive, and move the content into a single target folder
-     * Note: you do not need to install any software, all the required embedded softwares are available in the ```thirdparty``` directory
-* __Edit configuration variables__ in ```setenv.bat``` file
+* __Edit configuration variables__ in a ```.env``` file
   * Target Database:
       * ```_DB_HOST```: the PostgreSQL server host name
       * ```_DB_PORT```: the PostgreSQL server port
@@ -122,23 +215,19 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
   * __Copy the JAR__
       * Starting from REST API 2.4.0, if you have deployed the Dashboards/REST API with Tomcat, you can overwrite the REST API backend so that you do not need to upgrade the REST API and/or the Dashboards. Replace the Datamart JAR file of the WEB-INF\lib folder of your deployed Tomcat webapp with the JAR file from the ```lib``` folder of the Datamart distribution.
 
-_Note_: If you set an environment variable with a special character such as ```&<>()!``` then you MUST NOT use double-quotes, but escape the characters with ```^``` character:
-```
-REM John is the user name and R2&D2! is the password
-SET CREDENTIALS=John:R2^&D2^^!
-```
-
-You can avoid this kind of issue, using the obfuscation mechanism.
+_Note_: If you set an environment variable with a special character such as ```&<>()!``` then it is recommended to encode the value (see next section).
 
 #### Password obfuscation
 
-You can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY```, ```APIUSER``` environment variables as follow:
+With an interactive session, you can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY```, ```APIUSER``` environment variables as follow:
 
 ```
-C:>python utilities\encode.py mysecret
+$ cd utilities
+$ encode.py mysecret
 HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
 
-SET PGPASSWORD=HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
+set in .env file:
+PGPASSWORD=HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
 ```
 This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/Shoulder_surfing_%28computer_security%29). It does not prevent an operator to access the secret values in clear text.
 
@@ -146,15 +235,15 @@ This obfuscation prevents the [shoulder surfing](https://en.wikipedia.org/wiki/S
 
 This mode allows to extract data of a single Health domain or a single Engineering domain into a target database.
 
-* __Edit__ the scripts ```setenv.bat``` to set the default REST API URL and DOMAIN
+* __Edit__ the scripts ```.env``` to set the default REST API URL and DOMAIN
   * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/rest```
   * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` for the Health domain, or an Engineering domain
-* __Start__ ```run.bat install``` 
-* In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
+* __Start__ ```run.sh install``` 
+* In case of errors, you will find a message on the standard output and some additional messages in the ```outputdir/log``` directory.
 
-After a first install, if you start ```run.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
+After a first install, if you start ```run.sh refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
-Start ```run.bat help``` for more information on these modes.
+Start ```run.sh help``` for more information on these modes.
 
 #### Multiple Data Sources
 
@@ -162,17 +251,17 @@ This mode allows to extract data from an Health domain (```AAD```), and all rela
 
 __WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advise to limit the extraction scope with environment variables.
 
-* __Edit__ the ```setenv.bat``` script to override the following environment variables:
+* __Edit__ the ```.env``` script to override the following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
   * ```ED_ROOT[0]```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
   * ```ED_ROOT[1]```: URL to a second REST API hosting the engineering domains  
   * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
-* __Start__ ```datamart.bat install``` from a CMD window (do not double click from the explorer)
-* In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
+* __Start__ ```datamart.sh install```
+* In case of errors, you will find a message on the standard output and some additional messages in the ```outputdir/log``` directory.
 
-After a first install, if you start ```datamart.bat refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
+After a first install, if you start ```datamart.sh refresh```, the script will just truncate the datamart tables before re-loading data, preserving custom tables and views that depends on datamart tables.
 
-If you start ```datamart.bat update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
+If you start ```datamart.sh update```, the script will synchronize the datamart with new snapshots; saving extract and loading time.
 
 #### Datamart Dedicated User
 
@@ -185,13 +274,13 @@ If ever you need to skip some applications for the extraction process, then you 
 To run the Datamart with ```com.castsoftware.imaging.console```, you must set the ```APIKEY``` variable generated from the user profile.
 The ```APIUSER``` variable must be set also for compatibility, must it should have no effect.
 
-The ```setenv.bat``` file will look like this:
+The ```.env``` file will look like this:
 ```
-SET APIKEY=zil1wN4m.x...
-SET APIUSER=datamart
+APIKEY=zil1wN4m.x...
+APIUSER=datamart
 
-SET DEFAULT_ROOT=http://xxxx:8090/ dashboards/rest
-SET DEFAULT_DOMAIN=AAD
+DEFAULT_ROOT=http://xxxx:8090/dashboards/rest
+DEFAULT_DOMAIN=AAD
 ```
 
 #### Troubleshooting Guide
@@ -203,12 +292,12 @@ Make sure your service account is authorized to access the applications.
 __&#9888; Some columns (```nb_complexity_xxx```, ```nb_cyclomatic_xxx```) are empty__
 
 These measures correspond to "distribution" type metrics.
-If you extract data from a measurement base only (using the ```run.bat``` script), then these measures will be missing.
-You will have to consider multiple data source extraction from central bases to get these measures (using the ```datamart.bat``` script).
-In this case, to limit the volume and extraction time, it is possible to deactivate the extraction of source objects and user data (action plan), by adding in ```setenv.bat``` :
+If you extract data from a measurement base only (using the ```run.sh``` script), then these measures will be missing.
+You will have to consider multiple data source extraction from central bases to get these measures (using the ```datamart.sh``` script).
+In this case, to limit the volume and extraction time, it is possible to deactivate the extraction of source objects and user data (action plan), by adding in ```.env``` :
 ```
-set EXTRACT_SRC=OFF
-set EXTRACT_USR=OFF
+EXTRACT_SRC=OFF
+EXTRACT_USR=OFF
 ```
 
 __&#9888; I have got an "Access Denied" message__
@@ -229,7 +318,7 @@ The Datamart scripts fails with a message such as:
 > Data transfer ABORTED for domain XXX<br>
 > Datamart install Fail
 
-And in the log\XXX.log file you can find this SQL error message:
+And in the outputdir/log/XXX.log file you can find this SQL error message:
 >DETAIL: Key (previous_snapshot_id)=(XXXXXXX:2020-11-10 23:46:00) is not present in table "dim_snapshots"
 
 Any bad reference to the ```dim_snapshots``` table denotes an erroneous snapshot.
@@ -274,11 +363,11 @@ restapi.datasource[0].maximumPoolSize=20
 <Resource name="jdbc/domains/LOCALHOST" url="jdbc:postgresql://localhost:2282/postgres" ... initialSize="5" maxTotal="20" maxIdle="10" maxWaitMillis="-1"/>
 ```
 
-__&#9888; The ```datamart``` command line is taking too much time__
+__&#9888; The ```datamart.sh``` command line is taking too much time__
 
 Firstly, you can parallelize the extraction with concurrent processes by settings the ```JOBS``` variable. See [Running the Scripts ](#Running-the-Scripts)
 
-Secondly, you can reduce the extraction scope either by extracting only the measurement base with the ```run``` command or by ignoring some set of tables that you do not need. See [Running the Scripts ](#Running-the-Scripts)
+Secondly, you can reduce the extraction scope either by extracting only the measurement base with the ```run.sh``` command or by ignoring some set of tables that you do not need. See [Running the Scripts ](#Running-the-Scripts)
 
 At last, you can use the ```datamart update``` command line in order to synchronize the datamart with new snapshots only.
 
@@ -286,26 +375,26 @@ At last, you can use the ```datamart update``` command line in order to synchron
 
 If the Datamart schema has been extended with new tables, or new columns, you may need to perform some actions.
 
-- If you are using ```run install``` or  ```datamart install``` command line, then you do not need to do anything.
+- If you are using ```run.sh install``` or  ```datamart.sh install``` command line, then you do not need to do anything.
       
-- If you are using ```run refresh``` or  ```datamart refresh``` command line to preserve some SQL Views, then you need to:
-    - run the ```upgrade_schema.bat``` script to install new tables and columns,
-    - you may need to reinstall the impacted views with ```create_views.bat``` and ```create_datapond_views.bat```
+- If you are using ```run.sh refresh``` or  ```datamart.sh refresh``` command line to preserve some SQL Views, then you need to:
+    - run the ```upgrade_schema.sh``` script to install new tables and columns,
+    - you may need to reinstall the impacted views with ```create_views.sh``` and ```create_datapond_views.sh```
 
-- If you are using ```datamart update``` command line to refresh data coming only from new snapshots, then you need to:
-    - run the ```upgrade_schema.bat``` script to install new tables and columns,
-    - you may need to reinstall the impacted views with ```create_views.bat``` and ```create_datapond_views.bat```
-    - run the ```datamart refresh``` before the next ```datamart update``` run
+- If you are using ```datamart.sh update``` command line to refresh data coming only from new snapshots, then you need to:
+    - run the ```upgrade_schema.sh``` script to install new tables and columns,
+    - you may need to reinstall the impacted views with ```create_views.sh``` and ```create_datapond_views.sh```
+    - run the ```datamart.sh refresh``` before the next ```datamart.sh update``` run
     
 ### Datapond
 
 To comply with the DATAPOND extract tables and to limit the resources consumption (CPU, disk space), we advise to set the extract environment variables as follow:
 ```
-set EXTRACT_DATAPOND=ON
-set EXTRACT_MOD=OFF
-set EXTRACT_TECHNO=OFF
-set EXTRACT_SRC=OFF
-set EXTRACT_USR=ON
+EXTRACT_DATAPOND=ON
+EXTRACT_MOD=OFF
+EXTRACT_TECHNO=OFF
+EXTRACT_SRC=OFF
+EXTRACT_USR=ON
 ```
 
 This toolkit provides some Datapond compliant views:
@@ -325,7 +414,7 @@ For BASEDATA_FLAT and COMPLETE_FLAT views, the differences with Datapond 5.1 cor
 * When AEP has not be calculated for a snapshot, the Datamart reports the 'null' value, whereas the Datapond reports the value of the next snapshot
 * The calculation of averages has been fixed
 
-To add these database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory:
+To add these database views to the Datamart schema, runs `create_datapond_views.sh` file from your installation directory:
 ```
 C:\>create_datapond_views
 ```
@@ -430,7 +519,7 @@ These tables can be used to filter data along "Dimension":
 
 * `DIM_APPLICATIONS`: A Dimension table to filter measures according to Application Tags (Measurement base)
 
-(1): Optional means that the view is not created by default. Run `create_views.bat` file from your installation directory.
+(1): Optional means that the view is not created by default. Run `create_views.sh` file from your installation directory.
 
 ### Basic Facts (Central Database only)
 
