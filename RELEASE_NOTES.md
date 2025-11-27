@@ -1,4 +1,4 @@
-## Version: 3.0.0-linux - 20 April 2025
+## Version: 3.0.0-linux - 26 November 2025
 
 #### Compatibility
 
