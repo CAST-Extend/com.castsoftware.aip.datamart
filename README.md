@@ -376,13 +376,8 @@ This may appear if the number of ```JOBS``` plus the number of concurrent users 
 You must take care to not exhaust the number of Database server connections. In other words, you may need to decrease the number of ```JOBS``` or increase the size of the connection pool:
 
 For example: Let's set 20 connections = 10 connections for concurrent users + 10 connections for Datamart (```set JOBS=10```):
-- For REST API 2.X: 
 ```
 restapi.datasource[0].maximumPoolSize=20
-```
-- For REST API 1.X:
-```
-<Resource name="jdbc/domains/LOCALHOST" url="jdbc:postgresql://localhost:2282/postgres" ... initialSize="5" maxTotal="20" maxIdle="10" maxWaitMillis="-1"/>
 ```
 
 __&#9888; The ```datamart.sh``` command line is taking too much time__
