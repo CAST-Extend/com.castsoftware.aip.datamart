@@ -243,7 +243,7 @@ With an interactive session, you can obfuscate the ```CREDENTIALS```, ```PGPASSW
 
 ```
 $ cd utilities
-$ encode.py mysecret
+$ python encode.py mysecret
 HEX:773654446d734f6c773550446a4d4f6777347a4372673d3d
 
 set in .env file:
@@ -480,25 +480,25 @@ JOIN app_sizing_measures m on m.snapshot_id = s.snapshot_id
 
 By querying the AIP Datamart tables, you can use the COPY SQL Statement of PostgreSQL to create a CSV output file (this file can be opened with Excel):
 ```
-copy (select ...) to 'c:/temp/output.csv' WITH (format CSV, header);
+COPY (select ...) TO 'c:/temp/output.csv' WITH (format CSV, header);
 ```
 
 Note that the output file is on the PostgreSQL server file system. If you do not have access to this file system, you can use stdout in place of a file name:
 ```
-copy (select ...) to stdout WITH (format CSV, header);
+COPY (select ...) TO stdout WITH (format CSV, header);
 ```
 
 Example of a report of health factors scores that you can open with Excel:
 ```
-copy (select s.application_name, s.date, max(m1.score) as efficiency, max(m2.score) as transferability, max(m3.score) as changeability, max(m4.score) as Robustness, max(m5.score) as security
-from dim_snapshots s
-left join app_scores m1 on m1.snapshot_id = s.snapshot_id and m1.metric_id = 60014
-left join app_scores m2 on m2.snapshot_id = s.snapshot_id and m2.metric_id = 60011
-left join app_scores m3 on m3.snapshot_id = s.snapshot_id and m3.metric_id = 60012
-left join app_scores m4 on m4.snapshot_id = s.snapshot_id and m4.metric_id = 60013
-left join app_scores m5 on m5.snapshot_id = s.snapshot_id and m5.metric_id = 60016
-group by 1,2
-order by 1, 2) to 'c:/temp/report.csv' with (format CSV, header);
+COPY (SELECT s.application_name, s.date, MAX(m1.score) AS efficiency, MAX(m2.score) AS transferability, MAX(m3.score) AS changeability, MAX(m4.score) AS Robustness, MAX(m5.score) AS security
+FROM dim_snapshots s
+LEFT JOIN app_scores m1 ON m1.snapshot_id = s.snapshot_id AND m1.metric_id = 60014
+LEFT JOIN app_scores m2 ON m2.snapshot_id = s.snapshot_id AND m2.metric_id = 60011
+LEFT JOIN app_scores m3 ON m3.snapshot_id = s.snapshot_id AND m3.metric_id = 60012
+LEFT JOIN app_scores m4 ON m4.snapshot_id = s.snapshot_id AND m4.metric_id = 60013
+LEFT JOIN app_scores m5 ON m5.snapshot_id = s.snapshot_id AND m5.metric_id = 60016
+GROUP BY 1,2
+ORDER BY 1, 2) TO 'c:/temp/report.csv' WITH (format CSV, header);
 ```
 
 ### Power BI Desktop
