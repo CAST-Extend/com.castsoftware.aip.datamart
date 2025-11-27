@@ -75,8 +75,6 @@ By using these scripts from the Docker image, the user of this product agrees th
 - [PostgreSQL License](https://www.postgresql.org/about/licence/)
 - [Python License](https://docs.python.org/3/license.html)
 
-A copy of these notices is available in the Docker image distribution.
-
 ## How to Build the AIP Datamart
 
 ### The Scripts
