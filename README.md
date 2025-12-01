@@ -97,59 +97,19 @@ curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datam
 
 This section explains how to run Datamart scripts from a Docker container. The scripts themselves are detailed in the following sections.
 
-#### Pulling the Docker Image
+#### Pull the Docker Image
 
 You can pull the latest Datamart image from Docker Hub:
 ```
-$ docker pull castimaging/datamart:latest
+docker pull castimaging/datamart:latest
 ```
 
 > ⚠️ Important
 > Before using the latest tag, make sure to check the compatibility matrix in the release notes to ensure that the Datamart version is compatible with your Dashboard release.
 
-#### Starting an Interactive Session
+### Create an .env file
 
-To open an interactive Bash session inside the container:
-```
-$ docker run --name datamart --env-file .env -it castimaging/datamart:latest bash
-$ run install
-```
-
-#### Datamart Script Execution Examples
-
-Run a script when starting the container:
-
-```
-$ docker run --name datamart --env-file .env -t castimaging/datamart:latest run.sh install
-```
-
-Restart an existing container and execute a script:
-```
-$ docker restart datamart && docker exec -t datamart run.sh refresh
-```
-
-#### Logs and Output Files
-
-All logs and intermediate output files are stored in the container's ```outputdir``` directory.
-
-It it recommended to persist these files on the host system.
-
-You can map the ```outputdir``` directory on the host file system with the -v option:
-
-```
-$ chmod -R 777 ./datamart
-$ docker run --name datamart --env-file .env \
-    -v ./datamart:/home/datamart/outputdir \
-    -t castimaging/datamart:latest run.sh install
-```    
-
-#### Keeping CSV Files
-
-By default, temporary CSV files are removed at the end of the session.
-To keep them, set the ```DEBUG``` environment variable:
-```
-$ docker restart datamart && docker exec -t -e DEBUG=ON datamart run.sh install
-```
+The .env file is required connect the Datamart to the Dashboard and to the target database.
 
 Below an exemple of the ```.env``` file (see next section for detailed explanations):
 ```
@@ -163,8 +123,8 @@ Below an exemple of the ```.env``` file (see next section for detailed explanati
 
 # Set REST API credentials or API key and user
 # CREDENTIALS=
-# APIUSER=
-# APIKEY=
+APIUSER=datamart
+APIKEY=xxxxxxxxxxxxxxxxxxx
 
 # In case of a single domain extraction (run.sh)
 # Do NOT include a trailing slash
@@ -209,6 +169,52 @@ _DB_NAME=reporting
 _DB_USER=xxxxx
 _DB_SCHEMA=datamart
 PGPASSWORD=xxxxx
+```
+
+#### Start an Interactive Session
+
+To open an interactive Bash session inside the container:
+```
+docker run --name datamart --env-file .env -it castimaging/datamart:latest bash
+```
+```
+run.sh install
+```
+
+#### Datamart Script Execution Examples
+
+Run a script when starting the container:
+
+```
+docker run --name datamart --env-file .env -t castimaging/datamart:latest run.sh install
+```
+
+Restart an existing container and execute a script:
+```
+docker restart datamart && docker exec -t datamart run.sh refresh
+```
+
+#### Logs and Output Files
+
+All logs and intermediate output files are stored in the container's ```outputdir``` directory.
+
+It it recommended to persist these files on the host system.
+
+You can map the ```outputdir``` directory on the host file system with the -v option:
+
+```
+chmod -R 777 ./datamart \
+docker run --name datamart --env-file .env \
+    -v ./datamart:/home/datamart/outputdir \
+    -t castimaging/datamart:latest run.sh install
+```    
+
+#### Keeping CSV Files
+
+By default, temporary CSV files are removed at the end of the session.
+To keep them, set the ```DEBUG``` environment variable:
+```
+docker restart datamart && docker exec -t -e DEBUG=ON datamart run.sh install
 ```
 
 ### Running the Scripts 
