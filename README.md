@@ -132,7 +132,9 @@ $ docker restart datamart && docker exec -t datamart run.sh refresh
 
 All logs and intermediate output files are stored in the container's ```outputdir``` directory.
 
-To persist these files on the host system, map the directory using the -v option:
+It it recommended to persist these files on the host system.
+
+You can map the ```outputdir``` directory on the host file system with the -v option:
 
 ```
 $ chmod -R 777 ./datamart
@@ -144,7 +146,7 @@ $ docker run --name datamart --env-file .env \
 #### Keeping CSV Files
 
 By default, temporary CSV files are removed at the end of the session.
-To keep them, set the ```DEBUG```` environment variable:
+To keep them, set the ```DEBUG``` environment variable:
 ```
 $ docker restart datamart && docker exec -t -e DEBUG=ON datamart run.sh install
 ```
