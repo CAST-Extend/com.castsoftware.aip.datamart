@@ -107,7 +107,7 @@ docker pull castimaging/datamart:latest
 > ⚠️ Important
 > Before using the latest tag, make sure to check the compatibility matrix in the release notes to ensure that the Datamart version is compatible with your Dashboard release.
 
-### Create an .env file
+#### Create an .env file
 
 The .env file is required connect the Datamart to the Dashboard and to the target database.
 
