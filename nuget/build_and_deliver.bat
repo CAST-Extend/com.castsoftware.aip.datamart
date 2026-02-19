@@ -60,6 +60,11 @@ if not defined WORKSPACE (
 	echo No "workspace" defined !
 	goto endclean
 )
+if not defined THIRDPARTY (
+	echo.
+	echo No "THIRDPARTY" defined !
+	goto endclean
+)
 
 set PATH=%PATH%;c:\Tools\Git\usr\bin;C:\CAST-Caches\Win64
 if not exist %TEMP% mkdir %TEMP%
@@ -113,7 +118,7 @@ pushd %PACK_DIR%
 for /f "delims=/" %%a in ('cd') do set PACK_DIR=%%a
 robocopy /mir /nfl /ndl /njh /njs /nc /ns %SRC_DIR% . -xd nuget -xd .git -xf .gitattributes
 if errorlevel 8 goto endclean
-robocopy /mir /nfl /ndl /njh /njs /nc /ns \\productfs01\EngTools\external_tools\datamart\thirdparty thirdparty
+robocopy /mir /nfl /ndl /njh /njs /nc /ns %THIRDPARTY% thirdparty
 if errorlevel 8 goto endclean
 robocopy /mir /nfl /ndl /njh /njs /nc /ns %WORKSPACE%\lib lib
 if errorlevel 8 goto endclean
