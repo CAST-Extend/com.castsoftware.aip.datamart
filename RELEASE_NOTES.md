@@ -1,3 +1,24 @@
+## Version: 3.0.3 - 19 February 2026
+
+#### Compatibility
+
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.5.0                   |Fully compatible|
+|≥ 3.3.0                   |Not compatible  |
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.13.2                  |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.2.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|≥ 2.12.9                  |Fully compatible|
+|2.12.8                    |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.2.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|1.X                       |Not compatible|
+
+#### Features / Enhancements
+
+- **Scripts**: Upgrade ```cURL``` from release 7.70 to 8.18.
+- **Scripts**: Replace the ```-f``` option of ```cURL``` with ```--fail-with-body``` to get more details on error 400.
+
 ## Version: 3.0.2 - 18 August 2025
 
 #### Compatibility

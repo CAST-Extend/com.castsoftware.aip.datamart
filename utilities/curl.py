@@ -45,11 +45,12 @@ For Windows OS only""")
         curl_args += ['-o', output]
     curl_args +=  [args.url]
     # print(curl_args)
-    exit_code = subprocess.run(curl_args).returncode
+    msg = "See also error message in " + output if output else ""
     if exit_code == 22:
         print("on error (470/401): check the credentials", file=sys.stderr)
         print("on error (400): check the REST API version", file=sys.stderr)
         print("on error (404): check the domain name", file=sys.stderr)
+        print(msg)
         print("Requested URL: "+ args.url, file=sys.stderr)   
     sys.exit(exit_code)
 if __name__ == '__main__':
