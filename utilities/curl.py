@@ -45,6 +45,7 @@ For Windows OS only""")
         curl_args += ['-o', output]
     curl_args +=  [args.url]
     # print(curl_args)
+    exit_code = subprocess.run(curl_args).returncode    
     msg = "See also error message in " + output if output else ""
     if exit_code == 22:
         print("on error (470/401): check the credentials", file=sys.stderr)
