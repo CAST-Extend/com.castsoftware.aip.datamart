@@ -1,3 +1,21 @@
+## Version: 3.0.1-linux - 25 February 2026
+
+#### Compatibility
+
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.3.0                   |Fully compatible|
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.13.2                  |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|≥ 2.12.8                  |Fully compatible|
+|1.X                       |Not compatible|
+
+#### Bug Fixes
+
+- **Script**: Force decoding of CSV content to ```cp1252```.
+
 ## Version: 3.0.0-linux - 26 November 2025
 
 #### Compatibility

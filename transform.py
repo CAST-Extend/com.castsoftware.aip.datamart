@@ -35,7 +35,7 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
     ofile = os.path.join(transform_directory, table_name + ".sql")
     f = open(ofile, "w", encoding="utf-8")
 
-    with open(os.path.join(extract_directory, 'DIM_APPLICATIONS.csv')) as csv_file:
+    with open(os.path.join(extract_directory, 'DIM_APPLICATIONS.csv'), encoding="cp1252") as csv_file:
         if mode in ["refresh", "hd-update"]:
             f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
         elif mode == "install":
@@ -88,7 +88,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
     if mode in ["refresh", "hd-update"]:
         f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
 
-    with open(ifile) as csv_file:
+    with open(ifile, encoding="cp1252") as csv_file:
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
@@ -133,7 +133,7 @@ def transform_ed_tables(mode, extract_directory, transform_directory, table):
     
     f = open(ofile, "w", encoding="utf-8")
 
-    with open(ifile) as csv_file:
+    with open(ifile, encoding="cp1252") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         latestKeys = None
