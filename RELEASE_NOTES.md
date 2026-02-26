@@ -2,9 +2,15 @@
 
 #### Compatibility
 
+ If the backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable is required to declare the codepage host of the backend.
+ For example, in ```.env``` file, to declare for a bakend running in Americas, Western Europe:
+ ```
+ CSV_ENCODING=cp1252
+ ```
+ 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.3.0                   |Fully compatible|
+|≥ 3.3.0                   |Fully compatible.|
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
@@ -14,7 +20,7 @@
 
 #### Bug Fixes
 
-- **Script**: Force decoding of CSV content to ```cp1252```.
+- **Script**: Force decoding the extracted CSV content with the charset set with the ```CSV_ENCODING``` environment variable if it is defined, otherwise assume the content is ```UTF-8```.
 
 ## Version: 3.0.0-linux - 26 November 2025
 

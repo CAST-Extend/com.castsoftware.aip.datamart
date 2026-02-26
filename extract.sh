@@ -112,6 +112,7 @@ extract() {
 
   [ -n "$EXTRACT_SNAPSHOTS_MONTHS" ] && EXTRACT_URL="$EXTRACT_URL&snapshots-months=$EXTRACT_SNAPSHOTS_MONTHS"
   [ "$EXTRACT_ZERO_WEIGHT" = "ON" ] && EXTRACT_URL="$EXTRACT_URL&extract-zero-weight=on"
+  [ -n "$CSV_ENCODING ] && EXTRACT_URL="$EXTRACT_URL&charset=UTF-8"
 
   python utilities/curl.py text/csv "$EXTRACT_URL" -o "$EXTRACT_FOLDER/$DOMAIN/$FILENAME.csv" || return 1
 }

@@ -394,6 +394,21 @@ Secondly, you can reduce the extraction scope either by extracting only the meas
 
 At last, you can use the ```datamart update``` command line in order to synchronize the datamart with new snapshots only.
 
+__&#9888; During the transform step, a codec error is raised__
+
+Typical error message is:
+```
+File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x85 in position 2803: invalid start byte
+```
+
+If the backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable is required to declare the codepage host of the backend.
+For example, in ```.env``` file, to declare for a bakend running in Americas, Western Europe:
+```
+ CSV_ENCODING=cp1252
+```
+
+
 ### Schema Upgrade
 
 If the Datamart schema has been extended with new tables, or new columns, you may need to perform some actions.
