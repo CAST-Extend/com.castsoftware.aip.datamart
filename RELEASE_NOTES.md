@@ -3,6 +3,13 @@
 #### Compatibility
 
  If the backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable is required to declare the codepage host of the backend.
+ 
+ This charset is a python charset, you can get the list with:
+ ```
+ import encodings
+ encodings.aliases.aliases.values())
+ ```
+ 
  For example, in ```.env``` file, to declare for a bakend running in Americas, Western Europe:
  ```
  CSV_ENCODING=cp1252
