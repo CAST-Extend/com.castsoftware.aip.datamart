@@ -2,18 +2,18 @@
 
 #### Compatibility
 
- If the backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable is required to declare the codepage host of the backend.
- 
- This charset is a python charset, you can get the list with:
- ```
- import encodings
- encodings.aliases.aliases.values())
- ```
- 
- For example, in ```.env``` file, to declare for a bakend running in Americas, Western Europe:
- ```
- CSV_ENCODING=cp1252
- ```
+If the Dashboard REST API backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable may be required to declare the codepage host of the JVM backend if ever the JVM default code page has not been forced to UTF-8.
+
+This codepage name is a python charset. You can get the list with:
+```
+import encodings
+encodings.aliases.aliases.values())
+```
+
+For example, in ```.env``` file, you can set the variable as follow, to declare a JVM bakend running with a code cage for Americas or Western Europe:
+```
+CSV_ENCODING=cp1252
+```
  
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|

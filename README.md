@@ -401,16 +401,20 @@ Typical error message is:
 File "<frozen codecs>", line 322, in decode
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0x85 in position 2803: invalid start byte
 ```
-If the backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable is required to declare the codepage host of the backend.
-For example, in ```.env``` file, to declare for a bakend running in Americas, Western Europe:
-```
- CSV_ENCODING=cp1252
-```
 
-This charset is a python charset, you can get the list with:
+This means that the Dashboard REST API backend is running on a JVM with a codepage that is not UTF-8.
+
+The ```CSV_ENCODING``` environment variable is required to declare the codepage host of the JVM backend.
+ 
+This codepage name is a python charset. You can get the list with:
 ```
 import encodings
 encodings.aliases.aliases.values())
+```
+
+For example, in ```.env``` file, you can set the variable as follow, to declare a JVM bakend running with a code cage for Americas or Western Europe:
+```
+CSV_ENCODING=cp1252
 ```
 
 ### Schema Upgrade
