@@ -1,10 +1,22 @@
+## Version: 3.1.0 - 26 February 2026
+
+#### Compatibility
+
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.6.0                   |Fully compatible|
+|≥ 2.12.9                  |Prerequisite: Ensure the JVM is started with -Dfile.encoding=UTF-8|
+
+#### Features / Enhancements
+
+- **Scripts**: CSV content are read with UTF-8 encoding.
+
 ## Version: 3.0.3 - 19 February 2026
 
 #### Compatibility
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.5.0                   |Fully compatible|
 |≥ 3.3.0                   |Not compatible  |
 
 |Dashboard REST API Release|Compatibility|
@@ -25,7 +37,6 @@
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.5.0                   |Fully compatible|
 |≥ 3.3.0                   |Not compatible  |
 
 |Dashboard REST API Release|Compatibility|
@@ -60,6 +71,7 @@ Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by t
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
+|≥ 3.6.0                   |Not compatible  |
 |≥ 3.3.0                   |Fully compatible|
 
 |Dashboard REST API Release|Compatibility|

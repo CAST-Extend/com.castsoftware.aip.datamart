@@ -20,6 +20,7 @@ def format(s):
 
 quoted_identifier = os.environ.get('QUOTED_IDENTIFIER') != "OFF" # unset or ON by default
 datapond = os.environ.get('EXTRACT_DATAPOND') == "ON"                    # unset or OFF by default
+csv_encoding=os.environ.get('CSV_ENCODING') or "UTF-8"
 
 def format_column_name (id, output_format):
     if output_format == "datapond": 
@@ -35,7 +36,7 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
     ofile = os.path.join(transform_directory, table_name + ".sql")
     f = open(ofile, "w", encoding="utf-8")
 
-    with open(os.path.join(extract_directory, 'DIM_APPLICATIONS.csv')) as csv_file:
+    with open(os.path.join(extract_directory, 'DIM_APPLICATIONS.csv'), encoding=csv_encoding) as csv_file:
         if mode in ["refresh", "hd-update"]:
             f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
         elif mode == "install":
@@ -88,7 +89,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
     if mode in ["refresh", "hd-update"]:
         f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
 
-    with open(ifile) as csv_file:
+    with open(ifile, encoding=csv_encoding) as csv_file:
 
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
@@ -133,7 +134,7 @@ def transform_ed_tables(mode, extract_directory, transform_directory, table):
     
     f = open(ofile, "w", encoding="utf-8")
 
-    with open(ifile) as csv_file:
+    with open(ifile, encoding=csv_encoding) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         latestKeys = None
