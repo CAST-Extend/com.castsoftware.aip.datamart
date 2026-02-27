@@ -12,7 +12,7 @@ If the Dashboard REST API backend is running on Windows with a version prior to 
 This codepage name is a python charset. You can get the list with:
 ```
 import encodings
-encodings.aliases.aliases.values())
+encodings.aliases.aliases.values()
 ```
 
 For example, in ```.env``` file, you can set the variable as follow, to declare a JVM bakend running with a code cage for Americas or Western Europe:

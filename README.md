@@ -409,7 +409,7 @@ The ```CSV_ENCODING``` environment variable is required to declare the code page
 This code page name is a python charset. You can get the list of charsets with:
 ```
 import encodings
-encodings.aliases.aliases.values())
+encodings.aliases.aliases.values()
 ```
 
 For example, in ```.env``` file, you can set the variable as follow, to declare a JVM backend running with a code page for Americas or Western Europe:
