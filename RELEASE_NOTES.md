@@ -9,7 +9,7 @@
 
 #### Features / Enhancements
 
-- **Scripts**: CSV content are read with UTF-8 encoding.
+- **Scripts**: CSV contents are read with UTF-8 encoding.
 
 ## Version: 3.0.3 - 19 February 2026
 
