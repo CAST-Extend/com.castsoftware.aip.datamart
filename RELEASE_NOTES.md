@@ -1,8 +1,8 @@
-## Version: 3.0.1-linux - 25 February 2026
+## Version: 3.0.1-linux - 27 February 2026
 
 #### Compatibility
 
-If the Dashboard REST API backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable may be required to declare the codepage host of the JVM backend if ever the JVM default code page has not been forced to UTF-8.
+If the Dashboard REST API backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable may be required to declare the default code page of the JVM backend, if ever the JVM default code page has not been forced to UTF-8.
 
 This codepage name is a python charset. You can get the list with:
 ```
@@ -17,13 +17,8 @@ CSV_ENCODING=cp1252
  
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.3.0                   |Fully compatible.|
-
-|Dashboard REST API Release|Compatibility|
-|--------------------------|-------------|
-|≥ 2.13.2                  |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
-|≥ 2.12.8                  |Fully compatible|
-|1.X                       |Not compatible|
+|≥ 3.6.0                   |Fully compatible|
+|≥ 3.3.0                   |Prerequisite: set CSV_ENCODING environment variable if the Dashboards REST API is running on Windows.|
 
 #### Bug Fixes
 
