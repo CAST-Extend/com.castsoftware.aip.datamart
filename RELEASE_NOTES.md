@@ -1,6 +1,11 @@
 ## Version: 3.0.1-linux - 27 February 2026
 
 #### Compatibility
+ 
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.6.0                   |Fully compatible|
+|≥ 3.3.0                   |Prerequisite: set CSV_ENCODING environment variable if the Dashboards REST API is running on Windows.|
 
 If the Dashboard REST API backend is running on Windows with a version prior to ```3.6.0```, then the ```CSV_ENCODING``` environment variable may be required to declare the default code page of the JVM backend, if ever the JVM default code page has not been forced to UTF-8.
 
@@ -14,11 +19,6 @@ For example, in ```.env``` file, you can set the variable as follow, to declare 
 ```
 CSV_ENCODING=cp1252
 ```
- 
-|Imaging Console Release   |Compatibility   |
-|--------------------------|----------------|
-|≥ 3.6.0                   |Fully compatible|
-|≥ 3.3.0                   |Prerequisite: set CSV_ENCODING environment variable if the Dashboards REST API is running on Windows.|
 
 #### Bug Fixes
 
