@@ -5,8 +5,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.5.0 (Windows)         |Fully compatible|
-|≥ 3.5.0 (Linux)           |Not compatible  |
-|≥ 3.3.0                   |Not compatible  |
+|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart|
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
@@ -27,8 +26,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.5.0 (Windows)         |Fully compatible|
-|≥ 3.5.0 (Linux)           |Not compatible  |
-|≥ 3.3.0                   |Not compatible  |
+|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart|
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
