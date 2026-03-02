@@ -1,7 +1,5 @@
 ## Version: 3.0.4 - 2 March 2026
 
-INTERMEDIATE VERSION NOT ROLEASED. 
-
 #### Compatibility
 
 |Imaging Console Release   |Compatibility   |
