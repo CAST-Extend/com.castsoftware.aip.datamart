@@ -402,7 +402,7 @@ File "<frozen codecs>", line 322, in decode
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0x85 in position 2803: invalid start byte
 ```
 
-This means that the Dashboard REST API backend is running on a JVM with a code page that is not UTF-8.
+This means that the Dashboard REST API backend is running on a JVM with a code page that is not UTF-8, usually this is ```cp1252``` codepage of a JVM running on Windows.
 
 The ```CSV_ENCODING``` environment variable is required to declare the code page host of the JVM backend.
  
@@ -416,6 +416,59 @@ For example, in ```.env``` file, you can set the variable as follow, to declare 
 ```
 CSV_ENCODING=cp1252
 ```
+
+__&#9888; During the loading step, a loading error is raised for Quality Rule range from 1106000 to 1106326__
+
+A typical error message is:
+```
+ERROR: insert or update on table "app_violations_measures" violates foreign key constraint "app_violations_measures_rule_id_fkey"
+DETAIL: Key (rule_id)=(VZ:1106000) is not present in table "dim_rules".
+```
+
+This is an integrity database error, because some attachments to the business criterion (60018: Cloud Migration) are missing.
+
+To fix the error for future snapshots:
+- Install a release ≥ 1.0.9-funcrel of ```com.castsoftware.sql.movetocloud```
+
+To fix the error for past snapshots:
+- Identify the snapshots to reconsolidate by running this SQL Query on the measurement base:
+```
+WITH tc(v) AS (
+  VALUES (61033),(61034),(61044),(61045),(61046),(61048),(61049),(61050)
+)
+SELECT DISTINCT o.object_name, s.functional_date at time zone 'UTC'
+FROM adg_delta_snapshots s
+JOIN tc ON true
+JOIN dss_objects o ON o.object_id = s.application_id
+WHERE NOT EXISTS (SELECT 1 FROM dss_metric_histo_tree t WHERE s.snapshot_id = t.snapshot_id AND t.metric_parent_id = 60018 AND t.metric_id = tc.v)
+AND EXISTS (SELECT 1 FROM dss_metric_histo_tree t WHERE s.snapshot_id = t.snapshot_id AND t.metric_parent_id = 60017 AND t.metric_id = tc.v)
+order by 1, 2;
+```
+- And re-run 'Reconsolidate Snapshot' action for these snapshots.
+
+There are 2 possible workarounds for past snapshots:
+
+- Workaround #1: Run the following queries on the measurement base:
+```
+-- insert missing 60018 (Cloud Migration) children
+CREATE TABLE temp_dss_metric_histo_tree_missing_60018 AS TABLE dss_metric_histo_tree WITH NO DATA;
+
+INSERT into temp_dss_metric_histo_tree_missing_60018 (snapshot_id, metric_parent_id, metric_id, metric_index, metric_type, aggregate_weight, metric_critical)
+WITH tc(v) AS ( VALUES (61033),(61034),(61044),(61045),(61046),(61048),(61049),(61050))
+SELECT snapshot_id, 60018, tc.v, 1, 3, 5, 0
+FROM adg_delta_snapshots s
+JOIN tc ON true
+WHERE not exists (SELECT 1 FROM dss_metric_histo_tree t WHERE s.snapshot_id = t.snapshot_id AND t.metric_parent_id = 60018 AND t.metric_id = tc.v)
+and exists (SELECT 1 FROM dss_metric_histo_tree t WHERE s.snapshot_id = t.snapshot_id AND t.metric_parent_id = 60017 AND t.metric_id = tc.v)
+;
+
+INSERT into dss_metric_histo_tree(snapshot_id, metric_parent_id, metric_id, metric_index, metric_type,
+aggregate_weight, metric_critical)
+SELECT snapshot_id, metric_parent_id, metric_id, metric_index, metric_type,
+aggregate_weight, metric_critical
+FROM temp_dss_metric_histo_tree_missing_60018 ;
+```
+- Workaround #2: Upgrade the backend version (see the RELEASE NOTES)
 
 ### Schema Upgrade
 
