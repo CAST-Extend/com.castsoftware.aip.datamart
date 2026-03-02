@@ -5,12 +5,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.3.0                   |Fully compatible|
-
-|Dashboard REST API Release|Compatibility|
-|--------------------------|-------------|
-|≥ 2.13.2                  |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.0.jar``` file from the ```lib``` folder of this Datamart distribution.|
-|≥ 2.12.8                  |Fully compatible|
-|1.X                       |Not compatible|
+|≥ 3.3.0 (Windows)         |Not compatible  | 
 
 #### Features / Enhancements
 
