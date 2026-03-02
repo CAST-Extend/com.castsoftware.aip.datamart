@@ -4,7 +4,8 @@
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.5.0                   |Fully compatible|
+|≥ 3.5.0 (Windows)         |Fully compatible|
+|≥ 3.5.0 (Linux)           |Not compatible  |
 |≥ 3.3.0                   |Not compatible  |
 
 |Dashboard REST API Release|Compatibility|
@@ -26,6 +27,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.5.0 (Windows)         |Fully compatible|
+|≥ 3.5.0 (Linux)           |Not compatible  |
 |≥ 3.3.0                   |Not compatible  |
 
 |Dashboard REST API Release|Compatibility|
