@@ -17,7 +17,7 @@
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.3.0                   |Fully compatible|
+|≥ 3.3.0 (Linux)           |Fully compatible|
 |≥ 3.3.0 (Windows)         |Not compatible  | 
 
 #### Features / Enhancements
