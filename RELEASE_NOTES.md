@@ -1,16 +1,17 @@
 ## Version: 3.0.4 - 2 March 2026
 
+INTERMEDIATE VERSION NOT ROLEASED. 
+
 #### Compatibility
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.5.0 (Windows)         |Fully compatible|
-|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart |
-|≥ 3.3.0                   |Not compatible, use the Docker version of the Datamart |
+|≥ 3.6.0 (Windows)         |Fully compatible|
+|≥ 3.6.0 (Linux)           |Fully compatible|
 
 #### Features / Enhancements
 
-- **Scripts**: CSV contents are read with UTF-8 encoding.
+- **Scripts**: CSV contents are read with UTF-8 encoding by default.
 
 ## Version: 3.0.3 - 19 February 2026
 
