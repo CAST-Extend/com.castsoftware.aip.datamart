@@ -1,4 +1,4 @@
-## Version: 3.0.4 - 2 March 2026
+## Version: 3.0.4 - (not yet released)
 
 #### Compatibility
 
@@ -18,8 +18,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.5.0 (Windows)         |Fully compatible|
-|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart |
-|≥ 3.3.0                   |Not compatible, use the Docker version of the Datamart |
+|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart|
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
@@ -40,8 +39,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.5.0 (Windows)         |Fully compatible|
-|≥ 3.5.0 (Linux)           |Not compatible  |
-|≥ 3.3.0                   |Not compatible  |
+|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart|
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
@@ -75,8 +73,7 @@ Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by t
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.6.0                   |Not compatible  |
-|≥ 3.3.0                   |Fully compatible|
+|≥ 3.3.0 (Windows)         |Fully compatible|
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
