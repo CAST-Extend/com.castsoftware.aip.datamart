@@ -1,11 +1,12 @@
-## Version: 3.1.0 - 26 February 2026
+## Version: 3.0.4 - 2 March 2026
 
 #### Compatibility
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.6.0                   |Fully compatible|
-|≥ 2.12.9                  |Prerequisite: Ensure the JVM is started with -Dfile.encoding=UTF-8|
+|≥ 3.5.0 (Windows)         |Fully compatible|
+|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart |
+|≥ 3.3.0                   |Not compatible, use the Docker version of the Datamart |
 
 #### Features / Enhancements
 
@@ -17,7 +18,9 @@
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.3.0                   |Not compatible  |
+|≥ 3.5.0 (Windows)         |Fully compatible|
+|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart |
+|≥ 3.3.0                   |Not compatible, use the Docker version of the Datamart |
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
@@ -37,6 +40,8 @@
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
+|≥ 3.5.0 (Windows)         |Fully compatible|
+|≥ 3.5.0 (Linux)           |Not compatible  |
 |≥ 3.3.0                   |Not compatible  |
 
 |Dashboard REST API Release|Compatibility|
