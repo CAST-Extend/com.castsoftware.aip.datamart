@@ -442,6 +442,16 @@ SELECT snapshot_id, metric_parent_id, metric_id, metric_index, metric_type, aggr
 FROM temp_dss_metric_histo_tree_missing_60018;
 ```
 
+__&#9888; During the extracting step, a decoding error is raised__
+
+A typical error message is:
+```
+File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x85 in position 2803: invalid start byte
+```
+
+The CSV content from the backend is not UTF-8. 
+To solve this issue, make sure the backend is running with Docker (not Windows).
 
 ### Schema Upgrade
 
