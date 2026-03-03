@@ -5,7 +5,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.6.0 (Linux)           |Fully compatible|
-|≥ 3.6.0 (Linux)           |Fully compatible|
+|≥ 3.6.0 (Windows)         |Fully compatible|
 
 #### Bug Fixes
 
