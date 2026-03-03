@@ -311,9 +311,8 @@ order by 1, 2;
 ```
 - And re-run 'Reconsolidate Snapshot' action for these snapshots.
 
-There are 2 possible workarounds for past snapshots:
-
-- Workaround #1: Run the following queries on the measurement base:
+A workaround is to creat the missing attachments of some technical criteria to the "60018: Cloud Migration" business criterion.
+Apply the following queries on the measurement base:
 ```
 -- insert missing 60018 (Cloud Migration) children
 CREATE TABLE temp_dss_metric_histo_tree_missing_60018 AS TABLE dss_metric_histo_tree WITH NO DATA;
@@ -330,8 +329,6 @@ INSERT into dss_metric_histo_tree(snapshot_id, metric_parent_id, metric_id, metr
 SELECT snapshot_id, metric_parent_id, metric_id, metric_index, metric_type, aggregate_weight, metric_critical
 FROM temp_dss_metric_histo_tree_missing_60018;
 ```
-- Workaround #2: Upgrade the backend version (see the RELEASE NOTES)
-
 
 ### Schema Upgrade
 
