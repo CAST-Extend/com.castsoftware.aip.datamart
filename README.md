@@ -394,29 +394,6 @@ Secondly, you can reduce the extraction scope either by extracting only the meas
 
 At last, you can use the ```datamart update``` command line in order to synchronize the datamart with new snapshots only.
 
-__&#9888; During the transform step, a codec error is raised__
-
-Typical error message is:
-```
-File "<frozen codecs>", line 322, in decode
-UnicodeDecodeError: 'utf-8' codec can't decode byte 0x85 in position 2803: invalid start byte
-```
-
-This means that the Dashboard REST API backend is running on a JVM with a code page that is not UTF-8, usually this is ```cp1252``` codepage of a JVM running on Windows.
-
-The ```CSV_ENCODING``` environment variable is required to declare the code page host of the JVM backend.
- 
-This code page name is a python charset. You can get the list of charsets with:
-```
-import encodings
-encodings.aliases.aliases.values()
-```
-
-For example, in ```.env``` file, you can set the variable as follow, to declare a JVM backend running with a code page for Americas or Western Europe:
-```
-CSV_ENCODING=cp1252
-```
-
 __&#9888; During the loading step, a loading error is raised for Quality Rule range from 1106000 to 1106326__
 
 A typical error message is:
@@ -446,9 +423,8 @@ order by 1, 2;
 ```
 - And re-run 'Reconsolidate Snapshot' action for these snapshots.
 
-There are 2 possible workarounds for past snapshots:
-
-- Workaround #1: Run the following queries on the measurement base:
+A workaround is to creat the missing attachments of some technical criteria to the "60018: Cloud Migration" business criterion.
+Apply the following queries on the measurement base:
 ```
 -- insert missing 60018 (Cloud Migration) children
 CREATE TABLE temp_dss_metric_histo_tree_missing_60018 AS TABLE dss_metric_histo_tree WITH NO DATA;
@@ -468,7 +444,6 @@ SELECT snapshot_id, metric_parent_id, metric_id, metric_index, metric_type,
 aggregate_weight, metric_critical
 FROM temp_dss_metric_histo_tree_missing_60018 ;
 ```
-- Workaround #2: Upgrade the backend version (see the RELEASE NOTES)
 
 ### Schema Upgrade
 

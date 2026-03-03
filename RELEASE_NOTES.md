@@ -1,15 +1,15 @@
-## Version: 3.0.1-linux - 27 February 2026
+## Version: 3.0.1-linux - (Not yet released)
 
 #### Compatibility
  
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.3.0 (Linux)           |Fully compatible|
-|≥ 3.3.0 (Windows)         |Prerequisite: set CSV_ENCODING environment variable. See the ```Troubleshooting Guide``` in the ```README.md``` file|
+|≥ 3.6.0 (Linux)           |Fully compatible|
+|≥ 3.6.0 (Linux)           |Fully compatible|
 
 #### Bug Fixes
 
-- **Script**: Force decoding the extracted CSV content with the charset set with the ```CSV_ENCODING``` environment variable if it is defined, otherwise assume the content is ```UTF-8```.
+- **Scripts**: CSV contents are read with UTF-8 encoding by default.
 
 ## Version: 3.0.0-linux - 26 November 2025
 
@@ -18,7 +18,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.3.0 (Linux)           |Fully compatible|
-|≥ 3.3.0 (Windows)         |Not compatible  | 
+|≥ 3.3.0 (Windows)         |Not compatible, use the Windows version of the Datamart| 
 
 #### Features / Enhancements
 
