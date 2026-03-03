@@ -5,7 +5,7 @@
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
 |≥ 3.3.0 (Linux)           |Fully compatible|
-|≥ 3.3.0 (Windows)         |Not compatible  | 
+|≥ 3.3.0 (Windows)         |Not compatible, use the Windows version of the Datamart  | 
 
 #### Features / Enhancements
 
