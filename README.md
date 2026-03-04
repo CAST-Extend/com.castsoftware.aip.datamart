@@ -445,6 +445,17 @@ aggregate_weight, metric_critical
 FROM temp_dss_metric_histo_tree_missing_60018 ;
 ```
 
+__&#9888; During the extracting step, a decoding error is raised__
+
+A typical error message is:
+```
+File "<frozen codecs>", line 322, in decode
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x85 in position 2803: invalid start byte
+```
+
+The CSV content from the backend is not UTF-8. 
+To solve this issue, make sure the backend is running with Docker (not Windows).
+
 ### Schema Upgrade
 
 If the Datamart schema has been extended with new tables, or new columns, you may need to perform some actions.
