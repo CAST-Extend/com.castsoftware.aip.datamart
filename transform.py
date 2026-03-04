@@ -131,9 +131,9 @@ def transform_ed_tables(mode, extract_directory, transform_directory, table):
     
     print ("Transform", table_name)
     
-    f = open(ofile, "w", newline="", encoding="utf-8")
+    f = open(ofile, "w", encoding="utf-8")
 
-    with open(ifile, encoding="UTF-8") as csv_file:
+    with open(ifile, newline="", encoding="UTF-8") as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=DELIMITER)
         skip = True
         latestKeys = None
