@@ -1,3 +1,21 @@
+## Version: 3.0.4 - 5 March 2026
+
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.5.0 (Windows)         |Fully compatible|
+|≥ 3.5.0 (Linux)           |Not compatible, use the Docker version of the Datamart|
+
+|Dashboard REST API Release|Compatibility|
+|--------------------------|-------------|
+|≥ 2.13.2                  |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.2.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|≥ 2.12.9                  |Fully compatible|
+|2.12.8                    |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.2.jar``` file from the ```lib``` folder of this Datamart distribution.|
+|1.X                       |Not compatible|
+
+#### Bug Fixes
+
+-- **Scripts**: Fix ```datamart refresh``` call.
+
 ## Version: 3.0.3 - 19 February 2026
 
 #### Compatibility
@@ -60,7 +78,7 @@ Note that the duplicated rows of DSS_METRIC_RESULTS table are still skipped by t
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.3.0                   |Fully compatible|
+|≥ 3.3.0 (Windows)         |Fully compatible|
 
 |Dashboard REST API Release|Compatibility|
 |--------------------------|-------------|
