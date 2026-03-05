@@ -15,6 +15,7 @@
 #### Bug Fixes
 
 -- **Scripts**: Fix ```datamart refresh``` call.
+-- **Scripts**: Fix missing variables detection: ```DEFAULT_ROOT, DEFAULT_DOMAIN, HD_ROOT, ED_ROOT[0]```
 
 ## Version: 3.0.3 - 19 February 2026
 
