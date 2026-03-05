@@ -85,7 +85,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
     print ("Transform", table_name)        
     f = open(ofile, "w", encoding="utf-8")
 
-    if mode in ["refresh", "hd-update", "ed-install"]:
+    if mode in ["refresh", "hd-update"]:
         f.write("TRUNCATE TABLE :schema." + table_name + " CASCADE;\n")
 
     with open(ifile) as csv_file:
