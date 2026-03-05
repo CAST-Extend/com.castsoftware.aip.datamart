@@ -1,4 +1,4 @@
-## Version: 3.0.4 - (not yet released)
+## Version: 3.1.0 - (not yet released)
 
 #### Compatibility
 
@@ -9,7 +9,7 @@
 
 #### Features / Enhancements
 
-- **Scripts**: CSV contents are read with UTF-8 encoding by default.
+- **Scripts**: CSV contents are read with UTF-8 encoding by default, force parameter newline="" when reading CSV.
 
 ## Version: 3.0.3 - 19 February 2026
 
