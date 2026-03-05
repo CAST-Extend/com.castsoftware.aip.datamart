@@ -73,5 +73,5 @@ export NOW
 : "${JOBS:=1}"
 export JOBS
 
-export PSQL_OPTIONS="-d $_DB_NAME -h $_DB_HOST -U $_DB_USER -p $_DB_PORT --set=ON_ERROR_STOP=true"
+export PSQL_OPTIONS="-e -d $_DB_NAME -h $_DB_HOST -U $_DB_USER -p $_DB_PORT --set=ON_ERROR_STOP=true"
 export VACUUM_OPTIONS="-h $_DB_HOST -U $_DB_USER -p $_DB_PORT"
