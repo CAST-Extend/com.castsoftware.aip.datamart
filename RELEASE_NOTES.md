@@ -1,4 +1,4 @@
-## Version: 3.0.1-linux - (Not yet released)
+## Version: 3.0.1-linux - 4 March 2026
 
 #### Compatibility
  
