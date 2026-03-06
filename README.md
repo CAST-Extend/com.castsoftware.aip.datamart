@@ -183,15 +183,22 @@ run.sh install
 
 #### Datamart Script Execution Examples
 
-Run a script when starting the container:
+With ```docker restart```, your run may end in error, because of pending processes of the previous run.
+The 2 following running patterns should be applied to run Datamart scripts
+ 
+**Run Container with Detach Mode**
+This mode allows a diagnosis in case of error.
+```
+docker run -d --name datamart --env-file .env -t castimaging/datamart:latest tail -f /dev/null
+docker exec -it datamart datamart.sh install
+docker exec -it datamart datamart.sh refresh
+```
 
+**Remove Container at exit**
+This mode allows to remove the container after execution.
 ```
-docker run --name datamart --env-file .env -t castimaging/datamart:latest run.sh install
-```
-
-Restart an existing container and execute a script:
-```
-docker restart datamart && docker exec -t datamart run.sh refresh
+docker run --rm --name datamart --env-file .env -t castimaging/datamart:latest datamart.sh install
+docker run --rm --name datamart --env-file .env -t castimaging/datamart:latest datamart.sh refresh
 ```
 
 #### Logs and Output Files

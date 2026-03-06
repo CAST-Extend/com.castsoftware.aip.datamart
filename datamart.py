@@ -79,6 +79,13 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
                     jobs[pos] = None
                     remaining_jobs -= 1
         time.sleep(2) # awaits 2 seconds between each iteration
+
+    #for job in jobs:
+    #    if job is not None:
+    #        domain, process = job
+    #        process.wait()  
+    #        if process.returncode != 0:
+    #            print(f"Domain {domain} finished in error with return_code={process.returncode}")
         
     sys.exit(exit_code)
 
