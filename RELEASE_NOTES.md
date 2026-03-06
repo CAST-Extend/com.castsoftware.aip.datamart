@@ -12,11 +12,6 @@
 |2.12.8                    |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.2.jar``` file from the ```lib``` folder of this Datamart distribution.|
 |1.X                       |Not compatible|
 
-#### Bug Fixes
-
-- **Scripts**: Fix ```datamart refresh``` call.
-- **Scripts**: Fix missing variables detection: ```DEFAULT_ROOT, DEFAULT_DOMAIN, HD_ROOT, ED_ROOT[0]```
-
 #### Features / Enhancements
 
 - **Scripts**: Enhance PSQL log with a timestamp and more detailed traces

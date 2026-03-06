@@ -1,8 +1,6 @@
 @ECHO OFF
 SETLOCAL enabledelayedexpansion
 CALL setenv.bat || GOTO :FAIL
-IF NOT DEFINED ROOT IF NOT DEFINED DEFAULT_ROOT (echo ERROR: Missing variable DEFAULT_ROOT & EXIT /b 1)
-IF NOT DEFINED DOMAIN IF NOT DEFINED DEFAULT_DOMAIN (echo ERROR: Missing variable DEFAULT_DOMAIN & EXIT /b 1)
 CALL checkenv.bat || GOTO :FAIL
 
 if [%2] == [] if not [%3] == [] goto :USAGE
