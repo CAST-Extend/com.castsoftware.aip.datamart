@@ -11,7 +11,7 @@
 
 - **Scripts**: CSV contents are read with UTF-8 encoding by default, force parameter newline="" when reading CSV.
 
-## Version: 3.0.4 - 5 March 2026
+## Version: 3.0.4 - 6 March 2026
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
@@ -25,10 +25,9 @@
 |2.12.8                    |Prerequisite: Replace the Datamart JAR file of the ```WEB-INF\lib``` folder of your deployed Tomcat webapp with ```cast-datamart-3.0.2.jar``` file from the ```lib``` folder of this Datamart distribution.|
 |1.X                       |Not compatible|
 
-#### Bug Fixes
+#### Features / Enhancements
 
--- **Scripts**: Fix ```datamart refresh``` call.
--- **Scripts**: Fix missing variables detection: ```DEFAULT_ROOT, DEFAULT_DOMAIN, HD_ROOT, ED_ROOT[0]```
+- **Scripts**: Enhance PSQL log with a timestamp and more detailed traces
 
 ## Version: 3.0.3 - 19 February 2026
 

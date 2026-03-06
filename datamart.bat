@@ -3,8 +3,6 @@ SETLOCAL enabledelayedexpansion
 
 pushd %~dp0
 CALL setenv.bat || GOTO :FAIL
-IF NOT DEFINED HD_ROOT (echo ERROR: Missing variable HD_ROOT & EXIT /b 1)
-IF NOT DEFINED ED_ROOT[0] (echo ERROR: Missing variable ED_ROOT[0] & EXIT /b 1)
 CALL checkenv.bat || GOTO :FAIL
 
 if [%1] == [install] (goto :DATAMART_INSTALL)
