@@ -65,7 +65,7 @@ SET VIEWS_FOLDER=%INSTALLATION_FOLDER%\views
 FOR /f %%D in ('python utilities\isodatetime.py') do set NOW=%%D
 IF NOT DEFINED JOBS SET JOBS=1
 
-SET PSQL_OPTIONS=-d %_DB_NAME% -h %_DB_HOST% -U %_DB_USER% -p %_DB_PORT% --set=ON_ERROR_STOP=true
+SET PSQL_OPTIONS=-e -d %_DB_NAME% -h %_DB_HOST% -U %_DB_USER% -p %_DB_PORT% --set=ON_ERROR_STOP=true
 SET VACUUM_OPTIONS=-h %_DB_HOST% -U %_DB_USER% -p %_DB_PORT%
 
 goto :EOF

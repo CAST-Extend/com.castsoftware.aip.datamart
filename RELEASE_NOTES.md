@@ -1,4 +1,4 @@
-## Version: 3.0.4 - 5 March 2026
+## Version: 3.0.4 - 6 March 2026
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
@@ -14,8 +14,12 @@
 
 #### Bug Fixes
 
--- **Scripts**: Fix ```datamart refresh``` call.
--- **Scripts**: Fix missing variables detection: ```DEFAULT_ROOT, DEFAULT_DOMAIN, HD_ROOT, ED_ROOT[0]```
+- **Scripts**: Fix ```datamart refresh``` call.
+- **Scripts**: Fix missing variables detection: ```DEFAULT_ROOT, DEFAULT_DOMAIN, HD_ROOT, ED_ROOT[0]```
+
+#### Features / Enhancements
+
+- **Scripts**: Enhance PSQL log with a timestamp and more detailed traces
 
 ## Version: 3.0.3 - 19 February 2026
 
