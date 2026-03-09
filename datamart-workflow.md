@@ -1,9 +1,9 @@
-#. Datamart Workflow
+# Datamart Workflow
 
 This workflow has been designed as a mirroring copy of the data.
 The ```datamart update``` script has been added later, to minimize the time processing after a snapshot, by skipping applications with no new snapshot.
 
-##. run install
+## run install
 ```
 EXEC run install 
     EXEC extract install DEFAULT_ROOT            
@@ -55,7 +55,7 @@ EXEC run install
         COPY...
 ```
 
-##. run refresh
+## run refresh
 ```
 EXEC run refresh 
     EXEC extract refresh DEFAULT_ROOT            
@@ -107,7 +107,7 @@ EXEC run refresh
         COPY...
 ```
 
-##. datamart install
+## datamart install
 ```
 EXEC datamart install
     EXEC datamart.py HD-INSTALL HD_ROOT
@@ -185,7 +185,7 @@ EXEC datamart install
                                 COPY...
 ```
 
-##. datamart refresh
+## datamart refresh
 ```
 EXEC datamart refresh
     EXEC datamart.py HD-REFRESH
@@ -263,7 +263,7 @@ EXEC datamart refresh
                                 COPY...                        
 ```                        
 
-##. datamart update
+## datamart update
 ```
 EXEC datamart update    
     EXEC datamart.py HD-UPDATE
@@ -331,16 +331,16 @@ EXEC datamart update
                             COPY...
     ```
     
-#. Proposal for a new workflow
+# Proposal for a new workflow
 
 This workflow allows to copy a delta of data.
 
-##. New Command Line Interface
+## New Command Line Interface
 - ```datamart install``` should install schema only
 - ```datamart upgrade``` should upgrade schema only (if target datamart has changed)
 - ```datamart merge```   should allow to refresh data with new snapshots
 
-##. Some design principles
+## Some design principles
 
 Distinct tables:
 - tables from ED based on snapshot_id as primary key (use ED_ROOT)
