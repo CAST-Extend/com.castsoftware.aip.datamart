@@ -5,6 +5,9 @@ pushd %~dp0
 CALL setenv.bat || GOTO :FAIL
 CALL checkenv.bat || GOTO :FAIL
 
+IF NOT DEFINED HD_ROOT (echo ERROR: Missing variable HD_ROOT & EXIT /b 1)
+IF NOT DEFINED ED_ROOT[0] (echo ERROR: Missing variable ED_ROOT[0] & EXIT /b 1)
+
 if [%1] == [install] (goto :DATAMART_INSTALL)
 if [%1] == [refresh] (goto :DATAMART_REFRESH)
 if [%1] == [update] (goto :DATAMART_UPDATE)
