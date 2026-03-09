@@ -135,14 +135,12 @@ MODE="$1"
 ROOT="$2"
 DOMAIN="$3"
 
-# == If 2nd arg is empty and 3rd is not => show usage ==
-if [ -z "$ROOT" ] && [ -n "$DOMAIN" ]; then
-  usage
-fi
-
 # == Use default values if unset ==
 [ -z "$ROOT" ] && ROOT="$DEFAULT_ROOT"
 [ -z "$DOMAIN" ] && DOMAIN="$DEFAULT_DOMAIN"
+
+[ -z "$ROOT" ] && { echo "ERROR: Missing variable DEFAULT_ROOT"; exit 1; }
+[ -z "$DOMAIN" ] && { echo "ERROR: Missing variable DEFAULT_DOMAIN"; exit 1; }
 
 # == Ensure extract folder exists ==
 mkdir -p "$EXTRACT_FOLDER/$DOMAIN"

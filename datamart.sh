@@ -60,6 +60,9 @@ success() {
 # Load environment
 . ./checkenv.sh || fail
 
+[ -z "$HD_ROOT" ] && { echo "ERROR: Missing variable HD_ROOT"; exit 1; }
+[ -z "$ED_ROOT_0" ] && { echo "ERROR: Missing variable ED_ROOT_0"; exit 1; }
+
 MODE="$1"
 
 case "$MODE" in

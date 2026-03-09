@@ -51,8 +51,6 @@ case "$DEBUG" in ON|OFF) ;; *) echo "ERROR: Invalid DEBUG value $DEBUG, expectin
 case "$EXTRACT_ZERO_WEIGHT" in ON|OFF) ;; *) echo "ERROR: Invalid EXTRACT_ZERO_WEIGHT value $EXTRACT_ZERO_WEIGHT, expecting ON or OFF"; exit 1;; esac
 
 # Required variable checks
-[ -z "$DEFAULT_DOMAIN" ] && { echo "ERROR: Missing variable DEFAULT_DOMAIN"; exit 1; }
-[ -z "$DEFAULT_ROOT" ] && { echo "ERROR: Missing variable DEFAULT_ROOT"; exit 1; }
 [ -z "$_DB_HOST" ] && { echo "ERROR: Missing variable _DB_HOST"; exit 1; }
 [ -z "$_DB_PORT" ] && { echo "ERROR: Missing variable _DB_PORT"; exit 1; }
 [ -z "$_DB_NAME" ] && { echo "ERROR: Missing variable _DB_NAME"; exit 1; }
