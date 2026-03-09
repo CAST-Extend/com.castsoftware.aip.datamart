@@ -9,6 +9,9 @@
 
 - **Scripts**: Enhance PSQL log with a timestamp and more detailed traces
 
+#### Bug Fixes
+- **Scripts**: Check env. variables: DEFAULT_ROOT, DEFAULT_DOMAIN, HD_ROOT, ED_ROOT_0
+
 ## Version: 3.0.1-linux - 4 March 2026
 
 #### Compatibility
