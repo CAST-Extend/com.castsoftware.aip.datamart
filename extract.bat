@@ -1,7 +1,7 @@
 @ECHO OFF
 SETLOCAL enabledelayedexpansion
 CALL setenv.bat || GOTO :FAIL
-REM CALL checkenv.bat || GOTO :FAIL
+CALL checkenv.bat || GOTO :FAIL
 
 set ROOT=%2
 set DOMAIN=%3

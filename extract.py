@@ -44,11 +44,11 @@ def success():
 
 def extract(uri, table):
 
-    root = os.getenv("ROOT", "?")
-    domain = os.getenv("DOMAIN", "?")
+    root = os.environ["ROOT"]
+    domain = os.environ["DOMAIN"]
     extract_snapshots_months = os.getenv("EXTRACT_SNAPSHOTS_MONTHS", None)
-    extract_zero_weight = os.getenv("EXTRACT_ZERO_WEIGHT", "OFF")
-    extract_folder = os.getenv("EXTRACT_FOLDER", "?")
+    extract_zero_weight = os.environ["EXTRACT_ZERO_WEIGHT"]
+    extract_folder = os.environ["EXTRACT_FOLDER"]
     extract_url = f"{root}/{domain}/{uri}?a=1"
     output = f"{extract_folder}/{domain}/{table}.csv"
     
@@ -74,7 +74,7 @@ def check_env(entry):
     if not entry['env']:
         return True
     for var,val in entry['env'].items():
-        if os.getenv(var,None) != val:
+        if os.environ[var] != val:
             return False
     return True
     
