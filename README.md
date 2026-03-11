@@ -8,7 +8,7 @@ See the [release notes](RELEASE_NOTES.md) for the compatible REST API versions.
 - [Terms and Conditions](#Terms-and-Conditions)
 - [How to Build the AIP Datamart](#How-to-Build-the-AIP-Datamart)
     - [The Scripts](#The-Scripts)
-    - [Linux/Docker](#Linux-Docker)
+    - [Linux Docker](#Linux-Docker)
     - [Running the Scripts ](#Running-the-Scripts)
         - [Password obfuscation](#Password-obfuscation)
         - [Single Data Source](#Single-Data-Source)
@@ -94,7 +94,7 @@ Example to extract the DIM_APPLICATIONS content:
 curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
 ```
 
-### Linux/Docker
+### Linux Docker
 
 For Windows see the extension Datamart on  http://extend.castsoftware.com
 
