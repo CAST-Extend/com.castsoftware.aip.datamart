@@ -297,7 +297,7 @@ Linux/Docker:
 
 Windows:
 
-  You can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY```, ```APIUSER``` environment variables as follow:
+  > You can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY```, ```APIUSER``` environment variables as follow:
 
   ```
   C:>python utilities\encode.py mysecret
@@ -309,7 +309,7 @@ Windows:
 
 Linux/Docker:
 
-  With an interactive session, you can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY```, ```APIUSER``` environment variables as follow:
+  > With an interactive session, you can obfuscate the ```CREDENTIALS```, ```PGPASSWORD```, ```APIKEY```, ```APIUSER``` environment variables as follow:
 
   ```
   $ cd utilities
@@ -398,7 +398,7 @@ The ```APIUSER``` variable must be set also for compatibility, must it should ha
 
 Windows:
 
-  The ```setenv.bat``` file will look like this:
+  > The ```setenv.bat``` file will look like this:
   ```
   SET APIKEY=zil1wN4m.x...
   SET APIUSER=datamart
@@ -409,7 +409,7 @@ Windows:
 
 Linux/Docker:
 
-  The ```.env``` or file will look like this:
+  > The ```.env``` or file will look like this:
   ```
   APIKEY=zil1wN4m.x...
   APIUSER=datamart
@@ -429,7 +429,7 @@ __&#9888; Some columns (```nb_complexity_xxx```, ```nb_cyclomatic_xxx```) are em
 
 Windows:
 
-  These measures correspond to "distribution" type metrics.
+  > These measures correspond to "distribution" type metrics.
   If you extract data from a measurement base only (using the ```run.bat``` script), then these measures will be missing.
   You will have to consider multiple data source extraction from central bases to get these measures (using the ```datamart.bat``` script).
   In this case, to limit the volume and extraction time, it is possible to deactivate the extraction of source objects and user data (action plan), by adding in ```setenv.bat``` :
@@ -440,7 +440,7 @@ Windows:
 
 Linux/Docker:
 
-  These measures correspond to "distribution" type metrics.
+  > These measures correspond to "distribution" type metrics.
   If you extract data from a measurement base only (using the ```run.sh``` script), then these measures will be missing.
   You will have to consider multiple data source extraction from central bases to get these measures (using the ```datamart.sh``` script).
   In this case, to limit the volume and extraction time, it is possible to deactivate the extraction of source objects and user data (action plan), by adding in ```.env``` :
