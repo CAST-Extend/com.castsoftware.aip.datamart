@@ -636,11 +636,11 @@ For BASEDATA_FLAT and COMPLETE_FLAT views, the differences with Datapond 5.1 cor
 
 Windows:
 
-  To add these database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory.
+  > To add these database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory.
 
 Linux/Docker:
 
-  To add these database views to the Datamart schema, runs `create_datapond_views.sh` file from the home directory.
+  > To add these database views to the Datamart schema, runs `create_datapond_views.sh` file from the home directory.
 
 
 ## How to Use the AIP Datamart
