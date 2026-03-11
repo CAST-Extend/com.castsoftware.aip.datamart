@@ -65,7 +65,7 @@ See also: See [Datamart dedicated user](#Datamart-Dedicated-User)
 * The Datamart takes a kind of snapshot of the published data, so the Datamart scripts must be run outside a source code analysis or a metrics calculation.
 * The Datamart fails when a technical criteron is not attached to the Technical Quality Index (#60017 - TQI). This configuration is not supported by the Datamart, but neither is it supported by the platform, as it creates an inconsistency between metrics calculated with results attached to the TQI and those calculated globally.
 
-## Terms and Conditions
+## Terms and Conditions 
 
 These scripts are submitted to terms and conditions of [GNU License](LICENSE)
 
@@ -73,6 +73,7 @@ By using this software, the user of this product agrees the terms and conditions
 - [Curl Copyright License](https://curl.se/docs/copyright.html)
 - [PostgreSQL License](https://www.postgresql.org/about/licence/)
 - [Python License](https://docs.python.org/3/license.html)
+- [Red Hat Universal Base Image EULA](https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf) (Linux/Docker)
 
 A copy of these notices is available in the distributed package of this product.
 
