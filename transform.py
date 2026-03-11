@@ -4,6 +4,8 @@ import json
 import os
 from datetime import datetime
 
+from CONFIG import DATAMART
+
 #= Use comma delimiter for compliancy with Excel
 DELIMITER=','
 WARNINGS=False
@@ -115,10 +117,8 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
         f.write("\\.\n")
         f.close()
 
-def transform_ed_tables(mode, extract_directory, transform_directory, table):
+def transform_ed_tables(mode, extract_directory, transform_directory, table_name, nb_primary_columns, column_name):
     global WARNINGS
-    nb_primary_columns = table["nb_primary_columns"]
-    table_name = table["name"]
     if mode != 'ed-update': 
         transform (mode,  extract_directory, transform_directory, table_name, 0)
         return
@@ -138,7 +138,6 @@ def transform_ed_tables(mode, extract_directory, transform_directory, table):
         skip = True
         latestKeys = None
         column_value = None
-        column_name = table["column_name"]
         column_position = -1
         columns = None
         for row in csv_reader:
@@ -179,6 +178,27 @@ def transform_ed_tables(mode, extract_directory, transform_directory, table):
             f.write("\\.\n")
         f.close()
 
+def usage():
+    print("This command should be called from run.bat (Windows) or run.sh (Linux/Docker) or datamart.bat (Windows) or datamart.sh (Linux/Docker)")
+    print("Usage is")
+    print()
+    print("Single Data Source")
+    print("transform install ROOT DOMAIN")
+    print("    Add COPY statement to CSV content")
+    print("transform refresh ROOT DOMAIN")
+    print("    Add TRUNCATE AND COPY Statements to CSV content")
+    print()
+    print("Multiple Data Source")
+    print("transform install HD_ROOT AAD")
+    print("    Add COPY statement to CSV content")
+    print("transform ed-install ED_ROOT DOMAIN")
+    print("    Add COPY statement to CSV content")
+    print("transform refresh^|hd-update HD_ROOT AAD")
+    print("    Add TRUNCATE AND COPY Statements to CSV content")
+    print("transform ed-update ED_ROOT ED_DOMAIN")
+    print("    Add DELETE and COPY statement to CSV content")
+    sys.exit(1)
+    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="Transform Extract CSV iles into SQL statements for PostgreSQL")
@@ -187,58 +207,28 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--mode", dest="mode", action="store", help="set generation mode: refresh, install, ed-update, hd-update")
     parser.add_argument("-d", "--domain", dest="domain", action="store", help="the domain to transform")
     args = parser.parse_args()
+    
+    if not arg.mode in ['install', 'refresh', 'ed-install', 'hd-update', 'ed-update']:
+        usage()
 
     if args.mode in ['refresh', 'install', 'hd-update']:
         transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datamart")
         # Add DATAPOND table
         if datapond:
             transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datapond")
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 1)
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 1)
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 1)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 1)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES", 3)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_EVOLUTION", 3)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES", 1)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_TECHNO_SIZING_MEASURES", 2)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_MEASURES", 1)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_HEALTH_SCORES", 2)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SCORES", 2)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_TECHNO_SCORES", 3)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_EVOLUTION", 1)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_TECHNO_SIZING_EVOLUTION", 3)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_FUNCTIONAL_SIZING_EVOLUTION", 1)
-        transform(args.mode, args.extract_directory, args.transform_directory, "APP_HEALTH_EVOLUTION", 3)
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_VIOLATIONS_MEASURES", 4)
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_VIOLATIONS_EVOLUTION", 4)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SIZING_MEASURES", 2)
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_TECHNO_SIZING_MEASURES", 3)
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_SCORES", 3)
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SCORES", 3)   
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_TECHNO_SCORES", 4)           
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_SIZING_EVOLUTION", 3)
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_TECHNO_SIZING_EVOLUTION", 4)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "MOD_HEALTH_EVOLUTION", 4)
-        transform(args.mode, args.extract_directory, args.transform_directory, "STD_RULES", 3)
-        transform(args.mode, args.extract_directory, args.transform_directory, "STD_DESCRIPTIONS", 0)
+            
+        for entry in DATAMART:
+            if entry["origin"} != 'hd':
+                continue
+            if entry["table"] == "DIM_APPLICATIONS":
+                continue
+            transform(args.mode, args.extract_directory, args.transform_directory, entry["table"], entry["nb_primary_columns"])
 
     if args.mode != 'hd-update':
-        tables = [
-                    # set the column name that discriminates rows of a domain
-                    # usually this is the application_name column, otherwise this is the object_id column
-                    {"name":"SRC_OBJECTS", "column_name":"application_name", "nb_primary_columns": 2},
-                    {"name":"SRC_TRANSACTIONS", "column_name":"application_name", "nb_primary_columns": 2},
-                    {"name":"SRC_TRX_HEALTH_IMPACTS", "column_name":"application_name", "nb_primary_columns": 3},
-                    {"name":"SRC_MOD_OBJECTS", "column_name":"application_name", "nb_primary_columns": 3},
-                    {"name":"SRC_TRX_OBJECTS", "column_name":"object_id", "nb_primary_columns": 2},
-                    {"name":"SRC_VIOLATIONS", "column_name":"object_id", "nb_primary_columns": 5},
-                    {"name":"SRC_HEALTH_IMPACTS", "column_name":"object_id", "nb_primary_columns": 4},
-                    {"name":"USR_EXCLUSIONS", "column_name":"application_name", "nb_primary_columns": 0},
-                    {"name":"USR_ACTION_PLAN", "column_name":"application_name", "nb_primary_columns": 0},
-                    {"name":"APP_FINDINGS_MEASURES", "column_name":"snapshot_id", "nb_primary_columns": 0}
-                ]
-        for table in tables:
-            transform_ed_tables(args.mode, args.extract_directory, args.transform_directory, table)
+        for entry in DATAMART:
+            if entry["origin"} != 'ed':
+                continue
+            transform_ed_tables(args.mode, args.extract_directory, args.transform_directory, entry["table"], entry["nb_primary_columns"], entry["column_name"])
 
     if WARNINGS:
         print("========================================================================")
@@ -250,5 +240,8 @@ if __name__ == "__main__":
     if ERRORS:
         print("========================================================================")    
         print("Errors found - Transform step is aborted")
-        print("========================================================================")        
-        exit(1);
+        print("========================================================================")
+        print("== Transform Failed ==")
+        exit(1)
+        
+    print("== Transform Done ==")
