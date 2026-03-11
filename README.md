@@ -428,6 +428,7 @@ Make sure your service account is authorized to access the applications.
 __&#9888; Some columns (```nb_complexity_xxx```, ```nb_cyclomatic_xxx```) are empty__
 
 Windows:
+
   These measures correspond to "distribution" type metrics.
   If you extract data from a measurement base only (using the ```run.bat``` script), then these measures will be missing.
   You will have to consider multiple data source extraction from central bases to get these measures (using the ```datamart.bat``` script).
@@ -438,6 +439,7 @@ Windows:
   ```
 
 Linux/Docker:
+
   These measures correspond to "distribution" type metrics.
   If you extract data from a measurement base only (using the ```run.sh``` script), then these measures will be missing.
   You will have to consider multiple data source extraction from central bases to get these measures (using the ```datamart.sh``` script).
@@ -633,9 +635,11 @@ For BASEDATA_FLAT and COMPLETE_FLAT views, the differences with Datapond 5.1 cor
 
 
 Windows:
+
   To add these database views to the Datamart schema, runs `create_datapond_views.bat` file from your installation directory.
 
 Linux/Docker:
+
   To add these database views to the Datamart schema, runs `create_datapond_views.sh` file from the home directory.
 
 
