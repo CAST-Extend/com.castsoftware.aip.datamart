@@ -5,7 +5,7 @@ import subprocess
 from CONFIG import DATAMART
 
 def usage():
-    print("This command should be called from the run.sh|run.bat command or datamart.sh|datamart.bat command")
+    print("This script should be executed from run.sh (Linux) or run.bat (Windows)")
     print("Usage is\n")
     print("Single Data Source")
     print("extract refresh|install")
