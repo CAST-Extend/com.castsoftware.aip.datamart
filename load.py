@@ -5,7 +5,10 @@ import subprocess
 from CONFIG import DATAMART
 
 """
-WARNING: loaf_views is missing
+TODO: REMOVE utilities/run.bat
+TODO: REMOVE load_dictionary.bat
+TODO: TRANSFET create_dataponf_views.bat
+toDO: ??? statements
 """
 
 def usage():
@@ -17,7 +20,7 @@ def usage():
     print("load {refresh|install}")
     print("load {refresh|install} DOMAIN")
     print("    To load CSV data for an install or refresh")
-    print("    if the "DOMAIN" argument is not set then the DEFAULT_DOMAIN is applied")
+    print("    if the 'DOMAIN' argument is not set then the DEFAULT_DOMAIN is applied")
     print("
     print("Multiple Data Source")
     print("load {install|refresh|hd-update} HD_ROOT AAD")
@@ -70,17 +73,26 @@ def run(argv, log_file):
         fail()
 
 def load_table(table):
-    IF NOT EXIST "%TRANSFORM_FOLDER%\%DOMAIN%\%~1.sql" GOTO :EOF
-    print(os.path.(ECHO Load %TRANSFORM_FOLDER%\%DOMAIN%\%~1.sql
-    run([os.environ["PSQL"], os.environ["PSQL_OPTIONS"], "--set=schema=" + os.environ["_DB_SCHEMA"], "-f", os.environ["TRANSFORM_FOLDER"], os.path.join(os.environ['DOMAIN'], table+'.sql'), os.environ('LOG_FILE')])
+    ???IF NOT EXIST "%TRANSFORM_FOLDER%\%DOMAIN%\%~1.sql" GOTO :EOF
+    sql = os.path.(os.environ["TRANSFORM_FOLDER"], os.environ["DOMAIN"] + ".sql")
+    print("Load " + sql)
+    run([os.environ["PSQL"], os.environ["PSQL_OPTIONS"], "--set=schema=" + os.environ["_DB_SCHEMA"], "-f", os.environ["TRANSFORM_FOLDER"], sql], os.environ['LOG_FILE'])
     run([os.environ["VACUUMDB"], "-z", os.environ["VACUUM_OPTIONS"], "-t", os.environ["_DB_SCHEMA"] + "." + table, os.environ["_DB_NAME"], os.environ["LOG_FILE"])
+
+def load_view(view):
+    sql = os.path.join(os.environ("VIEWS_FOLDER"), view + ".sql")
+    print("Load " + sql)
+    run([os.environ("PSQL"), os.environ["PSQL_OPTIONS"], "--set=schema=" + os.environ["_DB_SCHEMA"], "-f",  sql], os.environ["LOG_FILE"])
 
 def load_data_dictionary():
     log_file = os.path.join (os.environ["LOG_FOLDER"], "build_data_dictionary.log")
     sql = os.path.join(os.environ["INSTALLATION_FOLDER"], "build_data_dictionary.sql")
-    print("Create " + sql)
-    build_data_dictionay.build_sql()
-    print ("Load " + sql)
+
+    ???python utilities\build_data_dictionary.py sql > build_data_dictionary.sql || GOTO :FAIL
+    ???ECHO Load %INSTALLATION_FOLDER%\build_data_dictionary.sql
+    ???CALL :run build_data_dictionary || GOTO :FAIL
+    ???python utilities\run.py "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f "%~1.sql" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
+
 
 def install(scope) :
     print(f"Create schema '{os.environ('_DB_SCHEMA')}' if not exists")
@@ -101,6 +113,9 @@ def install(scope) :
             continue
         if scope == "default" or (entry["origin"] == scope):
             load_table(table)
+    
+    if scope in ["hd", "default"]:
+        load_view("DIM_QUALITY_STANDARDS")
 
 def refresh(scope):
     for entry in DATAMART:
@@ -109,6 +124,9 @@ def refresh(scope):
         table = entry['table']
         if scope == "default" or (entry["origin"] == scope):
             load_table(table)    
+
+    if scope in ["hd", "default"]:
+        load_view("DIM_QUALITY_STANDARDS")
 
 def check_env(entry):
     if not entry['env']:
