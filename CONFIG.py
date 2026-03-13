@@ -55,3 +55,16 @@ DATAMART = [
 
   {'uri': 'datamart/src-mod-objects',                'table': 'SRC_MOD_OBJECTS',                  'origin': 'ed', 'nb_primary_columns': 3, 'column_name': 'application_name', 'env': {'EXTRACT_SRC': 'ON', 'EXTRACT_MOD': 'ON'}},
 ]
+
+
+DATAPOND_VIEWS = [
+    DIM_CISQ,              
+    DIM_OWASP_2017,        
+    BASEDATA_FLAT,         
+    COMPLETE_FLAT,         
+    DATAPOND_BASEDATA,     
+    DATAPOND_VIOLATIONS,   
+    DATAPOND_AP,           
+    DATAPOND_EXCLUSIONS,   
+    DATAPOND_PATTERNS,     
+]
