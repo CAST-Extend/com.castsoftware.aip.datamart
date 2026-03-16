@@ -208,7 +208,7 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--domain", dest="domain", action="store", help="the domain to transform")
     args = parser.parse_args()
     
-    if not arg.mode in ['install', 'refresh', 'ed-install', 'hd-update', 'ed-update']:
+    if not args.mode in ['install', 'refresh', 'ed-install', 'hd-update', 'ed-update']:
         usage()
 
     if args.mode in ['refresh', 'install', 'hd-update']:
@@ -218,7 +218,7 @@ if __name__ == "__main__":
             transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datapond")
             
         for entry in DATAMART:
-            if entry["origin"} != 'hd':
+            if entry["origin"] != 'hd':
                 continue
             if entry["table"] == "DIM_APPLICATIONS":
                 continue
@@ -226,7 +226,7 @@ if __name__ == "__main__":
 
     if args.mode != 'hd-update':
         for entry in DATAMART:
-            if entry["origin"} != 'ed':
+            if entry["origin"] != 'ed':
                 continue
             transform_ed_tables(args.mode, args.extract_directory, args.transform_directory, entry["table"], entry["nb_primary_columns"], entry["column_name"])
 

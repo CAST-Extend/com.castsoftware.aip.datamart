@@ -21,7 +21,7 @@ def usage():
     print("load {refresh|install} DOMAIN")
     print("    To load CSV data for an install or refresh")
     print("    if the 'DOMAIN' argument is not set then the DEFAULT_DOMAIN is applied")
-    print("
+    print("")
     print("Multiple Data Source")
     print("load {install|refresh|hd-update} HD_ROOT AAD")
     print("    To load CSV health data")
@@ -35,7 +35,7 @@ def fail():
     sys.exit(1)
 
 def success():
-    print(f"Load Done: schema '{os.environ['_DB_SCHEMA']}', database '{os.environ['_DB_NAME']}, host '{os.environ['_DB_HOST']}" ==
+    print(f"Load Done: schema '{os.environ['_DB_SCHEMA']}', database '{os.environ['_DB_NAME']}, host '{os.environ['_DB_HOST']}' ==")
     sys.exit(0)
 
 def timestamp():
