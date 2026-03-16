@@ -1,6 +1,9 @@
 import sys
 import os
 import subprocess
+from datetime import datetime
+from utilities.decode import decode
+from utilities.build_data_dictionary import build_sql
 
 from CONFIG import DATAMART
 
@@ -41,20 +44,21 @@ def success():
 def timestamp():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-def run_with_timestamp(argv, env=None):
+def run_with_timestamp(argv, env):
     process = subprocess.Popen(
         argv,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
-        env=env,
         bufsize=1
     )
+    log_file = env["LOG_FILE"]
+    with open(log_file, "a") as w:
+        for line in iter(process.stdout.readline, ''):
+            w.write(f"{timestamp()} {line}")
+            w.flush()
 
-    for line in process.stdout:
-        sys.stdout.write(f"{timestamp()} {line}")
-        sys.stdout.flush()
-
+    process.stdout.close()
     process.wait()
     return process.returncode
 
@@ -63,46 +67,49 @@ def run(argv, log_file):
 
     environment = os.environ.copy()
     environment["LOG_FILE"] = log_file
-        
     if pgpassword:
-        environment["PGPASSWORD"] = decode.decode(pgpassword)
-
+        environment["PGPASSWORD"] = decode(pgpassword)
     exit_code = run_with_timestamp(argv, env=environment)
-
+   
     if exit_code != 0:
         fail()
 
 def load_table(table):
-    ???IF NOT EXIST "%TRANSFORM_FOLDER%\%DOMAIN%\%~1.sql" GOTO :EOF
-    sql = os.path.(os.environ["TRANSFORM_FOLDER"], os.environ["DOMAIN"] + ".sql")
+    sql = os.path.join(os.environ["TRANSFORM_FOLDER"], os.environ["DOMAIN"], table + ".sql")
     print("Load " + sql)
-    run([os.environ["PSQL"], os.environ["PSQL_OPTIONS"], "--set=schema=" + os.environ["_DB_SCHEMA"], "-f", os.environ["TRANSFORM_FOLDER"], sql], os.environ['LOG_FILE'])
-    run([os.environ["VACUUMDB"], "-z", os.environ["VACUUM_OPTIONS"], "-t", os.environ["_DB_SCHEMA"] + "." + table, os.environ["_DB_NAME"], os.environ["LOG_FILE"])
+    options = os.environ["PSQL_OPTIONS"].split()
+    run([os.environ["PSQL"], *options, "--set=schema=" + os.environ["_DB_SCHEMA"], "-f", sql], os.environ['LOG_FILE'])
+    options = os.environ["VACUUM_OPTIONS"].split()
+    run([os.environ["VACUUMDB"], "-z", *options, "-t", os.environ["_DB_SCHEMA"] + "." + table, os.environ["_DB_NAME"]], os.environ["LOG_FILE"])
 
 def load_view(view):
-    sql = os.path.join(os.environ("VIEWS_FOLDER"), view + ".sql")
+    sql = os.path.join(os.environ["VIEWS_FOLDER"], view + ".sql")
+    options = os.environ["PSQL_OPTIONS"].split()
     print("Load " + sql)
-    run([os.environ("PSQL"), os.environ["PSQL_OPTIONS"], "--set=schema=" + os.environ["_DB_SCHEMA"], "-f",  sql], os.environ["LOG_FILE"])
+    run([os.environ["PSQL"], *options, "--set=schema=" + os.environ["_DB_SCHEMA"], "-f",  sql], os.environ["LOG_FILE"])
 
 def load_data_dictionary():
+    options = os.environ["PSQL_OPTIONS"].split()
     log_file = os.path.join (os.environ["LOG_FOLDER"], "build_data_dictionary.log")
     sql = os.path.join(os.environ["INSTALLATION_FOLDER"], "build_data_dictionary.sql")
-
-    ???python utilities\build_data_dictionary.py sql > build_data_dictionary.sql || GOTO :FAIL
-    ???ECHO Load %INSTALLATION_FOLDER%\build_data_dictionary.sql
-    ???CALL :run build_data_dictionary || GOTO :FAIL
-    ???python utilities\run.py "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f "%~1.sql" >> "%LOG_FILE%" 2>&1 || EXIT /b 1
+    build_sql(sql)
+    print(f"Load {sql}")
+    run([os.environ["PSQL"], *options, "--set=schema=" + os.environ["_DB_SCHEMA"], "-f", sql], os.environ["LOG_FILE"])
 
 
 def install(scope) :
-    print(f"Create schema '{os.environ('_DB_SCHEMA')}' if not exists")
-    run([os.environ["PSQL"], os.environ["PSQL_OPTIONS"], "-c", f"CREATE SCHEMA IF NOT EXISTS {os.environ["_DB_SCHEMA"]};"], os.environ["LOG_FILE"])
+    options = os.environ["PSQL_OPTIONS"].split()
+    print(f"Create schema '{os.environ['_DB_SCHEMA']}' if not exists")
+    run([os.environ["PSQL"], *options, "-c", f"CREATE SCHEMA IF NOT EXISTS {os.environ['_DB_SCHEMA']};"], os.environ["LOG_FILE"])
     print("Create and Load DIM_APPLICATIONS")
     load_table("DIM_APPLICATIONS")
-    load_table("DATAPOND_ORGANIZATION")
+    if os.environ.get('EXTRACT_DATAPOND') == "ON":
+        load_table("DATAPOND_ORGANIZATION")
     print("Create other tables")
-    run([os.environ["PSQL"], os.environ["PSQL_OPTIONS"], "--set=schema=" + os.environ["_DB_SCHEMA"], "-f", "create_table.sql"], os.environ('LOG_FILE')])
+    sql = os.path.join(os.environ["INSTALLATION_FOLDER"], "create_tables.sql")
+    run([os.environ["PSQL"], *options, "--set=schema=" + os.environ["_DB_SCHEMA"], "-f", sql], os.environ['LOG_FILE'])
     load_data_dictionary()
+    
     # SET FOREIGN KEY FOR TEST OR A SINGLE DATA SOURCE
     # REM python utilities\run.py "%PSQL%" %PSQL_OPTIONS% --set=schema=%_DB_SCHEMA% -f add_foreign_keys.sql >> "%LOG_FILE%" 2>&1 || EXIT /b 1
     for entry in DATAMART:
@@ -141,8 +148,6 @@ def main():
         usage()
 
     action = sys.argv[1]
-    root = sys.argv[2]
-    domain = sys.argv[3]
 
     try:
         if action == "install":
@@ -157,7 +162,7 @@ def main():
             refresh("hd")
         else:
             usage()
-       success()
+        success()
 
     except Exception as e:
         print(e)

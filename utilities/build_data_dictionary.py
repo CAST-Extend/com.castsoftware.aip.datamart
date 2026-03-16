@@ -1,7 +1,8 @@
 import xml.dom.minidom
 import sys
 
-def build_markdown():
+def build_markdown(output_path):
+    f = open(output_path, "w", encoding="utf-8")
     doc = xml.dom.minidom.parse("data_dictionary.xml");
     tablesElements = doc.getElementsByTagName("table")
     tablesDict = {}
@@ -12,47 +13,49 @@ def build_markdown():
         tablesNames.append(tableName)
     tablesNames = sorted(tablesNames)
 
-    print("## Data Dictionary")
+    f.write("## Data Dictionary\n")
 
     for tableName in tablesNames:
-        print ("- [" + tableName + "](#" + tableName + ")")
-    
-    print()
+        f.write ("- [" + tableName + "](#" + tableName + ")\n")
+
+    f.write("\n")
     for tableName in tablesNames:
-        print ("### " + tableName)
+        f.write ("### " + tableName + "\n")
         tableElement = tablesDict[tableName]
         description = tableElement.getElementsByTagName("description")[0].firstChild.data
-        print (description)
+        f.write (description + "\n")
         columns = tableElement.getElementsByTagName("column")
         if columns.length == 0:
             continue
-        print ("```")
-        
+        f.write ("```\n")
+
         description_length = 47 if tableName == "APP_FUNCTIONAL_SIZING_EVOLUTION" else 37
 
-        print ("COLUMN" + (" " * (description_length - 6))  + "| TYPE     | DESCRIPTION")
-        print (("-" * description_length) + "+----------+------------")
+        f.write ("COLUMN" + (" " * (description_length - 6))  + "| TYPE     | DESCRIPTION\n")
+        f.write (("-" * description_length) + "+----------+------------\n")
         for column in columns:
             col_type = column.attributes["type"].value
             col_name = column.getElementsByTagName("name")[0].firstChild.data
             col_description = column.getElementsByTagName("description")[0].firstChild.data
             lines = col_description.split("\n")
-            print(col_name.ljust(description_length) + "|" + (" " + col_type).ljust(10) + "| " + lines[0])
+            print(col_name.ljust(description_length) + "|" + (" " + col_type).ljust(10) + "| " + lines[0]+"\n")
             for line in lines[1:]:
-                print("                                     |          | " + line)
-        print ("```")
-        print("")
+                f.write("                                     |          | \n" + line)
+        f.write("```\n")
+    f.write("\n")
+    f.close()
 
-def build_sql():
+def build_sql(output_path):
+    f = open(output_path, "w", encoding="utf-8")
     doc = xml.dom.minidom.parse("data_dictionary.xml");
     tablesElements = doc.getElementsByTagName("table")
     for tableElement in tablesElements:
         name = tableElement.getElementsByTagName("name")[0].firstChild.data
         description = tableElement.getElementsByTagName("description")[0].firstChild.data
-        table_type = tableElement.attributes["type"].value        
+        table_type = tableElement.attributes["type"].value
         if table_type != "table":
             continue
-        print ("COMMENT ON TABLE :schema." + name + " IS '" + description.replace("'","''") + "';")
+        f.write ("COMMENT ON TABLE :schema." + name + " IS '" + description.replace("'","''") + "';\n")
         columns = tableElement.getElementsByTagName("column")
         if columns.length == 0:
             continue
@@ -60,12 +63,13 @@ def build_sql():
             col_type = column.attributes["type"].value
             col_name = column.getElementsByTagName("name")[0].firstChild.data
             col_description = column.getElementsByTagName("description")[0].firstChild.data
-            print ("COMMENT ON COLUMN :schema." + name + "." + col_name + " IS '" + col_description.replace("'","''") + "';")
-        print()
-    
+            f.write ("COMMENT ON COLUMN :schema." + name + "." + col_name + " IS '" + col_description.replace("'","''") + "';\n")
+    f.write("\n")
+    f.close()
+
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: " + sys.argv[0] + " sql|markdown")
+    if len(sys.argv) != 3:
+        print("Usage: " + sys.argv[0] + " sql|markdown {output_path}")
         sys.exit(1)
     elif sys.argv[1] == "sql":
         build_sql()
@@ -73,5 +77,5 @@ if __name__ == "__main__":
         build_markdown()
     else:
         sys.exit(1)
-      
-  
+
+
