@@ -3,6 +3,7 @@ import os
 import subprocess
 
 from CONFIG import DATAMART
+from utilities.curl import curl
 
 def usage():
     print("This script should be executed from run.sh (Linux) or run.bat (Windows)")
@@ -62,13 +63,9 @@ def extract(uri, table):
     if extract_zero_weight == 'ON':
         extract_url += "&extract-zero-weight=on"
 
-    cmd = ["python", "utilities/curl.py", "text/csv", extract_url, "-o", output]
-    print(str(cmd))
-    """
-    result = subprocess.run(cmd)
-    if result.returncode != 0:
+    curl_code = curl(["text/csv", extract_url, "-o", output])
+    if curl_code != 0:
         fail()
-    """
 
 def check_env(entry):
     if not entry['env']:

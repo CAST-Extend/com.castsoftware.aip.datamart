@@ -24,11 +24,11 @@ DATAMART = [
   {'uri': 'datamart/app-health-evolution',           'table': 'APP_HEALTH_EVOLUTION',             'origin': 'hd', 'nb_primary_columns': 3, 'env': None},
   {'uri': 'datamart/std-rules',                      'table': 'STD_RULES',                        'origin': 'hd', 'nb_primary_columns': 3, 'env': None},
   {'uri': 'datamart/std-descriptions',               'table': 'STD_DESCRIPTIONS',                 'origin': 'hd', 'nb_primary_columns': 0, 'env': None},
-   
+
   {'uri': 'datamart/app-techno-sizing-measures',     'table': 'APP_TECHNO_SIZING_MEASURES',       'origin': 'hd', 'nb_primary_columns': 2, 'env': {'EXTRACT_TECHNO': 'ON'}},
   {'uri': 'datamart/app-techno-scores',              'table': 'APP_TECHNO_SCORES',                'origin': 'hd', 'nb_primary_columns': 3, 'env': {'EXTRACT_TECHNO': 'ON'}},
   {'uri': 'datamart/app-techno-sizing-evolution',    'table': 'APP_TECHNO_SIZING_EVOLUTION',      'origin': 'hd', 'nb_primary_columns': 3, 'env': {'EXTRACT_TECHNO': 'ON'}},
-   
+
   {'uri': 'datamart/mod-violations-measures',        'table': 'MOD_VIOLATIONS_MEASURES',          'origin': 'hd', 'nb_primary_columns': 4, 'env': {'EXTRACT_MOD': 'ON'}},
   {'uri': 'datamart/mod-violations-evolution',       'table': 'MOD_VIOLATIONS_EVOLUTION',         'origin': 'hd', 'nb_primary_columns': 4, 'env': {'EXTRACT_MOD': 'ON'}},
   {'uri': 'datamart/mod-sizing-measures',            'table': 'MOD_SIZING_MEASURES',              'origin': 'hd', 'nb_primary_columns': 2, 'env': {'EXTRACT_MOD': 'ON'}},
@@ -40,9 +40,9 @@ DATAMART = [
   {'uri': 'datamart/mod-techno-sizing-measures',     'table': 'MOD_TECHNO_SIZING_MEASURES',       'origin': 'hd', 'nb_primary_columns': 3, 'env': {'EXTRACT_TECHNO': 'ON', 'EXTRACT_MOD': 'ON'}},
   {'uri': 'datamart/mod-techno-scores',              'table': 'MOD_TECHNO_SCORES',                'origin': 'hd', 'nb_primary_columns': 4, 'env': {'EXTRACT_TECHNO': 'ON', 'EXTRACT_MOD': 'ON'}},
   {'uri': 'datamart/mod-techno-sizing-evolution',    'table': 'MOD_TECHNO_SIZING_EVOLUTION',      'origin': 'hd', 'nb_primary_columns': 4, 'env': {'EXTRACT_TECHNO': 'ON', 'EXTRACT_MOD': 'ON'}},
-  
+
   {'uri': 'datamart/app-findings-measures',          'table': 'APP_FINDINGS_MEASURES',            'origin': 'ed', 'nb_primary_columns': 0, 'column_name': 'snapshot_id',     'env': None},
-  
+
   {'uri': 'datamart/usr-exclusions',                 'table': 'USR_EXCLUSIONS',                   'origin': 'ed', 'nb_primary_columns': 0, 'column_name': 'application_name', 'env': {'EXTRACT_USR': 'ON'}},
   {'uri': 'datamart/usr-action-plan',                'table': 'USR_ACTION_PLAN',                  'origin': 'ed', 'nb_primary_columns': 0, 'column_name': 'application_name', 'env': {'EXTRACT_USR': 'ON'}},
 
@@ -58,13 +58,13 @@ DATAMART = [
 
 
 DATAPOND_VIEWS = [
-    DIM_CISQ,              
-    DIM_OWASP_2017,        
-    BASEDATA_FLAT,         
-    COMPLETE_FLAT,         
-    DATAPOND_BASEDATA,     
-    DATAPOND_VIOLATIONS,   
-    DATAPOND_AP,           
-    DATAPOND_EXCLUSIONS,   
-    DATAPOND_PATTERNS,     
+    "DIM_CISQ",
+    "DIM_OWASP_2017",
+    "BASEDATA_FLAT",
+    "COMPLETE_FLAT",
+    "DATAPOND_BASEDATA",
+    "DATAPOND_VIOLATIONS",
+    "DATAPOND_AP",
+    "DATAPOND_EXCLUSIONS",
+    "DATAPOND_PATTERNS",
 ]
