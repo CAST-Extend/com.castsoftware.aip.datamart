@@ -34,7 +34,7 @@ GOTO :SUCCESS
 :DATAMART_UPDATE
 echo > %LOG_FOLDER%\datamart_update.stdout
 call :FETCH_SNAPSHOTS DATAMART_SNAPSHOTS.CSV || goto :FAIL
-(call utilities\check_new_snapshot.bat %HD_ROOT%/AAD/datamart/dim-snapshots DATAMART_SNAPSHOTS.CSV) && (
+(call bat\check_new_snapshot.bat %HD_ROOT%/AAD/datamart/dim-snapshots DATAMART_SNAPSHOTS.CSV) && (
 echo Datamart is already synchronized. No new snapshot for domain AAD
 GOTO :SUCCESS
 )
@@ -74,11 +74,11 @@ EXIT /b 0
 :FETCH_DOMAINS
 echo. 
 echo Fetch domains from %1
-(call utilities\get_domains %1 %2) || EXIT /b 1
+(call bat\get_domains %1 %2) || EXIT /b 1
 echo. 
 GOTO :EOF
 
 :FETCH_SNAPSHOTS
-(call utilities\get_snapshots %1) || EXIT /b 1
+(call bat\get_snapshots %1) || EXIT /b 1
 echo. 
 GOTO :EOF

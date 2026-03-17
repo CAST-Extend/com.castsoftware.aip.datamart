@@ -84,7 +84,7 @@ def transfer_ed_domains(ed_url, domains_file, total_jobs):
 
 def check_new_snapshot (ed_url, domain, snapshots_file):
     output_path = os.path.join(os.getenv("LOG_FOLDER"), "datamart_update.stdout")
-    cmd = [os_script(os.path.join('utilities', 'check_new_snapshot')), os.path.join(ed_url, domain, 'datamart', 'dim-snapshots'), snapshots_file]
+    cmd = [os_script(os.path.join('bat', 'check_new_snapshot')), os.path.join(ed_url, domain, 'datamart', 'dim-snapshots'), snapshots_file]
     with open(output_path, "a") as output:
         check_code = subprocess.run(cmd, stdout=output, stderr=output).returncode
     return check_code

@@ -101,11 +101,15 @@ def install(scope) :
     options = os.environ["PSQL_OPTIONS"].split()
     print(f"Create schema '{os.environ['_DB_SCHEMA']}' if not exists")
     run([os.environ["PSQL"], *options, "-c", f"CREATE SCHEMA IF NOT EXISTS {os.environ['_DB_SCHEMA']};"], os.environ["LOG_FILE"])
-    print("Create and Load DIM_APPLICATIONS")
-    load_table("DIM_APPLICATIONS")
-    if os.environ.get('EXTRACT_DATAPOND') == "ON":
-        load_table("DATAPOND_ORGANIZATION")
+    
+    if scope == "hd":
+        print("Create and Load DIM_APPLICATIONS")
+        load_table("DIM_APPLICATIONS")
+        if os.environ.get('EXTRACT_DATAPOND') == "ON":
+            load_table("DATAPOND_ORGANIZATION")
+    
     print("Create other tables")
+    
     sql = os.path.join(os.environ["INSTALLATION_FOLDER"], "create_tables.sql")
     run([os.environ["PSQL"], *options, "--set=schema=" + os.environ["_DB_SCHEMA"], "-f", sql], os.environ['LOG_FILE'])
     load_data_dictionary()
