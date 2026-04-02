@@ -320,6 +320,20 @@ DEFAULT_DOMAIN=AAD
 
 #### Troubleshooting Guide
 
+__&#9888; How to diagnose an issue__
+
+
+1. Make sure the settings are valid (see ```.env``` file)
+
+2. Look at the ```log``` and ```stdout``` files in the ```log``` directory
+
+3. Re-run the datamart in DEBUG mode (```DEBUG=ON``` in ```.env``` file)
+   
+   Then inspect the ```extract``` and the ```transform``` directories.
+   
+4. Inspect the measurement database.   
+   
+   
 __&#9888; All extract tables are empty__
 
 Make sure your service account is authorized to access the applications.
