@@ -1,4 +1,4 @@
-## Version: 3.1.0 - (not yet released)
+## Version: 3.1.0 - 20 April 2026
 
 #### Compatibility
 
