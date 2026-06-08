@@ -92,6 +92,11 @@ Example to extract the DIM_APPLICATIONS content:
 ```
 curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
 ```
+or since AIP Console 3.5:
+```
+curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD_Default/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
+```
+
 
 ### Running the Scripts 
 
@@ -148,7 +153,7 @@ This mode allows to extract data of a single Health domain or a single Engineeri
 
 * __Edit__ the scripts ```setenv.bat``` to set the default REST API URL and DOMAIN
   * ```DEFAULT_ROOT```: URL to a REST API, ex: ```http://localhost:9090/rest```
-  * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` for the Health domain, or an Engineering domain
+  * ```DEFAULT_DOMAIN```: the REST API domain name, ex: ```AAD``` or ```AAD_Default``` for the Health domain, or an Engineering domain
 * __Start__ ```run.bat install``` 
 * In case of errors, you will find a message on the standard output and some additional messages in the ```log``` directory.
 
@@ -158,12 +163,12 @@ Start ```run.bat help``` for more information on these modes.
 
 #### Multiple Data Sources
 
-This mode allows to extract data from an Health domain (```AAD```), and all related Engineering domains into a single target database.
+This mode allows to extract data from an Health domain (```AAD```, ```AAD_Default```), and all related Engineering domains into a single target database.
 
 __WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advise to limit the extraction scope with environment variables.
 
 * __Edit__ the ```setenv.bat``` script to override the following environment variables:
-  * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
+  * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain or ```AAD_Default``` domain
   * ```ED_ROOT[0]```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
   * ```ED_ROOT[1]```: URL to a second REST API hosting the engineering domains  
   * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
@@ -188,12 +193,23 @@ The ```APIUSER``` variable must be set also for compatibility, must it should ha
 Note that with  ```com.castsoftware.imaging.console``` >= 3.5, Health Dashboard domain name has been changed from ```AAD``` to ```AAD_Default```. 
 
 
-The ```setenv.bat``` file will look like this:
+The ```.env``` file will look like this:
 ```
-SET HD_DOMAIN=AAD
-SET HD_ROOT=http://localhost:8080/rest
-SET ED_ROOT[0]=http://localhost:8080/rest
-SET ED_ROOT[1]=
+APIKEY=zil1wN4m.x...
+APIUSER=datamart
+
+DEFAULT_ROOT=http://xxxx:8090/dashboards/rest
+DEFAULT_DOMAIN=AAD_Default
+```
+
+or in multiple data sources mode:
+```
+APIKEY=zil1wN4m.x...
+APIUSER=datamart
+
+SET HD_DOMAIN=AAD_Default
+SET HD_ROOT=http://xxxx:8090/dashboards/rest
+SET ED_ROOT[0]=http://xxxx:8090/dashboards/rest
 ```
 
 #### Troubleshooting Guide
