@@ -23,7 +23,7 @@ def start_domain_transfer(ed_url, domain, jobs, pos, transform_mode):
 # Start AAD transfer, abort all transfers in case of failure
 def start_aad_transfer(transfer_mode):
     os.makedirs(os.getenv("LOG_FOLDER"), exist_ok=True)
-    output_path = os.path.join(os.getenv("LOG_FOLDER"), "AAD.stdout")
+    output_path = os.path.join(os.getenv("LOG_FOLDER"), os.getenv("HD_DOMAIN") + ".stdout")
     cmd = [os_script('run'), transfer_mode, os.getenv("HD_ROOT"), 'AAD']
     with open(output_path, "w") as output:
         process = subprocess.Popen(cmd, stdout=output, stderr=output)

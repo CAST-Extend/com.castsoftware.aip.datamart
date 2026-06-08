@@ -185,16 +185,26 @@ If ever you need to skip some applications for the extraction process, then you 
 To run the Datamart with ```com.castsoftware.imaging.console```, you must set the ```APIKEY``` variable generated from the user profile.
 The ```APIUSER``` variable must be set also for compatibility, must it should have no effect.
 
+Note that with  ```com.castsoftware.imaging.console``` >= 3.5, Health Dashboard domain name has been changed from ```AAD``` to ```AAD_Default```. 
+
+
 The ```setenv.bat``` file will look like this:
 ```
-SET APIKEY=zil1wN4m.x...
-SET APIUSER=datamart
-
-SET DEFAULT_ROOT=http://xxxx:8090/dashboards/rest
-SET DEFAULT_DOMAIN=AAD
+SET HD_DOMAIN=AAD
+SET HD_ROOT=http://localhost:8080/rest
+SET ED_ROOT[0]=http://localhost:8080/rest
+SET ED_ROOT[1]=
 ```
 
 #### Troubleshooting Guide
+
+__&#9888; AAD domain name is empty or not found__
+
+Note that with  ```com.castsoftware.imaging.console``` >= 3.5, Health Dashboard domain name has been changed from ```AAD``` to ```AAD_Default```. 
+Set the environment variable ```HD_DOMAIN``` in the ```setenv.bat``` file:
+```
+SET HD_DOMAIN=AAD_Default
+```
 
 __&#9888; How to diagnose an issue__
 

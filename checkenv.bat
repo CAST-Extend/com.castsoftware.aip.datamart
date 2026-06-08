@@ -4,6 +4,8 @@ REM ------ DO NOT CHANGE ANYTHING BELOW THIS LINE
 REM ------
 REM ------------------------------------------------------------------------------
 
+IF NOT DEFINED HD_DOMAIN (SET HD_DOMAIN=AAD)
+
 SET INSTALLATION_FOLDER=%cd%
 SET PGSQL=pgsql-10.12
 

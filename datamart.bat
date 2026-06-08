@@ -14,9 +14,9 @@ if [%1] == [update] (goto :DATAMART_UPDATE)
 
 echo Usage is
 echo datamart install
-echo    to create tables and extract data from AAD domain and all ED domains
+echo    to create tables and extract data from %HD_DOMAIN% domain and all ED domains
 echo datamart refresh
-echo    to truncate tables and extract data from AAD domain and all ED domains
+echo    to truncate tables and extract data from %HD_DOMAIN% domain and all ED domains
 echo datamart update
 echo    to update measurements tables and engineering tables when a new snapshot or a new application has been added for a domain
 goto :FAIL
@@ -34,8 +34,8 @@ GOTO :SUCCESS
 :DATAMART_UPDATE
 echo > %LOG_FOLDER%\datamart_update.stdout
 call :FETCH_SNAPSHOTS DATAMART_SNAPSHOTS.CSV || goto :FAIL
-(call utilities\check_new_snapshot.bat %HD_ROOT%/AAD/datamart/dim-snapshots DATAMART_SNAPSHOTS.CSV) && (
-echo Datamart is already synchronized. No new snapshot for domain AAD
+(call utilities\check_new_snapshot.bat %HD_ROOT%/%HD_DOMAIN%/datamart/dim-snapshots DATAMART_SNAPSHOTS.CSV) && (
+echo Datamart is already synchronized. No new snapshot for domain %HD_DOMAIN%
 GOTO :SUCCESS
 )
 (CALL :HD_DATAMART HD-UPDATE %HD_ROOT%) || goto :FAIL

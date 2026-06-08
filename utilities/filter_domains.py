@@ -3,7 +3,7 @@ comma = ''
 domains = ''
 try:
     for x in json.load(sys.stdin):
-        if x['href'] != 'AAD': 
+        if not x['href'].startswith('AAD'): 
             domains += comma + x['href']
             comma = ', '
     print(domains)
