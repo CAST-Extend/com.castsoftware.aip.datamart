@@ -23,17 +23,18 @@ def start_domain_transfer(ed_url, domain, jobs, pos, transform_mode):
 # Start AAD transfer, abort all transfers in case of failure
 def start_aad_transfer(transfer_mode):
     os.makedirs(os.getenv("LOG_FOLDER"), exist_ok=True)
-    output_path = os.path.join(os.getenv("LOG_FOLDER"), os.getenv("HD_DOMAIN") + ".stdout")
-    cmd = [os_script('run'), transfer_mode, os.getenv("HD_ROOT"), 'AAD']
+    HD_DOMAIN = os.getenv("HD_DOMAIN")
+    output_path = os.path.join(os.getenv("LOG_FOLDER"), HD_DOMAIN + ".stdout")
+    cmd = [os_script('run'), transfer_mode, os.getenv("HD_ROOT"), HD_DOMAIN]
     with open(output_path, "w") as output:
         process = subprocess.Popen(cmd, stdout=output, stderr=output)
         return_code = process.wait()
-    print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain AAD")
+    print ("Data transfer " + ("done" if (return_code == 0) else "ABORTED") + " for domain " + HD_DOMAIN)
     if return_code != 0:
         sys.exit(1)
         
 def transfer_aad_domain(aad_transfer_mode):
-    print ("Data transfer of Health Dashboard domain (AAD) in progress...")
+    print ("Data transfer of Health Dashboard domain (" + os.getenv("HD_DOMAIN") + ") in progress...")
     start_aad_transfer(aad_transfer_mode)
   
 def transfer_ed_domains(ed_url, domains_file, total_jobs):
