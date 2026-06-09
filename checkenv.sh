@@ -8,6 +8,8 @@ set -o pipefail
 # DO NOT CHANGE ANYTHING BELOW THIS LINE
 # ------------------------------------------------------------------------------
 
+: "${HD_DOMAIN:=AAD}"
+
 export INSTALLATION_FOLDER="$(pwd)"
 export OUTPUT_FOLDER="$(pwd)/outputdir"
 export VIEWS_FOLDER="$(pwd)/views"

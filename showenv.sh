@@ -38,6 +38,7 @@ fi
 echo "DEFAULT_DOMAIN=$DEFAULT_DOMAIN"
 echo "DEFAULT_ROOT=$DEFAULT_ROOT"
 echo "HD_ROOT=$HD_ROOT"
+echo "HD_DOMAIN=$HD_DOMAIN"
 
 # Loop from 0 to 9 and print ED_ROOT[n] if defined
 for n in $(seq 0 9); do

@@ -80,8 +80,8 @@ case "$MODE" in
     : > "$LOG_FOLDER/datamart_update.stdout"
     fetch_snapshots "DATAMART_SNAPSHOTS.CSV" || fail
 
-    if ./utilities/check_new_snapshot.sh "$HD_ROOT/AAD/datamart/dim-snapshots" DATAMART_SNAPSHOTS.CSV; then
-      echo "Datamart is already synchronized. No new snapshot for domain AAD"
+    if ./utilities/check_new_snapshot.sh "$HD_ROOT/$HD_DOMAIN/datamart/dim-snapshots" DATAMART_SNAPSHOTS.CSV; then
+      echo "Datamart is already synchronized. No new snapshot for domain $HD_DOMAIN"
       success "$MODE"
     fi
 
@@ -91,8 +91,8 @@ case "$MODE" in
     ;;
   *)
     echo "Usage:"
-    echo "  datamart.sh install      # Create tables and extract from AAD & all ED domains"
-    echo "  datamart.sh refresh      # Truncate tables and extract from AAD & all ED domains"
+    echo "  datamart.sh install      # Create tables and extract from $HD_DOMAIN & all ED domains"
+    echo "  datamart.sh refresh      # Truncate tables and extract from $HD_DOMAIN & all ED domains"
     echo "  datamart.sh update       # Update tables for new snapshot/applications"
     fail "$MODE"
     ;;
