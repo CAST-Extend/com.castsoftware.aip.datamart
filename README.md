@@ -201,7 +201,7 @@ DEFAULT_DOMAIN=AAD
 
 Note that with  ```com.castsoftware.imaging.console``` >= 3.5, Health Dashboard domain name has been changed from ```AAD``` to ```AAD_default```. 
 
-The ```setenvt?at``` file will look like this:
+The ```setenv.bat``` file will look like this:
 ```
 DEFAULT_DOMAIN=AAD_default
 ```
