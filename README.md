@@ -92,6 +92,10 @@ Example to extract the DIM_APPLICATIONS content:
 ```
 curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
 ```
+or since AIP Console 3.5:
+```
+curl --no-buffer -f -k -H "Accept: text/csv"  -u %CREDENTIALS% "%ROOT%/AAD_default/datamart/dim-applications" -o "%EXTRACT_FOLDER%\%~2.csv" 
+```
 
 ### Docker 
 
@@ -136,6 +140,8 @@ DEFAULT_DOMAIN=AAD
 # Up to 10 ED domains (ED_ROOT_0 to ED_ROOT_9)
 # Do NOT include a trailing slash
 # HD_ROOT=http://xxx:8090/dashboards/rest
+# HD_DOMAIN=AAD_default
+# HD_DOMAIN=AAD
 # ED_ROOT_0=http://xxw:8090/dashboards/rest
 # ED_ROOT_1=
 # ED_ROOT_2=
@@ -288,8 +294,8 @@ __WARNING:__ this mode may consume a lot of resources (CPU, disk space). We advi
 
 * __Edit__ the ```.env``` script to override the following environment variables:
   * ```HD_ROOT```: URL to the REST API hosting the ```AAD``` domain
-  * ```ED_ROOT[0]```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
-  * ```ED_ROOT[1]```: URL to a second REST API hosting the engineering domains  
+  * ```ED_ROOT_0```: URL to the REST API hosting the engineering domains; this URL can be the same as the ```HD_ROOT```
+  * ```ED_ROOT_1```: URL to a second REST API hosting the engineering domains  
   * ```JOBS```: the number of concurrent transfer processes. By default the number is 1 for a sequential mode. Do not exceed the maximum number of DBMS connections on REST API side, which is 10 by default.
 * __Start__ ```datamart.sh install```
 * In case of errors, you will find a message on the standard output and some additional messages in the ```outputdir/log``` directory.
@@ -318,7 +324,34 @@ DEFAULT_ROOT=http://xxxx:8090/dashboards/rest
 DEFAULT_DOMAIN=AAD
 ```
 
+Note that with  ```com.castsoftware.imaging.console``` >= 3.5, Health Dashboard domain name has been changed from ```AAD``` to ```AAD_default```. 
+
+The ```.env``` file will look like this:
+```
+DEFAULT_DOMAIN=AAD_default
+```
+
+or in multiple data sources mode:
+```
+HD_DOMAIN=AAD_default
+```
+
+
 #### Troubleshooting Guide
+
+__&#9888; AAD domain name is aborted__
+
+```docker exec -it datamart ./datamart.sh install``` aborted during Health Domain transfer:
+```
+Data transfer of Health Dashboard domain (AAD) in progress...
+Data transfer ABORTED for domain AAD
+Datamart install FAIL
+```
+Note that with  ```com.castsoftware.imaging.console``` >= 3.5, Health Dashboard domain name has been changed from ```AAD``` to ```AAD_default```. 
+Set the environment variable ```HD_DOMAIN``` in the ```.env``` file:
+```
+HD_DOMAIN=AAD_default
+```
 
 __&#9888; How to diagnose an issue__
 
