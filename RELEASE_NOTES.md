@@ -4,7 +4,8 @@
 
 |Imaging Console Release   |Compatibility   |
 |--------------------------|----------------|
-|≥ 3.6.0 (Windows)         |Fully compatible|
+|≥ 3.6.6 (Windows)         |Fully compatible|
+| ~~≥ 3.6.0 (Windows)~~    | ~~Fully compatible~~| 
 |≥ 3.6.0 (Linux)           |Fully compatible|
 
 #### Features / Enhancements
