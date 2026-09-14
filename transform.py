@@ -8,6 +8,7 @@ from datetime import datetime
 DELIMITER=','
 WARNINGS=False
 ERRORS=False
+SNAPSHOTS = set()
 
 def format(s):
     if s.find('"') != -1:
@@ -76,6 +77,10 @@ def transform_dim_applications(mode, extract_directory, transform_directory, out
 
 def transform(mode, extract_directory, transform_directory, table_name, nb_primary_columns):
     global WARNINGS
+    global SNAPSHOTS
+    is_snapshots_table = table_name == "DIM_SNAPSHOTS"
+    has_snapshot_id_column = False
+    
     ofile = os.path.join(transform_directory, table_name + ".sql")
     ifile = os.path.join(extract_directory, table_name + ".csv")
 
@@ -97,7 +102,16 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
             if skip:
                 skip = False
                 f.write("COPY :schema." + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
+                if row[0] == 'snapshot_id':
+                    has_snapshot_id_column = True
                 continue
+            # row[0] is always snapshot_id column
+            if is_snapshots_table:
+                SNAPSHOTS.add(row[0])
+            elif has_snapshot_id_column and not row[0] in SNAPSHOTS:
+                    print("Skip Snapshot in progress", row[0],"for table", table_name)
+                    continue
+                
             line = DELIMITER.join([format(cell) for cell in row])
             # if nb of primary columns is set we check the rows with duplicated keys, only the first one is kept
             if nb_primary_columns != 0:
@@ -179,7 +193,6 @@ def transform_ed_tables(mode, extract_directory, transform_directory, table):
             f.write("\\.\n")
         f.close()
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, description="Transform Extract CSV iles into SQL statements for PostgreSQL")
     parser.add_argument("-i", "--extract", dest="extract_directory", action="store", help="set input extract directory")
@@ -193,10 +206,10 @@ if __name__ == "__main__":
         # Add DATAPOND table
         if datapond:
             transform_dim_applications(args.mode, args.extract_directory, args.transform_directory, "datapond")
+        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 1) # MUST BE LOADED BEFORE ALL TABLES WITH SNAPSHOT_ID
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_RULES", 1)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_OMG_RULES", 1)
         transform(args.mode, args.extract_directory, args.transform_directory, "DIM_CISQ_RULES", 1)        
-        transform(args.mode, args.extract_directory, args.transform_directory, "DIM_SNAPSHOTS", 1)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_MEASURES", 3)
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_VIOLATIONS_EVOLUTION", 3)        
         transform(args.mode, args.extract_directory, args.transform_directory, "APP_SIZING_MEASURES", 1)

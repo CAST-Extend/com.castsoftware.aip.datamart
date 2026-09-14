@@ -1,3 +1,18 @@
+## Version: 3.1.1 - 14 September 2026
+
+#### Compatibility
+
+|Imaging Console Release   |Compatibility   |
+|--------------------------|----------------|
+|≥ 3.6.6 (Windows)         |Fully compatible|
+| ~~≥ 3.6.0 (Windows)~~    | ~~Fully compatible~~| 
+|≥ 3.6.0 (Linux)           |Fully compatible|
+
+#### Features / Enhancements
+
+- **Scripts**: Skip snapshot in progress. If a snapshot is in progress since the starting time of the Datamart extraction, then this snapshot will be ignored.
+
+
 ## Version: 3.1.0 - 20 April 2026
 
 #### Compatibility
