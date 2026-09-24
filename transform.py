@@ -79,7 +79,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
     global WARNINGS
     global SNAPSHOTS
     is_snapshots_table = table_name == "DIM_SNAPSHOTS"
-    has_snapshot_id_column = False
+    snapshot_id_pos = None
     
     ofile = os.path.join(transform_directory, table_name + ".sql")
     ifile = os.path.join(extract_directory, table_name + ".csv")
@@ -102,14 +102,16 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
             if skip:
                 skip = False
                 f.write("COPY :schema." + table_name + "("  + ",".join(row) + ") FROM stdin WITH (delimiter '" + DELIMITER + "', format CSV, null 'null');\n")
-                if row[0] == 'snapshot_id':
-                    has_snapshot_id_column = True
+                for pos, col in enumerate(row):
+                    if col == 'snapshot_id':
+                        snapshot_id_pos = pos
+                        break
                 continue
             # row[0] is always snapshot_id column
-            if is_snapshots_table:
-                SNAPSHOTS.add(row[0])
-            elif has_snapshot_id_column and not row[0] in SNAPSHOTS:
-                    print("Skip Snapshot in progress", row[0],"for table", table_name)
+            if is_snapshots_table and snapshot_id_pos is not None:
+                SNAPSHOTS.add(row[snapshot_id_pos])
+            elif snapshot_id_pos is not None and not row[snapshot_id_pos] in SNAPSHOTS:
+                    print("Skip Snapshot in progress", row[snapshot_id_pos],"for table", table_name)
                     continue
                 
             line = DELIMITER.join([format(cell) for cell in row])
