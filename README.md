@@ -238,8 +238,6 @@ This may happen because of these two limitations:
 - The Datamart scripts must be run outside a snapshhot deletion or a metrics re-calculation (see [Limitations](#Limitations))
 - The Datamart fails when a technical criteron is not attached to the Technical Quality Index (#60017 - TQI).
 
-See [Limitations](#Limitations)
-
 __&#9888; The data transfer fails on the load step__
 
 The Datamart scripts fails with a message such as:
