@@ -107,7 +107,7 @@ def transform(mode, extract_directory, transform_directory, table_name, nb_prima
                         snapshot_id_pos = pos
                         break
                 continue
-            # row[0] is always snapshot_id column
+            # row[0] is usually snapshot_id column
             if is_snapshots_table and snapshot_id_pos is not None:
                 SNAPSHOTS.add(row[snapshot_id_pos])
             elif snapshot_id_pos is not None and not row[snapshot_id_pos] in SNAPSHOTS:
