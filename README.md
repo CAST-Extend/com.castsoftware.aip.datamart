@@ -235,8 +235,8 @@ Make sure you have write access on the Datamart folder.
 __&#9888; A foreign constraint on DIM_RULES table is violated__
 
 This may happen because of these two limitations:
-- The Datamart scripts must be run outside a snapshhot deletion or a metrics re-calculation (see [Limitations](#Limitations))
-- The Datamart fails when a technical criteron is not attached to the Technical Quality Index (#60017 - TQI).
+- The Datamart scripts must be run outside a snapshhot deletion or a metrics re-calculation (see [Limitations](#Limitations)).
+- The Datamart fails when a technical criteron is not attached to the Technical Quality Index (#60017 - TQI) (see [Limitations](#Limitations)).
 
 __&#9888; The data transfer fails on the load step__
 
